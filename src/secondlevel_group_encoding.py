@@ -370,42 +370,7 @@ class SecondLevelGroup(encoding.EncodingModel):
 
             img = nibabel.Nifti1Image(spcorr, affine)
             nibabel.save(img, self.out_dir+'/spatial_correlation/'+self.sid+self.file_label+'_measure-'+label+'_alexnet-.nii.gz')
-        # all_ind_feat_perf= []
-        # for feature_name in self.feature_names:
-        #     # print(feature_name)
-        #     all_data_ind_feat_perf = []
-        #     for subject in self.subjects[self.task]:
-        #         try:
-        #             nii = nibabel.load(self.in_dir+'/ind_feature_performance/'+subject+self.file_label+'_measure-ind_perf_raw.nii.gz')
-        #             data = nii.get_fdata()
-        #             data[data<0] = 0 #clip to zero
-        #             if feature_name in self.combined_features:
-        #                 for (ind,sub_feature_name) in enumerate(self.models_dict[feature_name]):
-        #                     feature_ind = self.get_feature_index(subject,sub_feature_name)
-
-        #                     sub_data = data[feature_ind]
-        #                     if ind==0:
-        #                         overall = sub_data
-        #                     else:
-        #                         overall = overall+sub_data
-        #                 data = overall
-        #             else:
-        #                 feature_index = self.get_feature_index(subject,feature_name)
-        #                 data = data[feature_index]
-        #             nii = nibabel.Nifti1Image(data,nii.affine)
-        #             #smooth after adding together layers if nec
-        #             nii = nibabel.processing.smooth_image(nii,fwhm=self.smoothing_fwhm,mode='nearest')
-        #             all_data_ind_feat_perf.append(nii.get_fdata())
-        #         except Exception as e:
-        #             print(e)
-        #             pass
-        #     all_data_ind_feat_perf = np.array(all_data_ind_feat_perf)
-        #     avg_ind_feat_perf = np.nanmean(all_data_ind_feat_perf,axis=0)
-        #     all_ind_feat_perf.append(avg_ind_feat_perf)
-        # ind_feature_performance = np.array(all_ind_feat_perf) #mask it for computing the preference maps, which need a flat array
-        # img = nibabel.Nifti1Image(ind_feature_performance, affine)
-        # nibabel.save(img, self.out_dir+'/ind_feature_performance/'+self.sid+self.file_label+'_measure-ind_perf_raw.nii.gz' )
-
+        
         #MASK all data
         self.mask = helpers.load_mask(self,self.mask_name)
         if('performance' in measures):
@@ -641,22 +606,6 @@ class SecondLevelGroup(encoding.EncodingModel):
             # print(len(data[data==0]))
             #remake img
             img = nibabel.Nifti1Image(data,affine=img.affine)
-            
-        # if label=='stats':
-        #     img = nibabel.load(filepath+'_measure-perf_p_fdr.nii.gz')
-        #     title = self.sid+', pvalue<'+str(threshold)
-        #     #add a small number to each value so that zeroes are plotted!
-        #     performance_p = img.get_fdata()
-        #     threshold = 1-threshold
-        #     # #mask the brain with significant pvalues
-        #     # performance_p[performance_p>0.05]=-1
-        #     performance_p[self.mask==1] = 1-performance_p[self.mask==1] #turn all significant voxels into high values for plotting
-        #     affine = img.affine
-        #     img = nibabel.Nifti1Image(performance_p, affine)
-        #     # cmap = 'Greys'
-        # vmin=None
-        # if(vmax is None):
-        #     vmax = np.max(img.get_fdata()-0.03)
         cmap = cmap
         # title=''
         colorbar_label = 'Explained Variance $R^2$'
