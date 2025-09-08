@@ -1,0 +1,1 @@
+{"run_groups": {"12": [1, 2], "1": [1], "2": [2]}, "contrasts": {"intact": "intact-fixation", "degraded": "degraded-fixation", "intact-degraded": "intact-degraded", "degraded-intact": "degraded-intact", "fixation": "fixation"}, "n_runs": 2}
