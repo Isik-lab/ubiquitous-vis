@@ -224,7 +224,6 @@ class SecondLevelIndividual(encoding.EncodingModel):
         self.cmaps = plotting_helpers.get_cmaps()
         self.colors_dict = plotting_helpers.get_colors_dict()
         self.subjects = helpers.get_subjects(self.population)
-
     def get_feature_index(self, feature, weight=False, selection_model=''):
         if(selection_model==''):
             file_label = 'encoding_model-'+self.model+self.enc_file_label
@@ -260,8 +259,7 @@ class SecondLevelIndividual(encoding.EncodingModel):
             file = open(filename, "r")
             data = list(csv.reader(file, delimiter=','))[0]
             file.close()
-            return data.index(feature)
-    
+            return data.index(feature)   
     def get_preference_map(self,data,measure='ind_product_measure'):
         if(measure=='ind_product_measure'):
             temp_transposed = data.T
@@ -280,8 +278,7 @@ class SecondLevelIndividual(encoding.EncodingModel):
             temp = np.zeros(data.shape[1])
             temp[~np.isnan(nan_col)] = np.nanargmax(temp_transposed[~np.isnan(nan_col),:], axis=1) #take the first index that reached 95% (forward direction)
             
-        return temp.astype(int)
-    
+        return temp.astype(int)  
     def generate_preference_maps(self,load=False,measure='ind_product_measure',restricted=False,threshold=0,features=[],color_dict=None,file_tag='',views=['lateral','ventral']):
         fsaverage = nilearn.datasets.fetch_surf_fsaverage(mesh='fsaverage')
         enc_file_label = '_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
@@ -380,8 +377,7 @@ class SecondLevelIndividual(encoding.EncodingModel):
                     filename = filename + '_loc-' + localizer_contrast
                 except Exception as e:
                     print(e)
-            plotting_helpers.plot_preference_surf(preference1_map_surf,os.path.join(self.figure_dir,"preference_map",file_label+'_measure-'+measure+'_preference1_map_'+file_tag),ROI_niis=ROI_niis,ROIs=ROIs,ROI_colors=ROI_colors,color_dict=color_dict,cmap=surf_cmap,threshold=0.001,title=title,vmax = len(features),views=views)
-    
+            plotting_helpers.plot_preference_surf(preference1_map_surf,os.path.join(self.figure_dir,"preference_map",file_label+'_measure-'+measure+'_preference1_map_'+file_tag),ROI_niis=ROI_niis,ROIs=ROIs,ROI_colors=ROI_colors,color_dict=color_dict,cmap=surf_cmap,threshold=0.001,title=title,vmax = len(features),views=views)   
     def glm_voxel_selection(self, load=False, plot_ind=True, plot=True, plot_stacked=True,
                          response_label='ind_feature_performance', localizers_to_plot=[],
                          localizer_label_dict={}, plot_noise_ceiling=False, stats_to_do=None,
@@ -443,8 +439,7 @@ class SecondLevelIndividual(encoding.EncodingModel):
                                     parametric=parametric, filepath_tag=filepath_tag, figure_tag=figure_tag,
                                     restrict_legend=restrict_legend, label_region=label_region)
 
-        return summary_path,pkl_path
-        
+        return summary_path,pkl_path       
     def save_data(self, data, filename, save_type='csv'):
         """
         Save data to a file.
@@ -483,8 +478,7 @@ class SecondLevelIndividual(encoding.EncodingModel):
         else:
             raise ValueError(f"Unsupported save_type: {save_type}")
 
-        return save_path
-    
+        return save_path 
     def prepare_glm_dataframe(self, results, average_posterior_anterior, loc_name, label_dict):
         # Filter for relevant ROIs and subjects
         regions = self.MT + self.STS + self.language
@@ -1021,7 +1015,6 @@ class SecondLevelIndividual(encoding.EncodingModel):
                 cmap = 'matrix_green'
                 map_filename = self.figure_dir + '/localizer_masks/'+file_label+'_glm_loc-'+localizer_contrast+'_probability_map'
                 plotting_helpers.plot_surface(nii=combined_masks_map_img,filename=map_filename,views=['lateral'],threshold=0,vmin=0,vmax=vmax,cmap=cmap,colorbar_label='proportion of overlap')
-
     def generate_binary_localizer_maps_glm(self,plot=True,glm_task='SIpointlights'):
         print('generating binary glm voxel selection maps:')
         glm_file_label = '_smoothingfwhm-'+str(self.smoothing_fwhm)
@@ -1106,222 +1099,6 @@ class SecondLevelIndividual(encoding.EncodingModel):
                     cmap = LinearSegmentedColormap.from_list('my_gradient', ((0.000, color),(1.000, color)))
                     map_filename = self.figure_dir + '/localizer_masks/'+file_label+'_enc_feature_loc-'+feature_name+'_binary'
                     plotting_helpers.plot_surface(nii=combined_masks_map_img,filename=map_filename,ROI_niis=[combined_masks_map_img],ROIs=[feature_name],ROI_colors=['black'],views=['lateral'],threshold=0,vmax=None,cmap=cmap)
-    def compute_response_similarity_across_subjects(self,load=False,plot=True,selection_type='top_percent',pvalue=None,response='weights',split_hemi=True,axes=[],filepath_tag=''):#or 'predicted_time_series' or 'weights_raw'):
-        print('computing response similarity of voxel groups:')
-        if(selection_type=='top_percent'):
-            suffix = '_binary'
-            folder = '/localizer_masks/'
-            overlap_folder = '/localizer_overlap_maps/'
-        elif(selection_type=='all_significant'):
-            suffix = '_sig-'+str(pvalue)
-            folder = '/all_significant_voxels/'
-            overlap_folder = '/all_significant_overlap_maps/'
-            
-        localizer_contrasts_social = ['interact-no_interact']#,'interact&no_interact']
-        localizer_contrasts_lang = ['intact-degraded']
-        localizer_contrasts_motion = ['interact&no_interact']
-        localizer_names_social = [(name,'glm-SIpointlights-'+ROI) for name in localizer_contrasts_social for ROI in self.localizer_masks['SI pointlights']]
-        localizer_names_lang = [(name,'glm-language-'+ROI) for name in localizer_contrasts_lang for ROI in self.localizer_masks['language']]
-        localizer_names_motion = [(name,'glm-SIpointlights-'+ROI) for name in localizer_contrasts_motion for ROI in self.localizer_masks['motion pointlights']]
-        names = localizer_names_motion+localizer_names_social+localizer_names_lang
-
-        if(split_hemi):
-            selected_features = [[(name,name_model_type),(hemi)] for (name,name_model_type) in names for hemi in ['left','right']]
-        else:
-            selected_features = [[(name,name_model_type),('both')] for (name,name_model_type) in names]
-        selected_features.sort()
-        
-        pairwise_subjects = []
-        subjects = self.subjects['sherlock']
-        for i in range(len(subjects)):
-            for j in range(i + 1, len(subjects)):
-                pairwise_subjects.append((subjects[i], subjects[j]))
-
-        if(not load):
-            ## preload/precompute all necessary files
-            files = {}
-            for subject in self.subjects['sherlock']:
-                if(response=='weights'):
-                    data_filepath = self.enc_dir + '/'+response+'/'+subject+'_encoding_model-'+self.model+self.enc_file_label+'_measure-'+response+'_raw.h5'
-                    # f = h5py.File(data_filepath,'r+')
-                    # data = f['weights'][()]
-                    data = data_filepath
-                    files[('response',subject)] = data
-                elif(response=='str_variance'): #different loading scheme for unique variance
-                    unique_variance_models = []
-                    for ax in axes:
-                        ax_data = []
-                        for feature in ax: #get list of all models needed to get the unique variance for these features
-                            unique_variance_models = helpers.get_unique_variance_models(feature)
-                            base_model = unique_variance_models[0]
-                            subtract_model = unique_variance_models[1]
-                            base_model_data = files[(base_model,subject)].get_fdata()
-                            subtract_model_data = files[(subtract_model,subject)].get_fdata()
-                            
-                            #clip negative values to 0
-                            base_model_data = np.clip(base_model_data,a_min=0,a_max=None)
-                            subtract_model_data = np.clip(subtract_model_data,a_min=0,a_max=None)
-                            
-                            data = base_model_data-subtract_model_data
-                            ax_data.append(data)
-                        files[('response',subject)] = data
-                else:
-                    if(response=='ind_product_measure'):
-                        data_filepath = self.enc_dir + '/'+response+'/'+subject+'_encoding_model-'+self.model+self.enc_file_label+'_measure-ind_product_measure_raw.nii.gz'
-                    else:
-                        data_filepath = self.enc_dir + '/'+response+'/'+subject+self.enc_file_label+'_measure-'+response+'.nii.gz'
-                    data = nibabel.load(data_filepath,mmap=True).get_fdata()
-                    files[('response',subject)] = data
-                
-                for ((mask_name,mask_name_type),(hemi)) in selected_features:
-                    encoding_masks = [(mask,mask_type) for mask,mask_type in [(mask_name,mask_name_type)] if 'encoding' in mask_type]
-                    glm_masks = [(mask,mask_type) for mask,mask_type in [(mask_name,mask_name_type)] if 'glm' in mask_type]
-                    
-                    for mask, mask_type in encoding_masks:
-                        ROI = mask_type.split('-')[-1]
-                        localizer_file = f"{subject}_encoding_model-{self.model}_smoothingfwhm-{self.smoothing_fwhm}_chunklen-{self.chunklen}_mask-{ROI}_measure-ind_product_measure_raw_enc_feature_loc-{mask}.nii.gz"
-                        localizer = nibabel.load(os.path.join(self.out_dir,'localizer_masks',localizer_file)).get_fdata()    
-                        files[('localizer',mask,mask_type,subject)] = localizer
-                
-                    for mask, mask_type in glm_masks:
-                        ROI = mask_type.split('-')[-1]
-                        task = mask_type.split('-')[1]
-                        if subject in self.subjects[task]:
-                            localizer_file = f"{subject}_smoothingfwhm-{self.smoothing_fwhm}_mask-{ROI}_glm_loc-{mask}_run-{self.all_runs[task]}.nii.gz"
-                            localizer = nibabel.load(os.path.join(self.out_dir,'localizer_masks',localizer_file)).get_fdata()    
-                            files[('localizer',mask,mask_type,subject)] = localizer
-                        
-            def process(subject1,subject2):
-                def get_info(subject1,subject2,response):
-                    
-                    data1 = files[('response',subject1)]
-                    data2 = files[('response',subject2)]
-                    
-                    if(response=='weights'): 
-                        #load the data here to preserve memory (it is not preloaded)
-                        f = h5py.File(data1,'r+')
-                        data1 = f['weights'][()]
-                        f = h5py.File(data2,'r+')
-                        data2 = f['weights'][()]
-                    results = []
-                    for ((mask_name,mask_name_type),(hemi)) in selected_features:
-                        try:
-                            mask_name_type_split = mask_name_type.split('-')
-                            name_measure_label = mask_name_type_split[1]
-                            mask_ROI = mask_name_type_split[2]
-
-                            mask1_one_hemi = files[('localizer',mask_name,mask_name_type,subject1)] > 0 
-                            mask2_one_hemi = files[('localizer',mask_name,mask_name_type,subject2)] > 0
-                            if(split_hemi):
-                                self.mask = helpers.load_mask(self,hemi+'-'+self.mask_name)
-                            else:
-                                self.mask = helpers.load_mask(self,self.mask_name)
-                            brain_mask = self.mask.get_fdata()#np.reshape(self.mask.get_fdata(),(-1)) #so we need to mask the masks with the brain mask
-                            mask1_one_hemi[(brain_mask==0)] = 0
-                            mask2_one_hemi[(brain_mask==0)] = 0
-                            
-                            for axis in axes.keys():
-                                features1=axes[axis]
-                                if(response =='weights'): #the weights data is already masked (not in brain shape, in voxels x TR shape)
-                                    self.mask = helpers.load_mask(self,self.mask_name)
-                                    brain_mask = self.mask.get_fdata()#np.reshape(self.mask.get_fdata(),(-1))
-                                    mask1 = mask1_one_hemi[(brain_mask)==1]
-                                    mask2 = mask2_one_hemi[(brain_mask)==1]
-
-                                    features1_indices = np.concatenate([ self.get_feature_index(feature,weight=response=='weights') for feature in features1 ])
-                                else:
-                                    mask1 = mask1_one_hemi
-                                    mask2 = mask2_one_hemi
-                                    features1_indices = [ self.get_feature_index(feature,weight=response=='weights') for feature in features1 ]
-                                data1_masked = data1[:, mask1]
-                                data2_masked = data2[:, mask2]
-                                data1_masked = np.nanmean(data1_masked,axis=1)
-                                data2_masked = np.nanmean(data2_masked,axis=1)
-
-                                # features1_indices = [ self.get_feature_index(feature,weight=response=='weights') for feature in features1 ]
-                                # features2_indices = [ self.get_feature_index(feature,weight=weight) for feature in features2 ]
-                                if len(data1) > 0:# and len(data2) > 0:
-                                    corr1_selected_data1 = data1_masked[features1_indices]
-                                    corr1_selected_data2 = data2_masked[features1_indices]
-                                    
-                                    # print('shape',corr1_selected_data1.shape)
-
-                                    nas1 = np.logical_or(np.isnan(corr1_selected_data1), np.isnan(corr1_selected_data2))
-                                    
-                                    pearsoncorr_results = scipy.stats.pearsonr(corr1_selected_data1[~nas1], corr1_selected_data2[~nas1])# if axis is None, ravel both arrays before computing
-                                    pearsoncorr = pearsoncorr_results[0]
-                                    pearsonpvalue = pearsoncorr_results[1]
-                                    
-                                    spearmancorr_results = scipy.stats.spearmanr(corr1_selected_data1[~nas1], corr1_selected_data2[~nas1])# if axis is None, ravel both arrays before computing
-                                    spearmancorr = spearmancorr_results[0]
-                                    spearmanpvalue = spearmancorr_results[1]
-                                else:
-                                    pearsoncorr=pearsonpvalue=spearmancorr=spearmanpvalue = np.nan
-                                mask_name_label = mask_name+'-'+mask_ROI
-                                results.append((subject1,subject2,axis,mask_name_label,name_measure_label,hemi,pearsoncorr,pearsonpvalue,spearmancorr,spearmanpvalue))
-                        except Exception as e:
-                            pass
-                            # print(f"Exception occurred: {e}")
-                    #     return (np.nan,) * 11
-                    
-                    # mask_name = mask_name+'-'+mask_ROI
-                    # results = (subject1,subject2,axis,mask_name,name_measure_label,hemi,corr,corr1,corr2,pvalue1,pvalue2)
-                    # print(results)
-                    return results
-
-                results = get_info(subject1,subject2,response)
-                return results
-
-            # for (feature_name1,feature_name2,localizer_contrast1,localizer_contrast2) in selected_features
-            # for subject in self.subjects:
-            results = Parallel(n_jobs=1)(delayed(process)(subject1,subject2) 
-                for subject1,subject2 in tqdm(pairwise_subjects))
-                # for ((mask_name,mask_name_type),(hemi)) in selected_features 
-                # for axis in axes.keys())
-            # results = pd.DataFrame(zip(subjects,localizer_contrasts,num_voxels_glm,proportion_glm,overlap_types),columns=['subject','localizer_contrast','glm_num_voxels','proportion_glm','hemi'])
-            results = np.vstack(results)
-            results = pd.DataFrame(results,columns = ['subject1','subject2','axis','mask_name','mask_measure_label','hemi','pearsoncorr','pearsonpvalue','spearmancorr','spearmanpvalue'])
-            file_label = self.sid+self.enc_file_label+'_model-'+self.model+'_'+response+'_response_similarity_across_subjects'#'sub-all_encoding_model-'+self.model
-            #delete all repeat rows and save
-            results.to_csv(self.out_dir+'/'+file_label+'_perc_top_voxels-' + self.perc_top_voxels+'_enc_feature_localizer_results_'+filepath_tag+'.csv')
-        #for each subject select voxels and average their time series data, then correlate that across hemispheres and across regions
-        #average all individual matrices together
-        file_label = self.sid+self.enc_file_label+'_model-'+self.model+'_'+response+'_response_similarity_across_subjects'#'sub-all_encoding_model-'+self.model
-        results=pd.read_csv(self.out_dir+'/'+file_label+'_perc_top_voxels-' + self.perc_top_voxels+'_enc_feature_localizer_results_'+filepath_tag+'.csv')
-        results = results.drop(columns=['pearsonpvalue','spearmanpvalue'])
-        results['clean_mask_name'] = [item.split('-')[-1] for item in results['mask_name']]
-        
-        #averaging over posterior and anterior!!!
-        for prev_mask in self.STS:
-            results['clean_mask_name'].replace(prev_mask, 'STS', inplace=True) 
-        for prev_mask in self.language:
-            results['clean_mask_name'].replace(prev_mask, 'temporal', inplace=True)
-        #average across the masks 
-        average_these = ['spearmancorr','pearsoncorr']
-        # Identify columns to use as indices (i.e., not the ones to average)
-        columns = [col for col in results.columns if col not in average_these]
-        # Replace all-NaN index columns with 0
-        for col in columns:
-            if results[col].isna().all():
-                results[col] = 0
-        results = pd.pivot_table(data=results,values=average_these, index = columns, aggfunc='mean').reset_index()
-        
-        results = results.replace('MT','motion')
-        results = results.replace('STS','social interaction')
-        results = results.replace('temporal','language')
-        
-        hue_order = ['interact&no_interact-MT','interact-no_interact-pSTS','interact-no_interact-aSTS','intact-degraded-pTemp','intact-degraded-aTemp']
-        # col_order = ['alexnet','motion','word2vec','sbert'] 
-        col_order = axes.keys()
-        results['DNN'] = results['axis']
-        
-        fig = sns.catplot(data=results,x='hemi',y='spearmancorr',hue='DNN',col='clean_mask_name',
-                    kind='bar',edgecolor="black",linewidth=2,errorbar='se', errcolor="black",errwidth=2,
-                    palette=self.colors_dict,hue_order=col_order,col_order=None,height=4,aspect=0.5)
-        fig.set_titles("{col_name}")
-        fig.set_axis_labels("",'Spearman correlation')
-        
-        plt.savefig(os.path.join(self.figure_dir,'response_similarity',file_label+'_perc_top_voxels-' + self.perc_top_voxels+'_enc_feature_localizer_results_spearman'+filepath_tag+'.png'),dpi=300)
     def compute_response_similarity(self, load=False, plot=True, selection_type='top_percent', pvalue=None, 
                                  response='weights', split_hemi=True, axes={}, filepath_tag='', average_posterior_anterior=False):
 
@@ -1780,141 +1557,6 @@ class SecondLevelIndividual(encoding.EncodingModel):
         overlap_matrix_left = get_overlap_matrix(names,'left')
         overlap_matrix_right = get_overlap_matrix(names,'right')   
         return overlap_matrix_left,overlap_matrix_right
-    def searchlight_analysis(self,feature1_name,feature1,feature2_dict):
-        from nilearn.image import new_img_like
-        def run_searchlight_sum_vs_layergroups(data, mask_dict, feature1_indices, feature2_group_indices, radius=4):
-            """
-            Parameters:
-                data: 4D array of shape (F, X, Y, Z)
-                mask_dict: dict mapping group names to 3D boolean masks (X, Y, Z)
-                feature1_indices: list of indices for summing feature 1 (e.g. AlexNet)
-                feature2_group_indices: dict of group name -> list of feature 2 indices (e.g. sBERT groups)
-                radius: radius of the spherical searchlight
-
-            Returns:
-                output_maps: dict of group name -> 3D array (X, Y, Z) of Pearson r correlations
-            """
-            import numpy as np
-            import scipy.stats
-            from scipy.ndimage import generate_binary_structure, iterate_structure
-
-            # Transpose to (X, Y, Z, F)
-            data = np.transpose(data, (1, 2, 3, 0))
-            shape = data.shape[:3]
-
-            # Sum feature 1 (AlexNet)
-            feature1_sum = np.sum(data[..., feature1_indices], axis=-1)
-
-            # Define spherical neighborhood
-            sphere = iterate_structure(generate_binary_structure(3, 1), radius)
-
-            output_maps = []
-
-            for group_name, group_indices in feature2_group_indices.items():
-                mask = mask_dict[group_name]
-                r_map = np.full(shape, np.nan)
-
-                for x in range(shape[0]):
-                    for y in range(shape[1]):
-                        for z in range(shape[2]):
-                            if not mask[x, y, z]:
-                                continue
-
-                            neighborhood = []
-                            for dx in range(-radius, radius + 1):
-                                for dy in range(-radius, radius + 1):
-                                    for dz in range(-radius, radius + 1):
-                                        if not sphere[radius + dx, radius + dy, radius + dz]:
-                                            continue
-                                        xi, yi, zi = x + dx, y + dy, z + dz
-                                        if (0 <= xi < shape[0]) and (0 <= yi < shape[1]) and (0 <= zi < shape[2]) and mask[xi, yi, zi]:
-                                            neighborhood.append((xi, yi, zi))
-
-                            if len(neighborhood) < 3:
-                                continue
-
-                            indices = tuple(zip(*neighborhood))
-                            feature1_values = feature1_sum[indices]
-
-                            voxel_data = data[indices]  # (N, F)
-                            feature2_sum = voxel_data[:, group_indices].sum(axis=1)
-
-                            if np.std(feature2_sum) > 0 and np.std(feature1_values) > 0:
-                                r, _ = scipy.stats.pearsonr(feature1_values, feature2_sum)
-                                r_map[x, y, z] = r
-
-                output_maps.append(r_map)
-
-            return output_maps
-        enc_file_label = '_encoding_model-'+self.model+'_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
-        if(self.mask_name!=None):
-            enc_file_label = enc_file_label + '_mask-'+self.mask_name
-        for subject in self.subjects['sherlock']:
-            folder = 'ind_product_measure'
-            label = 'ind_product_measure'
-            filepath = self.enc_dir+'/'+folder+'/'+subject+enc_file_label+'_measure-'+label+'_raw.nii.gz'
-            nii = nibabel.load(filepath)
-            data = nii.get_fdata()
-            
-            folder = 'performance'
-            label = 'perf'
-            filepath = self.enc_dir+'/'+folder+'/'+subject+enc_file_label+'_measure-'+label+'_raw.nii.gz'
-            nii_perf = nibabel.load(filepath)
-            data_perf = nii_perf.get_fdata()
-            
-            data[:,data_perf<0]=0
-            
-            feature1_indices = [self.get_feature_index(layer) for layer in feature1]
-            feature2_group_indices = {
-                group_name: [self.get_feature_index(layer) for layer in layer_names]
-                for group_name, layer_names in feature2_dict.items()
-            }        
-            # mask = (helpers.load_mask(self,'ISC').get_fdata()==1) #boolean
-            mask_dict = {}
-            percentile = 0  # top 50% of nonzero voxels
-            
-            # Transpose for easier indexing: (F, X, Y, Z) -> (X, Y, Z, F)
-            data_T = np.transpose(data, (1, 2, 3, 0))
-
-            # Sum of feature1 
-            feature1_map = np.sum(data_T[..., feature1_indices], axis=-1)
-            feature1_mask = (feature1_map > 0)&(data_perf>0)
-
-            # Now loop over each group in feature2_dict
-            for group_name, layer_names in feature2_dict.items():
-                group_indices = [self.get_feature_index(layer) for layer in layer_names]
-                feature2_map = np.sum(data_T[..., group_indices], axis=-1)
-                feature2_mask = (feature2_map > 0)&(data_perf>0)
-
-                # Joint mask: valid only where both feature1 and feature2 have top 50% activation
-                joint_mask = np.logical_and(feature1_mask, feature2_mask)
-
-                # Optionally restrict to a base anatomical mask
-                anatomical_mask = helpers.load_mask(self, 'ISC').get_fdata() == 1
-                joint_mask = np.logical_and(joint_mask, anatomical_mask)
-
-                mask_dict[group_name] = joint_mask
-            
-            r_maps = run_searchlight_sum_vs_layergroups(data,mask_dict,feature1_indices, feature2_group_indices)
-            r_img = new_img_like(nii, np.array(r_maps))
-            #saving results
-            filename = self.out_dir + '/spatial_correlation/individual_maps/'+subject+enc_file_label+'_measure-voxelwise_correlation_'+feature1_name+'-.nii.gz'
-            nibabel.save(r_img,filename)
-            #save feature comparisons
-            comparison_df = pd.DataFrame({'comparison': list(feature2_dict.keys())})
-            csv_filename = self.out_dir + '/spatial_correlation/individual_maps/'+enc_file_label+'_measure-voxelwise_correlation_'+feature1_name+'-.csv'
-            comparison_df.to_csv(csv_filename, index=False)
-
-            
-            
-            for r_map,label in zip(r_maps,feature2_dict.keys()):
-                nii = nibabel.Nifti1Image(r_map, nii.affine)
-                filename = self.figure_dir + '/spatial_correlation/individual_maps/'+subject+enc_file_label+'_measure-voxelwise_correlation_'+feature1_name+'-'+label
-                ROI_niis = []
-                cmap = 'blue_neg_yellow_pos'
-                vmax=1
-                vmin=-1
-                plotting_helpers.plot_surface(nii,filename,ROI_niis=ROI_niis,symmetric_cbar=False,cmap=cmap,title='', vmax=vmax, vmin=vmin, colorbar_label='r')#self.colors_dict[localizer])
     def plot_localizer(self,task,p_threshold=1,vmin=None,vmax=None,symmetric_cbar=True,cmap='yellow_hot',plot_outlines = False):
         label = 'zscore'
         for contrast in self.localizer_contrasts[task]:
@@ -1950,7 +1592,6 @@ class SecondLevelIndividual(encoding.EncodingModel):
                 except Exception as e:
                     print(e)
                     pass
-    
     def plot_map(self,feature='',measure='ind_feature_performance',localizers=[],threshold=0,vmin=None,vmax=None,cmap='yellow_hot'):
         fsaverage = nilearn.datasets.fetch_surf_fsaverage(mesh='fsaverage')
 
@@ -2251,7 +1892,6 @@ class SecondLevelIndividual(encoding.EncodingModel):
         df_unitwise.to_csv(os.path.join(output_dir, f"subjectwise_unitwise_annotation_corrs_{self.model}_{feature_name}.csv"), index=False)
 
         return df_subjectwise, df_unitwise
-
     def get_top_units_per_region(
         self,
         csv_dir,
@@ -2393,7 +2033,6 @@ class SecondLevelIndividual(encoding.EncodingModel):
             return selected_df, unit_lists
         else:
             return selected_df
-
     def select_most_frequent_units_per_region(
         self,
         csv_path: str,
@@ -2583,200 +2222,6 @@ class SecondLevelIndividual(encoding.EncodingModel):
             plt.savefig(os.path.join(self.figure_dir,'unit_interpretations',f"{model}_{layer}.png"),bbox_inches='tight',dpi=300)
             plt.close()
         return freq_df, unit_lists
-
-    def get_top_and_bottom_images_per_unit(
-            self,
-            feature,
-            selected_units,
-            top_n=5,
-            return_indices=False,
-            image_dir=None
-        ):
-        """
-        Get top and bottom image frames for each selected unit individually.
-
-        Parameters
-        ----------
-        feature : str
-            Name of the feature to load.
-        selected_units : list[int]
-            List of unit indices to retrieve timepoints for.
-        top_n : int
-            Number of top/bottom timepoints to retrieve per unit.
-        return_indices : bool
-            Whether to return frame indices instead of file paths.
-        image_dir : str
-            Directory containing image frames, assumed to be sorted in temporal order.
-
-        Returns
-        -------
-        results : dict
-            Dictionary mapping unit index to a dict with 'top' and 'bottom' lists.
-        """
-        import os
-        import numpy as np
-        import re
-
-        # Load feature time series
-        feature_csv_path = os.path.join(self.dir, 'features', self.features_dict[feature].lower() + '.csv')
-        features = np.loadtxt(feature_csv_path, delimiter=',', dtype=np.float32)
-        n_timepoints = features.shape[0]
-
-        # Sort image filenames if not returning indices
-        if not return_indices:
-            def extract_frame_number(filename):
-                match = re.search(r'_(\d+)\.png$', filename)
-                return int(match.group(1)) if match else -1  # fallback for unexpected formats
-
-            image_files = sorted(
-                [os.path.join(image_dir, fname) for fname in os.listdir(image_dir) if fname.endswith('.png')],
-                key=lambda x: extract_frame_number(os.path.basename(x))
-            )
-        # Gather results
-        results = {}
-        for unit in selected_units:
-            unit_activity = features[:, unit]
-            top_indices = np.argsort(unit_activity)[-top_n:][::-1]
-            bottom_indices = np.argsort(unit_activity)[:top_n]
-
-            if return_indices:
-                results[unit] = {
-                    'top': top_indices.tolist(),
-                    'bottom': bottom_indices.tolist()
-                }
-            else:
-                results[unit] = {
-                    'top': [image_files[i] for i in top_indices],
-                    'bottom': [image_files[i] for i in bottom_indices]
-                }
-
-        return results
-
-    def compile_correlated_gif(
-        self,
-        layer,
-        unit,
-        annotated_feature,
-        image_dir,
-        top_k=3,
-        window_size=20,
-        output_path="",
-        fps=0.5
-    ):
-        """
-        Create a GIF of the most correlated windows between a unit and an annotation.
-        """
-        from PIL import Image
-        import imageio
-        from PIL import ImageDraw, ImageFont
-        import re
-        from scipy.stats import zscore
-        
-        os.makedirs(output_path, exist_ok=True)
-
-        def sliding_window_correlation(unit_ts, anno_ts, window_size):
-            """
-            Compute sliding window Pearson correlation between a unit time series and an annotated feature time series.
-            """
-            corrs = []
-            for start in range(len(unit_ts) - window_size + 1):
-                u_win = unit_ts[start:start + window_size]
-                a_win = anno_ts[start:start + window_size]
-                if np.std(u_win) == 0 or np.std(a_win) == 0:
-                    corrs.append(0)
-                else:
-                    corrs.append(np.corrcoef(u_win, a_win)[0, 1])
-            return np.array(corrs)
-        
-        layer_path = os.path.join(self.dir, 'features', self.features_dict[layer].lower() + '.csv')
-        layer_ts = pd.read_csv(layer_path, header=None)       
-        unit_ts = layer_ts.iloc[:, unit].values
-        
-        anno_path = os.path.join(self.dir, 'features', self.features_dict[annotated_feature].lower() + '.csv')
-        anno_ts = pd.read_csv(anno_path, header=None).values.squeeze()
-
-        corrs = sliding_window_correlation(unit_ts, anno_ts, window_size)
-        print(corrs)
-        top_idxs = np.argsort(corrs)[-top_k:]
-
-        def extract_frame_number(filename):
-            match = re.search(r'_(\d+)\.png$', filename)
-            return int(match.group(1)) if match else -1  # fallback for unexpected formats
-
-        frame_files = sorted(
-            [os.path.join(image_dir, fname) for fname in os.listdir(image_dir) if fname.endswith('.png')],
-            key=lambda x: extract_frame_number(os.path.basename(x))
-        )
-        
-
-        # Compile images from each top correlated window
-        
-        for idx in top_idxs:
-            # Extract data for time series plot
-            u_win = unit_ts[idx:idx + window_size]
-            a_win = anno_ts[idx:idx + window_size]
-            
-            # === Plot time series ===
-            plt.figure(figsize=(6, 3))
-            #zscore for easier visualization
-            u_win = zscore(u_win)
-            a_win = zscore(a_win)
-            plt.plot(u_win, label=f"Unit {unit}", color="C0", linewidth=2)
-            plt.plot(a_win, label=f"{annotated_feature}", color="C1", linewidth=2)
-            plt.xlabel("Time (TRs)")
-            plt.ylabel("Feature Value (z-scored)")
-            plt.title(f"r = {corrs[idx]:.2f}")
-            plt.legend(frameon=False)
-            plt.tight_layout()
-            
-            # Save plot
-            timeseries_path = f"{output_path}_{layer}_{unit}_{annotated_feature}_top{idx}_corr{corrs[idx]:.2f}_timeseries.png"
-            plt.savefig(timeseries_path)
-            plt.close()
-            gif_frames = []
-            window_imgs = frame_files[idx:idx + window_size]
-            font = ImageFont.load_default()  # Or specify a .ttf font with ImageFont.truetype
-
-            for t, img_path in enumerate(window_imgs):
-                try:
-                    img = Image.open(img_path).convert("RGB")
-                    draw = ImageDraw.Draw(img)
-
-                    tr_number = t #+ idx
-                    tr_label = f"TR {tr_number}"
-
-                    # Use getbbox to compute text size
-                    bbox = font.getbbox(tr_label)
-                    text_width = bbox[2] - bbox[0]
-                    text_height = bbox[3] - bbox[1]
-
-                    x_offset = 10
-                    y_offset = 5
-                    position = (img.width - text_width - x_offset, y_offset)
-
-                    # Optional: draw a translucent rectangle behind the text
-                    draw.rectangle(
-                        [position, (position[0] + text_width, position[1] + text_height)],
-                        fill=(0, 0, 0)
-                    )
-
-                    draw.text(position, tr_label, fill="white", font=font)
-                    gif_frames.append(img)
-                except Exception as e:
-                    print(f"Skipping {img_path}: {e}")
-
-        # Save as GIF
-            if gif_frames:
-
-                corr_val = corrs[idx]
-                corr_str = f"{corr_val:.2f}"
-                filename = f"{output_path}_{layer}_{unit}_{annotated_feature}_TR-{idx}_corr-{corr_str}.gif"
-                
-                imageio.mimsave(filename, gif_frames, duration=500)
-                
-                
-            else:
-                print("No frames collected; skipping GIF creation.")
     def compare_units_to_features(self, 
                                unit_csv_path, 
                                model,
@@ -3168,7 +2613,6 @@ class SecondLevelIndividual(encoding.EncodingModel):
         plt.savefig(save_path)
         plt.close()
 
-    
 
 class VoxelSelectionManager:
     def __init__(self, parent):
