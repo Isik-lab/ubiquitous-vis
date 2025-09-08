@@ -1,0 +1,1 @@
+{"run_groups": {"123": [1, 2, 3], "1": [1], "2": [2], "3": [3], "13": [1, 3], "23": [2, 3], "12": [1, 2]}, "contrasts": {"interact": "interact-fixation", "no_interact": "no_interact-fixation", "interact-no_interact": "interact-no_interact", "interact&no_interact": "interact-fixation&no_interact-fixation", "fixation": "fixation"}, "n_runs": 3}
