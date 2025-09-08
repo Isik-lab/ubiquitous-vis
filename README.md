@@ -5,9 +5,9 @@
  ubiquitous-vis: ``` environment.yml ```
  
  ### data and analysis outputs
-Preprocessed fMRI data and output of first level analyses (GLM and encoding models) are available on OpenNeuro. The first level outputs include ``` Brain2Brain ``` (intersubject correlation and cross-subject encoding), ``` EncodingModel ```, and ``` GLM ```. In order to run second level analyses from scratch, these will need to be downloaded and put into ``` /analysis ```.
+Preprocessed fMRI data and output of first level analyses (GLM and encoding models) are available on OpenNeuro. The first level outputs include ``` Brain2Brain ``` (intersubject correlation and cross-subject encoding), ``` EncodingModel ```, and ``` GLM ```. To run second level analyses from scratch, these need to be downloaded and put into ``` /analysis ```.
 
-Outputs of second level analyses are in this repository under ``` /analysis/SecondLevelGroup ``` and ``` /analysis/SecondLevelIndividual ```. 
+Precomputed outputs of second level analyses are in this repository under ``` /analysis/SecondLevelGroup ``` and ``` /analysis/SecondLevelIndividual ```. 
 
 ### running code
 See the sbatch scripts in ``` /scripts ``` to run the first level analyses.
