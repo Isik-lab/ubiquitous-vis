@@ -423,7 +423,7 @@ class SecondLevelIndividual(encoding.EncodingModel):
                                 file_label='glm_localizer_glm_response', filepath_tag=filepath_tag,label_region=label_region,
                                 legend_below=legend_below)
 
-            print(results['averaged_localizer_runs'])
+            # print(results['averaged_localizer_runs'])
             results['cross_validated'] = [len(runs.split(',')) > 1 for runs in results['averaged_localizer_runs']]
             results = results[~results['cross_validated']].copy()
 
@@ -894,7 +894,7 @@ class SecondLevelIndividual(encoding.EncodingModel):
                         
                         plotting_helpers.apply_stat_annotations(ax, pairs, pvals, panel_df, params)
                         pvalue_results.append(dict(zip(pairs, pvals)))
-                    print(ax.get_xticklabels())
+                    # print(ax.get_xticklabels())
                     ax.set_xticklabels([f"{t.get_text().split(' ')[1]}\n{t.get_text().split(' ')[0]}" for t in ax.get_xticklabels()])
                     # for hemi_text, xpos in zip(['left', 'right'], [0.25, 0.75]):
                     #     ax.text(xpos, -0.1, hemi_text, transform=ax.transAxes, ha='center', va='top')
@@ -1053,7 +1053,7 @@ class SecondLevelIndividual(encoding.EncodingModel):
     def generate_binary_localizer_maps_enc(self,model=None,plot=True,label='ind_feature_performance'):
         print('generating binary maps of voxels with high '+label+' in the encoding model...')
         enc_file_label = '_encoding_model-'+model+'_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
-        print(label)
+        # print(label)
         if(label=='performance'):
             features_loc = [self.model]
             measure_label = 'perf_raw'
@@ -2678,7 +2678,7 @@ class VoxelSelectionManager:
         # --- Load ISC and cross-subject files
         files[('ISC')] = nibabel.load(
             os.path.join(self.parent.dir, 'analysis', 'SecondLevelGroup', 'performance',
-                         f"sub-NT_brain2brain_correlation_smoothingfwhm-{self.parent.smoothing_fwhm}_chunklen-{self.parent.chunklen}_measure-perf_raw.nii.gz")
+                         f"sub-NT_brain2brain_correlation_smoothingfwhm-6.0_chunklen-{self.parent.chunklen}_measure-perf_raw.nii.gz")
         )
 
         for subject in self.parent.subjects['SIpointlights']:
@@ -2802,7 +2802,7 @@ class VoxelSelectionManager:
                 glm_weights_img = files[(glm_task2, response_run, response_contrast, subject)]
                 glm_weights = glm_weights_img.get_fdata()
             except Exception as e:
-                print(e)
+                #print(e)
                 continue
 
             ISC = files[('ISC')].get_fdata()
