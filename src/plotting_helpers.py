@@ -703,7 +703,7 @@ def plot_preference_surf(textures,filepath,ROI_niis=[],color_dict=None,cmap='col
     list_images = [temp_filename+'_'+hemi+'_'+view+'.png' for view in views for hemi in ['left','right']]
     colorbar_filepath = ''
     compose_final_figure(temp_filename+'.png', list_images, color_dict=color_dict,colorbar_image=colorbar_filepath, title=title)
-    for (hemi,view) in [(hemi,view) for view in ['lateral','ventral'] for hemi in ['left','right']]:
+    for (hemi,view) in [(hemi,view) for view in views for hemi in ['left','right']]:
             delete_file = temp_filename+'_'+hemi+'_'+view+'.png'
             os.remove(delete_file)
 def plot_preference_img_volume(img,filepath,color_dict,labels,threshold=None,vmin=None,vmax=None,cmap='cold_hot',title=None,):
