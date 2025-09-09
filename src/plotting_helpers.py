@@ -1547,6 +1547,7 @@ def plot_similarity_matrix(results_df, names, axis, label_dict, split_hemi=True,
     if split_hemi:
         figsize = (15,15)
         label = 'Average Spearman correlation'
+        temp_fontsize=fontsize
     else:
         figsize = (5,5)
         label = 'r'
