@@ -3,7 +3,9 @@
 
  ### conda environment
  create the environment: ``` conda env create -f environment.yml ```
+
  activate environment ``` conda activate ubiquitous-vis ```
+ 
  install custom src code (while in project directory) ``` pip install . ```
 
  ### data and analysis outputs
