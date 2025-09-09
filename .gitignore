@@ -4,4 +4,4 @@ analysis/Brain2Brain
 analysis/SecondLevelIndividual/localizer_masks
 .DS_Store
 build
-
+analysis/SecondLevelIndividual/*.pkl
