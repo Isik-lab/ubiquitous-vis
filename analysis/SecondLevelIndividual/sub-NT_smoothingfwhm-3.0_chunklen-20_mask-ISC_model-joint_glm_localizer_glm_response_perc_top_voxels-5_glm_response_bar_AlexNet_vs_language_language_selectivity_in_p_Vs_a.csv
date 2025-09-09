@@ -1,0 +1,5 @@
+,index,Estimate,2.5_ci,97.5_ci,SE,DF,T-stat,P-val,Sig,region_type
+0,(Intercept),0.612,0.485,0.74,0.065,34.012,9.4,0.0,***,social
+1,subregionposterior,-0.333,-0.436,-0.229,0.053,74.0,-6.279,0.0,***,social
+2,(Intercept),1.28,1.036,1.523,0.124,28.077,10.287,0.0,***,language
+3,subregionposterior,-0.245,-0.379,-0.112,0.068,71.02,-3.593,0.001,***,language
