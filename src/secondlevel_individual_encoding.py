@@ -374,7 +374,6 @@ class SecondLevelIndividual(encoding.EncodingModel):
                 ROI_file = self.out_dir + '/localizer_masks/'+file_label_+'_glm_loc-'+localizer_contrast+'_run-all_binary.nii.gz'
                 try:
                     ROI_niis.append(nibabel.load(ROI_file))
-                    filename = filename + '_loc-' + localizer_contrast
                 except Exception as e:
                     print(e)
             plotting_helpers.plot_preference_surf(preference1_map_surf,os.path.join(self.figure_dir,"preference_map",file_label+'_measure-'+measure+'_preference1_map_'+file_tag),ROI_niis=ROI_niis,ROIs=ROIs,ROI_colors=ROI_colors,color_dict=color_dict,cmap=surf_cmap,threshold=0.001,title=title,vmax = len(features),views=views)   
