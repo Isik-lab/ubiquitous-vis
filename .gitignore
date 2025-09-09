@@ -1,5 +1,6 @@
-/analysis/EncodingModel
-/analysis/GLM
-/analysis/Brain2Brain
-/analysis/SecondLevelIndividual/localizer_masks
+analysis/EncodingModel
+analysis/GLM
+analysis/Brain2Brain
+analysis/SecondLevelIndividual/localizer_masks
 .DS_Store
+build
