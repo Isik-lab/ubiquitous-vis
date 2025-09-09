@@ -39,7 +39,7 @@ class SecondLevelGroup(encoding.EncodingModel):
         self.smoothing_fwhm = args.smoothing_fwhm #change?
         self.chunklen = args.chunklen
         self.fMRI_data = []
-        self.brain_shape = []
+        self.brain_shape = (97,115,97)
         self.affine = []
         self.feature_names = []
         self.features = []
@@ -370,7 +370,42 @@ class SecondLevelGroup(encoding.EncodingModel):
 
             img = nibabel.Nifti1Image(spcorr, affine)
             nibabel.save(img, self.out_dir+'/spatial_correlation/'+self.sid+self.file_label+'_measure-'+label+'_alexnet-.nii.gz')
-        
+        # all_ind_feat_perf= []
+        # for feature_name in self.feature_names:
+        #     # print(feature_name)
+        #     all_data_ind_feat_perf = []
+        #     for subject in self.subjects[self.task]:
+        #         try:
+        #             nii = nibabel.load(self.in_dir+'/ind_feature_performance/'+subject+self.file_label+'_measure-ind_perf_raw.nii.gz')
+        #             data = nii.get_fdata()
+        #             data[data<0] = 0 #clip to zero
+        #             if feature_name in self.combined_features:
+        #                 for (ind,sub_feature_name) in enumerate(self.models_dict[feature_name]):
+        #                     feature_ind = self.get_feature_index(subject,sub_feature_name)
+
+        #                     sub_data = data[feature_ind]
+        #                     if ind==0:
+        #                         overall = sub_data
+        #                     else:
+        #                         overall = overall+sub_data
+        #                 data = overall
+        #             else:
+        #                 feature_index = self.get_feature_index(subject,feature_name)
+        #                 data = data[feature_index]
+        #             nii = nibabel.Nifti1Image(data,nii.affine)
+        #             #smooth after adding together layers if nec
+        #             nii = nibabel.processing.smooth_image(nii,fwhm=self.smoothing_fwhm,mode='nearest')
+        #             all_data_ind_feat_perf.append(nii.get_fdata())
+        #         except Exception as e:
+        #             print(e)
+        #             pass
+        #     all_data_ind_feat_perf = np.array(all_data_ind_feat_perf)
+        #     avg_ind_feat_perf = np.nanmean(all_data_ind_feat_perf,axis=0)
+        #     all_ind_feat_perf.append(avg_ind_feat_perf)
+        # ind_feature_performance = np.array(all_ind_feat_perf) #mask it for computing the preference maps, which need a flat array
+        # img = nibabel.Nifti1Image(ind_feature_performance, affine)
+        # nibabel.save(img, self.out_dir+'/ind_feature_performance/'+self.sid+self.file_label+'_measure-ind_perf_raw.nii.gz' )
+
         #MASK all data
         self.mask = helpers.load_mask(self,self.mask_name)
         if('performance' in measures):
@@ -514,11 +549,6 @@ class SecondLevelGroup(encoding.EncodingModel):
         if(label=='stats'):
             stats_img = nibabel.load(self.out_dir+'/ind_product_measure/'+self.sid+self.file_label+'_measure-product_measure_p_fdr.nii.gz')
             stats_mask = stats_img.get_fdata()
-            # print('getting rid of non-sig values')
-            # print(stats_mask.shape)
-            # print(img_data.shape)
-            # print(np.sum(stats_mask==0))
-            # print(np.sum(stats_mask[:,self.mask==1]==0))
             img_data[stats_mask==0]=0 #zero out any voxels that failed to reject hypothesis
 
         if group=='':
@@ -530,10 +560,11 @@ class SecondLevelGroup(encoding.EncodingModel):
                 filepath = self.figure_dir + "/ind_product_measure/" +self.sid+self.file_label+'_measure-ind_product_measure_'+label+'_feature-'+feature_name+'_vmax-'+str(vmax)
                 # title=''#feature_name
                 title = ''
-                if(feature_name=='alexnet'):
-                    title = 'Image Model (AlexNet)'
-                elif(feature_name=='sbert'):
-                    title = 'Sentence Model (sBERT)'
+                if vmax is not None:
+                    if(feature_name=='alexnet'):
+                        title = 'Image Model (AlexNet)'
+                    elif(feature_name=='sbert'):
+                        title = 'Sentence Model (sBERT)'
                 cmap_ = cmap
                 plotting_helpers.plot_surface(ind_perf,filepath,threshold=threshold,vmin=vmin,vmax=vmax,title=title,symmetric_cbar=False,cmap=cmap_,colorbar_label='Explained variance $R^2$')
         else:
@@ -606,6 +637,8 @@ class SecondLevelGroup(encoding.EncodingModel):
             # print(len(data[data==0]))
             #remake img
             img = nibabel.Nifti1Image(data,affine=img.affine)
+            
+        
         cmap = cmap
         # title=''
         colorbar_label = 'Explained Variance $R^2$'
@@ -616,7 +649,7 @@ class SecondLevelGroup(encoding.EncodingModel):
     def permutation_brainiak(self,load=False,iterations=10000):
         import datetime
         
-        if not load:
+        if load==False:
             print('starting permutation testing')
             now = datetime.datetime.now()
             print(now)
@@ -633,10 +666,11 @@ class SecondLevelGroup(encoding.EncodingModel):
         else:
             print('loading precomputed uncorrected p map')
             nii = nibabel.load(self.out_dir+'/performance/'+self.sid+self.file_label+'_measure-perf_p_unc.nii.gz')
-            self.p_unc = nii.get_fdata()
+            self.mask = helpers.load_mask(self,self.mask_name)
+            self.affine = nii.affine
+            self.p_unc = nii.get_fdata()[self.mask.get_fdata()==1]
         
         self.fdr_reject,self.p_fdr = fdrcorrection(self.p_unc, alpha=0.001, method='p', is_sorted=False)
-        self.fdr_reject[self.model_performance<0.001] = 0 #value cutoff
         data = self.unmask_reshape(self.fdr_reject)
         img = nibabel.Nifti1Image(data,self.affine)
         nibabel.save(img, self.out_dir+'/performance/'+self.sid+self.file_label+'_measure-perf_p_fdr.nii.gz')
