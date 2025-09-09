@@ -2,10 +2,14 @@
  Code for paper 'Ubiquitous cortical sensitivity to visual information during naturalistic, audiovisual movie viewing' 
 
  ### conda environment
- ubiquitous-vis: ``` environment.yml ```
- 
+ create the environment: ``` conda env create -f environment.yml ```
+ activate environment ``` conda activate ubiquitous-vis ```
+ install custom code (while in project directory) ``` pip install . ```
+
  ### data and analysis outputs
-Preprocessed fMRI data and output of first level analyses (GLM and encoding models) are available on OpenNeuro. The first level outputs include ``` Brain2Brain ``` (intersubject correlation and cross-subject encoding), ``` EncodingModel ```, and ``` GLM ```. To run second level analyses from scratch, these need to be downloaded and put into ``` /analysis ```.
+Raw and preprocessed (fMRIprep) fMRI files are available on OpenNeuro here:
+
+The output of first level analyses (GLM and encoding models) are available on OSF. The first level outputs include ``` Brain2Brain ``` (intersubject correlation and cross-subject encoding), ``` EncodingModel ```, and ``` GLM ```. To run second level analyses from scratch, these need to be downloaded and put into ``` /analysis ```.
 
 Precomputed feature space similarity results are in ``` /analysis/FeatureSpaceCorrelation ```.
 
