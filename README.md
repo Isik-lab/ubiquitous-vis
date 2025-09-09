@@ -7,19 +7,21 @@
  install custom code (while in project directory) ``` pip install . ```
 
  ### data and analysis outputs
-Raw and preprocessed (fMRIprep) fMRI files are available on OpenNeuro here:
+Raw and preprocessed (fMRIprep) fMRI files are available on OpenNeuro.
 
-The output of first level analyses (GLM and encoding models) are available on OSF. The first level outputs include ``` Brain2Brain ``` (intersubject correlation and cross-subject encoding), ``` EncodingModel ```, and ``` GLM ```. To run second level analyses from scratch, these need to be downloaded and put into ``` /analysis ```.
+The output of first and second level analyses are available on OSF. The first level outputs include ``` Brain2Brain ``` (intersubject correlation and cross-subject encoding), ``` EncodingModel ```, and ``` GLM ```. To run second level analyses from scratch, these need to be downloaded and put into ``` /analysis ```. 
 
 Precomputed feature space similarity results are in ``` /analysis/FeatureSpaceCorrelation ```.
 
-Precomputed outputs of second level analyses are in this repository under ``` /analysis/SecondLevelGroup ``` and ``` /analysis/SecondLevelIndividual ```. 
+The minimum required outputs of second level analyses for plotting are in this repository under ``` /analysis/SecondLevelGroup ``` and ``` /analysis/SecondLevelIndividual ```. 
 
 ### running code
 See the sbatch scripts in ``` /scripts ``` to run the first level analyses.
 
-The second level analyses and plotting code are in ``` /scripts/SecondLevel Analyses and Plot figures.ipynb ```
+The second level analyses can be run in ``` /scripts/SecondLevel Analyses.ipynb ```. 
 
-All of the second level outputs and subfigures are precomputed and available in this repository. These are used to plot all figures. To do this, just run Setup and then Main Figures and Supplemental Figures. All figures are created in ``` /figures ```. 
+Plotting code is in ``` /scripts/Plot Figures.ipynb ```. 
 
-If desired, the second level analyses can be run from scratch in the notebook by setting ``` generate_subfigures = True ``` and ``` load = False ``` in the Setup portion. However, in order for these to run, you must download the first level outputs (see data above) and put them in  ``` /analysis ```. 
+All precomputed second level outputs and subfigures are available on OSF. The outputs in this repository are sufficient to plot all figures. To do this, just run Setup and then Main Figures and Supplemental Figures. All figures are created in ``` /figures ```. 
+
+If desired, the second level analyses can be run from scratch in the notebook by setting ``` generate_subfigures = True ``` and ``` load = False ``` in the Setup portion. However, in order for these to run, you must download the first and second level outputs (see data above). The easiest way to do this is to replace the ``` analysis ``` directory with the downloaded version from OSF. 
