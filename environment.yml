@@ -27,13 +27,15 @@ dependencies:
   - r-pbkrtest
   - r-emmeans
   - rpy2
+
   - pip:
     - cca-zoo==2.6.0
     - himalaya==0.4.2
     - torch==2.1.2
     - voxelwise_tutorials
+    - pymer4
+    - brainiak
     - statannotations
     - tabulate
-    - "pymer4 --no-deps"
     - imageio
   
