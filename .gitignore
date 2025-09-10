@@ -6,3 +6,4 @@ analysis/SecondLevelIndividual/localizer_masks
 build
 analysis/SecondLevelIndividual/*.pkl
 features
+.osfcli.config
