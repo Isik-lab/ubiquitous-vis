@@ -27,6 +27,14 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import KFold,GroupKFold
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
+import sklearn.utils.validation as _v
+from sklearn.base import BaseEstimator
+
+if not hasattr(_v, "validate_data"):
+    def validate_data(estimator, *args, **kwargs):
+        # mirror sklearn>=1.6 helper by delegating to estimator._validate_data
+        return BaseEstimator._validate_data(estimator, *args, **kwargs)
+    _v.validate_data = validate_data
 from voxelwise_tutorials.delayer import Delayer
 from himalaya.backend import set_backend
 from himalaya.kernel_ridge import MultipleKernelRidgeCV
