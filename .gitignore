@@ -5,5 +5,4 @@ analysis/SecondLevelIndividual/localizer_masks
 .DS_Store
 build
 analysis/SecondLevelIndividual/*.pkl
-analysis/FeatureSpaceCorrelation
 features
