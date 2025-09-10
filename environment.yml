@@ -10,7 +10,7 @@ dependencies:
   - nibabel==4.0.1
   - nilearn==0.9.1
   - statsmodels=0.13.5
-  - scikit-learn=1.2.2
+  - scikit-learn=1.5.2
   - h5py
   - ipykernel
   - seaborn==0.12.0
