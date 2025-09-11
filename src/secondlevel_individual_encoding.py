@@ -108,8 +108,6 @@ class SecondLevelIndividual(encoding.EncodingModel):
         Path(f'{self.out_dir}/{"weights"}').mkdir(exist_ok=True, parents=True)
         Path(f'{self.out_dir}/{"performance"}').mkdir(exist_ok=True, parents=True)
         Path(f'{self.out_dir}/{"localizer_masks"}').mkdir(exist_ok=True, parents=True)
-        Path(f'{self.out_dir}/{"all_significant_voxels"}').mkdir(exist_ok=True, parents=True)
-        Path(f'{self.out_dir}/{"preference_map"}').mkdir(exist_ok=True, parents=True)
 
         Path(f'{self.figure_dir}/{"localizer_masks"}').mkdir(exist_ok=True, parents=True)
         Path(f'{self.figure_dir}/{"glm_zscores"}').mkdir(exist_ok=True, parents=True)
@@ -414,7 +412,9 @@ class SecondLevelIndividual(encoding.EncodingModel):
             width_ratios = [1 if (average_posterior_anterior) else len(self.localizer_masks[loc]) for loc in localizers_to_plot]
             if ('language' in localizers_to_plot):
                 if('frontal' in self.localizer_masks['language']):
-                    width_ratios[2]=2
+                    width_ratios[2] = 2
+                    if not average_posterior_anterior:
+                        width_ratios[2]=3
             
             self.plot_glm_response(results, average_posterior_anterior, column_group='localizer_contrast_label',
                                 col_order=localizer_contrasts, label_dict=localizer_label_dict, width_ratios=width_ratios,
@@ -2104,8 +2104,6 @@ class SecondLevelIndividual(encoding.EncodingModel):
                 col_order = ['left MT', 'left pSTS','left aSTS','left pTemp','left aTemp','left frontal',
                                 'right MT', 'right pSTS','right aSTS','right pTemp','right aTemp','right frontal']
             else:
-                col_order = ['left MT', 'left STS','left temporal','left frontal',
-                            'right MT', 'right STS','right temporal','right frontal']
                 col_order = ['left MT','right MT',
                              'left STS','right STS',
                              'left temporal','right temporal',
@@ -2346,26 +2344,26 @@ class SecondLevelIndividual(encoding.EncodingModel):
                             if len(selected_units) == 0:
                                 continue
 
-                            try:
-                                anno_path = os.path.join(self.dir, 'features', self.features_dict[annotated_feature].lower() + '.csv')
-                                anno_ts = pd.read_csv(anno_path, header=None).values.squeeze()
-                                unit_timecourses = layer_ts.iloc[:, selected_units].values
+                            # try:
+                            anno_path = os.path.join(self.dir, 'features', self.features_dict[annotated_feature].lower() + '.csv')
+                            anno_ts = pd.read_csv(anno_path, header=None).values.squeeze()
+                            unit_timecourses = layer_ts.iloc[:, selected_units].values
 
-                                score = run_single_cca_or_pls(unit_timecourses, anno_ts, method=method)
+                            score = run_single_cca_or_pls(unit_timecourses, anno_ts, method=method)
 
-                                result = {
-                                    'subject': subject,
-                                    'annotated_feature': annotated_feature,
-                                    'region': region,
-                                    'method': method,
-                                    'score': score
-                                }
-                                if split_hemi:
-                                    result['hemi'] = hemi
-                                results.append(result)
-                            except Exception as e:
-                                print(f"Error processing {subject}, {annotated_feature}, {region}, hemi={hemi}: {e}")
-                                continue
+                            result = {
+                                'subject': subject,
+                                'annotated_feature': annotated_feature,
+                                'region': region,
+                                'method': method,
+                                'score': score
+                            }
+                            if split_hemi:
+                                result['hemi'] = hemi
+                            results.append(result)
+                        # except Exception as e:
+                            #     print(f"Error processing {subject}, {annotated_feature}, {region}, hemi={hemi}: {e}")
+                            #     continue
 
             results_df = pd.DataFrame(results)
             results_df.replace(self.labels_dict,inplace=True)

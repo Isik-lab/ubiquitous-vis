@@ -3,6 +3,7 @@ README.md
 setup.py
 src/__init__.py
 src/brain2brain.py
+src/delayer.py
 src/encoding.py
 src/featurespace_similarity.py
 src/glm.py

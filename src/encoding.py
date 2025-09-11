@@ -35,7 +35,7 @@ if not hasattr(_v, "validate_data"):
         # mirror sklearn>=1.6 helper by delegating to estimator._validate_data
         return BaseEstimator._validate_data(estimator, *args, **kwargs)
     _v.validate_data = validate_data
-from voxelwise_tutorials.delayer import Delayer
+from src.delayer import Delayer #wrote our own Delayer
 from himalaya.backend import set_backend
 from himalaya.kernel_ridge import MultipleKernelRidgeCV
 from himalaya.kernel_ridge import Kernelizer

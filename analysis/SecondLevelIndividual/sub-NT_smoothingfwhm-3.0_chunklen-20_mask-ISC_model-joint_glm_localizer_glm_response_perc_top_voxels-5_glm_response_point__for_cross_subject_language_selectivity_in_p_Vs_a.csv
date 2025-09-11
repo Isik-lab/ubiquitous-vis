@@ -1,5 +1,6 @@
 ,index,Estimate,2.5_ci,97.5_ci,SE,DF,T-stat,P-val,Sig,region_type
 0,(Intercept),0.612,0.485,0.74,0.065,34.012,9.4,0.0,***,social
 1,subregionposterior,-0.333,-0.436,-0.229,0.053,74.0,-6.279,0.0,***,social
-2,(Intercept),1.28,1.036,1.523,0.124,28.077,10.287,0.0,***,language
-3,subregionposterior,-0.245,-0.379,-0.112,0.068,71.02,-3.593,0.001,***,language
+2,(Intercept),1.272,1.057,1.486,0.109,31.895,11.638,0.0,***,language
+3,subregionother,-0.732,-0.868,-0.597,0.069,119.13,-10.627,0.0,***,language
+4,subregionposterior,-0.244,-0.379,-0.109,0.069,119.025,-3.552,0.001,***,language
