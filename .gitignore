@@ -7,3 +7,5 @@ build
 analysis/SecondLevelIndividual/*.pkl
 features
 .osfcli.config
+analysis/EncodingModel/save_weight_subset.py
+*.zip

@@ -1,0 +1,4 @@
+index,Estimate,2.5_ci,97.5_ci,SE,DF,T-stat,P-val,Sig,hemisphere
+(Intercept),0.461,0.403,0.52,0.03,73.941,15.497,0.0,***,both
+super_pairMT__temporal,-0.204,-0.27,-0.138,0.034,200.791,-6.041,0.0,***,both
+super_pairSTS__temporal,0.118,0.061,0.174,0.029,205.117,4.084,0.0,***,both
