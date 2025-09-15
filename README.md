@@ -18,7 +18,7 @@ Precomputed feature space similarity results are in ``` /analysis/FeatureSpaceCo
 The minimum required files for plotting are in this repository under ``` /analysis/SecondLevelGroup ``` and ``` /analysis/SecondLevelIndividual ```. Additional interim output files are available on [OSF](https://osf.io/5zjae/).
 
 ### running code
-See the sbatch scripts in ``` /scripts ``` for preprocessing (fMRIprep) and running the first level analyses. The joint encoding model took about 3 hours on a a100 gpu per subject when saving fitted weights.
+See the sbatch scripts in ``` /scripts ``` for preprocessing (fMRIprep) and running the first level analyses. The encoding models took about 3 hours on an a100 gpu per subject when saving fitted weights.
 
 The second level analyses can be run in ``` /scripts/SecondLevel Analyses.ipynb ```. To run these you will need to download data from [OSF](https://osf.io/5zjae/). The notebook contains details on which data to download for your specific needs!
 
