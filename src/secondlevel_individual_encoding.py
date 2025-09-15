@@ -111,14 +111,12 @@ class SecondLevelIndividual(encoding.EncodingModel):
 
         Path(f'{self.figure_dir}/{"localizer_masks"}').mkdir(exist_ok=True, parents=True)
         Path(f'{self.figure_dir}/{"glm_zscores"}').mkdir(exist_ok=True, parents=True)
-        Path(f'{self.figure_dir}/{"scatter"}').mkdir(exist_ok=True, parents=True)
         Path(f'{self.figure_dir}/{"localizer_overlap_maps"}').mkdir(exist_ok=True, parents=True)
         Path(f'{self.figure_dir}/{"difference_maps"}').mkdir(exist_ok=True, parents=True)
         Path(f'{self.figure_dir}/{"response_similarity"}').mkdir(exist_ok=True, parents=True)
         Path(f'{self.figure_dir}/{"preference_map"}').mkdir(exist_ok=True, parents=True)
         Path(f'{self.figure_dir}/{"map"}').mkdir(exist_ok=True, parents=True)
         Path(f'{self.figure_dir}/{"overlap"}').mkdir(exist_ok=True, parents=True)
-        Path(f'{self.figure_dir}/{"features_preferred_delay"}').mkdir(exist_ok=True, parents=True)
 
         self.enc_file_label = '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen) 
         self.glm_file_label = '_smoothingfwhm-'+str(self.smoothing_fwhm)
@@ -706,11 +704,18 @@ class SecondLevelIndividual(encoding.EncodingModel):
 
             fig.set_axis_labels("", "beta weight")
             fig.set_titles("")
-            fig.savefig(
-                os.path.join(
+            if average_posterior_anterior:
+                filepath = os.path.join(
+                    self.figure_dir,
+                    f"{self.sid}{self.enc_file_label}_model-{selection_model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{label}_avg_post_ant.png"
+                )
+            else:
+                filepath = os.path.join(
                     self.figure_dir,
                     f"{self.sid}{self.enc_file_label}_model-{selection_model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{label}.png"
-                ),
+                )
+            fig.savefig(
+                filepath,
                 bbox_inches='tight',
                 dpi=300
             )
