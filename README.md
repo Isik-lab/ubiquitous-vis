@@ -9,7 +9,7 @@
  install custom src code (while in project directory): ``` pip install . ```
 
  ### data and analysis outputs
-Raw fMRI files are available on OpenNeuro.
+Raw fMRI files are [available on OpenNeuro](https://openneuro.org/datasets/ds006677).
 
 The annotated and extracted features used in the encoding model and the outputs of first and second level analyses are [available on OSF](https://osf.io/5zjae/). To run the second level analyses from scratch (see code), both ```analysis``` and ```features``` need to be downloaded.
 
