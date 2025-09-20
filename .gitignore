@@ -9,4 +9,5 @@ features
 analysis/EncodingModel/save_weight_subset.py
 *.zip
 .osfcli.config
+paper
 
