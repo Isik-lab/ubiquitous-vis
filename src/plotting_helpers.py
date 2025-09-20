@@ -1631,7 +1631,7 @@ def plot_similarity_matrix(results_df, names, axis, label_dict, split_hemi=True,
     plt.close()
 
     return similarity_matrix, full_names
-def plot_top_unit_scores(csv_dir,model,layer_to_plot='alexnet_layer7',y='score',col_wrap=None,hue_order=None,selected_units=None):
+def plot_top_unit_scores(csv_dir,model,layer_to_plot='alexnet_layer7',y='score',col_wrap=None,hue_order=None,selected_units=None,top_n=None):
     # import glob as glob
 
     def load_and_prepare_annotation_corrs(csv_dir,model,layer_to_plot):
@@ -1642,7 +1642,7 @@ def plot_top_unit_scores(csv_dir,model,layer_to_plot='alexnet_layer7',y='score',
             all_df = pd.read_csv(f"{csv_dir}/subjectwise_unitwise_annotation_corrs_{model}_{layer_to_plot}.csv")
             mask_label = 'mask'
         elif(y=='score'):
-            all_df = pd.read_csv(f"{csv_dir}/subjectwise_unit_feature_CCA_{model}_{layer_to_plot}.csv")
+            all_df = pd.read_csv(f"{csv_dir}/subjectwise_unit_feature_CCA_{model}_{layer_to_plot}_{top_n}.csv")
             mask_label = 'region'
          # Map region to superregion
         # print(all_df)
