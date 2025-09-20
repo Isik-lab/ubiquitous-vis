@@ -721,84 +721,84 @@ class SecondLevelIndividual(encoding.EncodingModel):
             )
             plt.close(fig.fig)
             
-            #stats comparing social interaction selectivity
-            fit = stats_helpers.compare_selectivity_between_SI_and_language(
+        #stats comparing social interaction selectivity
+        fit = stats_helpers.compare_selectivity_between_SI_and_language(
+            data=df, #dataframe with all regions
+            condition='interacting pointlights',
+            subtract_condition='non-interacting pointlights',
+            roi_column='hemi_mask',
+            subject_column='subject',
+            value_column='glm_weight'
+        )
+        csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{filepath_tag}_social_interaction_selectivity.csv")
+        fit.to_csv(csv_path)
+        
+        #stats comparing language selectivity
+        fit = stats_helpers.compare_selectivity_between_SI_and_language(
+            data=df, #dataframe with all regions
+            condition='intact speech',
+            subtract_condition='degraded speech',
+            roi_column='hemi_mask',
+            subject_column='subject',
+            value_column='glm_weight'
+        )
+        csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{filepath_tag}_language_selectivity.csv")
+        fit.to_csv(csv_path)
+        if (not average_posterior_anterior):
+            #stats comparing selectivity in posterior and anterior
+            fit = stats_helpers.compare_selectivity_within_region_type(
                 data=df, #dataframe with all regions
                 condition='interacting pointlights',
                 subtract_condition='non-interacting pointlights',
                 roi_column='hemi_mask',
                 subject_column='subject',
                 value_column='glm_weight'
-            )
-            csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{label}_{filepath_tag}_social_interaction_selectivity.csv")
+                )
+            csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{filepath_tag}_social_interaction_selectivity_in_p_Vs_a.csv")
             fit.to_csv(csv_path)
             
-            #stats comparing language selectivity
-            fit = stats_helpers.compare_selectivity_between_SI_and_language(
+            
+            #stats comparing selectivity in posterior and anterior
+            fit = stats_helpers.compare_selectivity_within_region_type(
                 data=df, #dataframe with all regions
                 condition='intact speech',
                 subtract_condition='degraded speech',
                 roi_column='hemi_mask',
                 subject_column='subject',
                 value_column='glm_weight'
-            )
-            csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{label}_{filepath_tag}_language_selectivity.csv")
+                )
+            csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{filepath_tag}_language_selectivity_in_p_Vs_a.csv")
             fit.to_csv(csv_path)
-            if (not average_posterior_anterior):
-                #stats comparing selectivity in posterior and anterior
-                fit = stats_helpers.compare_selectivity_within_region_type(
-                    data=df, #dataframe with all regions
-                    condition='interacting pointlights',
-                    subtract_condition='non-interacting pointlights',
-                    roi_column='hemi_mask',
-                    subject_column='subject',
-                    value_column='glm_weight'
-                    )
-                csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{label}_{filepath_tag}_social_interaction_selectivity_in_p_Vs_a.csv")
-                fit.to_csv(csv_path)
-                
-                
-                #stats comparing selectivity in posterior and anterior
-                fit = stats_helpers.compare_selectivity_within_region_type(
-                    data=df, #dataframe with all regions
-                    condition='intact speech',
-                    subtract_condition='degraded speech',
-                    roi_column='hemi_mask',
-                    subject_column='subject',
-                    value_column='glm_weight'
-                    )
-                csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{label}_{filepath_tag}_language_selectivity_in_p_Vs_a.csv")
-                fit.to_csv(csv_path)
             
             # Plot hemispheric distribution of selective voxels
-            plotting_helpers.plot_hemispheric_distribution(
-                self=self,
-                results=df,
-                column_group=column_group,
-                col_order=col_order,
-                loc_name=loc_name,
-                hue_key='Condition',
-                value_key='proportion_voxels',
-                file_tag=f"glm_{file_label}",
-                restrict_to_feature='interacting pointlights'  # or None to show all
-            )
+            # plotting_helpers.plot_hemispheric_distribution(
+            #     self=self,
+            #     results=df,
+            #     column_group=column_group,
+            #     col_order=col_order,
+            #     loc_name=loc_name,
+            #     hue_key='Condition',
+            #     value_key='proportion_voxels',
+            #     file_tag=f"glm_{file_label}",
+            #     restrict_to_feature='interacting pointlights'  # or None to show all
+            # )
             
-            region_stats_df = stats_helpers.compare_hemispheric_distribution(
-                data=df,
-                region_column='hemi_mask',
-                hemisphere_column='hemisphere',
-                value_column='proportion_voxels',
-                subject_column='subject'
-            )
-            csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{label}_{filepath_tag}_ROI_hemispheric_distribution.csv")
-            region_stats_df.to_csv(csv_path)
+            # region_stats_df = stats_helpers.compare_hemispheric_distribution(
+            #     data=df,
+            #     region_column='hemi_mask',
+            #     hemisphere_column='hemisphere',
+            #     value_column='proportion_voxels',
+            #     subject_column='subject'
+            # )
+            # csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{label}_{filepath_tag}_ROI_hemispheric_distribution.csv")
+            # region_stats_df.to_csv(csv_path)
             
-            plotting_helpers.plot_hemispheric_distribution_correlations(
-                self=self,
-                results=df,
-                file_label=file_label,
-                # subset_regions=MT+STS+language
-                )  
+            # plotting_helpers.plot_hemispheric_distribution_correlations(
+            #     self=self,
+            #     results=df,
+            #     file_label=file_label,
+            #     # subset_regions=MT+STS+language
+            #     )  
     def plot_enc_response(
         self,
         results,
@@ -975,50 +975,16 @@ class SecondLevelIndividual(encoding.EncodingModel):
                 file_suffix=f"{filepath_tag}_{figure_tag}"
             )
             
-        # if len(set(temp_df['Feature_Space'])) > 1:
-        #     anova_df = plotting_helpers.run_anova_per_region_pair_per_hemisphere(
-        #         data=temp_df,
-        #         plot_features=[self.labels_dict.get(feature,feature) for feature in self.plot_features]
-        #     )
-        #     csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_enc_response-{response_label}_{label}_{filepath_tag}_{figure_tag}_anova_interaction_test.csv")            
-        #     anova_df.to_csv(csv_path, index=False)
+        if hue!='model': #ie if we are plotting performance, we don't do the anova
+            anova_df = stats_helpers.run_anova_per_region_pair_per_hemisphere(
+                data=temp_df,
+                plot_features=[self.labels_dict.get(feature,feature) for feature in self.plot_features]
+            )
+            csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_enc_response-{response_label}_{label}_{filepath_tag}_{figure_tag}_anova_interaction_test.csv")            
+            anova_df.to_csv(csv_path, index=False)
             
-        #     output_path = os.path.join(self.dir,'tables',f"pairwise_anova_{self.model}_{filepath_tag}_{figure_tag}.tex")
-        #     plotting_helpers.generate_latex_anova_pairwise_table(anova_df,output_path)
-    def generate_probability_map_glm(self,plot=True,glm_task='SIpointlights',vmax=None):
-        glm_file_label = '_smoothingfwhm-'+str(self.smoothing_fwhm)
-        
-        for localizer_contrast in self.localizer_contrasts[glm_task]:
-            combined_masks = np.zeros(self.brain_shape)
-            for mask in self.localizer_masks[localizer_contrast]:
-                for subject in tqdm(self.subjects[glm_task],desc=localizer_contrast): #only include subjects with both languge and SI for now (localizer maps using all runs are not generated for subjects with data from only one experiment)
-                    subject_map = np.zeros(self.brain_shape)
-                    file_label = subject+glm_file_label+'_mask-'+mask#+'_encoding_model-'+self.model
-
-                    filepath = self.out_dir + '/localizer_masks/'+file_label+'_glm_loc-'+localizer_contrast+'_run-'+self.all_runs[glm_task]+'.nii.gz'
-                    localizer_map_img = nibabel.load(filepath)
-                    localizer_map = localizer_map_img.get_fdata()
-                    subject_map = subject_map+(localizer_map>0)*1.0
-                    subject_map_img = nibabel.Nifti1Image(subject_map,localizer_map_img.affine)
-                    # if(plot):
-                    #   map_filename = self.figure_dir + '/localizer_masks/'+file_label+'_glm_loc-'+localizer_contrast+'_run-all_binary.pdf'
-                    #   helpers.plot_map(subject_map_img,map_filename,threshold=0,vmax=len(self.run_groups[glm_task]),cmap='Greens')
-                    subject_map = (subject_map>0)*1.0 #binarize to save to compare to enc localizer
-                    map_img_filename = self.out_dir + '/localizer_masks/'+file_label+'_glm_loc-'+localizer_contrast+'_run-all_binary.nii.gz'
-                    binary_map_img = nibabel.Nifti1Image(subject_map,localizer_map_img.affine)
-                    nibabel.save(binary_map_img,map_img_filename)
-
-                    combined_masks = combined_masks+subject_map
-                
-            combined_masks = combined_masks/(len(self.subjects[glm_task])*len(self.localizer_masks[localizer_contrast]))
-            file_label = self.sid+glm_file_label+'_mask-'+'_'.join(self.localizer_masks[localizer_contrast])#'sub-all_encoding_model-'+self.model
-            combined_masks_map_img = nibabel.Nifti1Image(combined_masks,localizer_map_img.affine)
-            map_img_filename = self.out_dir + '/localizer_masks/'+file_label+'_glm_loc-'+localizer_contrast+'_probability_map.nii.gz'
-            nibabel.save(combined_masks_map_img,map_img_filename)
-            if(plot):
-                cmap = 'matrix_green'
-                map_filename = self.figure_dir + '/localizer_masks/'+file_label+'_glm_loc-'+localizer_contrast+'_probability_map'
-                plotting_helpers.plot_surface(nii=combined_masks_map_img,filename=map_filename,views=['lateral'],threshold=0,vmin=0,vmax=vmax,cmap=cmap,colorbar_label='proportion of overlap')
+            output_path = os.path.join(self.dir,'tables',f"pairwise_anova_{self.model}_{filepath_tag}_{figure_tag}.tex")
+            stats_helpers.generate_latex_anova_pairwise_table(anova_df,output_path,include_hemi=~average_left_right)
     def generate_binary_localizer_maps_glm(self,plot=True,glm_task='SIpointlights'):
         print('generating binary glm voxel selection maps:')
         glm_file_label = '_smoothingfwhm-'+str(self.smoothing_fwhm)
@@ -1317,9 +1283,12 @@ class SecondLevelIndividual(encoding.EncodingModel):
                 
                 csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_{filepath_tag}_{axis}_response_similarity_pairwise_comparisons.csv")            
                 results_df.to_csv(csv_path, index=False)
-                
-                output_path = os.path.join(self.dir, 'tables', f"response_similarity_pairwise_comparisons_{axis}.tex")
-                stats_helpers.generate_latex_pairwise_similarity_table_with_hemisphere(results_df, output_path)
+                hemi_label = 'hemis_together'
+                if(split_hemi):
+                    hemi_label = 'split_hemis'
+                output_path = os.path.join(self.dir, 'tables', f"response_similarity_pairwise_comparisons_{axis}_{hemi_label}.tex")
+                stats_helpers.generate_latex_pairwise_similarity_table_with_hemisphere(results_df, output_path,include_hemi=split_hemi)
+                    
     def compute_all_overlap2(self,load=False,plot=True,selection_type='top_percent',pvalue=None,regions=[],label='',file_tag=''):
         from matplotlib import colors
         print('computing overlap between voxel groups:')
@@ -2103,6 +2072,7 @@ class SecondLevelIndividual(encoding.EncodingModel):
             unit_lists[group_label] = freq_counts["unit_index"].tolist()
 
         freq_df = pd.concat(selected_units_all, ignore_index=True)
+        print(freq_df)
 
         if plot:
             if(split_posterior_anterior):
@@ -2186,9 +2156,9 @@ class SecondLevelIndividual(encoding.EncodingModel):
 
             g = sns.catplot(
                 data=unit_avg,
-                x="unit_index",
-                hue = "annotated_feature",
-                hue_order = [self.labels_dict.get(item,item) for item in self.model_features_dict['annotated']],
+                x="annotated_feature",
+                # hue = "annotated_feature",
+                # hue_order = [self.labels_dict.get(item,item) for item in self.model_features_dict['annotated']],
                 y="correlation",
                 col="group",
                 col_order = col_order,
@@ -2197,7 +2167,7 @@ class SecondLevelIndividual(encoding.EncodingModel):
                 errorbar="se",
                 palette=self.colors_dict,
                 height=5.15,
-                aspect=0.8,
+                aspect=1,
                 sharey=True,
                 sharex=False,
                 legend=False
@@ -2225,115 +2195,96 @@ class SecondLevelIndividual(encoding.EncodingModel):
             plt.close()
         return freq_df, unit_lists
     def compare_units_to_features(self, 
-                               unit_csv_path, 
-                               model,
-                               layer_name, 
-                               load = False,
-                               top_n = None,
-                               method='cca', 
-                               regions = None,
-                               split_hemi=True,
-                               ):
+                                unit_csv_path, 
+                                model,
+                                layer_name, 
+                                load = False,
+                                top_n = None,
+                                method='cca', 
+                                regions = None,
+                                split_hemi=True,
+                                ):
         import os
         import pandas as pd
         import numpy as np
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.model_selection import GroupKFold
+        from cca_zoo.linear import rCCA, PLS
+        from tqdm import tqdm
+        
+
         def run_single_cca_or_pls(
             unit_data,
             anno_ts,
             method="cca",
-            chunklen=30
+            chunklen=self.chunklen,
+            reg_c_x=None,
+            reg_c_y=None
         ):
-            from cca_zoo.model_selection import GridSearchCV
-            from cca_zoo.linear import rCCA, PLS
-            from sklearn.preprocessing import StandardScaler
-            from sklearn.model_selection import GroupKFold
-            import numpy as np
+            X_all = StandardScaler().fit_transform(np.nan_to_num(unit_data))
+            y_all = StandardScaler().fit_transform(np.nan_to_num(anno_ts.reshape(-1, 1)))
+            n_samples = X_all.shape[0]
 
-            scaler_X = StandardScaler()
-            scaler_Y = StandardScaler()
-            if(len(anno_ts.shape)<2):
-                anno_ts = anno_ts.reshape(-1, 1)
-            unit_data = scaler_X.fit_transform(unit_data)
-            anno_data = scaler_Y.fit_transform(anno_ts)
-            n_samples = len(anno_ts)
-            
+            groups = _make_groups(n_samples, chunklen)
             cv_outer = GroupKFold(n_splits=5)
-            n_chunks = int(n_samples/self.chunklen)
-            #set groups so that it chunks the data according to chunk len, and then the chunks are split into training and test
-            groups = [str(ind) for ind in range(0,n_chunks) for x in range(0,self.chunklen)]
-            if(len(groups)!=n_samples): #add final group that didn't divide evenly into chunklen if necessary
-                diff = n_samples-len(groups)
-                groups.extend([str(n_chunks) for x in range(0,diff)]) 
-            
             scores = []
 
-            for train_idx, test_idx in cv_outer.split(unit_data, groups=groups):
-                X_train, Y_train = unit_data[train_idx], anno_data[train_idx]
-                X_test, Y_test = unit_data[test_idx], anno_data[test_idx]
-                
-                scaler_X = StandardScaler()
-                scaler_Y = StandardScaler()
-                
-                X_train = scaler_X.fit_transform(X_train)
-                Y_train = scaler_Y.fit_transform(Y_train)
-                X_train = np.nan_to_num(X_train)
-                Y_train = np.nan_to_num(Y_train)
-                
-                X_test = scaler_X.transform(X_test)
-                Y_test = scaler_Y.transform(Y_test)
-                X_test = np.nan_to_num(X_test)
-                Y_test = np.nan_to_num(Y_test)
-                
-                cv_inner = GroupKFold(n_splits=5)
-                n_samples = X_train.shape[0]
-                n_chunks = int(n_samples/self.chunklen)
-                groups = [str(ind) for ind in range(0,n_chunks) for x in range(0,self.chunklen)]
-                if(len(groups)!=n_samples): #add final group that didn't divide evenly into chunklen if necessary
-                    diff = n_samples-len(groups)
-                    groups.extend([str(n_chunks) for x in range(0,diff)])
-                reg_params = np.logspace(-5,0,5)
+            for train_idx, test_idx in cv_outer.split(X_all, groups=groups):
+                X_train, Y_train = X_all[train_idx], y_all[train_idx]
+                X_test,  Y_test  = X_all[test_idx],  y_all[test_idx]
+
+                sx, sy = StandardScaler(), StandardScaler()
+                X_train = sx.fit_transform(X_train);  Y_train = sy.fit_transform(Y_train)
+                X_test  = sx.transform(X_test);       Y_test  = sy.transform(Y_test)
+
                 if method == "cca":
-                    model = GridSearchCV(
-                        estimator=rCCA(latent_dimensions=1),
-                        param_grid={"c": [reg_params, reg_params]},
-                        cv=cv_inner,
-                        error_score="raise",n_jobs=-1
-                    ).fit((X_train, Y_train), groups=groups)
-                    score = model.best_estimator_.average_pairwise_correlations((X_test, Y_test)).mean()
+                    if reg_c_x is None or reg_c_y is None:
+                        raise ValueError("CCA requires reg_c_x/reg_c_y; none provided.")
+                    est = rCCA(latent_dimensions=1, c=[reg_c_x, reg_c_y]).fit((X_train, Y_train))
+                    score = est.average_pairwise_correlations((X_test, Y_test)).mean()
                 elif method == "pls":
-                    model = PLS(latent_dimensions=1).fit((X_train, Y_train))
-                    score = model.average_pairwise_correlations((X_test, Y_test)).mean()
+                    est = PLS(latent_dimensions=1).fit((X_train, Y_train))
+                    score = est.average_pairwise_correlations((X_test, Y_test)).mean()
                 else:
                     raise ValueError("Method must be 'cca' or 'pls'")
-
                 scores.append(score)
 
-            return np.mean(scores)
+            return float(np.mean(scores))
 
+        # ---------- MAIN ----------
         if not load:
-            # Load unit time courses
+            # 1) Load time series and unit selections
             layer_path = os.path.join(self.dir, 'features', self.features_dict[layer_name].lower() + '.csv')
             layer_ts = pd.read_csv(layer_path, header=None)
 
-            # Load unit selections
             unit_df = pd.read_csv(f"{unit_csv_path}/top_unit_correlations/subjectwise_unitwise_annotation_corrs_{model}_{layer_name}.csv")
             unit_df["rank"] = unit_df["rank"].astype(int)
 
-            annotated_features = self.model_features_dict['annotated'] #+ ['motion','word2vec'] + ['sbert_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]]
+            annotated_features = self.model_features_dict['annotated']
             if regions is None:
                 regions = unit_df['mask'].unique()
 
+            # 2) Prepare storage
+            regparam_rows = []   # per (subject, feature, region, hemi)
             results = []
 
-            for subject in tqdm(self.subjects['sherlock'], desc="Running CCA/PLS per subject"):
+            # 3) Iterate
+            for subject in tqdm(self.subjects['sherlock'], desc="CCA/PLS per subject"):
                 subject_units = unit_df[unit_df['subject'] == subject]
+
                 for annotated_feature in annotated_features:
+                    # Pre-load feature vector
+                    anno_path_full = os.path.join(self.dir, 'features', self.features_dict[annotated_feature].lower() + '.csv')
+                    anno_ts_full = pd.read_csv(anno_path_full, header=None).values.squeeze()
+
                     for region in regions:
-                        if split_hemi:
-                            hemi_groups = subject_units[subject_units['mask'] == region]['hemi'].unique()
-                        else:
-                            hemi_groups = [None]
+                        hemi_groups = (subject_units[subject_units['mask'] == region]['hemi'].unique()
+                                    if split_hemi else [None])
+
                         for hemi in hemi_groups:
+                            # Select units for THIS region/hemi
                             if split_hemi:
                                 region_units = subject_units[(subject_units['mask'] == region) & (subject_units['hemi'] == hemi)]
                             else:
@@ -2341,22 +2292,51 @@ class SecondLevelIndividual(encoding.EncodingModel):
 
                             if region_units.empty:
                                 continue
-                            
                             if top_n is not None:
                                 region_units = region_units.nsmallest(top_n, 'rank')
-                            
                             selected_units = region_units['unit_index'].unique()
                             if len(selected_units) == 0:
                                 continue
 
-                            # try:
-                            anno_path = os.path.join(self.dir, 'features', self.features_dict[annotated_feature].lower() + '.csv')
-                            anno_ts = pd.read_csv(anno_path, header=None).values.squeeze()
-                            unit_timecourses = layer_ts.iloc[:, selected_units].values
+                            X_full = layer_ts.iloc[:, selected_units].values
+                            tmin = min(len(anno_ts_full), X_full.shape[0])
+                            X_full = X_full[:tmin, :]
+                            y_full = anno_ts_full[:tmin]
 
-                            score = run_single_cca_or_pls(unit_timecourses, anno_ts, method=method)
+                            # 3a) If CCA, TUNE (c_x, c_y) for THIS (subject, feature, region, hemi) and SAVE
+                            if method == "cca":
+                                best_cx, best_cy = _select_rcca_params(
+                                    unit_data=X_full,
+                                    anno_ts=y_full,
+                                    reg_params=np.logspace(-5, 0, 11),
+                                    chunklen=self.chunklen,
+                                    n_splits=5
+                                )
+                                regparam_rows.append({
+                                    "subject": subject,
+                                    "feature": annotated_feature,
+                                    "region": region,
+                                    "hemi": ("" if hemi is None or pd.isna(hemi) else str(hemi)),
+                                    "method": "cca",
+                                    "c_x": best_cx,
+                                    "c_y": best_cy,
+                                    "n_units_tuned": int(X_full.shape[1])
+                                })
+                                reg_c_x, reg_c_y = best_cx, best_cy
+                            else:
+                                reg_c_x, reg_c_y = (None, None)
 
-                            result = {
+                            # 3b) Evaluate outer blocked CV with FIXED params
+                            score = run_single_cca_or_pls(
+                                unit_data=X_full,
+                                anno_ts=y_full,
+                                method=method,
+                                chunklen=self.chunklen,
+                                reg_c_x=reg_c_x,
+                                reg_c_y=reg_c_y
+                            )
+
+                            row = {
                                 'subject': subject,
                                 'annotated_feature': annotated_feature,
                                 'region': region,
@@ -2364,28 +2344,31 @@ class SecondLevelIndividual(encoding.EncodingModel):
                                 'score': score
                             }
                             if split_hemi:
-                                result['hemi'] = hemi
-                            results.append(result)
-                        # except Exception as e:
-                            #     print(f"Error processing {subject}, {annotated_feature}, {region}, hemi={hemi}: {e}")
-                            #     continue
+                                row['hemi'] = hemi
+                            results.append(row)
 
-            results_df = pd.DataFrame(results)
-            results_df.replace(self.labels_dict,inplace=True)
-            results_df.to_csv((os.path.join(self.out_dir, f"subjectwise_unit_feature_CCA_{self.model}_{layer_name}.csv")))
-        
-        
+            # 4) Save outputs
+            results_df = pd.DataFrame(results).replace(self.labels_dict)
+            results_df.to_csv(os.path.join(self.out_dir, f"subjectwise_unit_feature_CCA_{self.model}_{layer_name}_{top_n}.csv"), index=False)
+
+            if len(regparam_rows) > 0:
+                regparams_df = pd.DataFrame(regparam_rows)
+                regparams_csv = os.path.join(self.out_dir, f"cca_regparams_by_region_{self.model}_{layer_name}_{top_n}.csv")
+                regparams_df.to_csv(regparams_csv, index=False)
+            else:
+                regparams_csv = None
+        else:
+            regparams_csv = os.path.join(self.out_dir, f"cca_regparams_by_region_{self.model}_{layer_name}_{top_n}.csv")
+            if not os.path.exists(regparams_csv):
+                regparams_csv = None
+
+        # ---- your plotting/anova code (unchanged) ----
         results_path = os.path.join(self.out_dir)
         hue_order = [ self.labels_dict.get(item, item) for item in self.model_features_dict['annotated'] ]
-        
-        bar_fig,point_fig = plotting_helpers.plot_top_unit_scores(results_path,model='vislang',layer_to_plot=layer_name,col_wrap=None,hue_order=hue_order)
+        bar_fig,point_fig = plotting_helpers.plot_top_unit_scores(results_path,model='vislang',layer_to_plot=layer_name,col_wrap=None,hue_order=hue_order,top_n=top_n)
 
         region_sets = {'bar': bar_fig, 'point': point_fig}
-        MT = self.MT
-        ISC = self.ISC
-        STS = ['STS'] 
-        language = ['temporal','frontal'] 
-        
+        MT = self.MT; ISC = self.ISC; STS = ['STS']; language = ['temporal','frontal'] 
         pvalue_results = []
 
         for label, fig in region_sets.items():
@@ -2393,59 +2376,36 @@ class SecondLevelIndividual(encoding.EncodingModel):
                 for ax in ax_row:
                     title_text = ax.get_title().split(' = ')[1]
                     region_type = title_text
-                    regions = (
-                        MT if region_type == 'MT'
-                        else ISC if region_type == 'ISC'
-                        else language if region_type == 'language'
-                        else STS
-                    )
+                    regions = (MT if region_type == 'MT' else ISC if region_type == 'ISC' else language if region_type == 'language' else STS)
                     if((region_type!='motion')):
                         sns.despine(ax=ax, left=True)
                         ax.tick_params(left=False, labelleft=False, )
-                    
-                    # ax.set_xticklabels([f"{t.get_text().split(' ')[1]}\n{t.get_text().split(' ')[0]}" for t in ax.get_xticklabels()])
-                    # for hemi_text, xpos in zip(['left', 'right'], [0.25, 0.75]):
-                    #     ax.text(xpos, -0.1, hemi_text, transform=ax.transAxes, ha='center', va='top')
-                
-                    region_name = region_type + ' regions'
-                    label_text = region_name
-                    text_x = 0.5
-                    text_y = 1.01
-                
-                    # Add rectangle and text
                     bbox = dict(boxstyle='round,pad=0.3', edgecolor='black', facecolor='none', linewidth=1.5)
-                    ax.text(text_x, text_y, label_text, fontsize=20, fontweight='bold',
+                    ax.text(0.5, 1.01, region_type + ' regions', fontsize=20, fontweight='bold',
                             ha='center', va='center', transform=ax.transAxes, bbox=bbox)
-
             fig.set_axis_labels("", "Canonical correlation coefficient")
             fig.set_titles("")
-        
 
-        bar_fig.savefig(
-                os.path.join(
-                    f"{self.figure_dir}/{layer_name}_cca.png"),
-                bbox_inches='tight',
-                dpi=300
-            )
+        bar_fig.savefig(os.path.join(f"{self.figure_dir}/{layer_name}_{top_n}_cca.png"), bbox_inches='tight', dpi=300)
         plt.close()
-        
-        results_df = pd.read_csv(os.path.join(self.out_dir, f"subjectwise_unit_feature_CCA_{self.model}_{layer_name}.csv"))
+
+        results_df = pd.read_csv(os.path.join(self.out_dir, f"subjectwise_unit_feature_CCA_{self.model}_{layer_name}_{top_n}.csv"))
         results_df['hemisphere'] = 'both'
         results_df['Feature_Space'] = results_df["annotated_feature"]
         results_df['encoding_response'] = results_df['score']
-        results_df['hemi_mask'] = [hemi + ' ' + mask for hemi,mask in zip(results_df['hemisphere'],results_df['region'])]
+        results_df['mask'] = results_df['region']
         anova_df = stats_helpers.run_anova_per_region_pair_per_hemisphere(
             data=results_df,
             plot_features=[self.labels_dict.get(feature,feature) for feature in self.model_features_dict['annotated']]
         )
         csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{label}_unit_feature_comparison_anova_interaction_test.csv")            
         anova_df.to_csv(csv_path, index=False)
-        
-        output_path = os.path.join(self.dir,'tables',f"pairwise_anova_{self.model}_unit_feature_comparisons.tex")
+
+        output_path = os.path.join(self.dir,'tables',f"pairwise_anova_{self.model}_unit_feature_comparisons_{layer_name}.tex")
         stats_helpers.generate_latex_anova_pairwise_table(anova_df,output_path)
-        
-        
-        return results_df
+
+        # Return results + path to region/hemi param table for sliding-window
+        return results_df, regparams_csv
     def plot_unit_feature_highlights(
         self,
         layer,
@@ -2601,7 +2561,7 @@ class SecondLevelIndividual(encoding.EncodingModel):
             
         if len(title)>0:
             bbox = dict(boxstyle='round,pad=0.3', edgecolor='black', facecolor='none', linewidth=5)
-            ax.text(0.01, 1, title, fontsize=60, fontweight='bold',
+            ax.text(0.01, 1.1, title, fontsize=60, fontweight='bold',
                     ha='left', va='center', transform=ax.transAxes, bbox=bbox)
 
         ax.set_title("")
@@ -2615,6 +2575,48 @@ class SecondLevelIndividual(encoding.EncodingModel):
         plt.savefig(save_path)
         plt.close()
 
+def _make_groups(n_samples, chunklen):
+    import numpy as np
+    n_chunks = int(np.floor(n_samples / chunklen))
+    groups = [str(i) for i in range(n_chunks) for _ in range(chunklen)]
+    if len(groups) < n_samples:
+        groups.extend([str(n_chunks)] * (n_samples - len(groups)))
+    return np.asarray(groups)
+
+def _select_rcca_params(unit_data, anno_ts, reg_params=None, chunklen=20, n_splits=5):
+    """
+    Pick rCCA (c_x, c_y) via blocked GroupKFold CV on the FULL time series
+    for this (subject, feature, region, hemi) slice. Returns (best_cx, best_cy).
+    """
+    from cca_zoo.model_selection import GridSearchCV
+    from cca_zoo.linear import rCCA
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.model_selection import GroupKFold
+    import numpy as np
+
+    if reg_params is None:
+        reg_params = np.logspace(-5, 0, 11)
+
+    X = np.asarray(unit_data)
+    y = np.asarray(anno_ts).reshape(-1, 1)
+
+    sx, sy = StandardScaler(), StandardScaler()
+    X = sx.fit_transform(np.nan_to_num(X))
+    y = sy.fit_transform(np.nan_to_num(y))
+
+    groups = _make_groups(len(y), chunklen)
+    cv_inner = GroupKFold(n_splits=n_splits)
+
+    gs = GridSearchCV(
+        estimator=rCCA(latent_dimensions=1),
+        param_grid={"c": [reg_params, reg_params]},
+        cv=cv_inner,
+        error_score="raise",
+        n_jobs=-1
+    ).fit((X, y), groups=groups)
+
+    best_cx, best_cy = float(gs.best_params_["c"][0]), float(gs.best_params_["c"][1])
+    return best_cx, best_cy
 
 class VoxelSelectionManager:
     def __init__(self, parent):

@@ -1,0 +1,1653 @@
+subject,annotated_feature,region,method,score
+sub-05,pixel,MT,cca,0.13341504868666046
+sub-05,pixel,STS,cca,0.04582041845250588
+sub-05,hue,MT,cca,-0.04280649550327727
+sub-05,hue,STS,cca,0.0827119091002024
+sub-05,face,MT,cca,0.04041136102477616
+sub-05,face,STS,cca,0.06684865593975534
+sub-05,number of agents,MT,cca,0.015347818447407558
+sub-05,number of agents,STS,cca,0.012476471234053843
+sub-05,social,MT,cca,0.05932009864627863
+sub-05,social,STS,cca,0.04581946506317407
+sub-05,valence,MT,cca,0.09659134886928164
+sub-05,valence,STS,cca,0.020333790039557598
+sub-05,arousal,MT,cca,-0.08216331892035225
+sub-05,arousal,STS,cca,0.05994504739138919
+sub-05,pitch,MT,cca,0.07164512336041592
+sub-05,pitch,STS,cca,-0.1137172872931824
+sub-05,amplitude,MT,cca,-0.06427229088568458
+sub-05,amplitude,STS,cca,-0.06219563407366049
+sub-05,music,MT,cca,-0.03501648979915637
+sub-05,music,STS,cca,0.08502041004033031
+sub-05,speaking,MT,cca,-0.03627730649162027
+sub-05,speaking,STS,cca,-0.06962662282160251
+sub-05,turn taking,MT,cca,0.02758336272995563
+sub-05,turn taking,STS,cca,-0.036949428167512545
+sub-05,mentalization,MT,cca,0.05519510519433415
+sub-05,mentalization,STS,cca,0.07398015255050465
+sub-05,written text,MT,cca,0.03744834847741305
+sub-05,written text,STS,cca,0.05568076825728707
+sub-06,pixel,MT,cca,0.13341504868666046
+sub-06,pixel,STS,cca,0.058011068181165394
+sub-06,hue,MT,cca,-0.04280649550327727
+sub-06,hue,STS,cca,0.026756758966201843
+sub-06,face,MT,cca,0.04041136102477616
+sub-06,face,STS,cca,0.11084762567054422
+sub-06,number of agents,MT,cca,0.015347818447407558
+sub-06,number of agents,STS,cca,-0.004946701510324214
+sub-06,social,MT,cca,0.05932009864627863
+sub-06,social,STS,cca,0.16003063863569075
+sub-06,valence,MT,cca,0.09659134886928164
+sub-06,valence,STS,cca,0.15270358726820535
+sub-06,arousal,MT,cca,-0.08216331892035225
+sub-06,arousal,STS,cca,0.05640088718032752
+sub-06,pitch,MT,cca,0.07164512336041592
+sub-06,pitch,STS,cca,-0.10931569090015766
+sub-06,amplitude,MT,cca,-0.06427229088568458
+sub-06,amplitude,STS,cca,0.04295287562440091
+sub-06,music,MT,cca,-0.03501648979915637
+sub-06,music,STS,cca,0.035312009126347396
+sub-06,speaking,MT,cca,-0.03627730649162027
+sub-06,speaking,STS,cca,0.14076892481635156
+sub-06,turn taking,MT,cca,0.02758336272995563
+sub-06,turn taking,STS,cca,0.11907792196852149
+sub-06,mentalization,MT,cca,0.05519510519433415
+sub-06,mentalization,STS,cca,0.043797710564634065
+sub-06,written text,MT,cca,0.03744834847741305
+sub-06,written text,STS,cca,0.06435799827458269
+sub-07,pixel,MT,cca,0.04732295371769333
+sub-07,pixel,STS,cca,-0.059598784398029125
+sub-07,hue,MT,cca,-0.04191248282750106
+sub-07,hue,STS,cca,0.12811896902043401
+sub-07,face,MT,cca,-0.0034167892665073253
+sub-07,face,STS,cca,-0.04361078923570496
+sub-07,number of agents,MT,cca,0.010564938355093423
+sub-07,number of agents,STS,cca,0.0627465931101292
+sub-07,social,MT,cca,0.046688205583743335
+sub-07,social,STS,cca,0.03620876283444614
+sub-07,valence,MT,cca,-0.056966001591410034
+sub-07,valence,STS,cca,0.049195459533575694
+sub-07,arousal,MT,cca,0.014605120188824672
+sub-07,arousal,STS,cca,0.01865270858037067
+sub-07,pitch,MT,cca,0.04009153653262669
+sub-07,pitch,STS,cca,0.040711843467518126
+sub-07,amplitude,MT,cca,-0.06465218615610806
+sub-07,amplitude,STS,cca,-0.05439979549686713
+sub-07,music,MT,cca,0.012622389290992242
+sub-07,music,STS,cca,0.013591830349008415
+sub-07,speaking,MT,cca,0.05606996532320485
+sub-07,speaking,STS,cca,0.036798787074734406
+sub-07,turn taking,MT,cca,0.03894582405141602
+sub-07,turn taking,STS,cca,-0.057951107142910144
+sub-07,mentalization,MT,cca,0.05412696766957459
+sub-07,mentalization,STS,cca,-0.022455952084173992
+sub-07,written text,MT,cca,0.014150369230137017
+sub-07,written text,STS,cca,-0.057036141136474414
+sub-08,pixel,MT,cca,0.11322233054560393
+sub-08,pixel,STS,cca,0.11472140997130405
+sub-08,hue,MT,cca,0.04992926145942487
+sub-08,hue,STS,cca,0.001594722500486756
+sub-08,face,MT,cca,0.0703440388111384
+sub-08,face,STS,cca,0.0913556956938677
+sub-08,number of agents,MT,cca,-0.06822422110618087
+sub-08,number of agents,STS,cca,0.0461562303993839
+sub-08,social,MT,cca,0.0709074128619166
+sub-08,social,STS,cca,0.09278987522650943
+sub-08,valence,MT,cca,0.13148313705785028
+sub-08,valence,STS,cca,0.04674173393006016
+sub-08,arousal,MT,cca,0.038772190816754405
+sub-08,arousal,STS,cca,0.030696306050366773
+sub-08,pitch,MT,cca,0.051982131473035806
+sub-08,pitch,STS,cca,0.1115462831241045
+sub-08,amplitude,MT,cca,-0.015259474929508344
+sub-08,amplitude,STS,cca,-0.00031772558560014816
+sub-08,music,MT,cca,0.09878426486323341
+sub-08,music,STS,cca,0.11410081681018949
+sub-08,speaking,MT,cca,0.047416480898847625
+sub-08,speaking,STS,cca,0.072862651732157
+sub-08,turn taking,MT,cca,0.07168796948600194
+sub-08,turn taking,STS,cca,0.023809005600131307
+sub-08,mentalization,MT,cca,0.05484381605712021
+sub-08,mentalization,STS,cca,0.03941558272268586
+sub-08,written text,MT,cca,0.0635282408259044
+sub-08,written text,STS,cca,-0.027742350279517148
+sub-09,pixel,MT,cca,0.047641819527982875
+sub-09,pixel,STS,cca,0.06087729382178231
+sub-09,hue,MT,cca,-0.027069960606266253
+sub-09,hue,STS,cca,0.038841295518248976
+sub-09,face,MT,cca,-0.058969916566772154
+sub-09,face,STS,cca,-0.0353995506218598
+sub-09,number of agents,MT,cca,0.04007749253353017
+sub-09,number of agents,STS,cca,0.07069177464004053
+sub-09,social,MT,cca,-0.061309336491401356
+sub-09,social,STS,cca,0.07084040227066038
+sub-09,valence,MT,cca,0.035264101076247244
+sub-09,valence,STS,cca,0.22415213162658465
+sub-09,arousal,MT,cca,0.05702972391303403
+sub-09,arousal,STS,cca,0.015951599826986775
+sub-09,pitch,MT,cca,0.007737335433270464
+sub-09,pitch,STS,cca,0.06804379093353079
+sub-09,amplitude,MT,cca,-0.00768293075704467
+sub-09,amplitude,STS,cca,-0.019493697824395584
+sub-09,music,MT,cca,-0.01667636143500517
+sub-09,music,STS,cca,0.10669593927695127
+sub-09,speaking,MT,cca,-0.005206319389436431
+sub-09,speaking,STS,cca,0.1336530598235509
+sub-09,turn taking,MT,cca,-0.05794432630798916
+sub-09,turn taking,STS,cca,0.06744000065104201
+sub-09,mentalization,MT,cca,0.04150995485756348
+sub-09,mentalization,STS,cca,0.05958320742713867
+sub-09,written text,MT,cca,0.04297429816028864
+sub-09,written text,STS,cca,-0.004654681439123509
+sub-10,pixel,MT,cca,-0.024861847924191372
+sub-10,pixel,STS,cca,0.055756621900388034
+sub-10,hue,MT,cca,0.06672851045965893
+sub-10,hue,STS,cca,0.0337877648067201
+sub-10,face,MT,cca,0.04087386043033301
+sub-10,face,STS,cca,0.08819056474112123
+sub-10,number of agents,MT,cca,0.061574844434019615
+sub-10,number of agents,STS,cca,-0.008968845075772624
+sub-10,social,MT,cca,-0.039316505392408184
+sub-10,social,STS,cca,0.10366929314690065
+sub-10,valence,MT,cca,0.003724004467249631
+sub-10,valence,STS,cca,-0.05126575905762665
+sub-10,arousal,MT,cca,-0.024538241538154936
+sub-10,arousal,STS,cca,0.09799261136516538
+sub-10,pitch,MT,cca,0.026985705214275013
+sub-10,pitch,STS,cca,-0.0826618105152441
+sub-10,amplitude,MT,cca,-0.0292542795657345
+sub-10,amplitude,STS,cca,-0.03641651865934068
+sub-10,music,MT,cca,-0.05840016524532665
+sub-10,music,STS,cca,0.08241132459265366
+sub-10,speaking,MT,cca,-0.007034370411723856
+sub-10,speaking,STS,cca,0.09247411842686486
+sub-10,turn taking,MT,cca,-0.01993454354400801
+sub-10,turn taking,STS,cca,0.0419176768679961
+sub-10,mentalization,MT,cca,0.06403570279055618
+sub-10,mentalization,STS,cca,0.047226846923156665
+sub-10,written text,MT,cca,-0.04845186661156577
+sub-10,written text,STS,cca,0.025094947850167148
+sub-14,pixel,MT,cca,0.13341504868666046
+sub-14,pixel,STS,cca,0.06095364574590421
+sub-14,hue,MT,cca,-0.04280649550327727
+sub-14,hue,STS,cca,0.0387600232628265
+sub-14,face,MT,cca,0.04041136102477616
+sub-14,face,STS,cca,0.04128532160394096
+sub-14,number of agents,MT,cca,0.015347818447407558
+sub-14,number of agents,STS,cca,-0.012186512193419041
+sub-14,social,MT,cca,0.05932009864627863
+sub-14,social,STS,cca,0.02593534650376761
+sub-14,valence,MT,cca,0.09659134886928164
+sub-14,valence,STS,cca,0.03115942194553689
+sub-14,arousal,MT,cca,-0.08216331892035225
+sub-14,arousal,STS,cca,-0.05980821450239304
+sub-14,pitch,MT,cca,0.07164512336041592
+sub-14,pitch,STS,cca,0.05824810304826884
+sub-14,amplitude,MT,cca,-0.06427229088568458
+sub-14,amplitude,STS,cca,0.021120304711041805
+sub-14,music,MT,cca,-0.03501648979915637
+sub-14,music,STS,cca,0.01527247799929472
+sub-14,speaking,MT,cca,-0.03627730649162027
+sub-14,speaking,STS,cca,0.019485416616189834
+sub-14,turn taking,MT,cca,0.02758336272995563
+sub-14,turn taking,STS,cca,0.033525111415710705
+sub-14,mentalization,MT,cca,0.05519510519433415
+sub-14,mentalization,STS,cca,-0.06581003034034572
+sub-14,written text,MT,cca,0.03744834847741305
+sub-14,written text,STS,cca,-0.04682858413930482
+sub-15,pixel,MT,cca,0.12804892655137393
+sub-15,pixel,STS,cca,0.05042624555179347
+sub-15,hue,MT,cca,0.1209992284621471
+sub-15,hue,STS,cca,0.07946852724278228
+sub-15,face,MT,cca,0.039744797000649944
+sub-15,face,STS,cca,0.028961610840112506
+sub-15,number of agents,MT,cca,-0.015305311654141729
+sub-15,number of agents,STS,cca,0.0019338335982528765
+sub-15,social,MT,cca,0.06725231928257122
+sub-15,social,STS,cca,0.051658194764513145
+sub-15,valence,MT,cca,0.12044022244982125
+sub-15,valence,STS,cca,0.15421082816100817
+sub-15,arousal,MT,cca,-0.06729578342968297
+sub-15,arousal,STS,cca,-0.12944063086326357
+sub-15,pitch,MT,cca,0.06673414270360371
+sub-15,pitch,STS,cca,-0.03439610679097418
+sub-15,amplitude,MT,cca,-0.03396294312900609
+sub-15,amplitude,STS,cca,-0.024100690969146264
+sub-15,music,MT,cca,0.13266370458243193
+sub-15,music,STS,cca,0.06918467753237859
+sub-15,speaking,MT,cca,0.0028665391161162733
+sub-15,speaking,STS,cca,0.01901020547218919
+sub-15,turn taking,MT,cca,0.015329342507260969
+sub-15,turn taking,STS,cca,-0.042239786509435696
+sub-15,mentalization,MT,cca,0.029186965106003805
+sub-15,mentalization,STS,cca,-0.004657752568741369
+sub-15,written text,MT,cca,0.044524407287983105
+sub-15,written text,STS,cca,0.0185585259377663
+sub-16,pixel,MT,cca,0.13341504868666046
+sub-16,pixel,STS,cca,-0.03103097602448417
+sub-16,hue,MT,cca,-0.04280649550327727
+sub-16,hue,STS,cca,0.13697960074512072
+sub-16,face,MT,cca,0.04041136102477616
+sub-16,face,STS,cca,0.08063547260449547
+sub-16,number of agents,MT,cca,0.015347818447407558
+sub-16,number of agents,STS,cca,0.08490526576824556
+sub-16,social,MT,cca,0.05932009864627863
+sub-16,social,STS,cca,-0.06826977871832582
+sub-16,valence,MT,cca,0.09659134886928164
+sub-16,valence,STS,cca,0.12541418558522438
+sub-16,arousal,MT,cca,-0.08216331892035225
+sub-16,arousal,STS,cca,-0.0563571308086966
+sub-16,pitch,MT,cca,0.07164512336041592
+sub-16,pitch,STS,cca,-0.061232130433646836
+sub-16,amplitude,MT,cca,-0.06427229088568458
+sub-16,amplitude,STS,cca,-0.07667062382376415
+sub-16,music,MT,cca,-0.03501648979915637
+sub-16,music,STS,cca,0.04232325649620829
+sub-16,speaking,MT,cca,-0.03627730649162027
+sub-16,speaking,STS,cca,-0.01742896312936426
+sub-16,turn taking,MT,cca,0.02758336272995563
+sub-16,turn taking,STS,cca,-0.029444798253375936
+sub-16,mentalization,MT,cca,0.05519510519433415
+sub-16,mentalization,STS,cca,0.028418947292445963
+sub-16,written text,MT,cca,0.03744834847741305
+sub-16,written text,STS,cca,-0.06516545084920533
+sub-19,pixel,MT,cca,0.13341504868666046
+sub-19,pixel,STS,cca,0.08367090469286906
+sub-19,pixel,temporal,cca,0.07985860901688428
+sub-19,pixel,frontal,cca,-0.06502077744312698
+sub-19,hue,MT,cca,-0.04280649550327727
+sub-19,hue,STS,cca,0.03948599944857405
+sub-19,hue,temporal,cca,0.08014628073663096
+sub-19,hue,frontal,cca,0.11376451113687022
+sub-19,face,MT,cca,0.04041136102477616
+sub-19,face,STS,cca,0.0188256389764462
+sub-19,face,temporal,cca,0.08189066663454839
+sub-19,face,frontal,cca,0.01780498854907182
+sub-19,number of agents,MT,cca,0.015347818447407558
+sub-19,number of agents,STS,cca,0.07493179572217165
+sub-19,number of agents,temporal,cca,0.04497177900192693
+sub-19,number of agents,frontal,cca,0.05720652534724806
+sub-19,social,MT,cca,0.05932009864627863
+sub-19,social,STS,cca,0.016437209782471585
+sub-19,social,temporal,cca,0.03895278231124677
+sub-19,social,frontal,cca,0.05266569323883401
+sub-19,valence,MT,cca,0.09659134886928164
+sub-19,valence,STS,cca,0.17481356559983707
+sub-19,valence,temporal,cca,0.16532355304148863
+sub-19,valence,frontal,cca,0.118222303749668
+sub-19,arousal,MT,cca,-0.08216331892035225
+sub-19,arousal,STS,cca,0.000531746231440433
+sub-19,arousal,temporal,cca,-0.13771545276891767
+sub-19,arousal,frontal,cca,-0.07433982587854704
+sub-19,pitch,MT,cca,0.07164512336041592
+sub-19,pitch,STS,cca,0.041443143023613536
+sub-19,pitch,temporal,cca,-0.005219346512107159
+sub-19,pitch,frontal,cca,-0.002057327529670183
+sub-19,amplitude,MT,cca,-0.06427229088568458
+sub-19,amplitude,STS,cca,-0.01397129481564292
+sub-19,amplitude,temporal,cca,0.019055337769424564
+sub-19,amplitude,frontal,cca,-0.007394849371206292
+sub-19,music,MT,cca,-0.03501648979915637
+sub-19,music,STS,cca,0.041727265903232745
+sub-19,music,temporal,cca,0.045263422795993824
+sub-19,music,frontal,cca,-0.002358894947515955
+sub-19,speaking,MT,cca,-0.03627730649162027
+sub-19,speaking,STS,cca,0.021095167921795645
+sub-19,speaking,temporal,cca,-0.0031650853755167407
+sub-19,speaking,frontal,cca,0.06889689202598559
+sub-19,turn taking,MT,cca,0.02758336272995563
+sub-19,turn taking,STS,cca,-0.02207436598075376
+sub-19,turn taking,temporal,cca,0.04340051934525992
+sub-19,turn taking,frontal,cca,0.06836782788637527
+sub-19,mentalization,MT,cca,0.05519510519433415
+sub-19,mentalization,STS,cca,0.0816577406390973
+sub-19,mentalization,temporal,cca,-0.02645324469215604
+sub-19,mentalization,frontal,cca,0.03279315760648949
+sub-19,written text,MT,cca,0.03744834847741305
+sub-19,written text,STS,cca,-0.0636657201190666
+sub-19,written text,temporal,cca,0.06605734863409914
+sub-19,written text,frontal,cca,0.05332187090579965
+sub-23,pixel,MT,cca,0.13341504868666046
+sub-23,pixel,STS,cca,0.1585193915426649
+sub-23,pixel,temporal,cca,-0.026919503356480745
+sub-23,pixel,frontal,cca,0.14219935288777888
+sub-23,hue,MT,cca,-0.04280649550327727
+sub-23,hue,STS,cca,0.022039415574860687
+sub-23,hue,temporal,cca,0.012427841612542779
+sub-23,hue,frontal,cca,-0.00013300153583497564
+sub-23,face,MT,cca,0.04041136102477616
+sub-23,face,STS,cca,0.18377296954737293
+sub-23,face,temporal,cca,0.05973895811098353
+sub-23,face,frontal,cca,0.1756218065721818
+sub-23,number of agents,MT,cca,0.015347818447407558
+sub-23,number of agents,STS,cca,-0.03384413525970824
+sub-23,number of agents,temporal,cca,-0.029870520867344385
+sub-23,number of agents,frontal,cca,0.03053255658747629
+sub-23,social,MT,cca,0.05932009864627863
+sub-23,social,STS,cca,0.11728203000847959
+sub-23,social,temporal,cca,0.08811115881193828
+sub-23,social,frontal,cca,0.1451316992118723
+sub-23,valence,MT,cca,0.09659134886928164
+sub-23,valence,STS,cca,0.1972537109325731
+sub-23,valence,temporal,cca,0.14539616412790063
+sub-23,valence,frontal,cca,0.1672812495965666
+sub-23,arousal,MT,cca,-0.08216331892035225
+sub-23,arousal,STS,cca,0.0683198861265338
+sub-23,arousal,temporal,cca,-0.060591147996678106
+sub-23,arousal,frontal,cca,0.07753039973491652
+sub-23,pitch,MT,cca,0.07164512336041592
+sub-23,pitch,STS,cca,0.0249583191792609
+sub-23,pitch,temporal,cca,0.05258336504726273
+sub-23,pitch,frontal,cca,-0.04051790964371218
+sub-23,amplitude,MT,cca,-0.06427229088568458
+sub-23,amplitude,STS,cca,0.11528192126946028
+sub-23,amplitude,temporal,cca,0.10744026342547466
+sub-23,amplitude,frontal,cca,0.028755531838461225
+sub-23,music,MT,cca,-0.03501648979915637
+sub-23,music,STS,cca,-0.041444582546569464
+sub-23,music,temporal,cca,-0.021420906164498366
+sub-23,music,frontal,cca,0.0613546086943465
+sub-23,speaking,MT,cca,-0.03627730649162027
+sub-23,speaking,STS,cca,0.11809794118026833
+sub-23,speaking,temporal,cca,0.06925220670318488
+sub-23,speaking,frontal,cca,0.10688490053441138
+sub-23,turn taking,MT,cca,0.02758336272995563
+sub-23,turn taking,STS,cca,0.0941810219414783
+sub-23,turn taking,temporal,cca,0.08182023410648778
+sub-23,turn taking,frontal,cca,0.08576869430677769
+sub-23,mentalization,MT,cca,0.05519510519433415
+sub-23,mentalization,STS,cca,0.09467924986549767
+sub-23,mentalization,temporal,cca,-0.09143907432023299
+sub-23,mentalization,frontal,cca,0.12487792576507131
+sub-23,written text,MT,cca,0.03744834847741305
+sub-23,written text,STS,cca,0.04803729045713512
+sub-23,written text,temporal,cca,0.029709462458484735
+sub-23,written text,frontal,cca,0.04395736279401772
+sub-25,pixel,MT,cca,0.13341504868666046
+sub-25,pixel,STS,cca,0.040519537903948064
+sub-25,pixel,temporal,cca,0.15059268183435884
+sub-25,pixel,frontal,cca,0.059277159092748374
+sub-25,hue,MT,cca,-0.04280649550327727
+sub-25,hue,STS,cca,0.1313151086151508
+sub-25,hue,temporal,cca,0.060056936072909115
+sub-25,hue,frontal,cca,0.05920729959458586
+sub-25,face,MT,cca,0.04041136102477616
+sub-25,face,STS,cca,0.0922749238493056
+sub-25,face,temporal,cca,0.16506327376328808
+sub-25,face,frontal,cca,0.024869380145583396
+sub-25,number of agents,MT,cca,0.015347818447407558
+sub-25,number of agents,STS,cca,-0.02515673498953517
+sub-25,number of agents,temporal,cca,0.01825840002816235
+sub-25,number of agents,frontal,cca,0.024618183141797357
+sub-25,social,MT,cca,0.05932009864627863
+sub-25,social,STS,cca,0.09628164618424573
+sub-25,social,temporal,cca,0.0918330409672485
+sub-25,social,frontal,cca,0.06498141532916395
+sub-25,valence,MT,cca,0.09659134886928164
+sub-25,valence,STS,cca,0.06877213370168467
+sub-25,valence,temporal,cca,0.20408174639173185
+sub-25,valence,frontal,cca,0.15387708893101051
+sub-25,arousal,MT,cca,-0.08216331892035225
+sub-25,arousal,STS,cca,0.04142372121111446
+sub-25,arousal,temporal,cca,0.027075376344883995
+sub-25,arousal,frontal,cca,-0.06069342667491939
+sub-25,pitch,MT,cca,0.07164512336041592
+sub-25,pitch,STS,cca,-0.07262719647450924
+sub-25,pitch,temporal,cca,0.012340314833804423
+sub-25,pitch,frontal,cca,-0.04535837209156986
+sub-25,amplitude,MT,cca,-0.06427229088568458
+sub-25,amplitude,STS,cca,-0.08262254166688576
+sub-25,amplitude,temporal,cca,0.00938229703332023
+sub-25,amplitude,frontal,cca,-0.032806355172756055
+sub-25,music,MT,cca,-0.03501648979915637
+sub-25,music,STS,cca,-0.026834458104691716
+sub-25,music,temporal,cca,0.06551413204416005
+sub-25,music,frontal,cca,0.05318209946704855
+sub-25,speaking,MT,cca,-0.03627730649162027
+sub-25,speaking,STS,cca,0.09902478019608178
+sub-25,speaking,temporal,cca,0.09133465791211419
+sub-25,speaking,frontal,cca,0.017488569785306506
+sub-25,turn taking,MT,cca,0.02758336272995563
+sub-25,turn taking,STS,cca,0.051786428549375985
+sub-25,turn taking,temporal,cca,0.079624830699677
+sub-25,turn taking,frontal,cca,-0.05533234514291228
+sub-25,mentalization,MT,cca,0.05519510519433415
+sub-25,mentalization,STS,cca,0.08386906346194829
+sub-25,mentalization,temporal,cca,0.09500064562706348
+sub-25,mentalization,frontal,cca,-0.004803947130328901
+sub-25,written text,MT,cca,0.03744834847741305
+sub-25,written text,STS,cca,0.023674501438857833
+sub-25,written text,temporal,cca,0.04623678237628983
+sub-25,written text,frontal,cca,0.03240848773035232
+sub-26,pixel,MT,cca,0.08865060914474743
+sub-26,pixel,STS,cca,0.08714458275937656
+sub-26,pixel,temporal,cca,-0.051854761371643174
+sub-26,pixel,frontal,cca,0.20222196548958102
+sub-26,hue,MT,cca,0.04015489734389963
+sub-26,hue,STS,cca,0.01317395916249644
+sub-26,hue,temporal,cca,-0.019176980858207314
+sub-26,hue,frontal,cca,0.013054655979041563
+sub-26,face,MT,cca,0.07077200309177303
+sub-26,face,STS,cca,0.040319978079693855
+sub-26,face,temporal,cca,0.06267099210291964
+sub-26,face,frontal,cca,0.038399429668887784
+sub-26,number of agents,MT,cca,0.011662193760956762
+sub-26,number of agents,STS,cca,0.042171783234344964
+sub-26,number of agents,temporal,cca,0.06063507220281754
+sub-26,number of agents,frontal,cca,0.05880702873967665
+sub-26,social,MT,cca,0.0930361044967758
+sub-26,social,STS,cca,0.07098841714365474
+sub-26,social,temporal,cca,-0.01901345202081859
+sub-26,social,frontal,cca,-0.0901195306441798
+sub-26,valence,MT,cca,0.10205242660279634
+sub-26,valence,STS,cca,0.05751905684860512
+sub-26,valence,temporal,cca,0.06755090097690057
+sub-26,valence,frontal,cca,0.08696174586774619
+sub-26,arousal,MT,cca,0.06539774734238797
+sub-26,arousal,STS,cca,0.1132480634995526
+sub-26,arousal,temporal,cca,0.035123541983908504
+sub-26,arousal,frontal,cca,0.06260948656031788
+sub-26,pitch,MT,cca,0.047406965538704784
+sub-26,pitch,STS,cca,0.06679769176064285
+sub-26,pitch,temporal,cca,-0.015482471911818885
+sub-26,pitch,frontal,cca,0.04881703275420346
+sub-26,amplitude,MT,cca,0.06785750084436351
+sub-26,amplitude,STS,cca,0.03106918585043905
+sub-26,amplitude,temporal,cca,0.0411247248717471
+sub-26,amplitude,frontal,cca,0.006679257062412858
+sub-26,music,MT,cca,0.116206561039782
+sub-26,music,STS,cca,0.10318360474404172
+sub-26,music,temporal,cca,-0.005146754014656562
+sub-26,music,frontal,cca,0.1204358391219976
+sub-26,speaking,MT,cca,0.07856084084181054
+sub-26,speaking,STS,cca,0.04312747959656264
+sub-26,speaking,temporal,cca,-0.029842759319532397
+sub-26,speaking,frontal,cca,-0.0864397107107298
+sub-26,turn taking,MT,cca,-0.051235318505905944
+sub-26,turn taking,STS,cca,-0.009852001294349821
+sub-26,turn taking,temporal,cca,0.005916628312775551
+sub-26,turn taking,frontal,cca,-0.06410562832732888
+sub-26,mentalization,MT,cca,0.104827103009892
+sub-26,mentalization,STS,cca,0.0712951138714649
+sub-26,mentalization,temporal,cca,0.006887042705319746
+sub-26,mentalization,frontal,cca,0.0673364531277832
+sub-26,written text,MT,cca,-0.018265711495453463
+sub-26,written text,STS,cca,0.03730888191203123
+sub-26,written text,temporal,cca,-0.02002491841300258
+sub-26,written text,frontal,cca,-0.06932922461256238
+sub-28,pixel,MT,cca,-0.11208267030575851
+sub-28,pixel,STS,cca,0.044466736517124475
+sub-28,pixel,temporal,cca,0.10493379078978711
+sub-28,pixel,frontal,cca,0.03878949711984516
+sub-28,hue,MT,cca,0.11179607737134165
+sub-28,hue,STS,cca,0.04252488880018279
+sub-28,hue,temporal,cca,0.061809559007122775
+sub-28,hue,frontal,cca,0.07231730982902747
+sub-28,face,MT,cca,-0.07850344297140568
+sub-28,face,STS,cca,0.025005027712410664
+sub-28,face,temporal,cca,0.03789070147654947
+sub-28,face,frontal,cca,0.0607515989576922
+sub-28,number of agents,MT,cca,0.0005598169036844736
+sub-28,number of agents,STS,cca,-0.048910267302862076
+sub-28,number of agents,temporal,cca,-0.02449996691112095
+sub-28,number of agents,frontal,cca,-0.04229351569067317
+sub-28,social,MT,cca,-0.022805241475985394
+sub-28,social,STS,cca,-0.06207467649513063
+sub-28,social,temporal,cca,0.014943950580021691
+sub-28,social,frontal,cca,0.028305137904113466
+sub-28,valence,MT,cca,0.06290730999623191
+sub-28,valence,STS,cca,0.08384695971512106
+sub-28,valence,temporal,cca,0.18472418859715165
+sub-28,valence,frontal,cca,0.15631415006596155
+sub-28,arousal,MT,cca,0.03158200480601388
+sub-28,arousal,STS,cca,0.05974681097013277
+sub-28,arousal,temporal,cca,0.12158420157186345
+sub-28,arousal,frontal,cca,0.011184402270844695
+sub-28,pitch,MT,cca,0.046216328928187965
+sub-28,pitch,STS,cca,-0.038973481052681544
+sub-28,pitch,temporal,cca,0.04425583619511504
+sub-28,pitch,frontal,cca,-0.02786353444733165
+sub-28,amplitude,MT,cca,0.024285916789412852
+sub-28,amplitude,STS,cca,0.06217418166632105
+sub-28,amplitude,temporal,cca,0.07221925652882884
+sub-28,amplitude,frontal,cca,0.029032083390157504
+sub-28,music,MT,cca,0.15234503540168637
+sub-28,music,STS,cca,-0.04701005517860888
+sub-28,music,temporal,cca,0.08226716173552504
+sub-28,music,frontal,cca,0.017022726994506597
+sub-28,speaking,MT,cca,-0.007228150963568947
+sub-28,speaking,STS,cca,-0.03996740071078244
+sub-28,speaking,temporal,cca,0.08030523675699688
+sub-28,speaking,frontal,cca,-0.10473251584078869
+sub-28,turn taking,MT,cca,0.018745688011143912
+sub-28,turn taking,STS,cca,0.032678616034432714
+sub-28,turn taking,temporal,cca,0.078846789856446
+sub-28,turn taking,frontal,cca,0.06979992192682771
+sub-28,mentalization,MT,cca,0.0025931363197318367
+sub-28,mentalization,STS,cca,0.0322115078819055
+sub-28,mentalization,temporal,cca,-0.0016609318375414794
+sub-28,mentalization,frontal,cca,-0.06105800663743777
+sub-28,written text,MT,cca,0.040915550410586435
+sub-28,written text,STS,cca,-0.04676629914627643
+sub-28,written text,temporal,cca,-0.00854953080342713
+sub-28,written text,frontal,cca,0.05256566520169601
+sub-32,pixel,MT,cca,0.13341504868666046
+sub-32,pixel,STS,cca,0.11620357417734853
+sub-32,pixel,temporal,cca,0.1473499140990524
+sub-32,pixel,frontal,cca,-0.03537934875106032
+sub-32,hue,MT,cca,-0.04280649550327727
+sub-32,hue,STS,cca,0.0440047249728948
+sub-32,hue,temporal,cca,0.08786151104784641
+sub-32,hue,frontal,cca,-0.05105580065042137
+sub-32,face,MT,cca,0.04041136102477616
+sub-32,face,STS,cca,0.0685048898425575
+sub-32,face,temporal,cca,0.08135388293081265
+sub-32,face,frontal,cca,-0.003046448805506352
+sub-32,number of agents,MT,cca,0.015347818447407558
+sub-32,number of agents,STS,cca,0.0212235396545394
+sub-32,number of agents,temporal,cca,0.041192292205167645
+sub-32,number of agents,frontal,cca,0.015424649657898692
+sub-32,social,MT,cca,0.05932009864627863
+sub-32,social,STS,cca,0.09997288660166062
+sub-32,social,temporal,cca,0.06629840584811797
+sub-32,social,frontal,cca,0.017397993195670924
+sub-32,valence,MT,cca,0.09659134886928164
+sub-32,valence,STS,cca,0.15263612971194904
+sub-32,valence,temporal,cca,0.13056782647026846
+sub-32,valence,frontal,cca,0.09118427577552217
+sub-32,arousal,MT,cca,-0.08216331892035225
+sub-32,arousal,STS,cca,0.11052257705781202
+sub-32,arousal,temporal,cca,0.07099105550853588
+sub-32,arousal,frontal,cca,-0.04567404278880978
+sub-32,pitch,MT,cca,0.07164512336041592
+sub-32,pitch,STS,cca,-0.12674788153690802
+sub-32,pitch,temporal,cca,0.039705349302846346
+sub-32,pitch,frontal,cca,-0.13439122148257002
+sub-32,amplitude,MT,cca,-0.06427229088568458
+sub-32,amplitude,STS,cca,0.03855904607079075
+sub-32,amplitude,temporal,cca,-0.0007017978307515937
+sub-32,amplitude,frontal,cca,0.02161601188940192
+sub-32,music,MT,cca,-0.03501648979915637
+sub-32,music,STS,cca,0.02412519067828054
+sub-32,music,temporal,cca,0.08757197866595909
+sub-32,music,frontal,cca,0.022891953437229072
+sub-32,speaking,MT,cca,-0.03627730649162027
+sub-32,speaking,STS,cca,0.038631124532494975
+sub-32,speaking,temporal,cca,0.04043460658601892
+sub-32,speaking,frontal,cca,-0.0290736823642191
+sub-32,turn taking,MT,cca,0.02758336272995563
+sub-32,turn taking,STS,cca,0.0654379769334728
+sub-32,turn taking,temporal,cca,-0.05354094508764473
+sub-32,turn taking,frontal,cca,0.07523472157406189
+sub-32,mentalization,MT,cca,0.05519510519433415
+sub-32,mentalization,STS,cca,0.024963021222098036
+sub-32,mentalization,temporal,cca,0.052430438738472196
+sub-32,mentalization,frontal,cca,-0.057435713486182795
+sub-32,written text,MT,cca,0.03744834847741305
+sub-32,written text,STS,cca,0.07979167918831283
+sub-32,written text,temporal,cca,-0.017218114745917012
+sub-32,written text,frontal,cca,0.07745483905635345
+sub-33,pixel,MT,cca,0.12391195337537879
+sub-33,pixel,STS,cca,0.030812148604583568
+sub-33,pixel,temporal,cca,0.03431385203431381
+sub-33,pixel,frontal,cca,0.08125317591324732
+sub-33,hue,MT,cca,-0.08236893005154386
+sub-33,hue,STS,cca,0.1391308684538571
+sub-33,hue,temporal,cca,0.028607906048205754
+sub-33,hue,frontal,cca,-0.06187299021837942
+sub-33,face,MT,cca,0.038349673914927586
+sub-33,face,STS,cca,-0.056934756611323634
+sub-33,face,temporal,cca,0.07097839087060494
+sub-33,face,frontal,cca,0.07959484897820861
+sub-33,number of agents,MT,cca,0.014226275795959541
+sub-33,number of agents,STS,cca,-0.023834570824340373
+sub-33,number of agents,temporal,cca,0.03445198978451236
+sub-33,number of agents,frontal,cca,0.04246690259196815
+sub-33,social,MT,cca,0.07277332743042424
+sub-33,social,STS,cca,0.003370499517286385
+sub-33,social,temporal,cca,0.044669553375361735
+sub-33,social,frontal,cca,0.09416506446725226
+sub-33,valence,MT,cca,0.10718907053459907
+sub-33,valence,STS,cca,0.05610450494784227
+sub-33,valence,temporal,cca,0.07115766913728891
+sub-33,valence,frontal,cca,0.11462117025332823
+sub-33,arousal,MT,cca,-0.03814390341262854
+sub-33,arousal,STS,cca,0.03738967270839011
+sub-33,arousal,temporal,cca,0.06438878567486817
+sub-33,arousal,frontal,cca,0.059847056838526
+sub-33,pitch,MT,cca,0.088961202438366
+sub-33,pitch,STS,cca,0.008232132210779142
+sub-33,pitch,temporal,cca,-0.010883130998931479
+sub-33,pitch,frontal,cca,0.1505986276997541
+sub-33,amplitude,MT,cca,-0.05359354608189899
+sub-33,amplitude,STS,cca,0.019334410055794303
+sub-33,amplitude,temporal,cca,0.016067913620963624
+sub-33,amplitude,frontal,cca,0.11691948388696258
+sub-33,music,MT,cca,-0.019723132720074688
+sub-33,music,STS,cca,0.05073096944214302
+sub-33,music,temporal,cca,-0.035423297573635625
+sub-33,music,frontal,cca,0.07419946469231395
+sub-33,speaking,MT,cca,-0.007929939824653598
+sub-33,speaking,STS,cca,-0.022898858083448093
+sub-33,speaking,temporal,cca,0.06668180829222026
+sub-33,speaking,frontal,cca,0.09259565896433437
+sub-33,turn taking,MT,cca,0.032294884024666
+sub-33,turn taking,STS,cca,-0.061993585720244916
+sub-33,turn taking,temporal,cca,0.00522846284996945
+sub-33,turn taking,frontal,cca,0.045661713348955676
+sub-33,mentalization,MT,cca,0.05248169893052743
+sub-33,mentalization,STS,cca,-0.07367997524747186
+sub-33,mentalization,temporal,cca,-0.05828156228467081
+sub-33,mentalization,frontal,cca,-0.023506376308393317
+sub-33,written text,MT,cca,0.020119456402771418
+sub-33,written text,STS,cca,0.042822923054504414
+sub-33,written text,temporal,cca,-0.028189858778854337
+sub-33,written text,frontal,cca,-0.05484466463167568
+sub-35,pixel,MT,cca,0.046929476940557734
+sub-35,pixel,STS,cca,-0.12231254687210351
+sub-35,pixel,temporal,cca,-0.06316255438477283
+sub-35,pixel,frontal,cca,0.015457265046838998
+sub-35,hue,MT,cca,0.010600070297373443
+sub-35,hue,STS,cca,0.08307021849250855
+sub-35,hue,temporal,cca,0.09519218123187204
+sub-35,hue,frontal,cca,0.004195453572651275
+sub-35,face,MT,cca,0.03854036364502691
+sub-35,face,STS,cca,-0.021974054528217747
+sub-35,face,temporal,cca,-0.010718885416801128
+sub-35,face,frontal,cca,0.055355873936379196
+sub-35,number of agents,MT,cca,-0.010330718584455712
+sub-35,number of agents,STS,cca,0.019770025654076706
+sub-35,number of agents,temporal,cca,-0.08622808872868423
+sub-35,number of agents,frontal,cca,-0.005646455301479158
+sub-35,social,MT,cca,0.017570042673706633
+sub-35,social,STS,cca,0.034639411296265646
+sub-35,social,temporal,cca,-0.0681193330473919
+sub-35,social,frontal,cca,0.11398472877147507
+sub-35,valence,MT,cca,-0.00978736532483786
+sub-35,valence,STS,cca,0.04559625342273928
+sub-35,valence,temporal,cca,0.08028417680394964
+sub-35,valence,frontal,cca,0.1666548063598003
+sub-35,arousal,MT,cca,0.034072490968423866
+sub-35,arousal,STS,cca,-0.08775113140400721
+sub-35,arousal,temporal,cca,-0.07921459781410098
+sub-35,arousal,frontal,cca,0.0036186186336551575
+sub-35,pitch,MT,cca,0.06323230039630712
+sub-35,pitch,STS,cca,0.031829688007800484
+sub-35,pitch,temporal,cca,-0.004671815401093937
+sub-35,pitch,frontal,cca,-0.08485660007067983
+sub-35,amplitude,MT,cca,-0.05973251183906088
+sub-35,amplitude,STS,cca,0.08154500551131685
+sub-35,amplitude,temporal,cca,-0.0006681796413393615
+sub-35,amplitude,frontal,cca,-0.00731072309743479
+sub-35,music,MT,cca,0.03019752810254339
+sub-35,music,STS,cca,0.056020636666034206
+sub-35,music,temporal,cca,0.03096285942283159
+sub-35,music,frontal,cca,0.029475042119816507
+sub-35,speaking,MT,cca,0.007047988448431397
+sub-35,speaking,STS,cca,0.03371111527955195
+sub-35,speaking,temporal,cca,-0.06023378715062071
+sub-35,speaking,frontal,cca,0.0914768458995698
+sub-35,turn taking,MT,cca,-0.010591373965091822
+sub-35,turn taking,STS,cca,0.004325752635311986
+sub-35,turn taking,temporal,cca,0.030311086188455703
+sub-35,turn taking,frontal,cca,0.04133909359694523
+sub-35,mentalization,MT,cca,0.04053788504834084
+sub-35,mentalization,STS,cca,0.038453530256410316
+sub-35,mentalization,temporal,cca,0.05585524964212958
+sub-35,mentalization,frontal,cca,0.06096612042473302
+sub-35,written text,MT,cca,0.014701039737028965
+sub-35,written text,STS,cca,-0.05646577788455347
+sub-35,written text,temporal,cca,0.033343185282320345
+sub-35,written text,frontal,cca,-0.06451549502360492
+sub-36,pixel,MT,cca,0.0510717755705854
+sub-36,pixel,STS,cca,0.04892596139094563
+sub-36,pixel,temporal,cca,0.028769428705396827
+sub-36,pixel,frontal,cca,0.046066773689814156
+sub-36,hue,MT,cca,-0.007873408449836949
+sub-36,hue,STS,cca,0.06199819025192577
+sub-36,hue,temporal,cca,0.10914115097356061
+sub-36,hue,frontal,cca,-0.00149982156632964
+sub-36,face,MT,cca,0.017648096878166774
+sub-36,face,STS,cca,0.07118777001112149
+sub-36,face,temporal,cca,0.022524487731646503
+sub-36,face,frontal,cca,-0.014376396493489652
+sub-36,number of agents,MT,cca,-0.04393373085596779
+sub-36,number of agents,STS,cca,-0.06004717814041436
+sub-36,number of agents,temporal,cca,0.08633650183221034
+sub-36,number of agents,frontal,cca,0.02732668282940709
+sub-36,social,MT,cca,-0.0385705885742484
+sub-36,social,STS,cca,0.05982990041451797
+sub-36,social,temporal,cca,0.03698848659569411
+sub-36,social,frontal,cca,0.018839500687567633
+sub-36,valence,MT,cca,0.1474512963505012
+sub-36,valence,STS,cca,0.029910358254913838
+sub-36,valence,temporal,cca,-0.010622471383227717
+sub-36,valence,frontal,cca,0.03669640536637231
+sub-36,arousal,MT,cca,-0.05196921902797165
+sub-36,arousal,STS,cca,0.02158199117457471
+sub-36,arousal,temporal,cca,0.06435198497220074
+sub-36,arousal,frontal,cca,0.036214330590761824
+sub-36,pitch,MT,cca,0.003001525618304446
+sub-36,pitch,STS,cca,0.002718508379552076
+sub-36,pitch,temporal,cca,0.10739999962518584
+sub-36,pitch,frontal,cca,-0.10258921131350444
+sub-36,amplitude,MT,cca,0.04677929571594488
+sub-36,amplitude,STS,cca,-0.0681465037994432
+sub-36,amplitude,temporal,cca,0.07154226148351805
+sub-36,amplitude,frontal,cca,-0.02922317957172227
+sub-36,music,MT,cca,-0.09942885063446039
+sub-36,music,STS,cca,-0.07572908323648168
+sub-36,music,temporal,cca,0.15471017897799794
+sub-36,music,frontal,cca,0.07840138813027106
+sub-36,speaking,MT,cca,-0.09680269509279797
+sub-36,speaking,STS,cca,0.07388005357515523
+sub-36,speaking,temporal,cca,0.056714829889417694
+sub-36,speaking,frontal,cca,0.011093335869218679
+sub-36,turn taking,MT,cca,0.045326224027891236
+sub-36,turn taking,STS,cca,0.053709456194361495
+sub-36,turn taking,temporal,cca,0.05087566225001763
+sub-36,turn taking,frontal,cca,0.08182917897325956
+sub-36,mentalization,MT,cca,-0.09383354403088931
+sub-36,mentalization,STS,cca,0.07648705435365444
+sub-36,mentalization,temporal,cca,0.06435074331114299
+sub-36,mentalization,frontal,cca,-0.04978692566068439
+sub-36,written text,MT,cca,0.05404207949588653
+sub-36,written text,STS,cca,-0.0326549321080825
+sub-36,written text,temporal,cca,0.015888268122329886
+sub-36,written text,frontal,cca,0.0051958903189867735
+sub-38,pixel,MT,cca,0.0184873279485104
+sub-38,pixel,STS,cca,0.016748487067547148
+sub-38,pixel,temporal,cca,0.048565270294046295
+sub-38,pixel,frontal,cca,-0.054977464572529125
+sub-38,hue,MT,cca,0.08216302157497138
+sub-38,hue,STS,cca,0.09797425028759846
+sub-38,hue,temporal,cca,0.03879022563475698
+sub-38,hue,frontal,cca,0.05638426503137506
+sub-38,face,MT,cca,0.03816907642721423
+sub-38,face,STS,cca,0.054183835628883334
+sub-38,face,temporal,cca,0.02507125399080403
+sub-38,face,frontal,cca,0.01794891760015025
+sub-38,number of agents,MT,cca,0.04279401015630677
+sub-38,number of agents,STS,cca,0.06146801048232962
+sub-38,number of agents,temporal,cca,-0.03780137995498358
+sub-38,number of agents,frontal,cca,-0.0005999350424150229
+sub-38,social,MT,cca,-0.06438103669619669
+sub-38,social,STS,cca,-0.09844448865076665
+sub-38,social,temporal,cca,0.054654041722918656
+sub-38,social,frontal,cca,0.004517936317470372
+sub-38,valence,MT,cca,0.1425719751235545
+sub-38,valence,STS,cca,0.13008721511761562
+sub-38,valence,temporal,cca,0.10403738517142962
+sub-38,valence,frontal,cca,0.10747913030518359
+sub-38,arousal,MT,cca,-0.023954303664198574
+sub-38,arousal,STS,cca,0.032541946929492596
+sub-38,arousal,temporal,cca,0.11751569474455952
+sub-38,arousal,frontal,cca,0.07537101660047925
+sub-38,pitch,MT,cca,0.049321979978319844
+sub-38,pitch,STS,cca,0.05518426048701763
+sub-38,pitch,temporal,cca,0.10355343124828872
+sub-38,pitch,frontal,cca,-0.02828112065229016
+sub-38,amplitude,MT,cca,0.02332860815710989
+sub-38,amplitude,STS,cca,0.020574522750219693
+sub-38,amplitude,temporal,cca,0.03733097269910899
+sub-38,amplitude,frontal,cca,0.029658436096222873
+sub-38,music,MT,cca,0.060148728136076725
+sub-38,music,STS,cca,0.11061532286340255
+sub-38,music,temporal,cca,0.11508244925433195
+sub-38,music,frontal,cca,0.08603408595582773
+sub-38,speaking,MT,cca,-0.0678210165951995
+sub-38,speaking,STS,cca,-0.06052797923943296
+sub-38,speaking,temporal,cca,-0.055887868155452394
+sub-38,speaking,frontal,cca,0.024032310704328298
+sub-38,turn taking,MT,cca,-0.024729109340829235
+sub-38,turn taking,STS,cca,0.018377505448603126
+sub-38,turn taking,temporal,cca,0.010035006666410351
+sub-38,turn taking,frontal,cca,-0.0013003389930487997
+sub-38,mentalization,MT,cca,0.0444082021290416
+sub-38,mentalization,STS,cca,0.017651930316941587
+sub-38,mentalization,temporal,cca,0.048006810310804025
+sub-38,mentalization,frontal,cca,-0.045841424148495326
+sub-38,written text,MT,cca,0.0240179720855108
+sub-38,written text,STS,cca,-0.028651694824487907
+sub-38,written text,temporal,cca,0.013211625220368539
+sub-38,written text,frontal,cca,-0.07268243623177946
+sub-39,pixel,MT,cca,0.043438793973477496
+sub-39,pixel,STS,cca,0.04610505894212129
+sub-39,pixel,temporal,cca,0.006606114174850575
+sub-39,pixel,frontal,cca,0.028772685994940116
+sub-39,hue,MT,cca,-0.0328318125712753
+sub-39,hue,STS,cca,0.13060743328745233
+sub-39,hue,temporal,cca,0.0707855661928301
+sub-39,hue,frontal,cca,0.03769700043425979
+sub-39,face,MT,cca,0.03250434092444843
+sub-39,face,STS,cca,-0.007949998189854913
+sub-39,face,temporal,cca,0.12116893995709929
+sub-39,face,frontal,cca,0.08754010304753099
+sub-39,number of agents,MT,cca,-0.017912580252417952
+sub-39,number of agents,STS,cca,-0.04526503041733869
+sub-39,number of agents,temporal,cca,-0.07148111525801211
+sub-39,number of agents,frontal,cca,0.057483294145711385
+sub-39,social,MT,cca,0.0637258147478629
+sub-39,social,STS,cca,-0.015606781539882774
+sub-39,social,temporal,cca,0.10968379589255287
+sub-39,social,frontal,cca,0.02239342636745938
+sub-39,valence,MT,cca,0.0010409616882400608
+sub-39,valence,STS,cca,0.07511250273663302
+sub-39,valence,temporal,cca,0.12132891249224094
+sub-39,valence,frontal,cca,0.1593627627040385
+sub-39,arousal,MT,cca,-0.021785617238378928
+sub-39,arousal,STS,cca,-0.037556831040570636
+sub-39,arousal,temporal,cca,-0.01857088129250397
+sub-39,arousal,frontal,cca,0.014056122651256952
+sub-39,pitch,MT,cca,-0.02766245312893125
+sub-39,pitch,STS,cca,0.06947515369299499
+sub-39,pitch,temporal,cca,0.025713171624785636
+sub-39,pitch,frontal,cca,0.01730161419193421
+sub-39,amplitude,MT,cca,-0.08132355953225567
+sub-39,amplitude,STS,cca,-0.10357481649393854
+sub-39,amplitude,temporal,cca,0.0791540625959394
+sub-39,amplitude,frontal,cca,-0.02923708828452176
+sub-39,music,MT,cca,-0.027478359295464317
+sub-39,music,STS,cca,0.17178721437928401
+sub-39,music,temporal,cca,-0.044857386881322035
+sub-39,music,frontal,cca,0.12692069329769665
+sub-39,speaking,MT,cca,0.04845231052260155
+sub-39,speaking,STS,cca,0.028994685184929203
+sub-39,speaking,temporal,cca,0.08462577791559726
+sub-39,speaking,frontal,cca,-0.07545962963538103
+sub-39,turn taking,MT,cca,-0.043656450879247036
+sub-39,turn taking,STS,cca,0.04418815113726897
+sub-39,turn taking,temporal,cca,0.0738769711723473
+sub-39,turn taking,frontal,cca,0.01813515618006516
+sub-39,mentalization,MT,cca,0.02671424652012746
+sub-39,mentalization,STS,cca,0.013307777193799808
+sub-39,mentalization,temporal,cca,-0.004198455126765066
+sub-39,mentalization,frontal,cca,0.02177997071210207
+sub-39,written text,MT,cca,0.0336145276407017
+sub-39,written text,STS,cca,-0.009148107140163165
+sub-39,written text,temporal,cca,-0.022906281436723287
+sub-39,written text,frontal,cca,0.0015710689059818205
+sub-41,pixel,MT,cca,0.021935095739175937
+sub-41,pixel,STS,cca,-0.09204108342017706
+sub-41,pixel,temporal,cca,0.0424047922689792
+sub-41,pixel,frontal,cca,0.1387749396258846
+sub-41,hue,MT,cca,0.04079715417377892
+sub-41,hue,STS,cca,-0.03383062947830593
+sub-41,hue,temporal,cca,-0.07953866800289103
+sub-41,hue,frontal,cca,-0.03156539841503174
+sub-41,face,MT,cca,0.05884974635253393
+sub-41,face,STS,cca,0.008473402614550585
+sub-41,face,temporal,cca,0.0008122297326132566
+sub-41,face,frontal,cca,0.08645707601035628
+sub-41,number of agents,MT,cca,-0.06932199039686912
+sub-41,number of agents,STS,cca,-0.08336989213589092
+sub-41,number of agents,temporal,cca,0.007531847000703662
+sub-41,number of agents,frontal,cca,-0.017286531329805333
+sub-41,social,MT,cca,0.03646918160175701
+sub-41,social,STS,cca,0.08725616681798805
+sub-41,social,temporal,cca,-0.055078524987354084
+sub-41,social,frontal,cca,0.10889504452009531
+sub-41,valence,MT,cca,-0.09970954586213347
+sub-41,valence,STS,cca,0.02527469650718084
+sub-41,valence,temporal,cca,0.07334259083453185
+sub-41,valence,frontal,cca,0.16464181625326169
+sub-41,arousal,MT,cca,0.08080404674109394
+sub-41,arousal,STS,cca,0.08028202366358247
+sub-41,arousal,temporal,cca,0.04793700983978346
+sub-41,arousal,frontal,cca,0.11556653270239745
+sub-41,pitch,MT,cca,-0.013377930677515536
+sub-41,pitch,STS,cca,-0.04330641173883516
+sub-41,pitch,temporal,cca,0.005407436606552007
+sub-41,pitch,frontal,cca,-0.13070793220497495
+sub-41,amplitude,MT,cca,0.036813259511936744
+sub-41,amplitude,STS,cca,-0.003807401075505834
+sub-41,amplitude,temporal,cca,-0.034909683516972836
+sub-41,amplitude,frontal,cca,0.08354320435065499
+sub-41,music,MT,cca,-0.05372692995975008
+sub-41,music,STS,cca,-1.7921676979626434e-05
+sub-41,music,temporal,cca,0.04932364226145145
+sub-41,music,frontal,cca,0.01485529194535764
+sub-41,speaking,MT,cca,-0.05056822662516904
+sub-41,speaking,STS,cca,0.026909919261047955
+sub-41,speaking,temporal,cca,-0.017461782744057786
+sub-41,speaking,frontal,cca,0.06099353346633367
+sub-41,turn taking,MT,cca,0.02865071057934567
+sub-41,turn taking,STS,cca,0.036460551473988544
+sub-41,turn taking,temporal,cca,0.032970322290996036
+sub-41,turn taking,frontal,cca,0.06835235447076093
+sub-41,mentalization,MT,cca,0.04083978582449108
+sub-41,mentalization,STS,cca,0.06276400638822513
+sub-41,mentalization,temporal,cca,0.032706370813933974
+sub-41,mentalization,frontal,cca,0.055995807631224935
+sub-41,written text,MT,cca,0.024159867079502573
+sub-41,written text,STS,cca,0.040426710863219605
+sub-41,written text,temporal,cca,0.08149145507728398
+sub-41,written text,frontal,cca,0.09559123181375292
+sub-45,pixel,MT,cca,0.12348336540919772
+sub-45,pixel,STS,cca,0.02187834731954219
+sub-45,pixel,temporal,cca,0.06071433049777286
+sub-45,pixel,frontal,cca,0.021796048080803133
+sub-45,hue,MT,cca,0.01673010274243749
+sub-45,hue,STS,cca,0.045458534879017874
+sub-45,hue,temporal,cca,0.047093444377125905
+sub-45,hue,frontal,cca,0.1353632507426062
+sub-45,face,MT,cca,0.05549064153654719
+sub-45,face,STS,cca,0.021282204494679723
+sub-45,face,temporal,cca,-0.07315381090837217
+sub-45,face,frontal,cca,0.07175799361298878
+sub-45,number of agents,MT,cca,0.018010686016580024
+sub-45,number of agents,STS,cca,0.0326363547605379
+sub-45,number of agents,temporal,cca,-0.009124744873511826
+sub-45,number of agents,frontal,cca,0.07248896550046013
+sub-45,social,MT,cca,0.05929499499885997
+sub-45,social,STS,cca,0.08393693402301387
+sub-45,social,temporal,cca,-0.04651762489802218
+sub-45,social,frontal,cca,0.03331233630734513
+sub-45,valence,MT,cca,0.08951950043070508
+sub-45,valence,STS,cca,0.009373026941235629
+sub-45,valence,temporal,cca,-0.03767844116821586
+sub-45,valence,frontal,cca,0.1068348268250022
+sub-45,arousal,MT,cca,-0.026090254313586025
+sub-45,arousal,STS,cca,0.04324705778475506
+sub-45,arousal,temporal,cca,-0.016364651206580327
+sub-45,arousal,frontal,cca,-0.10420902316437855
+sub-45,pitch,MT,cca,0.05833606187616978
+sub-45,pitch,STS,cca,-0.04750931879240845
+sub-45,pitch,temporal,cca,-0.022679094573451807
+sub-45,pitch,frontal,cca,-0.11975871781041592
+sub-45,amplitude,MT,cca,-0.11709546208246531
+sub-45,amplitude,STS,cca,0.05368577815192739
+sub-45,amplitude,temporal,cca,0.018866498815835287
+sub-45,amplitude,frontal,cca,-0.14320410621502005
+sub-45,music,MT,cca,-0.04759043544911059
+sub-45,music,STS,cca,0.0994133280224108
+sub-45,music,temporal,cca,0.07688821827218004
+sub-45,music,frontal,cca,0.03068049237656347
+sub-45,speaking,MT,cca,-0.012762754048305801
+sub-45,speaking,STS,cca,0.07948936828414373
+sub-45,speaking,temporal,cca,-0.00532834497053658
+sub-45,speaking,frontal,cca,-0.07857185069097412
+sub-45,turn taking,MT,cca,0.02534385263750616
+sub-45,turn taking,STS,cca,0.03282029006552658
+sub-45,turn taking,temporal,cca,-0.03804083068192907
+sub-45,turn taking,frontal,cca,-0.0710477971904477
+sub-45,mentalization,MT,cca,0.06300813967680177
+sub-45,mentalization,STS,cca,0.061029045433510246
+sub-45,mentalization,temporal,cca,-0.060442847012248245
+sub-45,mentalization,frontal,cca,0.016585493645773376
+sub-45,written text,MT,cca,0.02098564178251574
+sub-45,written text,STS,cca,-0.02291609862651083
+sub-45,written text,temporal,cca,0.057455499571447397
+sub-45,written text,frontal,cca,-0.02452321816934333
+sub-46,pixel,MT,cca,0.13341504868666046
+sub-46,pixel,STS,cca,0.0813279625076098
+sub-46,pixel,temporal,cca,0.15599550745469073
+sub-46,pixel,frontal,cca,0.01909522342592602
+sub-46,hue,MT,cca,-0.04280649550327727
+sub-46,hue,STS,cca,0.05525657487184192
+sub-46,hue,temporal,cca,0.04997841803652427
+sub-46,hue,frontal,cca,-0.007410732282504151
+sub-46,face,MT,cca,0.04041136102477616
+sub-46,face,STS,cca,0.03592502779665496
+sub-46,face,temporal,cca,0.07222854582357012
+sub-46,face,frontal,cca,0.029014265409582008
+sub-46,number of agents,MT,cca,0.015347818447407558
+sub-46,number of agents,STS,cca,0.04289949614522155
+sub-46,number of agents,temporal,cca,-0.0034310261226955683
+sub-46,number of agents,frontal,cca,0.03657385100028894
+sub-46,social,MT,cca,0.05932009864627863
+sub-46,social,STS,cca,0.09719389920606529
+sub-46,social,temporal,cca,-0.035601327401667035
+sub-46,social,frontal,cca,-0.06208235161270319
+sub-46,valence,MT,cca,0.09659134886928164
+sub-46,valence,STS,cca,0.04227813769416562
+sub-46,valence,temporal,cca,0.13590177010450422
+sub-46,valence,frontal,cca,0.16604316293985533
+sub-46,arousal,MT,cca,-0.08216331892035225
+sub-46,arousal,STS,cca,0.05434681948294613
+sub-46,arousal,temporal,cca,0.03897308300291944
+sub-46,arousal,frontal,cca,0.05416457413074664
+sub-46,pitch,MT,cca,0.07164512336041592
+sub-46,pitch,STS,cca,-0.08110688033906226
+sub-46,pitch,temporal,cca,-0.09620042823857455
+sub-46,pitch,frontal,cca,0.09219197980398017
+sub-46,amplitude,MT,cca,-0.06427229088568458
+sub-46,amplitude,STS,cca,0.010589287125641866
+sub-46,amplitude,temporal,cca,-0.08314530993031866
+sub-46,amplitude,frontal,cca,0.007395458443428438
+sub-46,music,MT,cca,-0.03501648979915637
+sub-46,music,STS,cca,0.06065374643990433
+sub-46,music,temporal,cca,0.0845074805516381
+sub-46,music,frontal,cca,-0.08314577750105545
+sub-46,speaking,MT,cca,-0.03627730649162027
+sub-46,speaking,STS,cca,0.06306458141639729
+sub-46,speaking,temporal,cca,-0.041480344691106175
+sub-46,speaking,frontal,cca,-0.04149055578147165
+sub-46,turn taking,MT,cca,0.02758336272995563
+sub-46,turn taking,STS,cca,-0.03555852561149897
+sub-46,turn taking,temporal,cca,-0.060037057405823394
+sub-46,turn taking,frontal,cca,-0.06473500066593156
+sub-46,mentalization,MT,cca,0.05519510519433415
+sub-46,mentalization,STS,cca,-0.03085119003846004
+sub-46,mentalization,temporal,cca,0.05240158518246851
+sub-46,mentalization,frontal,cca,-0.05936118944389397
+sub-46,written text,MT,cca,0.03744834847741305
+sub-46,written text,STS,cca,-0.017837853606482313
+sub-46,written text,temporal,cca,0.015408953795956814
+sub-46,written text,frontal,cca,-0.0655326357056657
+sub-50,pixel,MT,cca,0.15424434434019815
+sub-50,pixel,STS,cca,0.05257998177954808
+sub-50,pixel,temporal,cca,0.026370079430016347
+sub-50,pixel,frontal,cca,0.04960767559955555
+sub-50,hue,MT,cca,0.011254788636559265
+sub-50,hue,STS,cca,0.061696708935071155
+sub-50,hue,temporal,cca,-0.012586003781077614
+sub-50,hue,frontal,cca,-0.005556009319965849
+sub-50,face,MT,cca,0.1876027718268575
+sub-50,face,STS,cca,-0.002465300542810711
+sub-50,face,temporal,cca,0.025571465541654882
+sub-50,face,frontal,cca,0.048209237572912886
+sub-50,number of agents,MT,cca,-0.03105759103135273
+sub-50,number of agents,STS,cca,-0.11657863959858561
+sub-50,number of agents,temporal,cca,-0.08709363787069044
+sub-50,number of agents,frontal,cca,0.07877660011732453
+sub-50,social,MT,cca,0.09448314251369583
+sub-50,social,STS,cca,-0.04550290635004446
+sub-50,social,temporal,cca,-0.009788435356428437
+sub-50,social,frontal,cca,-0.012724420378018197
+sub-50,valence,MT,cca,0.16777046773432153
+sub-50,valence,STS,cca,0.10005316965667994
+sub-50,valence,temporal,cca,0.041316409646514354
+sub-50,valence,frontal,cca,0.08708394784270354
+sub-50,arousal,MT,cca,0.06440812785761132
+sub-50,arousal,STS,cca,-0.12526754868180323
+sub-50,arousal,temporal,cca,-0.1197932360972734
+sub-50,arousal,frontal,cca,-0.014568257707145382
+sub-50,pitch,MT,cca,-0.03129720530621101
+sub-50,pitch,STS,cca,0.06675297303173958
+sub-50,pitch,temporal,cca,0.003358407843265754
+sub-50,pitch,frontal,cca,0.06621840744552303
+sub-50,amplitude,MT,cca,0.07957681202548532
+sub-50,amplitude,STS,cca,0.01262883387905076
+sub-50,amplitude,temporal,cca,0.06983014899853121
+sub-50,amplitude,frontal,cca,0.041052431373148714
+sub-50,music,MT,cca,-0.06980938925091029
+sub-50,music,STS,cca,0.044646845626738554
+sub-50,music,temporal,cca,0.0745653178108169
+sub-50,music,frontal,cca,-0.026679224205925434
+sub-50,speaking,MT,cca,0.08835463525753207
+sub-50,speaking,STS,cca,-0.058088260521482436
+sub-50,speaking,temporal,cca,-0.06547626676550808
+sub-50,speaking,frontal,cca,-0.017977098923020816
+sub-50,turn taking,MT,cca,0.09029479890886254
+sub-50,turn taking,STS,cca,0.027390688246538543
+sub-50,turn taking,temporal,cca,0.06079175325601893
+sub-50,turn taking,frontal,cca,0.040571554850878086
+sub-50,mentalization,MT,cca,0.10422660703248607
+sub-50,mentalization,STS,cca,0.026186544938966726
+sub-50,mentalization,temporal,cca,0.010164732718357983
+sub-50,mentalization,frontal,cca,-0.0323380283375597
+sub-50,written text,MT,cca,0.04769541947645743
+sub-50,written text,STS,cca,-0.00810762807786507
+sub-50,written text,temporal,cca,-0.04374397256200058
+sub-50,written text,frontal,cca,-0.009183807785236243
+sub-51,pixel,MT,cca,0.05792944770653437
+sub-51,pixel,STS,cca,0.05792944770653437
+sub-51,pixel,temporal,cca,0.05792944770653437
+sub-51,pixel,frontal,cca,0.05792944770653437
+sub-51,hue,MT,cca,0.09939368517810912
+sub-51,hue,STS,cca,0.09939368517810912
+sub-51,hue,temporal,cca,0.09939368517810912
+sub-51,hue,frontal,cca,0.09939368517810912
+sub-51,face,MT,cca,0.058366101577956006
+sub-51,face,STS,cca,0.058366101577956006
+sub-51,face,temporal,cca,0.058366101577956006
+sub-51,face,frontal,cca,0.058366101577956006
+sub-51,number of agents,MT,cca,-0.08042822167701805
+sub-51,number of agents,STS,cca,-0.08042822167701805
+sub-51,number of agents,temporal,cca,-0.08042822167701805
+sub-51,number of agents,frontal,cca,-0.08042822167701805
+sub-51,social,MT,cca,-0.11121546423180144
+sub-51,social,STS,cca,-0.11121546423180144
+sub-51,social,temporal,cca,-0.11121546423180144
+sub-51,social,frontal,cca,-0.11121546423180144
+sub-51,valence,MT,cca,0.079521069267915
+sub-51,valence,STS,cca,0.079521069267915
+sub-51,valence,temporal,cca,0.079521069267915
+sub-51,valence,frontal,cca,0.079521069267915
+sub-51,arousal,MT,cca,0.054556395131282055
+sub-51,arousal,STS,cca,0.054556395131282055
+sub-51,arousal,temporal,cca,0.054556395131282055
+sub-51,arousal,frontal,cca,0.054556395131282055
+sub-51,pitch,MT,cca,0.04364506265523884
+sub-51,pitch,STS,cca,0.04364506265523884
+sub-51,pitch,temporal,cca,0.04364506265523884
+sub-51,pitch,frontal,cca,0.04364506265523884
+sub-51,amplitude,MT,cca,-0.025289140999398208
+sub-51,amplitude,STS,cca,-0.025289140999398208
+sub-51,amplitude,temporal,cca,-0.025289140999398208
+sub-51,amplitude,frontal,cca,-0.025289140999398208
+sub-51,music,MT,cca,0.08090269653191817
+sub-51,music,STS,cca,0.08090269653191817
+sub-51,music,temporal,cca,0.08090269653191817
+sub-51,music,frontal,cca,0.08090269653191817
+sub-51,speaking,MT,cca,-0.0618854599426069
+sub-51,speaking,STS,cca,-0.0618854599426069
+sub-51,speaking,temporal,cca,-0.0618854599426069
+sub-51,speaking,frontal,cca,-0.0618854599426069
+sub-51,turn taking,MT,cca,0.04777684014066348
+sub-51,turn taking,STS,cca,0.04777684014066348
+sub-51,turn taking,temporal,cca,0.04777684014066348
+sub-51,turn taking,frontal,cca,0.04777684014066348
+sub-51,mentalization,MT,cca,0.020868467707843785
+sub-51,mentalization,STS,cca,0.020868467707843785
+sub-51,mentalization,temporal,cca,0.020868467707843785
+sub-51,mentalization,frontal,cca,0.020868467707843785
+sub-51,written text,MT,cca,0.03844928703907635
+sub-51,written text,STS,cca,0.03844928703907635
+sub-51,written text,temporal,cca,0.03844928703907635
+sub-51,written text,frontal,cca,0.03844928703907635
+sub-53,pixel,MT,cca,0.13234792004850457
+sub-53,pixel,STS,cca,0.07156526739133395
+sub-53,pixel,temporal,cca,0.04265120548097416
+sub-53,pixel,frontal,cca,0.1344421625915587
+sub-53,hue,MT,cca,-0.048132923804815195
+sub-53,hue,STS,cca,0.03282619689683193
+sub-53,hue,temporal,cca,0.028553566419712118
+sub-53,hue,frontal,cca,0.040882714440973
+sub-53,face,MT,cca,0.022830792646010244
+sub-53,face,STS,cca,0.06325224995364662
+sub-53,face,temporal,cca,0.055223915446668694
+sub-53,face,frontal,cca,-0.036057996031008475
+sub-53,number of agents,MT,cca,0.010835706814411284
+sub-53,number of agents,STS,cca,0.007948495831758695
+sub-53,number of agents,temporal,cca,0.010183379193638408
+sub-53,number of agents,frontal,cca,-0.061539015722828626
+sub-53,social,MT,cca,0.0038253781078212423
+sub-53,social,STS,cca,0.08150920609569423
+sub-53,social,temporal,cca,0.04808069214246746
+sub-53,social,frontal,cca,-0.0628073030708883
+sub-53,valence,MT,cca,0.09192902776604721
+sub-53,valence,STS,cca,0.019180788843091733
+sub-53,valence,temporal,cca,0.16839587934332884
+sub-53,valence,frontal,cca,-0.12618693361279756
+sub-53,arousal,MT,cca,0.06933942364488302
+sub-53,arousal,STS,cca,-0.03908266026079103
+sub-53,arousal,temporal,cca,-0.0011493302233964054
+sub-53,arousal,frontal,cca,0.07274918506673918
+sub-53,pitch,MT,cca,0.07204882942645119
+sub-53,pitch,STS,cca,-0.0034208112011761883
+sub-53,pitch,temporal,cca,-0.01372983299962809
+sub-53,pitch,frontal,cca,0.019347164706373522
+sub-53,amplitude,MT,cca,0.03981061043785243
+sub-53,amplitude,STS,cca,0.060769140533585286
+sub-53,amplitude,temporal,cca,0.0321170991284768
+sub-53,amplitude,frontal,cca,-0.07551320326013464
+sub-53,music,MT,cca,-0.02675565465811063
+sub-53,music,STS,cca,-0.013994323159033106
+sub-53,music,temporal,cca,0.06908925801683954
+sub-53,music,frontal,cca,0.04688695676774026
+sub-53,speaking,MT,cca,-0.09209606919317592
+sub-53,speaking,STS,cca,0.048454865217501156
+sub-53,speaking,temporal,cca,-0.08821605288831533
+sub-53,speaking,frontal,cca,-0.049529075766181464
+sub-53,turn taking,MT,cca,0.012515298387317509
+sub-53,turn taking,STS,cca,0.10096087135311249
+sub-53,turn taking,temporal,cca,0.035010406220552605
+sub-53,turn taking,frontal,cca,-0.02410882898571347
+sub-53,mentalization,MT,cca,0.03802502336835567
+sub-53,mentalization,STS,cca,-0.011520489232667751
+sub-53,mentalization,temporal,cca,0.026057128627690985
+sub-53,mentalization,frontal,cca,0.09965620860051234
+sub-53,written text,MT,cca,0.028543576455190945
+sub-53,written text,STS,cca,0.03200473861107276
+sub-53,written text,temporal,cca,0.04655932677314643
+sub-53,written text,frontal,cca,-0.052842200081243185
+sub-54,pixel,MT,cca,0.12348336540919772
+sub-54,pixel,STS,cca,0.05691588694920284
+sub-54,pixel,temporal,cca,0.06282910696352668
+sub-54,pixel,frontal,cca,0.09678189220698918
+sub-54,hue,MT,cca,0.01673010274243749
+sub-54,hue,STS,cca,-0.028293304426454568
+sub-54,hue,temporal,cca,-0.07845307768942936
+sub-54,hue,frontal,cca,0.08565548342702778
+sub-54,face,MT,cca,0.05549064153654719
+sub-54,face,STS,cca,0.031158710388324497
+sub-54,face,temporal,cca,0.09050371584564068
+sub-54,face,frontal,cca,-0.019294362681041056
+sub-54,number of agents,MT,cca,0.018010686016580024
+sub-54,number of agents,STS,cca,-0.027661756915481783
+sub-54,number of agents,temporal,cca,0.05275421690527278
+sub-54,number of agents,frontal,cca,0.04349162572752223
+sub-54,social,MT,cca,0.05929499499885997
+sub-54,social,STS,cca,0.03681567581318031
+sub-54,social,temporal,cca,-0.013321155005292074
+sub-54,social,frontal,cca,0.00013369841939199213
+sub-54,valence,MT,cca,0.08951950043070508
+sub-54,valence,STS,cca,0.13485158161470082
+sub-54,valence,temporal,cca,0.10445014043421663
+sub-54,valence,frontal,cca,0.019216798679680312
+sub-54,arousal,MT,cca,-0.026090254313586025
+sub-54,arousal,STS,cca,-0.07927645173930013
+sub-54,arousal,temporal,cca,0.0785464153721878
+sub-54,arousal,frontal,cca,0.05237504533516455
+sub-54,pitch,MT,cca,0.05833606187616978
+sub-54,pitch,STS,cca,-0.1327564170712609
+sub-54,pitch,temporal,cca,0.07043367258781555
+sub-54,pitch,frontal,cca,0.023326564126639672
+sub-54,amplitude,MT,cca,-0.11709546208246531
+sub-54,amplitude,STS,cca,0.012277091475531665
+sub-54,amplitude,temporal,cca,0.010137143144638584
+sub-54,amplitude,frontal,cca,0.040231821687619275
+sub-54,music,MT,cca,-0.04759043544911059
+sub-54,music,STS,cca,-0.022082224073278135
+sub-54,music,temporal,cca,0.027261893349285526
+sub-54,music,frontal,cca,0.08098396892474183
+sub-54,speaking,MT,cca,-0.012762754048305801
+sub-54,speaking,STS,cca,0.012760996717252681
+sub-54,speaking,temporal,cca,-0.021436477039179523
+sub-54,speaking,frontal,cca,-0.03192834558734783
+sub-54,turn taking,MT,cca,0.02534385263750616
+sub-54,turn taking,STS,cca,0.06572054648317929
+sub-54,turn taking,temporal,cca,0.03393245199817554
+sub-54,turn taking,frontal,cca,0.04777086317311012
+sub-54,mentalization,MT,cca,0.06300813967680177
+sub-54,mentalization,STS,cca,-0.0062816038882986145
+sub-54,mentalization,temporal,cca,-0.003856599537118699
+sub-54,mentalization,frontal,cca,0.06904340299342833
+sub-54,written text,MT,cca,0.02098564178251574
+sub-54,written text,STS,cca,0.058160436479495335
+sub-54,written text,temporal,cca,0.057874702812413956
+sub-54,written text,frontal,cca,0.00021101072627782713
+sub-55,pixel,MT,cca,0.13555747787195824
+sub-55,pixel,STS,cca,0.060551355327276866
+sub-55,pixel,temporal,cca,-0.0057038281112070655
+sub-55,pixel,frontal,cca,0.11420026113999797
+sub-55,hue,MT,cca,-0.04235709105358036
+sub-55,hue,STS,cca,0.057890761523523106
+sub-55,hue,temporal,cca,0.14229592553479115
+sub-55,hue,frontal,cca,-0.12333079801362665
+sub-55,face,MT,cca,0.04465398201642028
+sub-55,face,STS,cca,0.04325858419245863
+sub-55,face,temporal,cca,-0.028855003749582518
+sub-55,face,frontal,cca,0.07129610195200323
+sub-55,number of agents,MT,cca,-0.01199340149705872
+sub-55,number of agents,STS,cca,0.08263564140110077
+sub-55,number of agents,temporal,cca,-0.046732645081191126
+sub-55,number of agents,frontal,cca,0.018737201553949912
+sub-55,social,MT,cca,0.03662238223909982
+sub-55,social,STS,cca,0.002918968390168786
+sub-55,social,temporal,cca,0.02030253442456469
+sub-55,social,frontal,cca,-0.028909027377534292
+sub-55,valence,MT,cca,0.09357313825259939
+sub-55,valence,STS,cca,0.2782994657682216
+sub-55,valence,temporal,cca,0.03171206264875415
+sub-55,valence,frontal,cca,-0.020684309255215805
+sub-55,arousal,MT,cca,-0.09012136108099258
+sub-55,arousal,STS,cca,0.056398033388539257
+sub-55,arousal,temporal,cca,-0.06920300750122002
+sub-55,arousal,frontal,cca,0.13137871019892158
+sub-55,pitch,MT,cca,0.07257324171081522
+sub-55,pitch,STS,cca,0.03660979250154082
+sub-55,pitch,temporal,cca,0.048183039293759576
+sub-55,pitch,frontal,cca,-0.06342057195153321
+sub-55,amplitude,MT,cca,-0.04669626186899352
+sub-55,amplitude,STS,cca,0.008828397653116538
+sub-55,amplitude,temporal,cca,-0.08405284001291036
+sub-55,amplitude,frontal,cca,-0.0024773447650974665
+sub-55,music,MT,cca,-0.03523542902985606
+sub-55,music,STS,cca,0.03586073885220757
+sub-55,music,temporal,cca,0.1446933881851835
+sub-55,music,frontal,cca,0.06258823427830569
+sub-55,speaking,MT,cca,-0.038441289075250906
+sub-55,speaking,STS,cca,-0.003238679178221382
+sub-55,speaking,temporal,cca,-0.02429115957330945
+sub-55,speaking,frontal,cca,-0.02684324926444004
+sub-55,turn taking,MT,cca,0.03139582868861688
+sub-55,turn taking,STS,cca,-0.05628486968787547
+sub-55,turn taking,temporal,cca,0.025639199679606685
+sub-55,turn taking,frontal,cca,0.024176337941571015
+sub-55,mentalization,MT,cca,0.039726227460774186
+sub-55,mentalization,STS,cca,0.06232620876711117
+sub-55,mentalization,temporal,cca,0.035546316737446924
+sub-55,mentalization,frontal,cca,0.10328353383243938
+sub-55,written text,MT,cca,0.03387157292228236
+sub-55,written text,STS,cca,-0.036529035545435296
+sub-55,written text,temporal,cca,-0.013206328220363517
+sub-55,written text,frontal,cca,-0.02366036818428794
+sub-56,pixel,MT,cca,0.040544347894877444
+sub-56,pixel,STS,cca,0.13148502424676778
+sub-56,pixel,temporal,cca,-0.008805688833170655
+sub-56,pixel,frontal,cca,0.11821577447571252
+sub-56,hue,MT,cca,-0.008282846716324444
+sub-56,hue,STS,cca,-0.07722913252150813
+sub-56,hue,temporal,cca,-0.06727143138122242
+sub-56,hue,frontal,cca,-0.011914565472870443
+sub-56,face,MT,cca,0.013454370363880263
+sub-56,face,STS,cca,0.0883421956122509
+sub-56,face,temporal,cca,0.03354873492127595
+sub-56,face,frontal,cca,0.06976450210082911
+sub-56,number of agents,MT,cca,0.07440840764511528
+sub-56,number of agents,STS,cca,0.03475125521970206
+sub-56,number of agents,temporal,cca,0.0073759624694519355
+sub-56,number of agents,frontal,cca,-0.003068073960605866
+sub-56,social,MT,cca,0.03824133421741498
+sub-56,social,STS,cca,0.1153242188174429
+sub-56,social,temporal,cca,0.014291282176007813
+sub-56,social,frontal,cca,0.13069301030635833
+sub-56,valence,MT,cca,0.2032776287873322
+sub-56,valence,STS,cca,0.174726915817314
+sub-56,valence,temporal,cca,0.09891503476628868
+sub-56,valence,frontal,cca,0.1452148114177482
+sub-56,arousal,MT,cca,0.03257692517432984
+sub-56,arousal,STS,cca,0.09570681308497783
+sub-56,arousal,temporal,cca,0.08499541995577338
+sub-56,arousal,frontal,cca,0.07297851329929264
+sub-56,pitch,MT,cca,0.11139436171336548
+sub-56,pitch,STS,cca,0.020432501504310197
+sub-56,pitch,temporal,cca,0.057752972232598766
+sub-56,pitch,frontal,cca,-0.04411204531076836
+sub-56,amplitude,MT,cca,-0.051565143226673625
+sub-56,amplitude,STS,cca,0.06588581962084428
+sub-56,amplitude,temporal,cca,0.017628887776317013
+sub-56,amplitude,frontal,cca,0.07823578647480056
+sub-56,music,MT,cca,0.010423326707929536
+sub-56,music,STS,cca,-0.13579778093025838
+sub-56,music,temporal,cca,-0.08457410294221221
+sub-56,music,frontal,cca,-0.11127301962695894
+sub-56,speaking,MT,cca,0.0521413476442234
+sub-56,speaking,STS,cca,0.07811991510812558
+sub-56,speaking,temporal,cca,0.049778746118046245
+sub-56,speaking,frontal,cca,0.06206558084758092
+sub-56,turn taking,MT,cca,0.0571220184441934
+sub-56,turn taking,STS,cca,0.07580409063940281
+sub-56,turn taking,temporal,cca,0.014899516226783848
+sub-56,turn taking,frontal,cca,0.06171802643288937
+sub-56,mentalization,MT,cca,0.04263461129082291
+sub-56,mentalization,STS,cca,0.03198036918846001
+sub-56,mentalization,temporal,cca,0.08102890981139307
+sub-56,mentalization,frontal,cca,-0.01929820255442414
+sub-56,written text,MT,cca,0.07619562488773206
+sub-56,written text,STS,cca,0.06379965084809802
+sub-56,written text,temporal,cca,-0.04421766929046842
+sub-56,written text,frontal,cca,0.07893797661939836
+sub-57,pixel,MT,cca,0.0571903887407033
+sub-57,pixel,STS,cca,0.04319679067904521
+sub-57,pixel,temporal,cca,0.03574673541090974
+sub-57,pixel,frontal,cca,0.13655219288430823
+sub-57,hue,MT,cca,-0.00662635603389874
+sub-57,hue,STS,cca,0.05778119911802184
+sub-57,hue,temporal,cca,0.04484420047309885
+sub-57,hue,frontal,cca,-0.08290665564036034
+sub-57,face,MT,cca,0.0539019547605855
+sub-57,face,STS,cca,0.03858534467519945
+sub-57,face,temporal,cca,-0.01818787480245119
+sub-57,face,frontal,cca,0.0793543383062103
+sub-57,number of agents,MT,cca,-0.02411697079257975
+sub-57,number of agents,STS,cca,-0.013984482460324998
+sub-57,number of agents,temporal,cca,0.0005832395012582703
+sub-57,number of agents,frontal,cca,0.0439056785544429
+sub-57,social,MT,cca,0.07100152065483298
+sub-57,social,STS,cca,0.030532541922610214
+sub-57,social,temporal,cca,0.037501684156976765
+sub-57,social,frontal,cca,0.08613524411158065
+sub-57,valence,MT,cca,-0.013992131635723704
+sub-57,valence,STS,cca,-0.035614727792573866
+sub-57,valence,temporal,cca,-0.020895943646808468
+sub-57,valence,frontal,cca,0.1572713883804137
+sub-57,arousal,MT,cca,0.0510617669921896
+sub-57,arousal,STS,cca,0.037388550000599305
+sub-57,arousal,temporal,cca,0.08168158587948637
+sub-57,arousal,frontal,cca,0.06927042487126989
+sub-57,pitch,MT,cca,-0.06962760037190159
+sub-57,pitch,STS,cca,-0.05477638228223525
+sub-57,pitch,temporal,cca,0.0644240987975679
+sub-57,pitch,frontal,cca,0.02485255662683137
+sub-57,amplitude,MT,cca,-0.013673853991142803
+sub-57,amplitude,STS,cca,-0.06359984206703495
+sub-57,amplitude,temporal,cca,-0.007744065706790426
+sub-57,amplitude,frontal,cca,0.07145353090474008
+sub-57,music,MT,cca,0.036985566200253686
+sub-57,music,STS,cca,0.004732107349935388
+sub-57,music,temporal,cca,0.0373171750335153
+sub-57,music,frontal,cca,-0.12756320967227905
+sub-57,speaking,MT,cca,0.05008099985810901
+sub-57,speaking,STS,cca,0.010399102511241631
+sub-57,speaking,temporal,cca,0.07048652634707953
+sub-57,speaking,frontal,cca,-0.009742514395572388
+sub-57,turn taking,MT,cca,0.0008903130198759434
+sub-57,turn taking,STS,cca,0.0011253922848847519
+sub-57,turn taking,temporal,cca,0.03918228330052058
+sub-57,turn taking,frontal,cca,0.058018277330683744
+sub-57,mentalization,MT,cca,0.02622847027262918
+sub-57,mentalization,STS,cca,-0.014924230084229672
+sub-57,mentalization,temporal,cca,0.057530315435658744
+sub-57,mentalization,frontal,cca,-0.03500100223427523
+sub-57,written text,MT,cca,0.05916244997864639
+sub-57,written text,STS,cca,0.037540320819962926
+sub-57,written text,temporal,cca,0.006426537840726864
+sub-57,written text,frontal,cca,0.08071153105614726
+sub-58,pixel,MT,cca,0.038365154618495365
+sub-58,pixel,STS,cca,-0.08406103445222195
+sub-58,pixel,temporal,cca,-0.08406103445222195
+sub-58,pixel,frontal,cca,-0.08406103445222195
+sub-58,hue,MT,cca,0.0962853358555614
+sub-58,hue,STS,cca,-0.036079072954186976
+sub-58,hue,temporal,cca,-0.036079072954186976
+sub-58,hue,frontal,cca,-0.036079072954186976
+sub-58,face,MT,cca,0.0332757705456477
+sub-58,face,STS,cca,-0.03555082780418588
+sub-58,face,temporal,cca,-0.03555082780418588
+sub-58,face,frontal,cca,-0.03555082780418588
+sub-58,number of agents,MT,cca,0.01725749650987054
+sub-58,number of agents,STS,cca,-0.02230448692462501
+sub-58,number of agents,temporal,cca,-0.02230448692462501
+sub-58,number of agents,frontal,cca,-0.02230448692462501
+sub-58,social,MT,cca,-0.04307250128494746
+sub-58,social,STS,cca,0.05395075723886271
+sub-58,social,temporal,cca,0.05395075723886271
+sub-58,social,frontal,cca,0.05395075723886271
+sub-58,valence,MT,cca,0.16622596465843614
+sub-58,valence,STS,cca,-0.062317305802997505
+sub-58,valence,temporal,cca,-0.062317305802997505
+sub-58,valence,frontal,cca,-0.062317305802997505
+sub-58,arousal,MT,cca,0.06828705769220492
+sub-58,arousal,STS,cca,0.12023298699502494
+sub-58,arousal,temporal,cca,0.12023298699502494
+sub-58,arousal,frontal,cca,0.12023298699502494
+sub-58,pitch,MT,cca,-0.018799952892468386
+sub-58,pitch,STS,cca,-0.10284310195334134
+sub-58,pitch,temporal,cca,-0.10284310195334134
+sub-58,pitch,frontal,cca,-0.10284310195334134
+sub-58,amplitude,MT,cca,0.05897670996658242
+sub-58,amplitude,STS,cca,0.07972834137553883
+sub-58,amplitude,temporal,cca,0.07972834137553883
+sub-58,amplitude,frontal,cca,0.07972834137553883
+sub-58,music,MT,cca,0.05073549305853762
+sub-58,music,STS,cca,0.07474522353407242
+sub-58,music,temporal,cca,0.07474522353407242
+sub-58,music,frontal,cca,0.07474522353407242
+sub-58,speaking,MT,cca,0.00136786415753245
+sub-58,speaking,STS,cca,0.04562972299138264
+sub-58,speaking,temporal,cca,0.04562972299138264
+sub-58,speaking,frontal,cca,0.04562972299138264
+sub-58,turn taking,MT,cca,-0.01480325740813786
+sub-58,turn taking,STS,cca,0.02869241094066526
+sub-58,turn taking,temporal,cca,0.02869241094066526
+sub-58,turn taking,frontal,cca,0.02869241094066526
+sub-58,mentalization,MT,cca,0.05077553451955437
+sub-58,mentalization,STS,cca,0.06429924650661342
+sub-58,mentalization,temporal,cca,0.06429924650661342
+sub-58,mentalization,frontal,cca,0.06429924650661342
+sub-58,written text,MT,cca,-0.02140306201305011
+sub-58,written text,STS,cca,0.07810714230691063
+sub-58,written text,temporal,cca,0.07810714230691063
+sub-58,written text,frontal,cca,0.07810714230691063
+sub-60,pixel,MT,cca,0.13277730081826666
+sub-60,pixel,STS,cca,0.020947408415712167
+sub-60,pixel,temporal,cca,-0.04154286100653304
+sub-60,pixel,frontal,cca,0.10376860510525673
+sub-60,hue,MT,cca,0.006618584367502489
+sub-60,hue,STS,cca,0.03940458413361805
+sub-60,hue,temporal,cca,-0.014496053510927687
+sub-60,hue,frontal,cca,0.13748022445378322
+sub-60,face,MT,cca,0.049774610038159375
+sub-60,face,STS,cca,0.08319004524654727
+sub-60,face,temporal,cca,0.05044341999580917
+sub-60,face,frontal,cca,0.028798598347463854
+sub-60,number of agents,MT,cca,0.03188992673757964
+sub-60,number of agents,STS,cca,0.021616430707486377
+sub-60,number of agents,temporal,cca,-0.08209753353016673
+sub-60,number of agents,frontal,cca,0.06958142368701745
+sub-60,social,MT,cca,0.03311175888532514
+sub-60,social,STS,cca,0.03495857263762381
+sub-60,social,temporal,cca,-0.018330851541005798
+sub-60,social,frontal,cca,-0.014949106315610815
+sub-60,valence,MT,cca,0.0900739789228471
+sub-60,valence,STS,cca,0.07428945529191022
+sub-60,valence,temporal,cca,0.03315646899730409
+sub-60,valence,frontal,cca,0.06143971258531176
+sub-60,arousal,MT,cca,0.0321855919848316
+sub-60,arousal,STS,cca,0.12346588516472448
+sub-60,arousal,temporal,cca,0.04353132892452298
+sub-60,arousal,frontal,cca,0.09881371080633575
+sub-60,pitch,MT,cca,0.0658026535530741
+sub-60,pitch,STS,cca,0.05402918381566688
+sub-60,pitch,temporal,cca,0.041241082743278
+sub-60,pitch,frontal,cca,-0.024132079649998573
+sub-60,amplitude,MT,cca,0.0031003927667608176
+sub-60,amplitude,STS,cca,0.0173756659304372
+sub-60,amplitude,temporal,cca,0.04259505805681627
+sub-60,amplitude,frontal,cca,0.03347301913815144
+sub-60,music,MT,cca,0.046368791438382594
+sub-60,music,STS,cca,0.12232139537565016
+sub-60,music,temporal,cca,-0.004874158507315629
+sub-60,music,frontal,cca,0.05785669957762289
+sub-60,speaking,MT,cca,0.01406202036983053
+sub-60,speaking,STS,cca,0.015409770443847393
+sub-60,speaking,temporal,cca,0.02156055435455486
+sub-60,speaking,frontal,cca,-0.07361764662827057
+sub-60,turn taking,MT,cca,0.017034236098014667
+sub-60,turn taking,STS,cca,0.05946436601796516
+sub-60,turn taking,temporal,cca,-0.013559823897567358
+sub-60,turn taking,frontal,cca,-0.047464372187023506
+sub-60,mentalization,MT,cca,0.0812551930129318
+sub-60,mentalization,STS,cca,0.037538930229691084
+sub-60,mentalization,temporal,cca,0.048211867364765945
+sub-60,mentalization,frontal,cca,0.09944760082240259
+sub-60,written text,MT,cca,0.01646420251606142
+sub-60,written text,STS,cca,0.04066547845854553
+sub-60,written text,temporal,cca,-0.02426722687748064
+sub-60,written text,frontal,cca,0.045163880047368155
+sub-61,pixel,MT,cca,-0.004185695736409589
+sub-61,pixel,STS,cca,0.15816918105371092
+sub-61,pixel,temporal,cca,-0.020448512272917285
+sub-61,pixel,frontal,cca,0.006959984612518411
+sub-61,hue,MT,cca,0.009864651854192741
+sub-61,hue,STS,cca,0.009828940370254747
+sub-61,hue,temporal,cca,0.008670620408815322
+sub-61,hue,frontal,cca,0.0047427151020368544
+sub-61,face,MT,cca,0.028522607681185065
+sub-61,face,STS,cca,0.04650504845590801
+sub-61,face,temporal,cca,0.04078384078892192
+sub-61,face,frontal,cca,-0.0049439166289163335
+sub-61,number of agents,MT,cca,0.02502170140326463
+sub-61,number of agents,STS,cca,0.008844151515834398
+sub-61,number of agents,temporal,cca,-0.0801000977204448
+sub-61,number of agents,frontal,cca,-0.036022081882559176
+sub-61,social,MT,cca,0.03917097746606755
+sub-61,social,STS,cca,0.015078032974168343
+sub-61,social,temporal,cca,0.04051742536772449
+sub-61,social,frontal,cca,0.043517648485344965
+sub-61,valence,MT,cca,0.05076356612421673
+sub-61,valence,STS,cca,0.1340201889660884
+sub-61,valence,temporal,cca,0.0787512470090995
+sub-61,valence,frontal,cca,0.16783807378040733
+sub-61,arousal,MT,cca,0.018515614527738023
+sub-61,arousal,STS,cca,-0.10715334422467845
+sub-61,arousal,temporal,cca,-0.06133754964666227
+sub-61,arousal,frontal,cca,-0.05970697807173764
+sub-61,pitch,MT,cca,0.029227882789823845
+sub-61,pitch,STS,cca,0.04082296302568289
+sub-61,pitch,temporal,cca,0.03991948817837447
+sub-61,pitch,frontal,cca,0.0038296697659205626
+sub-61,amplitude,MT,cca,-0.022093243625633717
+sub-61,amplitude,STS,cca,-0.0935040000720303
+sub-61,amplitude,temporal,cca,-0.02170339180419918
+sub-61,amplitude,frontal,cca,-0.08615533476820103
+sub-61,music,MT,cca,-0.037881420763241636
+sub-61,music,STS,cca,0.041584912202193444
+sub-61,music,temporal,cca,0.00951028860069425
+sub-61,music,frontal,cca,0.02672570313435709
+sub-61,speaking,MT,cca,0.014509719616643912
+sub-61,speaking,STS,cca,-0.04699654584010051
+sub-61,speaking,temporal,cca,0.055638786697276954
+sub-61,speaking,frontal,cca,-0.013697782745111242
+sub-61,turn taking,MT,cca,0.0021121420803091873
+sub-61,turn taking,STS,cca,0.04266345259521855
+sub-61,turn taking,temporal,cca,0.06292073771654735
+sub-61,turn taking,frontal,cca,-0.03690938840415732
+sub-61,mentalization,MT,cca,0.025323955782797024
+sub-61,mentalization,STS,cca,0.045508153733819424
+sub-61,mentalization,temporal,cca,0.04485509606393787
+sub-61,mentalization,frontal,cca,0.0037502834262548744
+sub-61,written text,MT,cca,-0.019550651917745677
+sub-61,written text,STS,cca,0.047969062593598476
+sub-61,written text,temporal,cca,-0.015925236996448967
+sub-61,written text,frontal,cca,0.024251458118564904
+sub-62,pixel,MT,cca,0.13341504868666046
+sub-62,pixel,STS,cca,0.004717196426893233
+sub-62,pixel,temporal,cca,-0.10844980989561308
+sub-62,pixel,frontal,cca,0.17369252716485298
+sub-62,hue,MT,cca,-0.04280649550327727
+sub-62,hue,STS,cca,-0.02365819051172997
+sub-62,hue,temporal,cca,0.08414322255209286
+sub-62,hue,frontal,cca,0.08027820481776378
+sub-62,face,MT,cca,0.04041136102477616
+sub-62,face,STS,cca,0.07033896655658711
+sub-62,face,temporal,cca,-0.018231688225814245
+sub-62,face,frontal,cca,0.09999078815775583
+sub-62,number of agents,MT,cca,0.015347818447407558
+sub-62,number of agents,STS,cca,0.014806192539626385
+sub-62,number of agents,temporal,cca,-0.007192615448231421
+sub-62,number of agents,frontal,cca,-0.014570349126769844
+sub-62,social,MT,cca,0.05932009864627863
+sub-62,social,STS,cca,-0.034127698675314025
+sub-62,social,temporal,cca,0.015548312752440906
+sub-62,social,frontal,cca,0.11327500385426854
+sub-62,valence,MT,cca,0.09659134886928164
+sub-62,valence,STS,cca,0.17713469697886258
+sub-62,valence,temporal,cca,0.0337676470512267
+sub-62,valence,frontal,cca,0.15575714110833397
+sub-62,arousal,MT,cca,-0.08216331892035225
+sub-62,arousal,STS,cca,0.05439263567746529
+sub-62,arousal,temporal,cca,-0.04166254123036013
+sub-62,arousal,frontal,cca,0.07893171457520998
+sub-62,pitch,MT,cca,0.07164512336041592
+sub-62,pitch,STS,cca,-0.0050567991166819756
+sub-62,pitch,temporal,cca,0.003943267304983089
+sub-62,pitch,frontal,cca,-0.12300894950973104
+sub-62,amplitude,MT,cca,-0.06427229088568458
+sub-62,amplitude,STS,cca,0.013366014425577454
+sub-62,amplitude,temporal,cca,0.015430994888807014
+sub-62,amplitude,frontal,cca,0.07657601055020061
+sub-62,music,MT,cca,-0.03501648979915637
+sub-62,music,STS,cca,0.01091339149341548
+sub-62,music,temporal,cca,0.0373597481240497
+sub-62,music,frontal,cca,-0.034429737503540545
+sub-62,speaking,MT,cca,-0.03627730649162027
+sub-62,speaking,STS,cca,-0.01885941950529697
+sub-62,speaking,temporal,cca,-1.6647710384876112e-05
+sub-62,speaking,frontal,cca,0.0610057101175006
+sub-62,turn taking,MT,cca,0.02758336272995563
+sub-62,turn taking,STS,cca,-0.0648065965362959
+sub-62,turn taking,temporal,cca,0.031067205705110103
+sub-62,turn taking,frontal,cca,0.07556736393844585
+sub-62,mentalization,MT,cca,0.05519510519433415
+sub-62,mentalization,STS,cca,0.04582312645946671
+sub-62,mentalization,temporal,cca,0.029704746205015575
+sub-62,mentalization,frontal,cca,-0.024235661065300264
+sub-62,written text,MT,cca,0.03744834847741305
+sub-62,written text,STS,cca,-0.045103573050303145
+sub-62,written text,temporal,cca,-0.05013401096209815
+sub-62,written text,frontal,cca,0.0882941201508141

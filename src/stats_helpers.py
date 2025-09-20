@@ -282,30 +282,6 @@ def compare_selectivity_within_region_type(
     combined_fit_df = pd.concat(all_fits, ignore_index=True)
 
     return combined_fit_df
-def compare_hemispheric_distribution(
-    data,
-    region_column='hemi_mask',
-    hemisphere_column='hemisphere',
-    value_column='proportion_voxels',
-    subject_column='subject'
-):
-    import pandas as pd
-    from pymer4.models import Lmer
-
-    subset = data[data[hemisphere_column] == 'right'].copy()
-    subset['adjusted'] = subset[value_column] - 0.5
-    
-
-    all_fits = []
-    for region in subset[region_column].unique():
-        region_subset = subset[subset[region_column] == region].copy()
-        model = Lmer("adjusted ~ 1 + (1|subject)", data=region_subset.rename(columns={subject_column: 'subject'}))
-        fit = model.fit()
-        fit_df = fit.reset_index()
-        fit_df['region'] = region
-        all_fits.append(fit_df)
-
-    return pd.concat(all_fits, ignore_index=True) if all_fits else pd.DataFrame()
 def run_statistical_comparisons(
     data,
     masks,
@@ -403,6 +379,7 @@ def run_anova_per_region_pair_per_hemisphere(
     all_anova_results = []
 
     hemispheres = data['hemisphere'].unique()
+    data['hemi_mask'] = [hemi+'_'+ mask for hemi,mask in zip(data['hemisphere'],data['mask'])]
 
     for hemi in hemispheres:
         print(f'Running ANOVA for {hemi} hemisphere per region pair')
@@ -458,11 +435,13 @@ def generate_latex_anova_pairwise_table(anova_df, output_path,include_hemi=False
 
     rows = []
 
-    # We only want the second row (interaction test row) per region_pair:
-    interaction_rows = anova_df.groupby(['hemisphere', 'region_pair']).nth(1).reset_index()
+    if include_hemi:
+        # We only want the second row (interaction test row) per region_pair:
+        interaction_rows = anova_df.groupby(['hemisphere', 'region_pair']).nth(1).reset_index()
+    else:
+        interaction_rows = anova_df.groupby(['region_pair']).nth(1).reset_index()
 
     for _, row in interaction_rows.iterrows():
-        hemi = row['hemisphere'].capitalize()
         region_pair = row['region_pair'].replace('_vs_', ' vs ').replace('left','').replace('right','').replace('both','')
 
         chisq = f"{row['Chisq']:.3f}"
@@ -486,6 +465,7 @@ def generate_latex_anova_pairwise_table(anova_df, output_path,include_hemi=False
             stars = 'n.s.'
 
         if include_hemi:
+            hemi = row['hemisphere'].capitalize()
             rows.append([hemi, region_pair, chi_df, chisq, pval, stars])
         else:
             rows.append([region_pair, chi_df, chisq, pval, stars])
@@ -521,7 +501,7 @@ def run_similarity_superregion_LME(results_df, axis, split_hemi=True,average_pos
             return 'STS'
         elif parcel in ['pTemp', 'aTemp', 'temporal']:
             return 'temporal'
-        elif parcel == 'frontal_language':
+        elif parcel == 'frontal':
             return 'frontal'
         elif parcel == 'MT':
             return 'MT'
@@ -648,7 +628,7 @@ def generate_latex_pairwise_similarity_table_with_hemisphere(
     if include_hemi:
         headers = ['Hemisphere', 'Region Pair 1', 'Region Pair 2', 'Estimate', 'p-value', 'Sig.']
     else:
-        headers = ['Hemisphere', 'Region Pair 1', 'Region Pair 2', 'Estimate', 'p-value', 'Sig.']
+        headers = ['Region Pair 1', 'Region Pair 2', 'Estimate', 'p-value', 'Sig.']
     table_latex = tabulate(rows, headers, tablefmt="latex_booktabs")
 
     # Write LaTeX table to file
