@@ -1,5 +1,5 @@
 # ubiquitous-vis
- Code for paper 'Ubiquitous cortical sensitivity to visual information during naturalistic, audiovisual movie viewing' 
+ Code for paper 'Ubiquitous cortical sensitivity to visual information during naturalistic, audiovisual movie viewing'. [Read paper here!](https://osf.io/preprints/psyarxiv/b5p4n_v1)
 
  ### conda environment
  create the environment: ``` conda env create -f environment.yml ```
