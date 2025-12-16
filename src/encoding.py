@@ -229,9 +229,39 @@ class EncodingModel:
                 trimmed_data = np.concatenate((trimmed_data,new_data),axis=0) #concatenate along n samples dimension
             trimmed_confounds.extend(new_confounds)
         
-        self.fMRI_data = trimmed_data 
+        self.fMRI_data = trimmed_data
         self.confounds = np.array(trimmed_confounds)
         self.run_ends = run_ends
+
+
+    def apply_speech_mask(self):
+        """
+        Restrict fMRI and feature data to speech periods only.
+        Creates a mask from language features (non-zero samples) and applies to all data.
+        """
+        print('...creating speech-period mask from language features...')
+
+        # Load a language feature to create the mask
+        lang_feature_path = self.dir + '/features/word2vec.csv'
+        lang_data = np.array(pd.read_csv(lang_feature_path, header=None)).astype(dtype="float32")
+
+        # Create mask: speech periods are where language features are non-zero
+        speech_mask = ~np.all(lang_data == 0, axis=1)
+
+        # Apply mask to fMRI data
+        n_samples_before = self.fMRI_data.shape[0]
+        self.fMRI_data = self.fMRI_data[speech_mask]
+        self.confounds = self.confounds[speech_mask]
+
+        n_samples_after = self.fMRI_data.shape[0]
+        n_excluded = n_samples_before - n_samples_after
+
+        print(f'  Samples before speech masking: {n_samples_before}')
+        print(f'  Samples after speech masking: {n_samples_after}')
+        print(f'  Excluded {n_excluded} non-speech samples ({n_excluded/n_samples_before*100:.1f}%)')
+
+        # Store the mask for later use when loading features
+        self.speech_mask = speech_mask
 
 
     def load_preprocess_fMRI(self,smooth=False,denoise=False):
@@ -527,6 +557,11 @@ class EncodingModel:
             filepath = self.dir + '/features/'+self.features_dict[feature_space].lower()+'.csv'
             print(filepath)
             data = np.array(pd.read_csv(filepath,header=None)).astype(dtype="float32")
+
+            # Apply speech mask if it exists
+            if hasattr(self, 'speech_mask'):
+                data = data[self.speech_mask]
+
             print(data.shape)
             n_dim = data.shape[1]
             if feature_space in self.feature_weights_to_save:
@@ -1134,6 +1169,7 @@ class EncodingModel:
         print('save_weights',self.save_weights)
         self.load_preprocess_fMRI(smooth=True,denoise=False)
         self.trim_fMRI()
+        self.apply_speech_mask()
 
         if testing:
             self.random_search_n = 100
