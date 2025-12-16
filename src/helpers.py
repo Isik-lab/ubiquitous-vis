@@ -43,7 +43,13 @@ def get_models_dict():
                    'SLIP_attention':['SLIP_attention_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
                    'SimCLR_embedding':['SimCLR_embedding_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
                    'SLIP_embedding':['SLIP_embedding_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                   'SLIPtext':['SLIPtext']          }
+                   'SLIPtext':['SLIPtext'],
+                   'alexnet_149pcs' : ['AlexNet_all_layers_pcs_149dims'],
+                   'motion_149pcs': ['motion_pcs_149dims'],
+                   'hubert_149pcs': ['HuBERT_all_layers_pcs_149dims'],
+                   'word2vec_149pcs': ['word2vec_pcs_149dims'],
+                   'GPT2_149pcs': ['GPT2_chunk30_all_layers_pcs_149dims'],
+                   'SimCLR_149pcs': ['SimCLR_attention_all_layers_pcs_149dims']}
         # self.model_features_dict['full']=self.model_features_dict['alexnet_layers']+self.model_features_dict['sbert_layers']+['social','num_agents','speaking','turn_taking','mentalization','word2vec','valence','arousal','motion','face','indoor_outdoor','written_text','pixel','hue','pitch','amplitude','music']
     models_dict['GPT2'] = models_dict['GPT2_1sent']
     models_dict['SLIP']=models_dict['SLIP_attention']+models_dict['SLIP_embedding']
@@ -55,6 +61,8 @@ def get_models_dict():
     models_dict['GPT2+word2vec'] = models_dict['GPT2_1sent']+models_dict['word2vec']
         
     models_dict['joint'] = models_dict['alexnet']+ models_dict['motion'] + models_dict['hubert']+ models_dict['word2vec'] + models_dict['sbert'] + models_dict['annotated']
+    models_dict['vislang_149pcs'] = models_dict['alexnet_149pcs'] + models_dict['motion_149pcs'] + models_dict['hubert_149pcs'] + models_dict['word2vec_149pcs'] + models_dict['GPT2_149pcs']
+    models_dict['vislang_SimCLR_149pcs'] = models_dict['SimCLR_149pcs'] + models_dict['motion_149pcs'] + models_dict['hubert_149pcs'] + models_dict['word2vec_149pcs'] + models_dict['GPT2_149pcs']
 
     
     models_dict['vislang_alexnet_1'] =   ['alexnet_layer'+str(layer) for layer in [1]]+ models_dict['motion'] + models_dict['hubert']+ models_dict['word2vec'] + models_dict['sbert']
