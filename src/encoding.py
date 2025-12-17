@@ -79,6 +79,7 @@ class EncodingModel:
         print('args.save_weights',args.save_weights)
         self.save_hemodynamic_fits = bool(args.save_weights) #if saving weights, also saving hemodynamic fits
         self.save_individual_feature_performance=True
+        self.apply_speech_masking = getattr(args, 'apply_speech_masking', False) #whether to restrict data to speech periods only (default: False)
     
 
         #variables to store results in:
@@ -172,7 +173,13 @@ class EncodingModel:
                        'pitch':'pitch',
                        'amplitude':'amplitude',
                        'pixel': 'pixel',
-                       'hue':'hue'
+                       'hue':'hue',
+                       'alexnet_149pcs' : ['AlexNet_all_layers_pcs_149dims'],
+                        'motion_149pcs': ['motion_pcs_149dims'],
+                        'hubert_149pcs': ['HuBERT_all_layers_pcs_149dims'],
+                        'word2vec_149pcs': ['word2vec_pcs_149dims'],
+                        'GPT2_149pcs': ['GPT2_chunk30_all_layers_pcs_149dims'],
+                        'SimCLR_149pcs': ['SimCLR_attention_all_layers_pcs_149dims']
                        }
         for layer in self.model_features_dict['sbert']:
             self.features_dict[layer]='downsampled_all-mpnet-base-v2_'+layer.split('_')[1]
@@ -458,6 +465,8 @@ class EncodingModel:
         file_label = self.sid+'_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
         if self.mask_name is not None:
             file_label = file_label + '_mask-'+self.mask_name
+        if self.apply_speech_masking:
+            file_label = file_label + '_speech-masked'
 
         colors_dict = self.colors_dict
 
@@ -893,6 +902,8 @@ class EncodingModel:
         file_label = self.sid+'_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
         if self.mask_name is not None:
             file_label = file_label + '_mask-'+self.mask_name
+        if self.apply_speech_masking:
+            file_label = file_label + '_speech-masked'
 
         output_filepath_surf = ''
         if label=='raw':
@@ -929,6 +940,8 @@ class EncodingModel:
 
                 if self.mask_name is not None:
                     file_label = file_label + '_mask-'+self.mask_name
+                if self.apply_speech_masking:
+                    file_label = file_label + '_speech-masked'
 
 
                 if label=='raw':
@@ -973,6 +986,8 @@ class EncodingModel:
 
                 if self.mask_name is not None:
                     file_label = file_label + '_mask-'+self.mask_name
+                if self.apply_speech_masking:
+                    file_label = file_label + '_speech-masked'
 
                 output_filepath_surf = ''
                 plot_threshold = threshold
@@ -1015,7 +1030,9 @@ class EncodingModel:
             file_label = file_label + '_mask-'+self.mask_name
         file_label = self.sid+'_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
         if self.mask_name is not None:
-            file_label = file_label + '_mask-'+self.mask_name 
+            file_label = file_label + '_mask-'+self.mask_name
+        if self.apply_speech_masking:
+            file_label = file_label + '_speech-masked'
         print(len(self.performance))
         
         if len(self.performance)>0:
@@ -1153,7 +1170,9 @@ class EncodingModel:
         #load and mask data
         file_label = self.sid+'_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
         if(self.mask_name is not None):
-            file_label = file_label + '_mask-'+self.mask_name 
+            file_label = file_label + '_mask-'+self.mask_name
+        if self.apply_speech_masking:
+            file_label = file_label + '_speech-masked'
 
         filepath = self.out_dir+'/ind_product_measure/'+file_label+'_measure-ind_product_measure_raw.nii.gz'
 
@@ -1169,7 +1188,10 @@ class EncodingModel:
         print('save_weights',self.save_weights)
         self.load_preprocess_fMRI(smooth=True,denoise=False)
         self.trim_fMRI()
-        self.apply_speech_mask()
+
+        # Optionally apply speech masking if enabled
+        if self.apply_speech_masking:
+            self.apply_speech_mask()
 
         if testing:
             self.random_search_n = 100
@@ -1198,6 +1220,8 @@ def main():
     parser.add_argument('--model','-model',type=str, default=None)
     parser.add_argument('--save-weights','-save-weights',type=int, default=0)
     parser.add_argument('--testing','-testing',type=str,default=None)
+    parser.add_argument('--apply-speech-masking', action='store_true', 
+                    help='Restrict analysis to speech periods only')
 
     parser.add_argument('--dir', '-dir', type=str,
                         default='/Users/hsmall2/Documents/GitHub/naturalistic-multimodal-movie')

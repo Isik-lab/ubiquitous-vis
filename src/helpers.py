@@ -44,12 +44,12 @@ def get_models_dict():
                    'SimCLR_embedding':['SimCLR_embedding_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
                    'SLIP_embedding':['SLIP_embedding_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
                    'SLIPtext':['SLIPtext'],
-                   'alexnet_149pcs' : ['AlexNet_all_layers_pcs_149dims'],
-                   'motion_149pcs': ['motion_pcs_149dims'],
-                   'hubert_149pcs': ['HuBERT_all_layers_pcs_149dims'],
-                   'word2vec_149pcs': ['word2vec_pcs_149dims'],
-                   'GPT2_149pcs': ['GPT2_chunk30_all_layers_pcs_149dims'],
-                   'SimCLR_149pcs': ['SimCLR_attention_all_layers_pcs_149dims']}
+                   'alexnet_149pcs' : ['alexnet_149pcs'],
+                   'motion_149pcs': ['motion_149pcs'],
+                   'hubert_149pcs': ['hubert_149pcs'],
+                   'word2vec_149pcs': ['word2vec_149pcs'],
+                   'GPT2_149pcs': ['GPT2_149pcs'],
+                   'SimCLR_149pcs': ['SimCLR_149pcs']}
         # self.model_features_dict['full']=self.model_features_dict['alexnet_layers']+self.model_features_dict['sbert_layers']+['social','num_agents','speaking','turn_taking','mentalization','word2vec','valence','arousal','motion','face','indoor_outdoor','written_text','pixel','hue','pitch','amplitude','music']
     models_dict['GPT2'] = models_dict['GPT2_1sent']
     models_dict['SLIP']=models_dict['SLIP_attention']+models_dict['SLIP_embedding']
