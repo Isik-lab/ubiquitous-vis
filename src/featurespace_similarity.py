@@ -19,6 +19,7 @@ class FeatureSpaceSimilarity(encoding.EncodingModel):
         self.dir = args.dir
         self.out_dir = args.out_dir + "/" + self.process
         self.figure_dir = args.figure_dir + "/" + self.process
+        self.apply_speech_masking = getattr(args, 'apply_speech_masking', False) #whether to restrict data to speech periods only (default: False)
         Path(f'{self.out_dir}/').mkdir(exist_ok=True, parents=True)
         self.features_dict = {
                        'sbert':['sbert_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
@@ -126,6 +127,29 @@ class FeatureSpaceSimilarity(encoding.EncodingModel):
 
         print(self.features_dict)
 
+    def create_speech_mask(self):
+        """
+        Create a speech-period mask from language features.
+        Returns a boolean array indicating speech periods (True) and non-speech periods (False).
+        """
+        # Load word2vec to create the mask
+        lang_feature_path = self.dir + '/features/word2vec.csv'
+        lang_data = np.array(pd.read_csv(lang_feature_path, header=None)).astype(dtype="float32")
+
+        # Create mask: speech periods are where language features are non-zero
+        speech_mask = ~np.all(lang_data == 0, axis=1)
+
+        n_samples_total = len(speech_mask)
+        n_samples_speech = speech_mask.sum()
+        n_excluded = n_samples_total - n_samples_speech
+
+        print('...creating speech-period mask from language features...')
+        print(f'  Total samples: {n_samples_total}')
+        print(f'  Speech period samples: {n_samples_speech}')
+        print(f'  Excluded non-speech samples: {n_excluded} ({n_excluded/n_samples_total*100:.1f}%)')
+
+        return speech_mask
+
     def canonical_correlation_analysis(self,feature_names=[],latent_dimensions='auto',regularized=False,outer_folds=10,inner_folds=5):
         from cca_zoo.model_selection import GridSearchCV
         from cca_zoo.nonparametric import KCCA
@@ -134,11 +158,20 @@ class FeatureSpaceSimilarity(encoding.EncodingModel):
         #### load feature spaces
         ######## and do dimensionality reduction for any multidimensional feature spaces
 
+        # Create speech mask if enabled
+        if self.apply_speech_masking:
+            speech_mask = self.create_speech_mask()
+
         loaded_features = {}
-        dimensions = [] 
+        dimensions = []
         for feature_space in feature_names:
             filepath = self.dir + '/features/'+self.features_dict[feature_space].lower()+'.csv'
             data = np.array(pd.read_csv(filepath,header=None))
+
+            # Apply speech mask if enabled
+            if self.apply_speech_masking:
+                data = data[speech_mask]
+
             n_samples, n_features = data.shape
             loaded_features[feature_space] = data.astype(dtype="float32")
             dimensions.append(n_features)
@@ -232,7 +265,10 @@ class FeatureSpaceSimilarity(encoding.EncodingModel):
         if(self.method=='CCA'):
             result = self.canonical_correlation_analysis(feature_names = [self.feature1,self.feature2],regularized=True,outer_folds=5)
         #save the result in a csv
-        filepath = self.out_dir + '/'+self.features+'_latent_dim-'+str(self.latent_dim)+'.csv'
+        file_label = self.features+'_latent_dim-'+str(self.latent_dim)
+        if self.apply_speech_masking:
+            file_label = file_label + '_speech-masked'
+        filepath = self.out_dir + '/'+file_label+'.csv'
         with open(filepath, 'w') as file:
             file.write(str(result))
 
