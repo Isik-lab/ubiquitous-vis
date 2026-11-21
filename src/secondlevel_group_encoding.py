@@ -40,6 +40,7 @@ class SecondLevelGroup(encoding.EncodingModel):
         self.chunklen = args.chunklen
         self.fMRI_data = []
         self.brain_shape = (97,115,97)
+        self.apply_speech_masking=False
         self.affine = []
         self.feature_names = []
         self.features = []
@@ -95,32 +96,88 @@ class SecondLevelGroup(encoding.EncodingModel):
         self.features_preferred_delay=[]
         self.final_weight_feature_names=[]
 
+        # Clipping control parameters
+        self.clip_negative_performance = False
+        self.clip_negative_product_measure = False
+        self.mask_by_performance = True
+
+        # Measure suffix for alternative evaluation methods (e.g., '_speech_only_eval')
+        self.measure_suffix = ''
+
         self.subjects = helpers.get_subjects(self.population)
         self.models_dict = helpers.get_models_dict()
         self.cmaps = plotting_helpers.get_cmaps()
         self.colors_dict = plotting_helpers.get_colors_dict()
 
 
-        self.file_label = '_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
+        # Create file labels with both orderings (new: mask_chunklen, old: chunklen_mask)
+        # OLD ordering (chunklen before mask) - for backward compatibility
+        self.file_label_old = '_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
         if(self.model=='cross_subject'):
             self.in_dir = os.path.join(self.dir,'analysis','Brain2Brain')
-            self.file_label = '_brain2brain_encoding_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
+            self.file_label_old = '_brain2brain_encoding_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
         if(self.model=='correlation'):
             self.in_dir = os.path.join(self.dir,'analysis','Brain2Brain')
-            self.file_label = '_brain2brain_correlation_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
+            self.file_label_old = '_brain2brain_correlation_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
         if(self.mask_name!=''):
-            self.file_label = self.file_label +'_mask-'+self.mask
+            self.file_label_old = self.file_label_old +'_mask-'+self.mask
+
+        # NEW ordering (mask before chunklen)
+        if(self.model=='cross_subject'):
+            self.file_label_new = '_brain2brain_encoding_smoothingfwhm-'+str(self.smoothing_fwhm)
+        elif(self.model=='correlation'):
+            self.file_label_new = '_brain2brain_correlation_smoothingfwhm-'+str(self.smoothing_fwhm)
+        else:
+            self.file_label_new = '_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)
+
+        if(self.mask_name!=''):
+            self.file_label_new = self.file_label_new + '_mask-'+self.mask + '_chunklen-'+str(self.chunklen)
+        else:
+            self.file_label_new = self.file_label_new + '_chunklen-'+str(self.chunklen)
+
+        # Default to NEW ordering for saving (files will be saved with new pattern going forward)
+        # But loading will try both orderings for backward compatibility
+        self.file_label = self.file_label_new
         
         self.extra_label = '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)+'_mask-'+self.mask
         self.file_label_glm = '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_mask-'+self.mask
 
         self.combined_features = helpers.get_combined_features()
 
+    def _load_file_flexible(self, base_path, subject, measure_label, subfolder='performance'):
+        """
+        Try loading a file with both filename orderings (new: mask_chunklen, old: chunklen_mask).
+
+        Parameters:
+            base_path: Base directory path (e.g., self.in_dir)
+            subject: Subject ID
+            measure_label: Measure label (e.g., 'perf_raw')
+            subfolder: Subfolder name (e.g., 'performance', 'ind_product_measure')
+
+        Returns:
+            nibabel image object if found, None otherwise
+        """
+        # Try new ordering first (mask before chunklen)
+        filepath_new = os.path.join(base_path, subfolder, f"{subject}{self.file_label_new}_measure-{measure_label}.nii.gz")
+
+        if os.path.exists(filepath_new):
+            return nibabel.load(filepath_new)
+
+        # Fall back to old ordering (chunklen before mask)
+        filepath_old = os.path.join(base_path, subfolder, f"{subject}{self.file_label_old}_measure-{measure_label}.nii.gz")
+
+        if os.path.exists(filepath_old):
+            return nibabel.load(filepath_old)
+
+        # Neither exists - raise error with both paths
+        raise FileNotFoundError(f"Could not find file with either ordering:\n  New: {filepath_new}\n  Old: {filepath_old}")
+
     def get_feature_index(self, subject,feature, selection_model=''):
+        # Simplified feature file naming: encoding_model-[model_name].csv
         if selection_model=='':
-            file_label = 'encoding_model-'+self.model+self.extra_label
+            file_label = 'encoding_model-'+self.model
         else:
-            file_label = 'encoding_model-'+selection_model+self.extra_label
+            file_label = 'encoding_model-'+selection_model
         filename = self.in_dir+'/features/'+file_label+'_features.csv'
         file = open(filename, "r")
         data = list(csv.reader(file, delimiter=','))[0]
@@ -138,17 +195,18 @@ class SecondLevelGroup(encoding.EncodingModel):
             sub_model=self.model
 
         if('performance' in measures):
-            label = 'perf_raw'
+            label = 'perf' + self.measure_suffix + '_raw'
             all_data_performance = []
             for subject in self.subjects[self.task]:
                 try:
-                    nii = nibabel.load(self.in_dir+'/performance/'+subject+self.file_label+'_measure-'+label+'.nii.gz')
-                    if(self.model=='correlation'):
-                        nii = nibabel.processing.smooth_image(nii,fwhm=0.0,mode='nearest') #no additional smoothing for ISC
-                    else:
-                        nii = nibabel.processing.smooth_image(nii,fwhm=self.smoothing_fwhm,mode='nearest')
+                    nii = self._load_file_flexible(self.in_dir, subject, label, 'performance')
+                    # if(self.model=='correlation'):
+                    #     nii = nibabel.processing.smooth_image(nii,fwhm=0.0,mode='nearest') #no additional smoothing for ISC
+                    # else:
+                    #     nii = nibabel.processing.smooth_image(nii,fwhm=0.0,mode='nearest') #no additional smoothing
                     performance = nii.get_fdata()
-                    performance[performance<0] = 0 #clip negative responses to 0
+                    if self.clip_negative_performance:
+                        performance[performance<0] = 0 #clip negative responses to 0
                     affine = nii.affine
                     all_data_performance.append(performance)
                     # print(subject)
@@ -190,7 +248,7 @@ class SecondLevelGroup(encoding.EncodingModel):
                                 enc_file_label = enc_file_label + '_mask-'+self.mask_name
                             filepath = self.in_dir+'/performance/'+subject+enc_file_label+'_measure-'+label+'.nii.gz'
                             nii1 = nibabel.load(filepath)
-                            nii1 = nibabel.processing.smooth_image(nii1,fwhm=self.smoothing_fwhm,mode='nearest')
+                            # nii1 = nibabel.processing.smooth_image(nii1,fwhm=0.0,mode='nearest')
                             all_subtract_models.append(nii1.get_fdata())
                         
                         subtract_model = np.max(all_subtract_models,axis=0)
@@ -201,7 +259,7 @@ class SecondLevelGroup(encoding.EncodingModel):
                             enc_file_label = enc_file_label + '_mask-'+self.mask_name
                         filepath =self.in_dir+'/performance/'+subject+enc_file_label+'_measure-'+label+'.nii.gz'
                         nii1 = nibabel.load(filepath)
-                        nii1 = nibabel.processing.smooth_image(nii1,fwhm=self.smoothing_fwhm,mode='nearest')
+                        # nii1 = nibabel.processing.smooth_image(nii1,fwhm=self.smoothing_fwhm,mode='nearest')
 
                         base_model = nii1.get_fdata()
                         base_model[base_model<0] = 0
@@ -238,7 +296,7 @@ class SecondLevelGroup(encoding.EncodingModel):
                             enc_file_label = enc_file_label + '_mask-'+self.mask_name
                         filepath = self.in_dir+'/performance/'+subject+enc_file_label+'_measure-'+label+'.nii.gz'
                         nii1 = nibabel.load(filepath)
-                        nii1 = nibabel.processing.smooth_image(nii1,fwhm=self.smoothing_fwhm,mode='nearest')
+                        # nii1 = nibabel.processing.smooth_image(nii1,fwhm=self.smoothing_fwhm,mode='nearest')
                         
                         subtract_model = nii1.get_fdata()
                         subtract_model[subtract_model<0] = 0
@@ -277,7 +335,7 @@ class SecondLevelGroup(encoding.EncodingModel):
             for subject in self.subjects[self.task]:
                 try:
                     #load the raw performance data for each subject
-                    nii = nibabel.load(self.in_dir+'/performance/'+subject+self.file_label+'_measure-'+label+'.nii.gz')
+                    nii = self._load_file_flexible(self.in_dir, subject, label, 'performance')
                     performance = nii.get_fdata()
                     affine = nii.affine
                     all_data_performance.append(performance)
@@ -298,13 +356,16 @@ class SecondLevelGroup(encoding.EncodingModel):
                 all_data_ind_product_measure = []
                 for subject in self.subjects[self.task]:
                     try:
-                        nii = nibabel.load(self.in_dir+'/ind_product_measure/'+subject+self.file_label+'_measure-ind_product_measure_raw.nii.gz')
+                        measure_label = 'ind_product_measure' + self.measure_suffix + '_raw'
+                        nii = self._load_file_flexible(self.in_dir, subject, measure_label, 'ind_product_measure')
                         data = nii.get_fdata()
-                        data[data<0] = 0 #clip response values to 0
+                        if self.clip_negative_product_measure:
+                            data[data<0] = 0 #clip response values to 0
                         #clip voxels with performance less than 0 to 0
-                        perf_nii = nibabel.load(self.in_dir+'/performance/'+subject+self.file_label+'_measure-'+label+'.nii.gz')
+                        perf_nii = self._load_file_flexible(self.in_dir, subject, label, 'performance')
                         perf_data = perf_nii.get_fdata()
-                        data[:,perf_data<0] = 0
+                        if self.mask_by_performance:
+                            data[:,perf_data<0] = 0
                         if self.scale_by=='total_variance':
                             data = data/data.sum(axis=0,keepdims=1) #normalize
                         if feature_name in self.combined_features:
@@ -323,7 +384,7 @@ class SecondLevelGroup(encoding.EncodingModel):
                         # print(feature_index)
                         nii = nibabel.Nifti1Image(data,nii.affine)
                         #smooth after adding together layers if nec
-                        nii = nibabel.processing.smooth_image(nii,fwhm=self.smoothing_fwhm,mode='nearest')
+                        # nii = nibabel.processing.smooth_image(nii,fwhm=self.smoothing_fwhm,mode='nearest')
                         all_data_ind_product_measure.append(nii.get_fdata())
                     except Exception as e:
                         print(e)
@@ -335,7 +396,7 @@ class SecondLevelGroup(encoding.EncodingModel):
             ind_product_measure = np.array(all_ind_product_measure) #mask it for computing the preference maps, which need a flat array
             subject_ind_product_measure = np.array(subject_ind_product_measure)
             img = nibabel.Nifti1Image(ind_product_measure, affine)
-            nibabel.save(img, self.out_dir+'/ind_product_measure/'+self.sid+self.file_label+'_measure-ind_product_measure_raw.nii.gz' )
+            nibabel.save(img, self.out_dir+'/ind_product_measure/'+self.sid+self.file_label+'_measure-ind_product_measure' + self.measure_suffix + '_raw.nii.gz' )
 
         if('spatial_correlation' in measures):
             label = 'voxelwise_correlation'
@@ -351,7 +412,7 @@ class SecondLevelGroup(encoding.EncodingModel):
                 for subject in self.subjects[self.task]:
                     try:
                         nii = nibabel.load(self.dir+'/analysis/SecondLevelIndividual/spatial_correlation/individual_maps/'+subject+self.file_label+'_measure-'+label+'_alexnet-'+'.nii.gz')
-                        nii = nibabel.processing.smooth_image(nii,fwhm=self.smoothing_fwhm,mode='nearest')
+                        # nii = nibabel.processing.smooth_image(nii,fwhm=self.smoothing_fwhm,mode='nearest')
                         spcorr = nii.get_fdata()[ind]
                         all_data_spcorr.append(spcorr)
                         # print(subject)
@@ -540,7 +601,7 @@ class SecondLevelGroup(encoding.EncodingModel):
             cmap_ = cmap
             plotting_helpers.plot_surface(ind_perf,self.figure_dir + "/added_variance/" + self.sid+self.file_label+'_measure-added_variance_'+label+'_feature-'+feature_name,threshold=threshold,vmin=vmin,vmax=vmax,title=title,symmetric_cbar=False,cmap=cmap_,colorbar_label='Added explained variance $R^2$')
     
-    def plot_ind_product_measure(self,label,threshold=0.000001,vmin=None,vmax=None,group='',cmap='yellow_hot',title=''):
+    def plot_ind_product_measure(self,label,threshold=0.000001,vmin=None,vmax=None,group='',cmap='yellow_hot',title='',png_dpi=None):
         filepath = self.out_dir+'/ind_product_measure/'+self.sid+self.file_label
 
         img = nibabel.load(filepath+'_measure-ind_product_measure_raw.nii.gz')
@@ -561,12 +622,12 @@ class SecondLevelGroup(encoding.EncodingModel):
                 # title=''#feature_name
                 title = ''
                 if vmax is not None:
-                    if(feature_name=='alexnet'):
+                    if(feature_name=='alexnet_eps0.3'):
                         title = 'Image Model (AlexNet)'
-                    elif(feature_name=='sbert'):
-                        title = 'Sentence Model (sBERT)'
+                    elif(feature_name=='GPT2_chunk120'):
+                        title = 'Multi-sentence Model (GPT-2)'
                 cmap_ = cmap
-                plotting_helpers.plot_surface(ind_perf,filepath,threshold=threshold,vmin=vmin,vmax=vmax,title=title,symmetric_cbar=False,cmap=cmap_,colorbar_label='Explained variance $R^2$')
+                plotting_helpers.plot_surface(ind_perf,filepath,threshold=threshold,vmin=vmin,vmax=vmax,title=title,symmetric_cbar=False,cmap=cmap_,colorbar_label='Explained variance $R^2$',png_dpi=png_dpi)
         else:
             overall = []
             for (ind,feature_name) in enumerate(group_dict[group]):
@@ -584,6 +645,54 @@ class SecondLevelGroup(encoding.EncodingModel):
             vmax = group_vmax[group]
             cmap_ = cmap
             plotting_helpers.plot_surface(ind_perf,self.figure_dir + "/ind_product_measure/" + self.sid+self.file_label+'_measure-ind_product_measure_'+label+'_group-'+group,threshold=threshold,vmin=vmin,vmax=vmax,title=title,symmetric_cbar=True,cmap=cmap_,colorbar_label='proportion of total explained variance $R^2$')
+    def plot_vision_language_2d(self, vmax_lang=None, vmax_vis=None,
+                                title='', threshold=0.000001,
+                                language_features=('hubert_chunk120', 'word2vec_chunk120', 'GPT2_chunk120'),
+                                vision_features=('alexnet_eps0.3', 'motion')):
+        """Plot a single group surface with vision vs language product measures on a 2D color map.
+
+        Sums product measures across language features and vision features, then renders
+        the two scalars as per-vertex RGB via a bilinear bivariate blend.
+        """
+        import numpy as np
+
+        img = nibabel.load(self.out_dir + '/ind_product_measure/' + self.sid + self.file_label + '_measure-ind_product_measure_raw.nii.gz')
+        img_data = img.get_fdata()
+        affine = img.affine
+
+        def _sum_features(features):
+            total = None
+            for name in features:
+                idx = self.get_feature_index(None, name)
+                vol = img_data[idx]
+                total = vol if total is None else total + vol
+            return total
+
+        lang_vol = _sum_features(language_features)
+        vis_vol = _sum_features(vision_features)
+        lang_vol = np.clip(lang_vol, 0.0, None)
+        vis_vol = np.clip(vis_vol, 0.0, None)
+
+        mask = helpers.load_mask(self, self.mask_name).get_fdata() == 1
+        if vmax_lang is None:
+            vmax_lang = float(np.nanpercentile(lang_vol[mask], 99)) if mask.any() else float(lang_vol.max())
+        if vmax_vis is None:
+            vmax_vis = float(np.nanpercentile(vis_vol[mask], 99)) if mask.any() else float(vis_vol.max())
+
+        lang_nii = nibabel.Nifti1Image(lang_vol, affine)
+        vis_nii = nibabel.Nifti1Image(vis_vol, affine)
+        nibabel.save(lang_nii, self.out_dir + '/ind_product_measure/' + self.sid + self.file_label + '_measure-language_product_measure_sum.nii.gz')
+        nibabel.save(vis_nii, self.out_dir + '/ind_product_measure/' + self.sid + self.file_label + '_measure-vision_product_measure_sum.nii.gz')
+
+        out_path = self.figure_dir + '/ind_product_measure/' + self.sid + self.file_label + '_measure-vision_vs_language_2d'
+        plotting_helpers.plot_bivariate_surface(
+            lang_nii, vis_nii, out_path,
+            vmax_y=vmax_lang, vmax_x=vmax_vis,
+            threshold=threshold,
+            label_y='Language', label_x='Vision',
+            title=title,
+        )
+
     def plot_spatial_correlation(self,label,threshold=0.000001,vmin=None,vmax=None,group='',cmap='yellow_hot'):
         filepath = self.out_dir+'/spatial_correlation/'+self.sid+self.file_label
         
@@ -646,6 +755,46 @@ class SecondLevelGroup(encoding.EncodingModel):
             colorbar_label = 'Explained Variance $r^2$'
         plotting_helpers.plot_surface(img,self.figure_dir + "/performance/" + file_label+'_measure-perf_'+label,threshold=threshold,vmin=vmin,vmax=vmax,cmap=cmap,title=title,symmetric_cbar=symmetric_cbar,colorbar_label=colorbar_label)
 
+    def plot_preference_maps(self, label='both', width_mm=72, fontsize=6):
+        """Plot the group preference1/preference2 surface maps.
+
+        Overrides EncodingModel.plot_preference_maps, whose positional-arg call
+        to plot_preference_surf no longer matches that function's signature
+        (would bind colors_dict to ROI_niis).
+        width_mm/fontsize: also save a .pdf at this printed width with the title as
+        editable text at fontsize (pt); width_mm=None saves only the .png.
+        """
+        from matplotlib import colors as mpl_colors
+
+        feature_names = self.feature_names
+        file_label = self.sid + self.file_label
+        features_list = ['blank'] + feature_names
+        surf_cmap = mpl_colors.ListedColormap(
+            [self.colors_dict[fn] for fn in features_list]
+        )
+
+        plotting_helpers.plot_preference_surf(
+            self.preference1_map_surf,
+            self.figure_dir + '/preference_map/' + file_label + '_measure-preference1_map',
+            cmap=surf_cmap,
+            threshold=0.001,
+            title='Group',
+            vmax=len(feature_names),
+            width_mm=width_mm,
+            fontsize=fontsize,
+        )
+        if label == 'both':
+            plotting_helpers.plot_preference_surf(
+                self.preference2_map_surf,
+                self.figure_dir + '/preference_map/' + file_label + '_measure-preference2_map',
+                cmap=surf_cmap,
+                threshold=0.001,
+                title='Group',
+                vmax=len(feature_names),
+                width_mm=width_mm,
+                fontsize=fontsize,
+            )
+
     def permutation_brainiak(self,load=False,iterations=10000):
         import datetime
         
@@ -676,25 +825,45 @@ class SecondLevelGroup(encoding.EncodingModel):
         nibabel.save(img, self.out_dir+'/performance/'+self.sid+self.file_label+'_measure-perf_p_fdr.nii.gz')
         
     def stats_wilcoxon(self):
-        print('performing signed permutation test...')
+        print('performing one-sided Wilcoxon signed-rank test...')
         #performance stats
         # print(self.all_model_performance.shape)
         def process(voxel_performance):
             x = voxel_performance
             x = np.around(x, decimals=4) #needs to ensure that theoretically identically values are not numerically distinct
                                                                         #https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.wilcoxon.html#r996422d5c98f-4
-            result = wilcoxon(x,alternative='greater',zero_method='zsplit',nan_policy='omit')
-            pvalue = result.pvalue
+            try:
+                result = wilcoxon(x,alternative='greater',zero_method='zsplit',nan_policy='omit')
+                pvalue = result.pvalue
+            except ValueError:
+                # Handle case where all values are zero (no variance)
+                pvalue = 1.0
             return pvalue
 
         self.perf_p_unc = np.array(Parallel(n_jobs=-1)(delayed(process)(voxel_performance) for voxel_performance in self.all_model_performance.T))
-        self.perf_fdr_reject,self.perf_p_fdr = fdrcorrection(self.perf_p_unc, alpha=0.001, method='p', is_sorted=False) #method is BH
+        alpha = 0.001
+        self.perf_fdr_reject,self.perf_p_fdr = fdrcorrection(self.perf_p_unc, alpha=alpha, method='p', is_sorted=False) #method is BH
         # self.perf_fdr_reject,self.perf_p_fdr,a,b = statsmodels.stats.multitest.multipletests(self.perf_p_unc, alpha=0.05, method='bonferroni')
 
-        # print(np.sum(self.perf_fdr_reject),len(self.perf_fdr_reject))
+        n_voxels_total = len(self.perf_fdr_reject)
+        n_voxels_significant = int(np.sum(self.perf_fdr_reject))
+        pct_significant = 100.0 * n_voxels_significant / n_voxels_total if n_voxels_total > 0 else 0.0
+        print(f'Performance FDR (alpha={alpha}): {n_voxels_significant} / {n_voxels_total} voxels significant ({pct_significant:.2f}%)')
+
+        import datetime
+        summary_csv = self.out_dir + '/performance/voxel_survival_summary.csv'
+        summary_header = ['population','task','model','mask','smoothing_fwhm','chunklen','measure_suffix','alpha','n_voxels_total','n_voxels_significant','pct_significant','timestamp']
+        summary_row = [self.population, self.task, self.model, self.mask_name, self.smoothing_fwhm, self.chunklen, self.measure_suffix, alpha, n_voxels_total, n_voxels_significant, f'{pct_significant:.4f}', datetime.datetime.now().isoformat(timespec='seconds')]
+        write_header = not os.path.exists(summary_csv)
+        with open(summary_csv, 'a', newline='') as f:
+            writer = csv.writer(f)
+            if write_header:
+                writer.writerow(summary_header)
+            writer.writerow(summary_row)
+
         data = self.unmask_reshape(self.perf_fdr_reject)
         img = nibabel.Nifti1Image(data,self.affine)
-        nibabel.save(img, self.out_dir+'/performance/'+self.sid+self.file_label+'_measure-perf_p_fdr.nii.gz')
+        nibabel.save(img, self.out_dir+'/performance/'+self.sid+self.file_label+'_measure-perf' + self.measure_suffix + '_p_fdr.nii.gz')
         
         #product measure stats
         if(len(self.feature_names)>0):
@@ -714,8 +883,12 @@ class SecondLevelGroup(encoding.EncodingModel):
                     # print(np.nanmean(x))
                     x = np.around(x, decimals=4) #needs to ensure that theoretically identically values are not numerically distinct
                                                                                 #https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.wilcoxon.html#r996422d5c98f-4
-                    result = wilcoxon(x,alternative='greater',nan_policy='omit')
-                    pvalue = result.pvalue
+                    try:
+                        result = wilcoxon(x,alternative='greater',nan_policy='omit')
+                        pvalue = result.pvalue
+                    except ValueError:
+                        # Handle case where all values are zero (no variance)
+                        pvalue = 1.0
                     return pvalue
                 perf_p_unc = np.array(Parallel(n_jobs=-1)(delayed(process)(voxel_performance) for voxel_performance in performance.T))
                 perf_fdr_reject,perf_p_fdr = fdrcorrection(perf_p_unc, alpha=0.001, method='p', is_sorted=False)
@@ -727,12 +900,12 @@ class SecondLevelGroup(encoding.EncodingModel):
 
             self.ind_feature_perf_p_unc = np.array(ind_feature_perf_p_unc)
             self.ind_feature_perf_p_fdr = np.array(ind_feature_perf_p_fdr)
-            self.ind_feature_perf_fdr_reject = np.array(ind_feature_perf_p_fdr)
+            self.ind_feature_perf_fdr_reject = np.array(ind_feature_perf_fdr_reject)
 
 
             # print(self.ind_feature_perf_fdr_reject.shape)
             img = nibabel.Nifti1Image(self.unmask_reshape(self.ind_feature_perf_fdr_reject),self.affine)
-            nibabel.save(img, self.out_dir+'/ind_product_measure/'+self.sid+self.file_label+'_measure-product_measure_p_fdr.nii.gz') 
+            nibabel.save(img, self.out_dir+'/ind_product_measure/'+self.sid+self.file_label+'_measure-product_measure' + self.measure_suffix + '_p_fdr.nii.gz') 
 
     def stats(self):
 
@@ -781,7 +954,7 @@ class SecondLevelGroup(encoding.EncodingModel):
 
             self.ind_feature_perf_p_unc = np.array(ind_feature_perf_p_unc)
             self.ind_feature_perf_p_fdr = np.array(ind_feature_perf_p_fdr)
-            self.ind_feature_perf_fdr_reject = np.array(ind_feature_perf_p_fdr)
+            self.ind_feature_perf_fdr_reject = np.array(ind_feature_perf_fdr_reject)
 
             file_label = '_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)+'_mask-'+self.mask_name
 
@@ -805,11 +978,11 @@ def main():
 
 
     parser.add_argument('--dir', '-dir', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/deep_nat_lat')
+                        default=helpers.PROJECT_DIR)
     parser.add_argument('--out_dir', '-output', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/deep_nat_lat/analysis')
+                        default=os.path.join(helpers.PROJECT_DIR, 'analysis'))
     parser.add_argument('--figure_dir', '-figures', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/deep_nat_lat/figures')
+                        default=os.path.join(helpers.PROJECT_DIR, 'figures'))
     args = parser.parse_args()
     SecondLevelGroup(args).run()
 

@@ -1,0 +1,702 @@
+subject,localizer,hemisphere,region,feature,explained_variance
+sub-05,motion (MT),left,MT,joint_chunk120,0.0544210859998575
+sub-05,motion (MT),left,MT,cross-subject encoding,0.4631640078270272
+sub-06,motion (MT),left,MT,cross-subject encoding,0.4072130145322458
+sub-06,motion (MT),left,MT,joint_chunk120,0.0451579059054162
+sub-07,motion (MT),left,MT,cross-subject encoding,0.3842134367335926
+sub-07,motion (MT),left,MT,joint_chunk120,0.1303536607460542
+sub-08,motion (MT),left,MT,cross-subject encoding,0.2933587268808809
+sub-08,motion (MT),left,MT,joint_chunk120,0.0492448835710001
+sub-09,motion (MT),left,MT,cross-subject encoding,0.2958728704222683
+sub-09,motion (MT),left,MT,joint_chunk120,0.096100611643771
+sub-10,motion (MT),left,MT,cross-subject encoding,0.1539465840857398
+sub-10,motion (MT),left,MT,joint_chunk120,-0.0170564339787233
+sub-14,motion (MT),left,MT,cross-subject encoding,0.3745088071562349
+sub-14,motion (MT),left,MT,joint_chunk120,0.0430789001478842
+sub-15,motion (MT),left,MT,cross-subject encoding,0.3038985814819944
+sub-15,motion (MT),left,MT,joint_chunk120,-0.0103396892626868
+sub-16,motion (MT),left,MT,cross-subject encoding,0.3827937061615874
+sub-16,motion (MT),left,MT,joint_chunk120,0.0577560587587643
+sub-19,motion (MT),left,MT,joint_chunk120,0.0868502348983803
+sub-19,motion (MT),left,MT,cross-subject encoding,0.3458884644966859
+sub-23,motion (MT),left,MT,joint_chunk120,0.0710407419022745
+sub-23,motion (MT),left,MT,cross-subject encoding,0.3796727688839802
+sub-25,motion (MT),left,MT,joint_chunk120,0.0852689069331663
+sub-25,motion (MT),left,MT,cross-subject encoding,0.400394773361742
+sub-26,motion (MT),left,MT,joint_chunk120,0.0209049795627255
+sub-26,motion (MT),left,MT,cross-subject encoding,0.3101363996890458
+sub-28,motion (MT),left,MT,joint_chunk120,-0.0077512774768532
+sub-28,motion (MT),left,MT,cross-subject encoding,0.3415247542517526
+sub-32,motion (MT),left,MT,joint_chunk120,0.0182358060439012
+sub-32,motion (MT),left,MT,cross-subject encoding,0.306429038536461
+sub-33,motion (MT),left,MT,joint_chunk120,0.0247107201313665
+sub-33,motion (MT),left,MT,cross-subject encoding,0.3418395979962217
+sub-35,motion (MT),left,MT,cross-subject encoding,0.1897528998983594
+sub-35,motion (MT),left,MT,joint_chunk120,0.0303046429493966
+sub-36,motion (MT),left,MT,cross-subject encoding,0.2576637421054452
+sub-36,motion (MT),left,MT,joint_chunk120,0.0507516830583973
+sub-38,motion (MT),left,MT,cross-subject encoding,0.2965655434344496
+sub-38,motion (MT),left,MT,joint_chunk120,0.1129147335072048
+sub-39,motion (MT),left,MT,joint_chunk120,0.1788175495770169
+sub-39,motion (MT),left,MT,cross-subject encoding,0.4814043271287185
+sub-41,motion (MT),left,MT,joint_chunk120,0.1187789534945323
+sub-41,motion (MT),left,MT,cross-subject encoding,0.4623696921449719
+sub-45,motion (MT),left,MT,joint_chunk120,0.089197475498908
+sub-45,motion (MT),left,MT,cross-subject encoding,0.345347992011479
+sub-46,motion (MT),left,MT,joint_chunk120,0.043797434254381
+sub-46,motion (MT),left,MT,cross-subject encoding,0.3400580678531464
+sub-50,motion (MT),left,MT,joint_chunk120,0.0477283730469338
+sub-50,motion (MT),left,MT,cross-subject encoding,0.2060929739382118
+sub-51,motion (MT),left,MT,joint_chunk120,0.2075735291348785
+sub-51,motion (MT),left,MT,cross-subject encoding,0.4096786513169274
+sub-53,motion (MT),left,MT,joint_chunk120,0.1678407625929962
+sub-53,motion (MT),left,MT,cross-subject encoding,0.4741597491538241
+sub-54,motion (MT),left,MT,joint_chunk120,0.1129344358493614
+sub-54,motion (MT),left,MT,cross-subject encoding,0.4589035163753315
+sub-55,motion (MT),left,MT,joint_chunk120,0.0368460898262128
+sub-55,motion (MT),left,MT,cross-subject encoding,0.2957526108712045
+sub-56,motion (MT),left,MT,joint_chunk120,0.1199464590989806
+sub-57,motion (MT),left,MT,joint_chunk120,0.1319008948609095
+sub-57,motion (MT),left,MT,cross-subject encoding,0.267467364254925
+sub-58,motion (MT),left,MT,joint_chunk120,0.2465004059639605
+sub-58,motion (MT),left,MT,cross-subject encoding,0.3485778571326531
+sub-60,motion (MT),left,MT,joint_chunk120,0.1187912394396132
+sub-60,motion (MT),left,MT,cross-subject encoding,0.3801662934323151
+sub-61,motion (MT),left,MT,joint_chunk120,0.1299466026636461
+sub-61,motion (MT),left,MT,cross-subject encoding,0.4388484530376665
+sub-62,motion (MT),left,MT,joint_chunk120,0.1297932602906305
+sub-62,motion (MT),left,MT,cross-subject encoding,0.4913059243246128
+sub-05,motion (MT),right,MT,cross-subject encoding,0.5087580894580995
+sub-05,motion (MT),right,MT,joint_chunk120,0.0601421026161309
+sub-06,motion (MT),right,MT,cross-subject encoding,0.4480547884648496
+sub-06,motion (MT),right,MT,joint_chunk120,0.0611811321587609
+sub-07,motion (MT),right,MT,joint_chunk120,0.0504853021265267
+sub-07,motion (MT),right,MT,cross-subject encoding,0.4645597976372109
+sub-08,motion (MT),right,MT,cross-subject encoding,0.3441338461103304
+sub-08,motion (MT),right,MT,joint_chunk120,0.0223920000497392
+sub-09,motion (MT),right,MT,joint_chunk120,0.0730604741761493
+sub-09,motion (MT),right,MT,cross-subject encoding,0.4535977394707435
+sub-10,motion (MT),right,MT,joint_chunk120,-0.003028276387005
+sub-10,motion (MT),right,MT,cross-subject encoding,0.3149582264442487
+sub-14,motion (MT),right,MT,joint_chunk120,0.0463294662717405
+sub-14,motion (MT),right,MT,cross-subject encoding,0.3228446741628906
+sub-15,motion (MT),right,MT,cross-subject encoding,0.4040694724321365
+sub-15,motion (MT),right,MT,joint_chunk120,0.0117325823409482
+sub-16,motion (MT),right,MT,cross-subject encoding,0.4147314130993425
+sub-16,motion (MT),right,MT,joint_chunk120,0.0821492788760575
+sub-19,motion (MT),right,MT,joint_chunk120,0.0297678829394424
+sub-19,motion (MT),right,MT,cross-subject encoding,0.3620584641060192
+sub-23,motion (MT),right,MT,joint_chunk120,0.0900950573097147
+sub-23,motion (MT),right,MT,cross-subject encoding,0.4284069744787891
+sub-25,motion (MT),right,MT,joint_chunk120,0.0474280833957656
+sub-25,motion (MT),right,MT,cross-subject encoding,0.3331092711417905
+sub-26,motion (MT),right,MT,joint_chunk120,0.0806884294631139
+sub-26,motion (MT),right,MT,cross-subject encoding,0.3714476968011548
+sub-28,motion (MT),right,MT,cross-subject encoding,0.4094349713744344
+sub-28,motion (MT),right,MT,joint_chunk120,0.0370121407157401
+sub-32,motion (MT),right,MT,cross-subject encoding,0.4251016715639515
+sub-32,motion (MT),right,MT,joint_chunk120,0.0263318656453568
+sub-33,motion (MT),right,MT,cross-subject encoding,0.4525733784077659
+sub-33,motion (MT),right,MT,joint_chunk120,0.030655271066944
+sub-35,motion (MT),right,MT,joint_chunk120,0.0231128588650927
+sub-35,motion (MT),right,MT,cross-subject encoding,0.3255512500564529
+sub-36,motion (MT),right,MT,cross-subject encoding,0.2281731767355498
+sub-36,motion (MT),right,MT,joint_chunk120,0.0150346569001607
+sub-38,motion (MT),right,MT,cross-subject encoding,0.2715911885139112
+sub-38,motion (MT),right,MT,joint_chunk120,-0.0108785089082541
+sub-39,motion (MT),right,MT,cross-subject encoding,0.3321079269051551
+sub-39,motion (MT),right,MT,joint_chunk120,0.0406761705694306
+sub-41,motion (MT),right,MT,joint_chunk120,0.1682756376647886
+sub-41,motion (MT),right,MT,cross-subject encoding,0.4106757405863927
+sub-45,motion (MT),right,MT,joint_chunk120,-0.0270421480292105
+sub-45,motion (MT),right,MT,cross-subject encoding,0.3204668305229907
+sub-46,motion (MT),right,MT,joint_chunk120,0.0817379572918304
+sub-46,motion (MT),right,MT,cross-subject encoding,0.5042547319944088
+sub-50,motion (MT),right,MT,joint_chunk120,0.0694858791604994
+sub-50,motion (MT),right,MT,cross-subject encoding,0.4411348970355214
+sub-51,motion (MT),right,MT,cross-subject encoding,0.4433363091614511
+sub-53,motion (MT),right,MT,joint_chunk120,0.0919201609456161
+sub-53,motion (MT),right,MT,cross-subject encoding,0.3903576939908871
+sub-54,motion (MT),right,MT,joint_chunk120,0.0284192709606005
+sub-54,motion (MT),right,MT,cross-subject encoding,0.3718204842066591
+sub-55,motion (MT),right,MT,cross-subject encoding,0.3406448305101582
+sub-55,motion (MT),right,MT,joint_chunk120,0.0830622667886523
+sub-56,motion (MT),right,MT,joint_chunk120,0.1211013180534748
+sub-57,motion (MT),right,MT,cross-subject encoding,0.3936164154063405
+sub-57,motion (MT),right,MT,joint_chunk120,0.1708806566578352
+sub-58,motion (MT),right,MT,joint_chunk120,0.234318285226178
+sub-58,motion (MT),right,MT,cross-subject encoding,0.491757245067461
+sub-60,motion (MT),right,MT,cross-subject encoding,0.3772663209477768
+sub-60,motion (MT),right,MT,joint_chunk120,0.0528208617806205
+sub-61,motion (MT),right,MT,cross-subject encoding,0.4215908334623995
+sub-61,motion (MT),right,MT,joint_chunk120,0.0666048800938749
+sub-62,motion (MT),right,MT,joint_chunk120,0.0829747408543798
+sub-62,motion (MT),right,MT,cross-subject encoding,0.5225645613360714
+sub-05,social interaction (STS),left,pSTS,cross-subject encoding,0.312005776278918
+sub-05,social interaction (STS),left,pSTS,joint_chunk120,0.0393701361638175
+sub-06,social interaction (STS),left,pSTS,cross-subject encoding,0.3902155172183282
+sub-06,social interaction (STS),left,pSTS,joint_chunk120,0.1003144869503254
+sub-07,social interaction (STS),left,pSTS,cross-subject encoding,0.3465888676318255
+sub-07,social interaction (STS),left,pSTS,joint_chunk120,0.0670212276957251
+sub-08,social interaction (STS),left,pSTS,joint_chunk120,0.0562848242012765
+sub-08,social interaction (STS),left,pSTS,cross-subject encoding,0.2733096413951563
+sub-09,social interaction (STS),left,pSTS,joint_chunk120,0.088996019972511
+sub-09,social interaction (STS),left,pSTS,cross-subject encoding,0.3761278148655348
+sub-10,social interaction (STS),left,pSTS,cross-subject encoding,0.2557246691124005
+sub-10,social interaction (STS),left,pSTS,joint_chunk120,0.0089751820325545
+sub-14,social interaction (STS),left,pSTS,cross-subject encoding,0.248245475306693
+sub-14,social interaction (STS),left,pSTS,joint_chunk120,0.0525255012998564
+sub-15,social interaction (STS),left,pSTS,joint_chunk120,0.0577040757611393
+sub-15,social interaction (STS),left,pSTS,cross-subject encoding,0.3290769013762474
+sub-16,social interaction (STS),left,pSTS,cross-subject encoding,0.3049458003228121
+sub-16,social interaction (STS),left,pSTS,joint_chunk120,0.0634505608755095
+sub-19,social interaction (STS),left,pSTS,cross-subject encoding,0.3838065407180693
+sub-19,social interaction (STS),left,pSTS,joint_chunk120,0.0911876808513625
+sub-23,social interaction (STS),left,pSTS,cross-subject encoding,0.4304601004706663
+sub-23,social interaction (STS),left,pSTS,joint_chunk120,0.1169826214090949
+sub-25,social interaction (STS),left,pSTS,cross-subject encoding,0.3131582139607738
+sub-25,social interaction (STS),left,pSTS,joint_chunk120,0.0521947154259952
+sub-26,social interaction (STS),left,pSTS,cross-subject encoding,0.3766022810031603
+sub-26,social interaction (STS),left,pSTS,joint_chunk120,0.0935631659107677
+sub-28,social interaction (STS),left,pSTS,cross-subject encoding,0.3392147996928543
+sub-28,social interaction (STS),left,pSTS,joint_chunk120,0.0651393250375804
+sub-32,social interaction (STS),left,pSTS,joint_chunk120,0.0238244077874952
+sub-32,social interaction (STS),left,pSTS,cross-subject encoding,0.1636228330449707
+sub-33,social interaction (STS),left,pSTS,joint_chunk120,0.1052740624895572
+sub-33,social interaction (STS),left,pSTS,cross-subject encoding,0.3344936718061132
+sub-35,social interaction (STS),left,pSTS,joint_chunk120,0.0472892025427427
+sub-35,social interaction (STS),left,pSTS,cross-subject encoding,0.3212819088366814
+sub-36,social interaction (STS),left,pSTS,joint_chunk120,0.0217882467326963
+sub-36,social interaction (STS),left,pSTS,cross-subject encoding,0.2747569894545699
+sub-38,social interaction (STS),left,pSTS,joint_chunk120,0.0719339639808123
+sub-38,social interaction (STS),left,pSTS,cross-subject encoding,0.2443551532924175
+sub-39,social interaction (STS),left,pSTS,joint_chunk120,0.1386711245644112
+sub-39,social interaction (STS),left,pSTS,cross-subject encoding,0.4070512882465321
+sub-41,social interaction (STS),left,pSTS,joint_chunk120,0.1155758392479684
+sub-41,social interaction (STS),left,pSTS,cross-subject encoding,0.4076084261125123
+sub-45,social interaction (STS),left,pSTS,joint_chunk120,0.0469326672813894
+sub-45,social interaction (STS),left,pSTS,cross-subject encoding,0.2410464182770245
+sub-46,social interaction (STS),left,pSTS,cross-subject encoding,0.4528954543933576
+sub-46,social interaction (STS),left,pSTS,joint_chunk120,0.0624126405785411
+sub-50,social interaction (STS),left,pSTS,cross-subject encoding,0.2219681612466676
+sub-50,social interaction (STS),left,pSTS,joint_chunk120,0.0370331264078174
+sub-51,social interaction (STS),left,pSTS,joint_chunk120,0.1511193416979029
+sub-51,social interaction (STS),left,pSTS,cross-subject encoding,0.2938861940617123
+sub-53,social interaction (STS),left,pSTS,cross-subject encoding,0.4155507226278709
+sub-53,social interaction (STS),left,pSTS,joint_chunk120,0.1602560009138422
+sub-54,social interaction (STS),left,pSTS,joint_chunk120,0.1473142616411323
+sub-54,social interaction (STS),left,pSTS,cross-subject encoding,0.2801432784378402
+sub-55,social interaction (STS),left,pSTS,joint_chunk120,0.1051935678770657
+sub-55,social interaction (STS),left,pSTS,cross-subject encoding,0.338273714233226
+sub-56,social interaction (STS),left,pSTS,joint_chunk120,0.1026950024690729
+sub-56,social interaction (STS),left,pSTS,cross-subject encoding,-0.0401220257985047
+sub-57,social interaction (STS),left,pSTS,cross-subject encoding,0.2335574715756453
+sub-57,social interaction (STS),left,pSTS,joint_chunk120,0.146499657860169
+sub-58,social interaction (STS),left,pSTS,joint_chunk120,0.2565984969076357
+sub-58,social interaction (STS),left,pSTS,cross-subject encoding,0.3401268715725133
+sub-60,social interaction (STS),left,pSTS,cross-subject encoding,0.3739044398051385
+sub-60,social interaction (STS),left,pSTS,joint_chunk120,0.103987663218882
+sub-61,social interaction (STS),left,pSTS,joint_chunk120,0.0492452397436824
+sub-61,social interaction (STS),left,pSTS,cross-subject encoding,0.3184936430345299
+sub-62,social interaction (STS),left,pSTS,joint_chunk120,0.0636244929020614
+sub-62,social interaction (STS),left,pSTS,cross-subject encoding,0.422291121453838
+sub-05,social interaction (STS),left,aSTS,joint_chunk120,0.0878097482354325
+sub-05,social interaction (STS),left,aSTS,cross-subject encoding,0.3801483336616965
+sub-06,social interaction (STS),left,aSTS,joint_chunk120,0.1915961913764476
+sub-06,social interaction (STS),left,aSTS,cross-subject encoding,0.3947529289871454
+sub-07,social interaction (STS),left,aSTS,joint_chunk120,0.1351051530135529
+sub-07,social interaction (STS),left,aSTS,cross-subject encoding,0.4102341259012417
+sub-08,social interaction (STS),left,aSTS,joint_chunk120,0.0661755911300353
+sub-08,social interaction (STS),left,aSTS,cross-subject encoding,0.2856866918278463
+sub-09,social interaction (STS),left,aSTS,joint_chunk120,0.120831226786215
+sub-09,social interaction (STS),left,aSTS,cross-subject encoding,0.3764239093836616
+sub-10,social interaction (STS),left,aSTS,joint_chunk120,0.0149732506523529
+sub-10,social interaction (STS),left,aSTS,cross-subject encoding,0.2040715597569942
+sub-14,social interaction (STS),left,aSTS,joint_chunk120,0.0680862422589035
+sub-14,social interaction (STS),left,aSTS,cross-subject encoding,0.2833347293503937
+sub-15,social interaction (STS),left,aSTS,cross-subject encoding,0.2856875703980525
+sub-15,social interaction (STS),left,aSTS,joint_chunk120,0.091202891843083
+sub-16,social interaction (STS),left,aSTS,joint_chunk120,0.0457024794799843
+sub-16,social interaction (STS),left,aSTS,cross-subject encoding,0.3548499171343771
+sub-19,social interaction (STS),left,aSTS,cross-subject encoding,0.1490160316990857
+sub-19,social interaction (STS),left,aSTS,joint_chunk120,0.0120972982671942
+sub-23,social interaction (STS),left,aSTS,cross-subject encoding,0.3668971182062076
+sub-23,social interaction (STS),left,aSTS,joint_chunk120,0.1264938654613872
+sub-25,social interaction (STS),left,aSTS,cross-subject encoding,0.4079944710646357
+sub-25,social interaction (STS),left,aSTS,joint_chunk120,0.1410960929202181
+sub-26,social interaction (STS),left,aSTS,cross-subject encoding,0.4300543947099912
+sub-26,social interaction (STS),left,aSTS,joint_chunk120,0.0800455011336541
+sub-28,social interaction (STS),left,aSTS,cross-subject encoding,0.3261753466466199
+sub-28,social interaction (STS),left,aSTS,joint_chunk120,0.0866511351803479
+sub-32,social interaction (STS),left,aSTS,cross-subject encoding,0.29769710506554
+sub-32,social interaction (STS),left,aSTS,joint_chunk120,0.0998184057469997
+sub-33,social interaction (STS),left,aSTS,cross-subject encoding,0.415410525125006
+sub-33,social interaction (STS),left,aSTS,joint_chunk120,0.1080910014393537
+sub-35,social interaction (STS),left,aSTS,cross-subject encoding,0.3200468289650092
+sub-35,social interaction (STS),left,aSTS,joint_chunk120,0.068581905081805
+sub-36,social interaction (STS),left,aSTS,cross-subject encoding,0.2284436598395548
+sub-36,social interaction (STS),left,aSTS,joint_chunk120,0.075567853942015
+sub-38,social interaction (STS),left,aSTS,cross-subject encoding,0.3174073130221051
+sub-38,social interaction (STS),left,aSTS,joint_chunk120,0.0935354203113592
+sub-39,social interaction (STS),left,aSTS,cross-subject encoding,0.4519407153129577
+sub-39,social interaction (STS),left,aSTS,joint_chunk120,0.1312844632193446
+sub-41,social interaction (STS),left,aSTS,cross-subject encoding,0.4075635876201215
+sub-41,social interaction (STS),left,aSTS,joint_chunk120,0.2003441460003129
+sub-45,social interaction (STS),left,aSTS,cross-subject encoding,0.2115067988634109
+sub-45,social interaction (STS),left,aSTS,joint_chunk120,-0.0196449027344998
+sub-46,social interaction (STS),left,aSTS,cross-subject encoding,0.5092615207721447
+sub-46,social interaction (STS),left,aSTS,joint_chunk120,0.202732156833698
+sub-50,social interaction (STS),left,aSTS,cross-subject encoding,0.3393591471016407
+sub-50,social interaction (STS),left,aSTS,joint_chunk120,0.1117077199523919
+sub-51,social interaction (STS),left,aSTS,cross-subject encoding,0.2153165734838694
+sub-51,social interaction (STS),left,aSTS,joint_chunk120,0.1863085328164743
+sub-53,social interaction (STS),left,aSTS,cross-subject encoding,0.2858788982336689
+sub-53,social interaction (STS),left,aSTS,joint_chunk120,0.1009841539731518
+sub-54,social interaction (STS),left,aSTS,cross-subject encoding,0.2383449549131371
+sub-54,social interaction (STS),left,aSTS,joint_chunk120,0.1370019589861234
+sub-55,social interaction (STS),left,aSTS,cross-subject encoding,0.3151358867135758
+sub-55,social interaction (STS),left,aSTS,joint_chunk120,0.0966798324505082
+sub-56,social interaction (STS),left,aSTS,cross-subject encoding,0.2669051267827551
+sub-56,social interaction (STS),left,aSTS,joint_chunk120,0.0667578497139567
+sub-57,social interaction (STS),left,aSTS,cross-subject encoding,0.1788882395873467
+sub-57,social interaction (STS),left,aSTS,joint_chunk120,0.2422085503737131
+sub-58,social interaction (STS),left,aSTS,cross-subject encoding,0.3205106246471405
+sub-58,social interaction (STS),left,aSTS,joint_chunk120,0.2637689572572708
+sub-60,social interaction (STS),left,aSTS,cross-subject encoding,0.3203443063025856
+sub-60,social interaction (STS),left,aSTS,joint_chunk120,0.1451975879351855
+sub-61,social interaction (STS),left,aSTS,cross-subject encoding,0.3826693097750346
+sub-61,social interaction (STS),left,aSTS,joint_chunk120,0.2351862955838441
+sub-62,social interaction (STS),left,aSTS,cross-subject encoding,0.4274068232148121
+sub-62,social interaction (STS),left,aSTS,joint_chunk120,0.1237522076863126
+sub-05,social interaction (STS),right,pSTS,cross-subject encoding,0.3942039738706991
+sub-05,social interaction (STS),right,pSTS,joint_chunk120,0.0645470005289024
+sub-06,social interaction (STS),right,pSTS,cross-subject encoding,0.354673459824352
+sub-06,social interaction (STS),right,pSTS,joint_chunk120,0.0828786873128376
+sub-07,social interaction (STS),right,pSTS,cross-subject encoding,0.3708825839194302
+sub-07,social interaction (STS),right,pSTS,joint_chunk120,0.0843706870006218
+sub-08,social interaction (STS),right,pSTS,cross-subject encoding,0.2985419892152217
+sub-08,social interaction (STS),right,pSTS,joint_chunk120,0.0440856384009601
+sub-09,social interaction (STS),right,pSTS,cross-subject encoding,0.3490287545350714
+sub-09,social interaction (STS),right,pSTS,joint_chunk120,0.0787203808960188
+sub-10,social interaction (STS),right,pSTS,cross-subject encoding,0.2475431176235101
+sub-10,social interaction (STS),right,pSTS,joint_chunk120,-0.0131466899482932
+sub-14,social interaction (STS),right,pSTS,cross-subject encoding,0.2896112630465289
+sub-14,social interaction (STS),right,pSTS,joint_chunk120,0.050711249188143
+sub-15,social interaction (STS),right,pSTS,cross-subject encoding,0.3092104473608461
+sub-15,social interaction (STS),right,pSTS,joint_chunk120,0.0399017491716552
+sub-16,social interaction (STS),right,pSTS,cross-subject encoding,0.2271513579456184
+sub-16,social interaction (STS),right,pSTS,joint_chunk120,0.0407494980021989
+sub-19,social interaction (STS),right,pSTS,cross-subject encoding,0.2776747648387169
+sub-19,social interaction (STS),right,pSTS,joint_chunk120,0.0375955525582944
+sub-23,social interaction (STS),right,pSTS,cross-subject encoding,0.4455868935393583
+sub-23,social interaction (STS),right,pSTS,joint_chunk120,0.091889799182051
+sub-25,social interaction (STS),right,pSTS,cross-subject encoding,0.1946341800503432
+sub-25,social interaction (STS),right,pSTS,joint_chunk120,0.002605417117369
+sub-26,social interaction (STS),right,pSTS,cross-subject encoding,0.3881458065893856
+sub-26,social interaction (STS),right,pSTS,joint_chunk120,0.0895227368829572
+sub-28,social interaction (STS),right,pSTS,cross-subject encoding,0.3290390046059408
+sub-28,social interaction (STS),right,pSTS,joint_chunk120,0.0864914908483941
+sub-32,social interaction (STS),right,pSTS,cross-subject encoding,0.3312168468631083
+sub-32,social interaction (STS),right,pSTS,joint_chunk120,0.0475407108836319
+sub-33,social interaction (STS),right,pSTS,cross-subject encoding,0.3471273809747042
+sub-33,social interaction (STS),right,pSTS,joint_chunk120,0.0429815244311372
+sub-35,social interaction (STS),right,pSTS,cross-subject encoding,0.3269971389490277
+sub-35,social interaction (STS),right,pSTS,joint_chunk120,0.0663550388208701
+sub-36,social interaction (STS),right,pSTS,cross-subject encoding,0.2564805419344527
+sub-36,social interaction (STS),right,pSTS,joint_chunk120,0.0342366216955978
+sub-38,social interaction (STS),right,pSTS,cross-subject encoding,0.314119353615101
+sub-38,social interaction (STS),right,pSTS,joint_chunk120,0.1373045023138882
+sub-39,social interaction (STS),right,pSTS,cross-subject encoding,0.2642126620493389
+sub-39,social interaction (STS),right,pSTS,joint_chunk120,0.0257629808764433
+sub-41,social interaction (STS),right,pSTS,cross-subject encoding,0.394024772642582
+sub-41,social interaction (STS),right,pSTS,joint_chunk120,0.1045240937314434
+sub-45,social interaction (STS),right,pSTS,cross-subject encoding,0.3297937947332646
+sub-45,social interaction (STS),right,pSTS,joint_chunk120,0.0606517533682271
+sub-46,social interaction (STS),right,pSTS,cross-subject encoding,0.3772877028211951
+sub-46,social interaction (STS),right,pSTS,joint_chunk120,0.1531301314265213
+sub-50,social interaction (STS),right,pSTS,cross-subject encoding,0.3187291805256472
+sub-50,social interaction (STS),right,pSTS,joint_chunk120,0.08237747476682
+sub-51,social interaction (STS),right,pSTS,cross-subject encoding,0.319693554417565
+sub-51,social interaction (STS),right,pSTS,joint_chunk120,0.2386086474383069
+sub-53,social interaction (STS),right,pSTS,cross-subject encoding,0.2638236134080216
+sub-53,social interaction (STS),right,pSTS,joint_chunk120,0.0991245386491452
+sub-54,social interaction (STS),right,pSTS,cross-subject encoding,0.3608193652765764
+sub-54,social interaction (STS),right,pSTS,joint_chunk120,0.0930811152379297
+sub-55,social interaction (STS),right,pSTS,cross-subject encoding,0.2830085574619551
+sub-55,social interaction (STS),right,pSTS,joint_chunk120,0.0945012633728378
+sub-56,social interaction (STS),right,pSTS,cross-subject encoding,0.0859722721067314
+sub-56,social interaction (STS),right,pSTS,joint_chunk120,0.1565353633982618
+sub-57,social interaction (STS),right,pSTS,cross-subject encoding,0.3127006199336627
+sub-57,social interaction (STS),right,pSTS,joint_chunk120,0.1336383112690627
+sub-58,social interaction (STS),right,pSTS,cross-subject encoding,0.4217685339450372
+sub-60,social interaction (STS),right,pSTS,cross-subject encoding,0.3455739591511026
+sub-60,social interaction (STS),right,pSTS,joint_chunk120,0.0851861141800131
+sub-61,social interaction (STS),right,pSTS,cross-subject encoding,0.3146526023232635
+sub-61,social interaction (STS),right,pSTS,joint_chunk120,0.0401719961659718
+sub-62,social interaction (STS),right,pSTS,cross-subject encoding,0.3547872341322628
+sub-62,social interaction (STS),right,pSTS,joint_chunk120,0.046754437316577
+sub-05,social interaction (STS),right,aSTS,cross-subject encoding,0.4794054647564836
+sub-05,social interaction (STS),right,aSTS,joint_chunk120,0.130374882457545
+sub-06,social interaction (STS),right,aSTS,cross-subject encoding,0.345689700008967
+sub-06,social interaction (STS),right,aSTS,joint_chunk120,0.0912473011795733
+sub-07,social interaction (STS),right,aSTS,cross-subject encoding,0.3651472005600992
+sub-07,social interaction (STS),right,aSTS,joint_chunk120,0.1024722379546514
+sub-08,social interaction (STS),right,aSTS,cross-subject encoding,0.3014782045198523
+sub-08,social interaction (STS),right,aSTS,joint_chunk120,0.0600663936980392
+sub-09,social interaction (STS),right,aSTS,cross-subject encoding,0.3226450174288065
+sub-09,social interaction (STS),right,aSTS,joint_chunk120,0.0853004331390063
+sub-10,social interaction (STS),right,aSTS,cross-subject encoding,0.3452737674879079
+sub-10,social interaction (STS),right,aSTS,joint_chunk120,0.0757372937793909
+sub-14,social interaction (STS),right,aSTS,cross-subject encoding,0.3032759743551892
+sub-14,social interaction (STS),right,aSTS,joint_chunk120,0.0636971252409359
+sub-15,social interaction (STS),right,aSTS,cross-subject encoding,0.297988734002176
+sub-15,social interaction (STS),right,aSTS,joint_chunk120,0.0495541548735146
+sub-16,social interaction (STS),right,aSTS,cross-subject encoding,0.2190280680201555
+sub-16,social interaction (STS),right,aSTS,joint_chunk120,0.0521996171875415
+sub-19,social interaction (STS),right,aSTS,joint_chunk120,0.0451414060353496
+sub-19,social interaction (STS),right,aSTS,cross-subject encoding,0.2325729327621283
+sub-23,social interaction (STS),right,aSTS,joint_chunk120,0.1019588282635045
+sub-23,social interaction (STS),right,aSTS,cross-subject encoding,0.380586487262748
+sub-25,social interaction (STS),right,aSTS,joint_chunk120,0.0122211567811771
+sub-25,social interaction (STS),right,aSTS,cross-subject encoding,0.3053846423410707
+sub-26,social interaction (STS),right,aSTS,joint_chunk120,0.1316196229724612
+sub-26,social interaction (STS),right,aSTS,cross-subject encoding,0.4150997492529097
+sub-28,social interaction (STS),right,aSTS,joint_chunk120,0.1158496048154097
+sub-28,social interaction (STS),right,aSTS,cross-subject encoding,0.3689097818222981
+sub-32,social interaction (STS),right,aSTS,joint_chunk120,0.0382599630687095
+sub-32,social interaction (STS),right,aSTS,cross-subject encoding,0.2851952057978024
+sub-33,social interaction (STS),right,aSTS,cross-subject encoding,0.3112627995364806
+sub-33,social interaction (STS),right,aSTS,joint_chunk120,0.1138253610708988
+sub-35,social interaction (STS),right,aSTS,cross-subject encoding,0.3294302209308653
+sub-35,social interaction (STS),right,aSTS,joint_chunk120,0.0848308734200669
+sub-36,social interaction (STS),right,aSTS,cross-subject encoding,0.176906855052544
+sub-36,social interaction (STS),right,aSTS,joint_chunk120,0.0415532007011481
+sub-38,social interaction (STS),right,aSTS,joint_chunk120,0.1692627105408801
+sub-38,social interaction (STS),right,aSTS,cross-subject encoding,0.302778887844053
+sub-39,social interaction (STS),right,aSTS,joint_chunk120,0.1132167868363317
+sub-39,social interaction (STS),right,aSTS,cross-subject encoding,0.3595726775267154
+sub-41,social interaction (STS),right,aSTS,joint_chunk120,0.1412816960073541
+sub-41,social interaction (STS),right,aSTS,cross-subject encoding,0.3872672322904691
+sub-45,social interaction (STS),right,aSTS,joint_chunk120,0.0572564297291482
+sub-45,social interaction (STS),right,aSTS,cross-subject encoding,0.3080260084363921
+sub-46,social interaction (STS),right,aSTS,joint_chunk120,0.153691873451559
+sub-46,social interaction (STS),right,aSTS,cross-subject encoding,0.4273423750419169
+sub-50,social interaction (STS),right,aSTS,joint_chunk120,0.0976646874387584
+sub-50,social interaction (STS),right,aSTS,cross-subject encoding,0.28299276586622
+sub-51,social interaction (STS),right,aSTS,joint_chunk120,0.1913003065105941
+sub-51,social interaction (STS),right,aSTS,cross-subject encoding,0.3599961034746634
+sub-53,social interaction (STS),right,aSTS,joint_chunk120,0.1445051957631395
+sub-53,social interaction (STS),right,aSTS,cross-subject encoding,0.3411817478370808
+sub-54,social interaction (STS),right,aSTS,joint_chunk120,0.1712572894171437
+sub-54,social interaction (STS),right,aSTS,cross-subject encoding,0.3629978084149705
+sub-55,social interaction (STS),right,aSTS,joint_chunk120,0.0702716262161106
+sub-55,social interaction (STS),right,aSTS,cross-subject encoding,0.2859053531253379
+sub-56,social interaction (STS),right,aSTS,joint_chunk120,0.1087023030331297
+sub-56,social interaction (STS),right,aSTS,cross-subject encoding,0.3068369261859713
+sub-57,social interaction (STS),right,aSTS,joint_chunk120,0.1834822551767646
+sub-57,social interaction (STS),right,aSTS,cross-subject encoding,0.2644908226639098
+sub-58,social interaction (STS),right,aSTS,joint_chunk120,0.2133965610712766
+sub-58,social interaction (STS),right,aSTS,cross-subject encoding,0.353794997408986
+sub-60,social interaction (STS),right,aSTS,joint_chunk120,0.0588046870676375
+sub-60,social interaction (STS),right,aSTS,cross-subject encoding,0.2692909836524019
+sub-61,social interaction (STS),right,aSTS,cross-subject encoding,0.3203874898196684
+sub-61,social interaction (STS),right,aSTS,joint_chunk120,0.1070654844582921
+sub-62,social interaction (STS),right,aSTS,joint_chunk120,0.1254021635233034
+sub-62,social interaction (STS),right,aSTS,cross-subject encoding,0.4038690404836522
+sub-19,language (language),left,pTemp,joint_chunk120,0.0997011598291859
+sub-19,language (language),left,pTemp,cross-subject encoding,0.3855383589178464
+sub-23,language (language),left,pTemp,joint_chunk120,0.1545926871272238
+sub-23,language (language),left,pTemp,cross-subject encoding,0.4510380831884227
+sub-25,language (language),left,pTemp,joint_chunk120,0.0558112135679929
+sub-25,language (language),left,pTemp,cross-subject encoding,0.2602722103400354
+sub-26,language (language),left,pTemp,cross-subject encoding,0.4245242872402642
+sub-26,language (language),left,pTemp,joint_chunk120,0.1383222527490277
+sub-28,language (language),left,pTemp,cross-subject encoding,0.443324484476229
+sub-28,language (language),left,pTemp,joint_chunk120,0.1512074111172895
+sub-32,language (language),left,pTemp,cross-subject encoding,0.4906184097627799
+sub-32,language (language),left,pTemp,joint_chunk120,0.2158614514488727
+sub-33,language (language),left,pTemp,cross-subject encoding,0.4163734622508881
+sub-33,language (language),left,pTemp,joint_chunk120,0.1498678942975264
+sub-35,language (language),left,pTemp,cross-subject encoding,0.3453944141510874
+sub-35,language (language),left,pTemp,joint_chunk120,0.0948510137204721
+sub-36,language (language),left,pTemp,cross-subject encoding,0.2778793368527846
+sub-36,language (language),left,pTemp,joint_chunk120,0.0565630149840946
+sub-38,language (language),left,pTemp,cross-subject encoding,0.2950722080838041
+sub-38,language (language),left,pTemp,joint_chunk120,0.0571574777662556
+sub-39,language (language),left,pTemp,joint_chunk120,0.229938853356284
+sub-39,language (language),left,pTemp,cross-subject encoding,0.4529648956704331
+sub-41,language (language),left,pTemp,joint_chunk120,0.1582319157928027
+sub-41,language (language),left,pTemp,cross-subject encoding,0.4053332692306899
+sub-45,language (language),left,pTemp,cross-subject encoding,0.3656995491242334
+sub-45,language (language),left,pTemp,joint_chunk120,0.0880616842246959
+sub-46,language (language),left,pTemp,joint_chunk120,0.1863546037600294
+sub-46,language (language),left,pTemp,cross-subject encoding,0.4986887273764656
+sub-50,language (language),left,pTemp,joint_chunk120,0.0542132823233694
+sub-50,language (language),left,pTemp,cross-subject encoding,0.3220051290144198
+sub-51,language (language),left,pTemp,cross-subject encoding,0.4092351780388547
+sub-51,language (language),left,pTemp,joint_chunk120,0.2757344784718078
+sub-53,language (language),left,pTemp,joint_chunk120,0.2168363194405923
+sub-53,language (language),left,pTemp,cross-subject encoding,0.4677347025286187
+sub-54,language (language),left,pTemp,joint_chunk120,0.1224593317875748
+sub-55,language (language),left,pTemp,cross-subject encoding,0.4460910233460238
+sub-55,language (language),left,pTemp,joint_chunk120,0.1512334731804881
+sub-56,language (language),left,pTemp,joint_chunk120,0.128685903387377
+sub-56,language (language),left,pTemp,cross-subject encoding,0.2833782308183921
+sub-57,language (language),left,pTemp,joint_chunk120,0.2013221730307928
+sub-57,language (language),left,pTemp,cross-subject encoding,0.1295493184277816
+sub-58,language (language),left,pTemp,joint_chunk120,0.2856376557859755
+sub-58,language (language),left,pTemp,cross-subject encoding,0.2634474316199545
+sub-60,language (language),left,pTemp,cross-subject encoding,0.4074260566335885
+sub-60,language (language),left,pTemp,joint_chunk120,0.1295082600499491
+sub-61,language (language),left,pTemp,cross-subject encoding,0.3259033108698138
+sub-61,language (language),left,pTemp,joint_chunk120,0.1187014169949734
+sub-62,language (language),left,pTemp,joint_chunk120,0.1523507105889466
+sub-62,language (language),left,pTemp,cross-subject encoding,0.508859934615639
+sub-19,language (language),left,aTemp,cross-subject encoding,0.2901614721004779
+sub-19,language (language),left,aTemp,joint_chunk120,-0.0074209006001742
+sub-23,language (language),left,aTemp,cross-subject encoding,0.1110981139127255
+sub-23,language (language),left,aTemp,joint_chunk120,0.07083992445955
+sub-25,language (language),left,aTemp,cross-subject encoding,0.2586433533036497
+sub-25,language (language),left,aTemp,joint_chunk120,0.0542790550416457
+sub-26,language (language),left,aTemp,cross-subject encoding,0.4608138871769751
+sub-26,language (language),left,aTemp,joint_chunk120,0.1697086111532263
+sub-28,language (language),left,aTemp,cross-subject encoding,0.5094361504041912
+sub-28,language (language),left,aTemp,joint_chunk120,0.1902357334303347
+sub-32,language (language),left,aTemp,cross-subject encoding,0.4824487438201904
+sub-32,language (language),left,aTemp,joint_chunk120,0.2400059661567211
+sub-33,language (language),left,aTemp,cross-subject encoding,0.4529041746027872
+sub-33,language (language),left,aTemp,joint_chunk120,0.1712976493479185
+sub-35,language (language),left,aTemp,cross-subject encoding,0.3135973312133966
+sub-35,language (language),left,aTemp,joint_chunk120,0.1057303004876472
+sub-36,language (language),left,aTemp,cross-subject encoding,0.328672349364275
+sub-36,language (language),left,aTemp,joint_chunk120,0.0726244878301042
+sub-38,language (language),left,aTemp,cross-subject encoding,0.2691877948002084
+sub-38,language (language),left,aTemp,joint_chunk120,0.1366069163856055
+sub-39,language (language),left,aTemp,cross-subject encoding,0.3678267183223445
+sub-39,language (language),left,aTemp,joint_chunk120,0.1775395224930865
+sub-41,language (language),left,aTemp,cross-subject encoding,0.5142926403949427
+sub-41,language (language),left,aTemp,joint_chunk120,0.203674741219296
+sub-45,language (language),left,aTemp,cross-subject encoding,0.4485919356942177
+sub-45,language (language),left,aTemp,joint_chunk120,0.178426834071055
+sub-46,language (language),left,aTemp,cross-subject encoding,0.4240503883445445
+sub-46,language (language),left,aTemp,joint_chunk120,0.1906339817499855
+sub-50,language (language),left,aTemp,joint_chunk120,0.0198908865077714
+sub-51,language (language),left,aTemp,cross-subject encoding,0.349304325947607
+sub-51,language (language),left,aTemp,joint_chunk120,0.2614761124146573
+sub-53,language (language),left,aTemp,cross-subject encoding,0.4731715305185434
+sub-53,language (language),left,aTemp,joint_chunk120,0.1640652689136198
+sub-54,language (language),left,aTemp,cross-subject encoding,0.1986565529998089
+sub-54,language (language),left,aTemp,joint_chunk120,0.1202480133018783
+sub-55,language (language),left,aTemp,cross-subject encoding,0.4697309992252252
+sub-55,language (language),left,aTemp,joint_chunk120,0.1147239897534466
+sub-56,language (language),left,aTemp,cross-subject encoding,0.3297367828801788
+sub-56,language (language),left,aTemp,joint_chunk120,0.117958131791401
+sub-57,language (language),left,aTemp,cross-subject encoding,0.3830854105097906
+sub-57,language (language),left,aTemp,joint_chunk120,0.2349509591502802
+sub-58,language (language),left,aTemp,cross-subject encoding,0.4833956268571672
+sub-58,language (language),left,aTemp,joint_chunk120,0.2901382829461779
+sub-60,language (language),left,aTemp,cross-subject encoding,0.1935859423188958
+sub-60,language (language),left,aTemp,joint_chunk120,0.2064048052998259
+sub-61,language (language),left,aTemp,cross-subject encoding,0.4022683128804475
+sub-61,language (language),left,aTemp,joint_chunk120,0.1421876467257545
+sub-62,language (language),left,aTemp,cross-subject encoding,0.4898230712679983
+sub-62,language (language),left,aTemp,joint_chunk120,0.1860827693186736
+sub-19,language (language),right,pTemp,joint_chunk120,0.1144588481264006
+sub-19,language (language),right,pTemp,cross-subject encoding,0.4187641408217629
+sub-23,language (language),right,pTemp,joint_chunk120,0.1672573027511437
+sub-23,language (language),right,pTemp,cross-subject encoding,0.5502391287258693
+sub-25,language (language),right,pTemp,joint_chunk120,-0.0010691559343415
+sub-25,language (language),right,pTemp,cross-subject encoding,0.1104073889353977
+sub-26,language (language),right,pTemp,joint_chunk120,0.1217425082756493
+sub-26,language (language),right,pTemp,cross-subject encoding,0.4538948874060924
+sub-28,language (language),right,pTemp,cross-subject encoding,0.4710489296250873
+sub-28,language (language),right,pTemp,joint_chunk120,0.2141309261873916
+sub-32,language (language),right,pTemp,cross-subject encoding,
+sub-32,language (language),right,pTemp,joint_chunk120,
+sub-33,language (language),right,pTemp,cross-subject encoding,0.2836973140947521
+sub-33,language (language),right,pTemp,joint_chunk120,0.0752546995839414
+sub-35,language (language),right,pTemp,joint_chunk120,0.1333434063303034
+sub-35,language (language),right,pTemp,cross-subject encoding,0.4091838775784708
+sub-36,language (language),right,pTemp,joint_chunk120,0.0491717113357495
+sub-36,language (language),right,pTemp,cross-subject encoding,0.2582350782458744
+sub-38,language (language),right,pTemp,cross-subject encoding,0.2666830167393474
+sub-38,language (language),right,pTemp,joint_chunk120,0.1123584872659514
+sub-39,language (language),right,pTemp,cross-subject encoding,0.4100377092174455
+sub-39,language (language),right,pTemp,joint_chunk120,0.1625397902201203
+sub-41,language (language),right,pTemp,joint_chunk120,0.1704058115704892
+sub-41,language (language),right,pTemp,cross-subject encoding,0.5130053523641366
+sub-45,language (language),right,pTemp,cross-subject encoding,0.5215798616409302
+sub-45,language (language),right,pTemp,joint_chunk120,0.1367040940094739
+sub-46,language (language),right,pTemp,joint_chunk120,0.1856533661484718
+sub-46,language (language),right,pTemp,cross-subject encoding,0.4042824792700845
+sub-50,language (language),right,pTemp,joint_chunk120,0.0189970025094226
+sub-50,language (language),right,pTemp,cross-subject encoding,0.2206253627718979
+sub-51,language (language),right,pTemp,cross-subject encoding,0.2591185220762303
+sub-51,language (language),right,pTemp,joint_chunk120,0.3147566467523575
+sub-53,language (language),right,pTemp,cross-subject encoding,0.4160007097400152
+sub-53,language (language),right,pTemp,joint_chunk120,0.1368824792187437
+sub-54,language (language),right,pTemp,cross-subject encoding,0.4730624668300152
+sub-54,language (language),right,pTemp,joint_chunk120,0.2013363800942897
+sub-55,language (language),right,pTemp,cross-subject encoding,0.4011527497102232
+sub-55,language (language),right,pTemp,joint_chunk120,0.1107364008340108
+sub-56,language (language),right,pTemp,cross-subject encoding,
+sub-56,language (language),right,pTemp,joint_chunk120,
+sub-57,language (language),right,pTemp,cross-subject encoding,0.362571496090758
+sub-57,language (language),right,pTemp,joint_chunk120,0.1608362747817824
+sub-58,language (language),right,pTemp,cross-subject encoding,0.3797372592552482
+sub-58,language (language),right,pTemp,joint_chunk120,0.2692292082900478
+sub-60,language (language),right,pTemp,joint_chunk120,0.1071540386165812
+sub-60,language (language),right,pTemp,cross-subject encoding,0.3934481083345947
+sub-61,language (language),right,pTemp,joint_chunk120,8.708561977578534e-05
+sub-61,language (language),right,pTemp,cross-subject encoding,0.3478187157048119
+sub-62,language (language),right,pTemp,joint_chunk120,0.1092677606668855
+sub-62,language (language),right,pTemp,cross-subject encoding,0.4611296824046543
+sub-19,language (language),right,aTemp,joint_chunk120,0.1065475331862606
+sub-19,language (language),right,aTemp,cross-subject encoding,0.3487218662963381
+sub-23,language (language),right,aTemp,joint_chunk120,0.1039573431101649
+sub-23,language (language),right,aTemp,cross-subject encoding,0.4172711360246636
+sub-25,language (language),right,aTemp,joint_chunk120,0.0318763071138943
+sub-25,language (language),right,aTemp,cross-subject encoding,0.3584883894239153
+sub-26,language (language),right,aTemp,cross-subject encoding,0.5258634954225272
+sub-26,language (language),right,aTemp,joint_chunk120,0.164518631529063
+sub-28,language (language),right,aTemp,joint_chunk120,0.127490357030183
+sub-28,language (language),right,aTemp,cross-subject encoding,0.4157003151873747
+sub-32,language (language),right,aTemp,cross-subject encoding,
+sub-32,language (language),right,aTemp,joint_chunk120,
+sub-33,language (language),right,aTemp,cross-subject encoding,0.4195091336689613
+sub-33,language (language),right,aTemp,joint_chunk120,0.1641593190789636
+sub-35,language (language),right,aTemp,cross-subject encoding,0.4816620139087119
+sub-35,language (language),right,aTemp,joint_chunk120,0.1426278226213847
+sub-36,language (language),right,aTemp,cross-subject encoding,0.3663831765662474
+sub-36,language (language),right,aTemp,joint_chunk120,0.1131519142773944
+sub-38,language (language),right,aTemp,cross-subject encoding,0.0814386222961635
+sub-38,language (language),right,aTemp,joint_chunk120,0.0803507800888398
+sub-39,language (language),right,aTemp,joint_chunk120,0.1903707774317994
+sub-39,language (language),right,aTemp,cross-subject encoding,0.4787681277233119
+sub-41,language (language),right,aTemp,joint_chunk120,0.1265972877920764
+sub-41,language (language),right,aTemp,cross-subject encoding,0.4025728472667496
+sub-45,language (language),right,aTemp,joint_chunk120,
+sub-45,language (language),right,aTemp,cross-subject encoding,
+sub-46,language (language),right,aTemp,cross-subject encoding,0.4763136621978547
+sub-46,language (language),right,aTemp,joint_chunk120,0.186138040765568
+sub-50,language (language),right,aTemp,cross-subject encoding,0.3245166547599688
+sub-50,language (language),right,aTemp,joint_chunk120,0.1130081054547594
+sub-51,language (language),right,aTemp,cross-subject encoding,0.3352179192429916
+sub-51,language (language),right,aTemp,joint_chunk120,0.2787197293205695
+sub-53,language (language),right,aTemp,cross-subject encoding,0.4634318593089119
+sub-53,language (language),right,aTemp,joint_chunk120,0.2590766363864532
+sub-54,language (language),right,aTemp,cross-subject encoding,0.4887222941307461
+sub-54,language (language),right,aTemp,joint_chunk120,0.1655642919826741
+sub-55,language (language),right,aTemp,cross-subject encoding,0.3469279541614208
+sub-55,language (language),right,aTemp,joint_chunk120,0.0716333826805682
+sub-56,language (language),right,aTemp,cross-subject encoding,0.3994094083706538
+sub-56,language (language),right,aTemp,joint_chunk120,0.1529554732971721
+sub-57,language (language),right,aTemp,cross-subject encoding,0.293185147306866
+sub-57,language (language),right,aTemp,joint_chunk120,0.1834015554117193
+sub-58,language (language),right,aTemp,cross-subject encoding,0.401084129721016
+sub-58,language (language),right,aTemp,joint_chunk120,0.2545603748455823
+sub-60,language (language),right,aTemp,cross-subject encoding,0.3046283169753022
+sub-60,language (language),right,aTemp,joint_chunk120,0.1428216433566477
+sub-61,language (language),right,aTemp,cross-subject encoding,0.6625798344612122
+sub-61,language (language),right,aTemp,joint_chunk120,0.157627172768116
+sub-62,language (language),right,aTemp,cross-subject encoding,0.4419579993594776
+sub-62,language (language),right,aTemp,joint_chunk120,0.175345349421894
+sub-19,language (language),left,frontal,cross-subject encoding,0.2349707520065399
+sub-19,language (language),left,frontal,joint_chunk120,0.0433412088806597
+sub-23,language (language),left,frontal,cross-subject encoding,0.2976696264307581
+sub-23,language (language),left,frontal,joint_chunk120,0.0702016719388567
+sub-25,language (language),left,frontal,joint_chunk120,0.0403644148360139
+sub-25,language (language),left,frontal,cross-subject encoding,0.1415245934040285
+sub-26,language (language),left,frontal,cross-subject encoding,0.3621433269286501
+sub-26,language (language),left,frontal,joint_chunk120,0.0874962318693692
+sub-28,language (language),left,frontal,joint_chunk120,0.1018071281376458
+sub-28,language (language),left,frontal,cross-subject encoding,0.3145954402611602
+sub-32,language (language),left,frontal,joint_chunk120,0.0739655867948409
+sub-32,language (language),left,frontal,cross-subject encoding,0.313870871569254
+sub-33,language (language),left,frontal,joint_chunk120,0.051934830773163
+sub-33,language (language),left,frontal,cross-subject encoding,0.2587091348467589
+sub-35,language (language),left,frontal,joint_chunk120,0.0993454597201173
+sub-35,language (language),left,frontal,cross-subject encoding,0.2529414701770912
+sub-36,language (language),left,frontal,cross-subject encoding,0.2605823880254194
+sub-36,language (language),left,frontal,joint_chunk120,0.0670975260215747
+sub-38,language (language),left,frontal,cross-subject encoding,0.2417229298729138
+sub-38,language (language),left,frontal,joint_chunk120,0.0270657114585471
+sub-39,language (language),left,frontal,joint_chunk120,0.1232106570499874
+sub-39,language (language),left,frontal,cross-subject encoding,0.3601128227896039
+sub-41,language (language),left,frontal,joint_chunk120,0.1082757239171769
+sub-41,language (language),left,frontal,cross-subject encoding,0.4018807765096426
+sub-45,language (language),left,frontal,cross-subject encoding,0.2830060463934357
+sub-45,language (language),left,frontal,joint_chunk120,0.0691790394866865
+sub-46,language (language),left,frontal,joint_chunk120,0.1308881665168837
+sub-46,language (language),left,frontal,cross-subject encoding,0.3759232909666209
+sub-50,language (language),left,frontal,joint_chunk120,0.100285810373105
+sub-50,language (language),left,frontal,cross-subject encoding,0.3533224885970468
+sub-51,language (language),left,frontal,joint_chunk120,0.2311880937251713
+sub-51,language (language),left,frontal,cross-subject encoding,0.3905170773186029
+sub-53,language (language),left,frontal,joint_chunk120,0.2086694350206776
+sub-53,language (language),left,frontal,cross-subject encoding,0.3267138810298565
+sub-54,language (language),left,frontal,cross-subject encoding,0.2818256111319673
+sub-54,language (language),left,frontal,joint_chunk120,0.0407843695581516
+sub-55,language (language),left,frontal,joint_chunk120,0.1112221846182783
+sub-55,language (language),left,frontal,cross-subject encoding,0.3783768076489833
+sub-56,language (language),left,frontal,cross-subject encoding,0.1495602131479337
+sub-56,language (language),left,frontal,joint_chunk120,0.0919213780184288
+sub-57,language (language),left,frontal,joint_chunk120,0.0779096615681452
+sub-57,language (language),left,frontal,cross-subject encoding,0.3084783365936088
+sub-58,language (language),left,frontal,joint_chunk120,0.2865403042662711
+sub-58,language (language),left,frontal,cross-subject encoding,0.2208119172026358
+sub-60,language (language),left,frontal,joint_chunk120,0.1257770736358667
+sub-60,language (language),left,frontal,cross-subject encoding,0.3385937764851597
+sub-61,language (language),left,frontal,joint_chunk120,0.1369084594482081
+sub-61,language (language),left,frontal,cross-subject encoding,0.2652475333683712
+sub-62,language (language),left,frontal,cross-subject encoding,0.4333934433037235
+sub-62,language (language),left,frontal,joint_chunk120,0.1271820656639794
+sub-19,language (language),right,frontal,joint_chunk120,0.0513737098023711
+sub-19,language (language),right,frontal,cross-subject encoding,0.2357267652793477
+sub-23,language (language),right,frontal,joint_chunk120,0.0472121722996234
+sub-23,language (language),right,frontal,cross-subject encoding,0.2341028004884719
+sub-25,language (language),right,frontal,joint_chunk120,0.0081563141572462
+sub-25,language (language),right,frontal,cross-subject encoding,0.0953892753162768
+sub-26,language (language),right,frontal,joint_chunk120,0.0146936370758339
+sub-26,language (language),right,frontal,cross-subject encoding,0.1213917784392833
+sub-28,language (language),right,frontal,joint_chunk120,
+sub-28,language (language),right,frontal,cross-subject encoding,
+sub-32,language (language),right,frontal,joint_chunk120,
+sub-32,language (language),right,frontal,cross-subject encoding,
+sub-33,language (language),right,frontal,joint_chunk120,0.0332967793801799
+sub-33,language (language),right,frontal,cross-subject encoding,0.1782210431993007
+sub-35,language (language),right,frontal,joint_chunk120,0.042596567171131
+sub-35,language (language),right,frontal,cross-subject encoding,0.2019046723144129
+sub-36,language (language),right,frontal,joint_chunk120,0.0397626403928734
+sub-36,language (language),right,frontal,cross-subject encoding,0.2260432685166597
+sub-38,language (language),right,frontal,cross-subject encoding,0.287360056117177
+sub-38,language (language),right,frontal,joint_chunk120,0.1370453756302595
+sub-39,language (language),right,frontal,cross-subject encoding,0.216480016708374
+sub-39,language (language),right,frontal,joint_chunk120,0.0808208957314491
+sub-41,language (language),right,frontal,cross-subject encoding,0.2762079847141586
+sub-41,language (language),right,frontal,joint_chunk120,0.0422368676819164
+sub-45,language (language),right,frontal,cross-subject encoding,0.3450723022222519
+sub-45,language (language),right,frontal,joint_chunk120,0.1706846386194229
+sub-46,language (language),right,frontal,cross-subject encoding,
+sub-46,language (language),right,frontal,joint_chunk120,
+sub-50,language (language),right,frontal,cross-subject encoding,0.2079790663663987
+sub-50,language (language),right,frontal,joint_chunk120,0.0325345817556673
+sub-51,language (language),right,frontal,cross-subject encoding,0.373152885476456
+sub-51,language (language),right,frontal,joint_chunk120,0.2790922360385166
+sub-53,language (language),right,frontal,cross-subject encoding,0.2099715379034346
+sub-53,language (language),right,frontal,joint_chunk120,0.1325331625729044
+sub-54,language (language),right,frontal,cross-subject encoding,0.4696138724684715
+sub-54,language (language),right,frontal,joint_chunk120,0.088477037847042
+sub-55,language (language),right,frontal,joint_chunk120,0.0124580465061099
+sub-56,language (language),right,frontal,cross-subject encoding,
+sub-56,language (language),right,frontal,joint_chunk120,
+sub-57,language (language),right,frontal,cross-subject encoding,0.3144631328286378
+sub-57,language (language),right,frontal,joint_chunk120,0.0992406694223953
+sub-58,language (language),right,frontal,cross-subject encoding,0.3011779832444957
+sub-58,language (language),right,frontal,joint_chunk120,0.2208062082143693
+sub-60,language (language),right,frontal,cross-subject encoding,0.2723709650943794
+sub-60,language (language),right,frontal,joint_chunk120,0.1168211454909945
+sub-61,language (language),right,frontal,cross-subject encoding,0.1858742982149124
+sub-61,language (language),right,frontal,joint_chunk120,0.1824810206890106
+sub-62,language (language),right,frontal,cross-subject encoding,0.5802906453609467
+sub-62,language (language),right,frontal,joint_chunk120,0.2649168868859609

@@ -45,7 +45,7 @@ class SecondLevelGroup(glm.GLM):
         self.file_label ='_smoothingfwhm-'+str(self.smoothing_fwhm)
 
         #load the parameter file for the specified glm
-        params_filepath =os.path.join(self.dir,'scripts','glm_'+self.task+'.json')
+        params_filepath = os.path.join(self.dir,'scripts','params','glm_'+self.task+'.json')
         with open(params_filepath) as json_file:
             glm_params = json.load(json_file)
         json_file.close()
@@ -193,11 +193,11 @@ def main():
 
 
     parser.add_argument('--dir', '-dir', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/naturalistic-multimodal-movie')
+                        default=helpers.PROJECT_DIR)
     parser.add_argument('--out_dir', '-output', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/naturalistic-multimodal-movie/analysis')
+                        default=os.path.join(helpers.PROJECT_DIR, 'analysis'))
     parser.add_argument('--figure_dir', '-figures', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/naturalistic-multimodal-movie/figures')
+                        default=os.path.join(helpers.PROJECT_DIR, 'figures'))
     args = parser.parse_args()
     SecondLevelGroup(args).run()
 

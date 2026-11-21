@@ -31,11 +31,14 @@ dependencies:
   - pip:
     - cca-zoo==2.6.0
     - himalaya==0.4.2
-    - torch==2.1.2
+    - voxelwise_tutorials
+    - torch>=2.2.0
+    - pillow>=10.0.0
     - pymer4
     - brainiak
     - statannotations
     - tabulate
-    - imageio
+    - tqdm
+    - pypdf==5.1.0
 
   

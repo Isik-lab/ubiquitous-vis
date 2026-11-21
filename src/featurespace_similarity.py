@@ -1,10 +1,11 @@
+import os
 import numpy as np
 from sklearn.model_selection import GroupKFold
 from sklearn.preprocessing import StandardScaler
 import pandas as pd 
 from pathlib import Path
 
-from src import encoding
+from src import encoding, helpers
 import argparse
 class FeatureSpaceSimilarity(encoding.EncodingModel):
     def __init__(self, args):
@@ -22,22 +23,9 @@ class FeatureSpaceSimilarity(encoding.EncodingModel):
         self.apply_speech_masking = getattr(args, 'apply_speech_masking', False) #whether to restrict data to speech periods only (default: False)
         Path(f'{self.out_dir}/').mkdir(exist_ok=True, parents=True)
         self.features_dict = {
-                       'sbert':['sbert_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                       'GPT2_1sent':['GPT2_1sent_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                       'GPT2_3sent':['GPT2_3sent_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                       'GPT2_1word':['GPT2_1word_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                       'GPT2_4s':['GPT2_4s_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                       'GPT2_8s':['GPT2_8s_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                       'GPT2_16s':['GPT2_16s_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                       'GPT2_24s':['GPT2_24s_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                       'SLIP':'slip_vit_b_yfcc15m',
-                       'SimCLR':'slip_vit_b_simclr_yfcc15m',
-                       'CLIP':'slip_vit_b_clip_yfcc15m',
-                       'CLIPtext':'clip_base_25ep_text_embeddings',
-                       'SLIPtext':'slip_base_25ep_text_embeddings',
-                       'SLIPtext_100ep':'downsampled_slip_base_100ep_embeddings',
-                       'CLIP_ViT':'clip_vitb32',
-                       'CLIP_RN':'clip_rn50',
+                       'alexnet':'torchvision_alexnet_imagenet1k_v1',
+                       'hubert':'hubert-base-ls960-ft',
+                       'sbert':'mpnet-base-v2',
                        'alexnet_layer1':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-3_srp',
                        'alexnet_layer2':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-6_srp',
                        'alexnet_layer3':'torchvision_alexnet_imagenet1k_v1_ReLU-2-8_srp',
@@ -45,15 +33,6 @@ class FeatureSpaceSimilarity(encoding.EncodingModel):
                        'alexnet_layer5':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-13_srp',
                        'alexnet_layer6':'torchvision_alexnet_imagenet1k_v1_ReLU-2-16',
                        'alexnet_layer7':'torchvision_alexnet_imagenet1k_v1_ReLU-2-19',
-                       'cochdnn':['cochdnn_layer'+str(layer) for layer in [0,1,2,3,4,5,6]],
-                       'hubert':['hubert_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                       'annotated':['social','num_agents','face','valence','arousal','speaking','turn_taking','mentalization','written_text','music'],
-                       'SimCLR_attention':['SimCLR_attention_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                       'SLIP_attention':['SLIP_attention_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                       'SimCLR_embedding':['SimCLR_embedding_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                       'SLIP_embedding':['SLIP_embedding_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                       'SLIP_100ep_attention':['SLIP_100ep_attention_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
-                       'SLIP_100ep_embedding':['SLIP_100ep_embedding_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
                        'social':'social',
                        'num_agents':'num_agents',
                        'turn_taking':'turn_taking',
@@ -65,65 +44,235 @@ class FeatureSpaceSimilarity(encoding.EncodingModel):
                        'face': 'face',
                        'indoor_outdoor':'indoor_outdoor',
                        'written_text':'written_text',
-                       'pixel':'pixel',
-                       'hue':'hue',
-                       'amplitude':'amplitude',
-                       'pitch':'pitch',
                        'music':'music',
                        'glove':'glove',
                        'word2vec':'word2vec',
-                       'speaking_turn_taking':'speaking_turn_taking',
-                       'pitch_amplitude':'pitch_amplitude'}
-        # for layer in [1,2,3,4,5,6,7,8,9,10,11,12]:
-        #     self.features_dict['sbert_layer'+str(layer)]='downsampled_all-mpnet-base-v2_layer'+str(layer)
-        for layer in self.features_dict['GPT2_1sent']:
-            self.features_dict[layer]='downsampled_GPT2_'+layer.split('_')[2] + '_context-sent-1_embeddings'
-        for layer in self.features_dict['GPT2_3sent']:
-            self.features_dict[layer]='downsampled_GPT2_'+layer.split('_')[2] + '_context-sent-3_embeddings'
-        for layer in self.features_dict['sbert']:
-            self.features_dict[layer]='downsampled_all-mpnet-base-v2_'+layer.split('_')[1]
-        for layer in self.features_dict['GPT2_1sent']:
-            self.features_dict[layer]='downsampled_GPT2_'+layer.split('_')[2] + '_context-sent-1_embeddings'
-        for layer in self.features_dict['GPT2_3sent']:
-            self.features_dict[layer]='downsampled_GPT2_'+layer.split('_')[2] + '_context-sent-3_embeddings'
-        for layer in self.features_dict['GPT2_1word']:
-            self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_word'
-        for layer in self.features_dict['hubert']:
-            self.features_dict[layer]='hubert-base-ls960-ft_'+layer.split('_')[1]+'_tr'
+                       'pitch':'pitch',
+                       'amplitude':'amplitude',
+                       'pixel': 'pixel',
+                       'hue':'hue',
+                       'alexnet_pca' : 'AlexNet_all_layers_pcs_363dims',
+                        'motion_pca': 'motion_pcs_363dims',
+                        'hubert_pca': 'HuBERT_all_layers_pcs_363dims',
+                        'word2vec_pca': 'word2vec_pcs_363dims',
+                        'GPT2_pca': 'GPT2_chunk30_all_layers_pcs_363dims',
+                        'SimCLR_pca': 'SimCLR_attention_all_layers_pcs_363dims',
+                        'alexnet_pca_90' : 'alexnet_pcs_1011dims',
+                        'motion_pca_90': 'motion_pcs_81dims',
+                        'hubert_chunk60_pca_90': 'hubert_chunk60_pcs_349dims',
+                        'hubert_chunk60_layer1_pca_90': 'hubert_chunk60_layer1_pcs_54dims',
+                        'hubert_chunk60_layer2_pca_90': 'hubert_chunk60_layer2_pcs_77dims',
+                        'hubert_chunk60_layer3_pca_90': 'hubert_chunk60_layer3_pcs_109dims',
+                        'hubert_chunk60_layer4_pca_90': 'hubert_chunk60_layer4_pcs_133dims',
+                        'hubert_chunk60_layer5_pca_90': 'hubert_chunk60_layer5_pcs_148dims',
+                        'hubert_chunk60_layer6_pca_90': 'hubert_chunk60_layer6_pcs_166dims',
+                        'hubert_chunk60_layer7_pca_90': 'hubert_chunk60_layer7_pcs_188dims',
+                        'hubert_chunk60_layer8_pca_90': 'hubert_chunk60_layer8_pcs_221dims',
+                        'hubert_chunk60_layer9_pca_90': 'hubert_chunk60_layer9_pcs_229dims',
+                        'hubert_chunk60_layer10_pca_90': 'hubert_chunk60_layer10_pcs_216dims',
+                        'hubert_chunk60_layer11_pca_90': 'hubert_chunk60_layer11_pcs_140dims',
+                        'hubert_chunk60_layer12_pca_90': 'hubert_chunk60_layer12_pcs_100dims',
+                        'gpt2_chunk60_layer1_pca_90': 'gpt2_chunk60_layer1_pcs_194dims',
+                        'gpt2_chunk60_layer2_pca_90': 'gpt2_chunk60_layer2_pcs_191dims',
+                        'gpt2_chunk60_layer3_pca_90': 'gpt2_chunk60_layer3_pcs_203dims',
+                        'gpt2_chunk60_layer4_pca_90': 'gpt2_chunk60_layer4_pcs_219dims',
+                        'gpt2_chunk60_layer5_pca_90': 'gpt2_chunk60_layer5_pcs_229dims',
+                        'gpt2_chunk60_layer6_pca_90': 'gpt2_chunk60_layer6_pcs_240dims',
+                        'gpt2_chunk60_layer7_pca_90': 'gpt2_chunk60_layer7_pcs_245dims',
+                        'gpt2_chunk60_layer8_pca_90': 'gpt2_chunk60_layer8_pcs_244dims',
+                        'gpt2_chunk60_layer9_pca_90': 'gpt2_chunk60_layer9_pcs_240dims',
+                        'gpt2_chunk60_layer10_pca_90': 'gpt2_chunk60_layer10_pcs_233dims',
+                        'gpt2_chunk60_layer11_pca_90': 'gpt2_chunk60_layer11_pcs_225dims',
+                        'gpt2_chunk60_layer12_pca_90': 'gpt2_chunk60_layer12_pcs_226dims',
+                        'alexnet_layer1_pca_90': 'alexnet_layer1_raw_pcs_745dims',
+                        'alexnet_layer2_pca_90': 'alexnet_layer2_raw_pcs_787dims',
+                        'alexnet_layer3_pca_90': 'alexnet_layer3_raw_pcs_1058dims',
+                        'alexnet_layer4_pca_90': 'alexnet_layer4_raw_pcs_1061dims',
+                        'alexnet_layer5_pca_90': 'alexnet_layer5_raw_pcs_776dims',
+                        'alexnet_layer6_pca_90': 'alexnet_layer6_raw_pcs_486dims',
+                        'alexnet_layer7_pca_90': 'alexnet_layer7_raw_pcs_523dims',
+                        'word2vec_chunk60_pca_90': 'word2vec_chunk60_pcs_71dims',
+                        'gpt2_chunk60_pca_90': 'gpt2_chunk60_pcs_318dims',
+                        'SimCLR_pca_90': 'SimCLR_attention_all_layers_pcs_745dims',
+                        'motion_pcs_90pct': 'motion_pcs_90pct',
+                        'word2vec_pcs_90pct': 'word2vec_pcs_90pct',
+                        'word2vec_speech_masked_pc90':'word2vec_pcs_90pct_speech_masked',
+                        'word2vec_speech_masked':'word2vec_speech_masked',
+                        'word2vec_chunk20_speech_masked':'word2vec_chunklen20_speech_masked',
+                        'word2vec_chunk60_speech_masked':'word2vec_chunklen60_speech_masked',
+                        'word2vec_chunk20':'word2vec_chunklen20',
+                        'word2vec_chunk60':'word2vec_chunklen60',
+                        'word2vec_chunk80':'word2vec_chunklen80',
+                        'word2vec_chunk120':'word2vec_chunklen120',
+                        'scene_description':['scene_description_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
+                        'GPT2_chunk120': [f'GPT2_chunk120_layer{layer_num}' for layer_num in [1,2,3,4,5,6,7,8,9,10,11,12]], 
+                        'hubert_chunk120': [f'hubert_chunk120_layer{layer_num}' for layer_num in [1,2,3,4,5,6,7,8,9,10,11,12]], 
+                   'SimCLR_attention_eps0.3':['SimCLR_attention_eps0.3_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
+                   'SimCLR_embedding_eps0.3':['SimCLR_embedding_eps0.3_layer'+str(layer) for layer in [1,2,3,4,5,6,7,8,9,10,11,12]],
 
-        for time_chunk in [4,8,16,24]:
-            for layer in self.features_dict['GPT2_'+str(time_chunk)+'s']:
-                self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_time_chunk-'+str(time_chunk)
+                        'motion_speech_masked_pc90':'motion_pcs_90pct_speech_masked',
+                        'motion_eps0.1':'pymoten',
+                        'motion_eps0.2':'pymoten_srp_eps0.2',
+                        'motion_eps0.4':'pymoten_srp_eps0.4',
+                        'motion_eps0.6':'pymoten_srp_eps0.6',
+                        'word2vec_chunk60_eps0.1':'word2vec_chunklen60',
+                        'word2vec_chunk60_eps0.2':'word2vec_chunklen60',
+                        'word2vec_chunk60_eps0.4':'word2vec_chunklen60',
+                        'word2vec_chunk60_eps0.6':'word2vec_chunklen60_srp_eps0.6',
+                        'alexnet_eps0.1_layer1':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-3_srp_eps0.1',
+                        'alexnet_eps0.1_layer2':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-6_srp_eps0.1',
+                        'alexnet_eps0.1_layer3':'torchvision_alexnet_imagenet1k_v1_ReLU-2-8_srp_eps0.1',
+                        'alexnet_eps0.1_layer4':'torchvision_alexnet_imagenet1k_v1_ReLU-2-10_srp_eps0.1',
+                        'alexnet_eps0.1_layer5':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-13_srp_eps0.1',
+                        'alexnet_eps0.1_layer6':'torchvision_alexnet_imagenet1k_v1_ReLU-2-16',
+                        'alexnet_eps0.1_layer7':'torchvision_alexnet_imagenet1k_v1_ReLU-2-19',
+                        'alexnet_eps0.2_layer1':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-3_srp_eps0.2',
+                        'alexnet_eps0.2_layer2':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-6_srp_eps0.2',
+                        'alexnet_eps0.2_layer3':'torchvision_alexnet_imagenet1k_v1_ReLU-2-8_srp_eps0.2',
+                        'alexnet_eps0.2_layer4':'torchvision_alexnet_imagenet1k_v1_ReLU-2-10_srp_eps0.2',
+                        'alexnet_eps0.2_layer5':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-13_srp_eps0.2',
+                        'alexnet_eps0.2_layer6':'torchvision_alexnet_imagenet1k_v1_ReLU-2-16_srp_eps0.2',
+                        'alexnet_eps0.2_layer7':'torchvision_alexnet_imagenet1k_v1_ReLU-2-19_srp_eps0.2',
+                        'alexnet_eps0.3_layer1':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-3_srp_eps0.3',
+                        'alexnet_eps0.3_layer2':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-6_srp_eps0.3',
+                        'alexnet_eps0.3_layer3':'torchvision_alexnet_imagenet1k_v1_ReLU-2-8_srp_eps0.3',
+                        'alexnet_eps0.3_layer4':'torchvision_alexnet_imagenet1k_v1_ReLU-2-10_srp_eps0.3',
+                        'alexnet_eps0.3_layer5':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-13_srp_eps0.3',
+                        'alexnet_eps0.3_layer6':'torchvision_alexnet_imagenet1k_v1_ReLU-2-16_srp_eps0.3',
+                        'alexnet_eps0.3_layer7':'torchvision_alexnet_imagenet1k_v1_ReLU-2-19_srp_eps0.3',
+                        'alexnet_eps0.4_layer1':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-3_srp_eps0.4',
+                        'alexnet_eps0.4_layer2':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-6_srp_eps0.4',
+                        'alexnet_eps0.4_layer3':'torchvision_alexnet_imagenet1k_v1_ReLU-2-8_srp_eps0.4',
+                        'alexnet_eps0.4_layer4':'torchvision_alexnet_imagenet1k_v1_ReLU-2-10_srp_eps0.4',
+                        'alexnet_eps0.4_layer5':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-13_srp_eps0.4',
+                        'alexnet_eps0.4_layer6':'torchvision_alexnet_imagenet1k_v1_ReLU-2-16_srp_eps0.4',
+                        'alexnet_eps0.4_layer7':'torchvision_alexnet_imagenet1k_v1_ReLU-2-19_srp_eps0.4',
+                        'alexnet_eps0.6_layer1':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-3_srp_eps0.6',
+                        'alexnet_eps0.6_layer2':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-6_srp_eps0.6',
+                        'alexnet_eps0.6_layer3':'torchvision_alexnet_imagenet1k_v1_ReLU-2-8_srp_eps0.6',
+                        'alexnet_eps0.6_layer4':'torchvision_alexnet_imagenet1k_v1_ReLU-2-10_srp_eps0.6',
+                        'alexnet_eps0.6_layer5':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-13_srp_eps0.6',
+                        'alexnet_eps0.6_layer6':'torchvision_alexnet_imagenet1k_v1_ReLU-2-16_srp_eps0.6',
+                        'alexnet_eps0.6_layer7':'torchvision_alexnet_imagenet1k_v1_ReLU-2-19_srp_eps0.6',
+                       }
+        
+        for layer in self.features_dict['scene_description']:
+            self.features_dict[layer] = layer
+
+        # for layer in self.features_dict['sbert']:
+        #     self.features_dict[layer]='downsampled_all-mpnet-base-v2_'+layer.split('_')[1]
+        # for layer in self.features_dict['GPT2_1sent']:
+        #     self.features_dict[layer]='downsampled_GPT2_'+layer.split('_')[2] + '_context-sent-1_embeddings'
+        # for layer in self.features_dict['GPT2_3sent']:
+        #     self.features_dict[layer]='downsampled_GPT2_'+layer.split('_')[2] + '_context-sent-3_embeddings'
+        # for layer in self.features_dict['GPT2_1word']:
+        #     self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_word'
+        # for layer in self.features_dict['hubert']:
+        #     self.features_dict[layer]='hubert-base-ls960-ft_'+layer.split('_')[1]+'_TR' #embeddings extracted each TR
+
+        # for layer in self.features_dict['alexnet_pca_90']:
+        #     self.features_dict[layer] = layer
+        # for layer in self.features_dict['alexnet_speech_masked_pc90']:
+        #     self.features_dict[layer] = layer
+        # # for layer in self.features_dict['hubert_pca_90']:
+        # #     self.features_dict[layer] = layer
+        # for layer in self.features_dict['hubert_chunk60_speech_masked_pc90']:
+        #     self.features_dict[layer] = layer
+        # for layer in self.features_dict['GPT2_chunk30_pca_90']:
+        #     self.features_dict[layer] = layer
+        # for layer in self.features_dict['GPT2_chunk60_speech_masked_pc90']:
+        #     self.features_dict[layer] = layer
+        # for layer in self.features_dict['GPT2_chunk30']:
+        #     self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_running_time_chunk-30'
+        
+        # for layer in self.features_dict['GPT2_chunk60_eps0.1']:
+        #     self.features_dict[layer]='GPT2_'+layer.split('_')[3] + '_chunklen60_maxcontext30'
+        # for layer in self.features_dict['GPT2_chunk60_eps0.2']:
+        #     self.features_dict[layer]='GPT2_'+layer.split('_')[3] + '_chunklen60_maxcontext30'
+        # for layer in self.features_dict['GPT2_chunk60_eps0.4']:
+        #     self.features_dict[layer]='GPT2_'+layer.split('_')[3] + '_chunklen60_maxcontext30_srp_eps0.4'
+        # for layer in self.features_dict['GPT2_chunk60_eps0.6']:
+        #     self.features_dict[layer]='GPT2_'+layer.split('_')[3] + '_chunklen60_maxcontext30_srp_eps0.6'
+        
+        # for layer in self.features_dict['hubert_chunk60_eps0.1']:
+        #     self.features_dict[layer]='hubert_'+layer.split('_')[3] + '_chunklen60'
+        # for layer in self.features_dict['hubert_chunk60_eps0.2']:
+        #     self.features_dict[layer]='hubert_'+layer.split('_')[3] + '_chunklen60'
+        # for layer in self.features_dict['hubert_chunk60_eps0.4']:
+        #     self.features_dict[layer]='hubert_'+layer.split('_')[3] + '_chunklen60_srp_eps0.4'
+        # for layer in self.features_dict['hubert_chunk60_eps0.6']:
+        #     self.features_dict[layer]='hubert_'+layer.split('_')[3] + '_chunklen60_srp_eps0.6'
+        
+
+        # for layer in self.features_dict['GPT2_chunk20']:
+        #     self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_chunklen20_maxcontext30'
+        # for layer in self.features_dict['GPT2_chunk40']:
+        #     self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_chunklen40_maxcontext30'
+        # for layer in self.features_dict['GPT2_chunk60']:
+        #     self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_chunklen60_maxcontext30'
+        # for layer in self.features_dict['GPT2_chunk80']:
+        #     self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_chunklen80_maxcontext60'
+        for layer in self.features_dict['GPT2_chunk120']:
+            self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_chunklen80_maxcontext60'
+        
+        # for layer in self.features_dict['hubert_chunk20']:
+        #     self.features_dict[layer]='hubert_'+layer.split('_')[2] + '_chunklen20'
+        # for layer in self.features_dict['hubert_chunk40']:
+        #     self.features_dict[layer]='hubert_'+layer.split('_')[2] + '_chunklen40'
+        # for layer in self.features_dict['hubert_chunk60']:
+        #     self.features_dict[layer]='hubert_'+layer.split('_')[2] + '_chunklen60'
+        # for layer in self.features_dict['hubert_chunk80']:
+        #     self.features_dict[layer]='hubert_'+layer.split('_')[2] + '_chunklen80'
+        for layer in self.features_dict['hubert_chunk120']:
+            self.features_dict[layer]='hubert_'+layer.split('_')[2] + '_chunklen120'
+        
+        # for layer in self.features_dict['GPT2_chunk20_speech_masked']:
+        #     self.features_dict[layer]='GPT2_'+layer.split('_')[4] + '_chunklen20_maxcontext30_speech_masked'
+        # for layer in self.features_dict['GPT2_chunk40_speech_masked']:
+        #     self.features_dict[layer]='GPT2_'+layer.split('_')[4] + '_chunklen40_maxcontext30_speech_masked'
+        # for layer in self.features_dict['GPT2_chunk60_speech_masked']:
+        #     self.features_dict[layer]='GPT2_'+layer.split('_')[4] + '_chunklen60_maxcontext30_speech_masked'
+        
+        # for layer in self.features_dict['hubert_chunk20_speech_masked']:
+        #     self.features_dict[layer]='hubert_'+layer.split('_')[4] + '_chunklen20_speech_masked'
+        # for layer in self.features_dict['hubert_chunk40_speech_masked']:
+        #     self.features_dict[layer]='hubert_'+layer.split('_')[4] + '_chunklen40_speech_masked'
+        # for layer in self.features_dict['hubert_chunk60_speech_masked']:
+        #     self.features_dict[layer]='hubert_'+layer.split('_')[4] + '_chunklen60_speech_masked'
+            
+        # for time_chunk in [1,5,4,8,10,15,16,20]:
+        #     for layer in self.features_dict['GPT2_'+str(time_chunk)+'s']:
+        #         self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_running_time_chunk-'+str(time_chunk)
+
+        # tracker=2
+        # for layer in self.features_dict['SimCLR_attention_eps0.1']:
+        #     self.features_dict[layer]='slip_vit_b_simclr_attention-3-'+str(tracker) +'_srp_eps0.1' #get the SRP reduced version
+        #     tracker=tracker+8
+        
+        # tracker=2
+        # for layer in self.features_dict['SimCLR_attention_eps0.2']:
+        #     self.features_dict[layer]='slip_vit_b_simclr_attention-3-'+str(tracker) +'_srp_eps0.2' #get the SRP reduced version
+        #     tracker=tracker+8
         
         tracker=2
-        for layer in self.features_dict['SimCLR_attention']:
-            self.features_dict[layer]='slip_vit_b_simclr_yfcc15m_attention-3-'+str(tracker) +'_srp' #get the SRP reduced version
-            tracker=tracker+8
-
-        tracker=6
-        for layer in self.features_dict['SimCLR_embedding']:
-            self.features_dict[layer]='slip_vit_b_simclr_yfcc15m_mlp-3-'+str(tracker) +'_srp' #get the SRP reduced version
-            tracker=tracker+8
-        
-        tracker=2
-        for layer in self.features_dict['SLIP_attention']:
-            self.features_dict[layer]='slip_vit_b_yfcc15m_attention-3-'+str(tracker) +'_srp' #get the SRP reduced version
+        for layer in self.features_dict['SimCLR_attention_eps0.3']:
+            self.features_dict[layer]='slip_vit_b_simclr_attention-3-'+str(tracker) +'_srp_eps0.3' #get the SRP reduced version
             tracker=tracker+8
         
         tracker=6
-        for layer in self.features_dict['SLIP_embedding']:
-            self.features_dict[layer]='slip_vit_b_yfcc15m_mlp-3-'+str(tracker) +'_srp' #get the SRP reduced version
-            tracker=tracker+8
-
-        tracker=2
-        for layer in self.features_dict['SLIP_100ep_attention']:
-            self.features_dict[layer]='slip_vit_b_max_yfcc15m_attention-3-'+str(tracker) +'_srp' #get the SRP reduced version
+        for layer in self.features_dict['SimCLR_embedding_eps0.3']:
+            self.features_dict[layer]='slip_vit_b_simclr_mlp-3-'+str(tracker) +'_srp_eps0.3' #get the SRP reduced version
             tracker=tracker+8
         
-        tracker=6
-        for layer in self.features_dict['SLIP_100ep_embedding']:
-            self.features_dict[layer]='slip_vit_b_max_yfcc15m_mlp-3-'+str(tracker) +'_srp' #get the SRP reduced version
-            tracker=tracker+8
+        # tracker=2
+        # for layer in self.features_dict['SimCLR_attention_eps0.4']:
+        #     self.features_dict[layer]='slip_vit_b_simclr_attention-3-'+str(tracker) +'_srp_eps0.4' #get the SRP reduced version
+        #     tracker=tracker+8
+        
+        # tracker=2
+        # for layer in self.features_dict['SimCLR_attention_eps0.6']:
+        #     self.features_dict[layer]='slip_vit_b_simclr_attention-3-'+str(tracker) +'_srp_eps0.6' #get the SRP reduced version
+        #     tracker=tracker+8
 
         print(self.features_dict)
 
@@ -278,13 +427,15 @@ def main():
     parser.add_argument('--features','-features',type=str,default='-') #formatted with features separated by '-' ex) 'social-speaking'
     parser.add_argument('--method','-method',type=str,default='regression') #CCA
     parser.add_argument('--latent_dim','-latent_dim',type=int,default=1)
+    parser.add_argument('--apply-speech-masking', action='store_true',
+                    help='Restrict analysis to speech periods only')
 
     parser.add_argument('--dir', '-dir', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/deep_nat_lat')
+                        default=helpers.PROJECT_DIR)
     parser.add_argument('--out_dir', '-output', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/deep_nat_lat/analysis')
+                        default=os.path.join(helpers.PROJECT_DIR, 'analysis'))
     parser.add_argument('--figure_dir', '-figures', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/deep_nat_lat/figures')
+                        default=os.path.join(helpers.PROJECT_DIR, 'figures'))
     args = parser.parse_args()
     FeatureSpaceSimilarity(args).run()
 

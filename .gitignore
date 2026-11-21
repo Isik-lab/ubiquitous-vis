@@ -1,13 +1,28 @@
-analysis/EncodingModel
-analysis/GLM
-analysis/Brain2Brain
-analysis/SecondLevelIndividual/localizer_masks
+# OS / Python / build
 .DS_Store
-build
-analysis/SecondLevelIndividual/*.pkl
-features
-analysis/EncodingModel/save_weight_subset.py
-*.zip
-.osfcli.config
-paper
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+.ipynb_checkpoints/
 
+# cluster logs (scripts/sbatch writes to sbatch_logs/ in the directory it is submitted from)
+sbatch_logs/
+
+# local credentials and archives
+.osfcli.config
+*.zip
+
+# Data and outputs live on OSF (https://osf.io/5zjae/), not in git.
+# The only tracked files under these folders are the ones Plot Figures.ipynb needs, which were
+# added with `git add -f` (git keeps tracking a file once it is added, even if it matches here):
+#   analysis/participants*.tsv, analysis/parcels, analysis/FeatureSpaceCorrelation (chunk-120 pairs),
+#   analysis/PCInterpretation/compiled_pooled_results.csv, the subfigures used to assemble the
+#   paper figures, the final figures in figures/main and figures/supplemental, and the
+#   supplementary tables in tables/ (see the README).
+# To track a new file in one of these folders, use `git add -f <file>`.
+analysis/
+features/
+figures/
+tables/
+paper/
