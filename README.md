@@ -25,15 +25,24 @@ scripts/
   Plot Figures.ipynb         makes every main and supplementary figure using precomputed subfigures within this repository
   SecondLevel Analyses.ipynb group and ROI analyses that produce the subfigures, can be run loading the precomputed results within this repository or from scratch with the data from hugging face
   config.sh                  paths and conda environment
-analysis/                    participant lists, ROI parcels (+ Hugging Face outputs once downloaded)
+  sbatch/                    one SLURM job script per first-level step (each script's header gives the sbatch command)
+  params/                    GLM contrasts and the feature-space pairs for the similarity analysis
+analysis/                    (+ Hugging Face outputs once downloaded)
+  participants*.tsv          participant lists (all 34; 25 with the language localizer)
+  parcels/                   group-constrained parcels (MT, STS, language) and MNI templates
+  FeatureSpaceCorrelation/   feature space similarity results
+  SecondLevelIndividual/     precomputed ROI results (summaries, response similarity, speaking-only evaluation, overlap)
+  SecondLevelGroup/          group maps used by the ROI analyses
+  PCInterpretation/          pooled PCA interpretation results
+  EncodingModel/features/    feature order of the speaking-only evaluation outputs
 figures/                     subfigures and final figures
 tables/                      supplementary tables (LaTeX)
 ```
 
 
 ### running code
-See the sbatch scripts in ``` /scripts ``` for preprocessing (fMRIprep) and running the first level analyses. The encoding models took about 3 hours on an a100 gpu per subject when saving the fitted weights.
+See the sbatch scripts in ``` /scripts/sbatch ``` for preprocessing (fMRIprep) and running the first level analyses (edit ``` /scripts/config.sh ``` first). The encoding models took about 3 hours on an a100 gpu per subject when saving the fitted weights.
 
-The second level analyses can be run in ``` /scripts/SecondLevel Analyses.ipynb ```. To run these you will need to download data from [Hugging Face](https://huggingface.co/datasets/hsmall/sherlock-and-localizers-fMRI). The notebook contains details on which data to download for your specific needs!
+The second level analyses can be run in ``` /scripts/SecondLevel Analyses.ipynb ```. With `load=True`, the ROI analyses (Figures 3B, 4, 5 and Supplementary Figures 5–9) run from the precomputed results in this repository; the brain maps and running from scratch need data from [Hugging Face](https://huggingface.co/datasets/hsmall/sherlock-and-localizers-fMRI). The notebook contains details on which data to download for your specific needs!
 
 Plotting code for all main and supplemental figures is in ``` /scripts/Plot Figures.ipynb ```. This can be run if you clone this repository. All figures are created in ``` /figures ```. 
