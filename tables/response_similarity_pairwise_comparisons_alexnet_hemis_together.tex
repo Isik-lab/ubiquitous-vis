@@ -1,24 +1,24 @@
 \begin{table}[h]
 \centering
-\begin{tabular}{llrrl}
+\begin{tabular}{llrcrrrl}
 \toprule
- Region Pair 1   & Region Pair 2      &   Estimate &   p-value & Sig.   \\
+Region pair 1 & Region pair 2 & Estimate & 95\% CI & SE & $t$ (df) & $p$ & Sig. \\
 \midrule
- MT-SI           & MT-frontLang       &      0.185 &   7e-05   & ***    \\
- MT-SI           & MT-tempLang        &      0.204 &   1.2e-08 & ***    \\
- MT-SI           & SI-frontLang       &     -0.065 &   0.66    & n.s.   \\
- MT-SI           & SI-tempLang        &     -0.118 &   0.00038 & ***    \\
- MT-SI           & frontLang-tempLang &     -0.189 &   1.5e-07 & ***    \\
- MT-frontLang    & MT-tempLang        &      0.018 &   1       & n.s.   \\
- MT-frontLang    & SI-frontLang       &     -0.25  &   3.5e-08 & ***    \\
- MT-frontLang    & SI-tempLang        &     -0.303 &   1.3e-13 & ***    \\
- MT-frontLang    & frontLang-tempLang &     -0.375 &   7.7e-17 & ***    \\
- MT-tempLang     & SI-frontLang       &     -0.269 &   2e-13   & ***    \\
- MT-tempLang     & SI-tempLang        &     -0.321 &   2.2e-23 & ***    \\
- MT-tempLang     & frontLang-tempLang &     -0.393 &   1.1e-25 & ***    \\
- SI-frontLang    & SI-tempLang        &     -0.053 &   1       & n.s.   \\
- SI-frontLang    & frontLang-tempLang &     -0.124 &   0.003   & **     \\
- SI-tempLang     & frontLang-tempLang &     -0.072 &   0.199   & n.s.   \\
+MT--SI & MT--frontLang & 0.143 & [0.011, 0.275] & 0.044 & 3.24 (130.2) & 0.023 & * \\
+MT--SI & MT--tempLang & 0.139 & [0.007, 0.271] & 0.044 & 3.15 (130.2) & 0.031 & * \\
+MT--SI & SI--frontLang & $-$0.073 & [$-$0.206, 0.059] & 0.044 & $-$1.66 (130.2) & 1.000 & n.s. \\
+MT--SI & SI--tempLang & $-$0.140 & [$-$0.273, $-$0.008] & 0.044 & $-$3.17 (130.2) & 0.028 & * \\
+MT--SI & frontLang--tempLang & $-$0.190 & [$-$0.322, $-$0.058] & 0.044 & $-$4.29 (130.2) & $5.1\times10^{-4}$ & *** \\
+MT--frontLang & MT--tempLang & $-$0.004 & [$-$0.140, 0.132] & 0.045 & $-$0.09 (120.8) & 1.000 & n.s. \\
+MT--frontLang & SI--frontLang & $-$0.217 & [$-$0.352, $-$0.081] & 0.045 & $-$4.78 (120.8) & $7.6\times10^{-5}$ & *** \\
+MT--frontLang & SI--tempLang & $-$0.284 & [$-$0.419, $-$0.148] & 0.045 & $-$6.25 (120.8) & $9.4\times10^{-8}$ & *** \\
+MT--frontLang & frontLang--tempLang & $-$0.333 & [$-$0.469, $-$0.197] & 0.045 & $-$7.35 (120.8) & $3.9\times10^{-10}$ & *** \\
+MT--tempLang & SI--frontLang & $-$0.213 & [$-$0.348, $-$0.077] & 0.045 & $-$4.69 (120.8) & $1.1\times10^{-4}$ & *** \\
+MT--tempLang & SI--tempLang & $-$0.280 & [$-$0.415, $-$0.144] & 0.045 & $-$6.17 (120.8) & $1.4\times10^{-7}$ & *** \\
+MT--tempLang & frontLang--tempLang & $-$0.329 & [$-$0.465, $-$0.193] & 0.045 & $-$7.26 (120.8) & $6.1\times10^{-10}$ & *** \\
+SI--frontLang & SI--tempLang & $-$0.067 & [$-$0.203, 0.069] & 0.045 & $-$1.48 (120.8) & 1.000 & n.s. \\
+SI--frontLang & frontLang--tempLang & $-$0.117 & [$-$0.252, 0.019] & 0.045 & $-$2.57 (120.8) & 0.170 & n.s. \\
+SI--tempLang & frontLang--tempLang & $-$0.050 & [$-$0.185, 0.086] & 0.045 & $-$1.09 (120.8) & 1.000 & n.s. \\
 \bottomrule
 \end{tabular}
 \caption{Pairwise region similarity comparisons.}

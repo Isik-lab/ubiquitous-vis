@@ -1,0 +1,709 @@
+subject,localizer,hemisphere,region,feature,explained_variance
+sub-05,motion (MT),left,MT,SimCLR+motion,0.0537604784739942
+sub-05,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0110213979106167
+sub-06,motion (MT),left,MT,SimCLR+motion,0.0494353899779582
+sub-06,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0050039059900496
+sub-07,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0167556106968979
+sub-07,motion (MT),left,MT,SimCLR+motion,0.1358388936883288
+sub-08,motion (MT),left,MT,SimCLR+motion,0.053086476478016
+sub-08,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0184322493948566
+sub-09,motion (MT),left,MT,SimCLR+motion,0.0868732491497894
+sub-09,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0219066020471522
+sub-10,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0017238762056066
+sub-10,motion (MT),left,MT,SimCLR+motion,0.0277534564684073
+sub-14,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0189152562681592
+sub-14,motion (MT),left,MT,SimCLR+motion,0.0277180085278126
+sub-15,motion (MT),left,MT,SimCLR+motion,0.0162234437047922
+sub-15,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.004934578069282
+sub-16,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0172734171133676
+sub-16,motion (MT),left,MT,SimCLR+motion,0.0701993090172361
+sub-19,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0043617190854207
+sub-19,motion (MT),left,MT,SimCLR+motion,0.1035411063393824
+sub-23,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0105391892995903
+sub-23,motion (MT),left,MT,SimCLR+motion,0.0679453214852036
+sub-25,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0147655411675301
+sub-25,motion (MT),left,MT,SimCLR+motion,0.0639252945858711
+sub-26,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0137169132960649
+sub-26,motion (MT),left,MT,SimCLR+motion,0.0261922551174287
+sub-28,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0041246310882433
+sub-28,motion (MT),left,MT,SimCLR+motion,0.0159282044300599
+sub-32,motion (MT),left,MT,SimCLR+motion,0.016946960388663
+sub-32,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0090892013468206
+sub-33,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0118988125499843
+sub-33,motion (MT),left,MT,SimCLR+motion,0.0155181574171162
+sub-35,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0069586215426395
+sub-35,motion (MT),left,MT,SimCLR+motion,0.0567365983499799
+sub-36,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0143333231897974
+sub-36,motion (MT),left,MT,SimCLR+motion,0.0577610484700414
+sub-38,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0191782822049575
+sub-38,motion (MT),left,MT,SimCLR+motion,0.1246532299771427
+sub-39,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0244676254878509
+sub-39,motion (MT),left,MT,SimCLR+motion,0.1690034664165636
+sub-41,motion (MT),left,MT,SimCLR+motion,0.1170629506353411
+sub-41,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.018803796524707
+sub-45,motion (MT),left,MT,SimCLR+motion,0.0799215630359515
+sub-45,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0311025534307158
+sub-46,motion (MT),left,MT,SimCLR+motion,0.0331420229530494
+sub-46,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0165041809537676
+sub-50,motion (MT),left,MT,SimCLR+motion,0.0347773074072724
+sub-50,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0188070837886491
+sub-51,motion (MT),left,MT,SimCLR+motion,0.1816398869684231
+sub-51,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0352395359586621
+sub-53,motion (MT),left,MT,SimCLR+motion,0.1572503026645537
+sub-53,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0397337572632126
+sub-54,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0155560974108195
+sub-54,motion (MT),left,MT,SimCLR+motion,0.1266476340239628
+sub-55,motion (MT),left,MT,SimCLR+motion,0.0709366177344912
+sub-55,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0092408240445817
+sub-56,motion (MT),left,MT,SimCLR+motion,0.1427883681267339
+sub-56,motion (MT),left,MT,HuBERT+word2vec+GPT2,-0.0070349958648176
+sub-57,motion (MT),left,MT,SimCLR+motion,0.1288342756744264
+sub-57,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0160737619633986
+sub-58,motion (MT),left,MT,SimCLR+motion,0.2281884883357627
+sub-58,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0349533902266684
+sub-60,motion (MT),left,MT,SimCLR+motion,0.1185934575881961
+sub-60,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0268312104682363
+sub-61,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0198578800991609
+sub-61,motion (MT),left,MT,SimCLR+motion,0.1056676052355953
+sub-62,motion (MT),left,MT,HuBERT+word2vec+GPT2,0.0291151910837075
+sub-62,motion (MT),left,MT,SimCLR+motion,0.1465003010589648
+sub-05,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0262116081081729
+sub-05,motion (MT),right,MT,SimCLR+motion,0.0597665565214766
+sub-06,motion (MT),right,MT,SimCLR+motion,0.0788068174483011
+sub-06,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0068219010241098
+sub-07,motion (MT),right,MT,SimCLR+motion,0.0570886996307673
+sub-07,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0023173611063814
+sub-08,motion (MT),right,MT,SimCLR+motion,0.0389528312957176
+sub-08,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0023478834984167
+sub-09,motion (MT),right,MT,SimCLR+motion,0.0575164939494404
+sub-09,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0193642556395293
+sub-10,motion (MT),right,MT,HuBERT+word2vec+GPT2,-0.0040413274453457
+sub-10,motion (MT),right,MT,SimCLR+motion,0.0402458637299137
+sub-14,motion (MT),right,MT,SimCLR+motion,0.0355989058563885
+sub-14,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0078041369581613
+sub-15,motion (MT),right,MT,SimCLR+motion,0.0326741873414608
+sub-15,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0115564395706905
+sub-16,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0091076460871363
+sub-16,motion (MT),right,MT,SimCLR+motion,0.0976248712123855
+sub-19,motion (MT),right,MT,SimCLR+motion,0.0641206934016059
+sub-19,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0035887095715517
+sub-23,motion (MT),right,MT,SimCLR+motion,0.0977790580083755
+sub-23,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0179813461278481
+sub-25,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0290514062615744
+sub-25,motion (MT),right,MT,SimCLR+motion,0.0326877703593244
+sub-26,motion (MT),right,MT,SimCLR+motion,0.0647096762779093
+sub-26,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.024555699562707
+sub-28,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0140374260289727
+sub-28,motion (MT),right,MT,SimCLR+motion,0.047721123032191
+sub-32,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0088488378207485
+sub-32,motion (MT),right,MT,SimCLR+motion,0.032358376401685
+sub-33,motion (MT),right,MT,SimCLR+motion,0.0354554783919537
+sub-33,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0110787021821243
+sub-35,motion (MT),right,MT,SimCLR+motion,0.0292585514630518
+sub-35,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0122724995960361
+sub-36,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0127599798304657
+sub-36,motion (MT),right,MT,SimCLR+motion,0.0228058284729694
+sub-38,motion (MT),right,MT,HuBERT+word2vec+GPT2,-0.0062327635807138
+sub-38,motion (MT),right,MT,SimCLR+motion,0.05173896546154
+sub-39,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0135580812850418
+sub-39,motion (MT),right,MT,SimCLR+motion,0.0214597592497646
+sub-41,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0360216494981859
+sub-41,motion (MT),right,MT,SimCLR+motion,0.1754048094063764
+sub-45,motion (MT),right,MT,SimCLR+motion,0.0138890841190649
+sub-45,motion (MT),right,MT,HuBERT+word2vec+GPT2,-0.000438447525147
+sub-46,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0057188188048217
+sub-46,motion (MT),right,MT,SimCLR+motion,0.0870289925551353
+sub-50,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0228955280113031
+sub-50,motion (MT),right,MT,SimCLR+motion,0.0824025556201268
+sub-51,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0432270171844094
+sub-51,motion (MT),right,MT,SimCLR+motion,0.2287450242133275
+sub-53,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0303743552941723
+sub-53,motion (MT),right,MT,SimCLR+motion,0.1070120772600316
+sub-54,motion (MT),right,MT,SimCLR+motion,0.0618139448145624
+sub-54,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0036428886103899
+sub-55,motion (MT),right,MT,SimCLR+motion,0.0837278197887259
+sub-55,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0173046024831562
+sub-56,motion (MT),right,MT,SimCLR+motion,0.108830366633022
+sub-56,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0126305236500904
+sub-57,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0276433894514501
+sub-57,motion (MT),right,MT,SimCLR+motion,0.1410690298714987
+sub-58,motion (MT),right,MT,SimCLR+motion,0.2165616471901698
+sub-58,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0326704847730439
+sub-60,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0167705793956129
+sub-60,motion (MT),right,MT,SimCLR+motion,0.07245586703284
+sub-61,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0079933604967134
+sub-61,motion (MT),right,MT,SimCLR+motion,0.0737203476716566
+sub-62,motion (MT),right,MT,HuBERT+word2vec+GPT2,0.0181094079370388
+sub-62,motion (MT),right,MT,SimCLR+motion,0.0973698205985951
+sub-05,social interaction (STS),left,pSTS,SimCLR+motion,0.0336390193340064
+sub-05,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0161612704704963
+sub-06,social interaction (STS),left,pSTS,SimCLR+motion,0.0230984607624681
+sub-06,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0722232346833236
+sub-07,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.01245277645332
+sub-07,social interaction (STS),left,pSTS,SimCLR+motion,0.0740033505093536
+sub-08,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0608775734158633
+sub-08,social interaction (STS),left,pSTS,SimCLR+motion,0.0136358532879415
+sub-09,social interaction (STS),left,pSTS,SimCLR+motion,0.0834169402865244
+sub-09,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0173005005013501
+sub-10,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0313924812515763
+sub-10,social interaction (STS),left,pSTS,SimCLR+motion,0.0051962111856605
+sub-14,social interaction (STS),left,pSTS,SimCLR+motion,0.023273740129784
+sub-14,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0278059586433597
+sub-15,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0198864369709377
+sub-15,social interaction (STS),left,pSTS,SimCLR+motion,0.0558143573683077
+sub-16,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0353737778037129
+sub-16,social interaction (STS),left,pSTS,SimCLR+motion,0.0470917906151979
+sub-19,social interaction (STS),left,pSTS,SimCLR+motion,0.1257449170285293
+sub-19,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,-0.0067703916491912
+sub-23,social interaction (STS),left,pSTS,SimCLR+motion,0.0376221474849736
+sub-23,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0833028152542407
+sub-25,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0291940672017169
+sub-25,social interaction (STS),left,pSTS,SimCLR+motion,0.0254905745879582
+sub-26,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0806287171596134
+sub-26,social interaction (STS),left,pSTS,SimCLR+motion,0.0215587913405886
+sub-28,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0456506520414192
+sub-28,social interaction (STS),left,pSTS,SimCLR+motion,0.0333233351511782
+sub-32,social interaction (STS),left,pSTS,SimCLR+motion,-0.0002803895015172
+sub-32,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0321355338890865
+sub-33,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0622640277262492
+sub-33,social interaction (STS),left,pSTS,SimCLR+motion,0.0582496671310077
+sub-35,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0092944711170638
+sub-35,social interaction (STS),left,pSTS,SimCLR+motion,0.0873379784829311
+sub-36,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0088867812621578
+sub-36,social interaction (STS),left,pSTS,SimCLR+motion,0.0389796149161801
+sub-38,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0050871877615327
+sub-38,social interaction (STS),left,pSTS,SimCLR+motion,0.0773583388749837
+sub-39,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0212079171747495
+sub-39,social interaction (STS),left,pSTS,SimCLR+motion,0.1220533133184514
+sub-41,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0196200905923346
+sub-41,social interaction (STS),left,pSTS,SimCLR+motion,0.1450265109371132
+sub-45,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0357717858827461
+sub-45,social interaction (STS),left,pSTS,SimCLR+motion,0.0177373470966303
+sub-46,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0302759081729996
+sub-46,social interaction (STS),left,pSTS,SimCLR+motion,0.0559574321215503
+sub-50,social interaction (STS),left,pSTS,SimCLR+motion,0.0484041395906566
+sub-50,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0142527566685871
+sub-51,social interaction (STS),left,pSTS,SimCLR+motion,0.1380413086534498
+sub-51,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0201427811168052
+sub-53,social interaction (STS),left,pSTS,SimCLR+motion,0.133698372920199
+sub-53,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0738548859575982
+sub-54,social interaction (STS),left,pSTS,SimCLR+motion,0.1047572736986614
+sub-54,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0522144387542154
+sub-55,social interaction (STS),left,pSTS,SimCLR+motion,0.099507365889887
+sub-55,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0402357975237521
+sub-56,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0163875245056179
+sub-56,social interaction (STS),left,pSTS,SimCLR+motion,0.1001095059568086
+sub-57,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0217194799059057
+sub-57,social interaction (STS),left,pSTS,SimCLR+motion,0.1350277972960231
+sub-58,social interaction (STS),left,pSTS,SimCLR+motion,0.231044121204377
+sub-58,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0424328156697428
+sub-60,social interaction (STS),left,pSTS,SimCLR+motion,0.1238163657024867
+sub-60,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.020704275670694
+sub-61,social interaction (STS),left,pSTS,SimCLR+motion,0.028927980099359
+sub-61,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0373596430824664
+sub-62,social interaction (STS),left,pSTS,SimCLR+motion,0.0464025780247181
+sub-62,social interaction (STS),left,pSTS,HuBERT+word2vec+GPT2,0.0487023519796968
+sub-05,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.073920898137598
+sub-05,social interaction (STS),left,aSTS,SimCLR+motion,0.0326133110785831
+sub-06,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.1722678680047238
+sub-06,social interaction (STS),left,aSTS,SimCLR+motion,0.0003793989074551
+sub-07,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0987801710088941
+sub-07,social interaction (STS),left,aSTS,SimCLR+motion,0.0462988073432721
+sub-08,social interaction (STS),left,aSTS,SimCLR+motion,0.011349469511006
+sub-08,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0586661891413263
+sub-09,social interaction (STS),left,aSTS,SimCLR+motion,0.1178500525096641
+sub-09,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0191050274278427
+sub-10,social interaction (STS),left,aSTS,SimCLR+motion,0.0489018832826483
+sub-10,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,-0.004743115458037
+sub-14,social interaction (STS),left,aSTS,SimCLR+motion,0.0770502203384214
+sub-14,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0031029056862797
+sub-15,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0832199777084145
+sub-15,social interaction (STS),left,aSTS,SimCLR+motion,0.0152000965932842
+sub-16,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0260926404183683
+sub-16,social interaction (STS),left,aSTS,SimCLR+motion,0.052887793572864
+sub-19,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0115503479328043
+sub-19,social interaction (STS),left,aSTS,SimCLR+motion,0.0384009656434301
+sub-23,social interaction (STS),left,aSTS,SimCLR+motion,0.0235019024931751
+sub-23,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.1044296012711188
+sub-25,social interaction (STS),left,aSTS,SimCLR+motion,0.0715342170167672
+sub-25,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0795488071608595
+sub-26,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.025310700643658
+sub-26,social interaction (STS),left,aSTS,SimCLR+motion,0.0776394552538759
+sub-28,social interaction (STS),left,aSTS,SimCLR+motion,0.0403654507451221
+sub-28,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0591523068946278
+sub-32,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0918748368644908
+sub-32,social interaction (STS),left,aSTS,SimCLR+motion,0.0059175736263028
+sub-33,social interaction (STS),left,aSTS,SimCLR+motion,0.1097683778853469
+sub-33,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.073935726635252
+sub-35,social interaction (STS),left,aSTS,SimCLR+motion,0.0529611772576547
+sub-35,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0319980098890909
+sub-36,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0066854008084311
+sub-36,social interaction (STS),left,aSTS,SimCLR+motion,0.0868643110730819
+sub-38,social interaction (STS),left,aSTS,SimCLR+motion,0.1227870244483465
+sub-38,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0166273688909255
+sub-39,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.1076803376797725
+sub-39,social interaction (STS),left,aSTS,SimCLR+motion,0.0584977136679443
+sub-41,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0479718817221825
+sub-41,social interaction (STS),left,aSTS,SimCLR+motion,0.1964108808355742
+sub-45,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,-0.0004937331420175
+sub-45,social interaction (STS),left,aSTS,SimCLR+motion,0.0276171915369107
+sub-46,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0909307635903321
+sub-46,social interaction (STS),left,aSTS,SimCLR+motion,0.1366449412298685
+sub-50,social interaction (STS),left,aSTS,SimCLR+motion,0.1171684805177221
+sub-50,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0256336130921109
+sub-51,social interaction (STS),left,aSTS,SimCLR+motion,0.1469065594907378
+sub-51,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0238474316694366
+sub-53,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0588346494573199
+sub-53,social interaction (STS),left,aSTS,SimCLR+motion,0.1105189733635462
+sub-54,social interaction (STS),left,aSTS,SimCLR+motion,0.1268380087936627
+sub-54,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0373581455534181
+sub-55,social interaction (STS),left,aSTS,SimCLR+motion,0.1132953893366869
+sub-55,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0204959762268738
+sub-56,social interaction (STS),left,aSTS,SimCLR+motion,0.041696661418477
+sub-56,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0294797152775805
+sub-57,social interaction (STS),left,aSTS,SimCLR+motion,0.1754665753563618
+sub-57,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0434935596594614
+sub-58,social interaction (STS),left,aSTS,SimCLR+motion,0.2469511215972329
+sub-58,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.02899287016397
+sub-60,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0383181215603675
+sub-60,social interaction (STS),left,aSTS,SimCLR+motion,0.144830057215366
+sub-61,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.1333492386575088
+sub-61,social interaction (STS),left,aSTS,SimCLR+motion,0.0874414967767952
+sub-62,social interaction (STS),left,aSTS,SimCLR+motion,0.0924940982449544
+sub-62,social interaction (STS),left,aSTS,HuBERT+word2vec+GPT2,0.0621861479928975
+sub-05,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0303756675890015
+sub-05,social interaction (STS),right,pSTS,SimCLR+motion,0.0501770916087602
+sub-06,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0416102088469173
+sub-06,social interaction (STS),right,pSTS,SimCLR+motion,0.061379947669438
+sub-07,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0379607424701088
+sub-07,social interaction (STS),right,pSTS,SimCLR+motion,0.0751130786303717
+sub-08,social interaction (STS),right,pSTS,SimCLR+motion,0.0169736832757573
+sub-08,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0407203312923395
+sub-09,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0213250936729462
+sub-09,social interaction (STS),right,pSTS,SimCLR+motion,0.0546036333443674
+sub-10,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0024792370515817
+sub-10,social interaction (STS),right,pSTS,SimCLR+motion,0.0318349834494996
+sub-14,social interaction (STS),right,pSTS,SimCLR+motion,0.0405895558703444
+sub-14,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0236047833695343
+sub-15,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0219018667524617
+sub-15,social interaction (STS),right,pSTS,SimCLR+motion,0.0247195949697575
+sub-16,social interaction (STS),right,pSTS,SimCLR+motion,0.0071079334409252
+sub-16,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0447304784558301
+sub-19,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0170618778013156
+sub-19,social interaction (STS),right,pSTS,SimCLR+motion,0.0558558407986864
+sub-23,social interaction (STS),right,pSTS,SimCLR+motion,0.0128533377198189
+sub-23,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0821873274149773
+sub-25,social interaction (STS),right,pSTS,SimCLR+motion,0.0184885483593846
+sub-25,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0059214613259806
+sub-26,social interaction (STS),right,pSTS,SimCLR+motion,0.0417364246011598
+sub-26,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0664010702772409
+sub-28,social interaction (STS),right,pSTS,SimCLR+motion,0.0187056444523245
+sub-28,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0754618873257885
+sub-32,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0177504498476078
+sub-32,social interaction (STS),right,pSTS,SimCLR+motion,0.0373771097643451
+sub-33,social interaction (STS),right,pSTS,SimCLR+motion,0.0463288592929677
+sub-33,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0141630647577023
+sub-35,social interaction (STS),right,pSTS,SimCLR+motion,0.059101116929263
+sub-35,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0288486675910573
+sub-36,social interaction (STS),right,pSTS,SimCLR+motion,0.0395425937115814
+sub-36,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0173576599323264
+sub-38,social interaction (STS),right,pSTS,SimCLR+motion,0.1443032856152268
+sub-38,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0322660109663821
+sub-39,social interaction (STS),right,pSTS,SimCLR+motion,0.0136314453699682
+sub-39,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0202493524727488
+sub-41,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.023847968124007
+sub-41,social interaction (STS),right,pSTS,SimCLR+motion,0.1270948597429448
+sub-45,social interaction (STS),right,pSTS,SimCLR+motion,0.0549354115084072
+sub-45,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0327900577627112
+sub-46,social interaction (STS),right,pSTS,SimCLR+motion,0.1155291209610605
+sub-46,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0699384104409971
+sub-50,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0212219278942075
+sub-50,social interaction (STS),right,pSTS,SimCLR+motion,0.1015535552131107
+sub-51,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0391544717979209
+sub-51,social interaction (STS),right,pSTS,SimCLR+motion,0.2032231580157286
+sub-53,social interaction (STS),right,pSTS,SimCLR+motion,0.1105978044106598
+sub-53,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0373651650800201
+sub-54,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0581219783046823
+sub-54,social interaction (STS),right,pSTS,SimCLR+motion,0.043719560531748
+sub-55,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0298942021578056
+sub-55,social interaction (STS),right,pSTS,SimCLR+motion,0.088354343681806
+sub-56,social interaction (STS),right,pSTS,SimCLR+motion,0.1391133547635414
+sub-56,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0303102693365159
+sub-57,social interaction (STS),right,pSTS,SimCLR+motion,0.1076693629985885
+sub-57,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0318542919053662
+sub-58,social interaction (STS),right,pSTS,SimCLR+motion,0.241972320964878
+sub-58,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0386042524802148
+sub-60,social interaction (STS),right,pSTS,SimCLR+motion,0.1149836001565158
+sub-60,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0222869551849839
+sub-61,social interaction (STS),right,pSTS,SimCLR+motion,0.0480242437870988
+sub-61,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0157727430300109
+sub-62,social interaction (STS),right,pSTS,HuBERT+word2vec+GPT2,0.0324286615118662
+sub-62,social interaction (STS),right,pSTS,SimCLR+motion,0.0476507378237206
+sub-05,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0540390209636143
+sub-05,social interaction (STS),right,aSTS,SimCLR+motion,0.0956035841894014
+sub-06,social interaction (STS),right,aSTS,SimCLR+motion,0.0587709812933416
+sub-06,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0542039195690021
+sub-07,social interaction (STS),right,aSTS,SimCLR+motion,0.0297591068462319
+sub-07,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0783118574136181
+sub-08,social interaction (STS),right,aSTS,SimCLR+motion,0.0133767872233987
+sub-08,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0509118785007541
+sub-09,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0357764430563846
+sub-09,social interaction (STS),right,aSTS,SimCLR+motion,0.0793152278224581
+sub-10,social interaction (STS),right,aSTS,SimCLR+motion,0.0676456870706614
+sub-10,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0219216988049097
+sub-14,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0256478707699344
+sub-14,social interaction (STS),right,aSTS,SimCLR+motion,0.0567376403103536
+sub-15,social interaction (STS),right,aSTS,SimCLR+motion,0.0321251105016916
+sub-15,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0367636417323334
+sub-16,social interaction (STS),right,aSTS,SimCLR+motion,0.0365804139689891
+sub-16,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0366569718206294
+sub-19,social interaction (STS),right,aSTS,SimCLR+motion,0.0238760736155356
+sub-19,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0347046756020003
+sub-23,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0558507198041206
+sub-23,social interaction (STS),right,aSTS,SimCLR+motion,0.0447677298404398
+sub-25,social interaction (STS),right,aSTS,SimCLR+motion,0.0321147505513671
+sub-25,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0145963660438147
+sub-26,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0684138399468411
+sub-26,social interaction (STS),right,aSTS,SimCLR+motion,0.0727651594929663
+sub-28,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0426137482568221
+sub-28,social interaction (STS),right,aSTS,SimCLR+motion,0.0932527895223343
+sub-32,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0050296119948372
+sub-32,social interaction (STS),right,aSTS,SimCLR+motion,0.0434791114485093
+sub-33,social interaction (STS),right,aSTS,SimCLR+motion,0.0234749222292162
+sub-33,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0970982184988335
+sub-35,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0232955774587363
+sub-35,social interaction (STS),right,aSTS,SimCLR+motion,0.0831939580716192
+sub-36,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0211744095440993
+sub-36,social interaction (STS),right,aSTS,SimCLR+motion,0.0213922206787784
+sub-38,social interaction (STS),right,aSTS,SimCLR+motion,0.1792006124486711
+sub-38,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0268861478966786
+sub-39,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0282775890364133
+sub-39,social interaction (STS),right,aSTS,SimCLR+motion,0.1014575342185426
+sub-41,social interaction (STS),right,aSTS,SimCLR+motion,0.1354041107177813
+sub-41,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0457241527074149
+sub-45,social interaction (STS),right,aSTS,SimCLR+motion,0.061154582803234
+sub-45,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0246266623272889
+sub-46,social interaction (STS),right,aSTS,SimCLR+motion,0.0670361535916909
+sub-46,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.1018881252260029
+sub-50,social interaction (STS),right,aSTS,SimCLR+motion,0.1245844831553864
+sub-50,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0165455513817612
+sub-51,social interaction (STS),right,aSTS,SimCLR+motion,0.1483611681496514
+sub-51,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0437721110009447
+sub-53,social interaction (STS),right,aSTS,SimCLR+motion,0.1591005974911742
+sub-53,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0485205061129211
+sub-54,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0244898880967911
+sub-54,social interaction (STS),right,aSTS,SimCLR+motion,0.1691063186190144
+sub-55,social interaction (STS),right,aSTS,SimCLR+motion,0.0513400381650892
+sub-55,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0275118034544219
+sub-56,social interaction (STS),right,aSTS,SimCLR+motion,0.083505456200184
+sub-56,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0447292515757239
+sub-57,social interaction (STS),right,aSTS,SimCLR+motion,0.1622830711301472
+sub-57,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.039023295100931
+sub-58,social interaction (STS),right,aSTS,SimCLR+motion,0.2129048092210857
+sub-58,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.0296634115274735
+sub-60,social interaction (STS),right,aSTS,SimCLR+motion,0.0834031695334385
+sub-60,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.020722638294842
+sub-61,social interaction (STS),right,aSTS,SimCLR+motion,0.0659003667702749
+sub-61,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.040872762642443
+sub-62,social interaction (STS),right,aSTS,HuBERT+word2vec+GPT2,0.1053607217206896
+sub-62,social interaction (STS),right,aSTS,SimCLR+motion,0.0307578082736587
+sub-19,language (language),left,pTemp,SimCLR+motion,0.0701850908452178
+sub-19,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0476565878893919
+sub-23,language (language),left,pTemp,SimCLR+motion,0.0217629956611935
+sub-23,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.1288663219839853
+sub-25,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0032925291935591
+sub-25,language (language),left,pTemp,SimCLR+motion,0.0499173501729499
+sub-26,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.1231497983170195
+sub-26,language (language),left,pTemp,SimCLR+motion,0.0174862727869432
+sub-28,language (language),left,pTemp,SimCLR+motion,0.007382923723354
+sub-28,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.139392932996368
+sub-32,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.2219505107633864
+sub-32,language (language),left,pTemp,SimCLR+motion,-0.0091699708132282
+sub-33,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.1052107543801799
+sub-33,language (language),left,pTemp,SimCLR+motion,0.0575773961836781
+sub-35,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0804403142967954
+sub-35,language (language),left,pTemp,SimCLR+motion,0.0145968247075379
+sub-36,language (language),left,pTemp,SimCLR+motion,0.0162342131665953
+sub-36,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0534624568680521
+sub-38,language (language),left,pTemp,SimCLR+motion,0.0932715433045148
+sub-38,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0046100780073274
+sub-39,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0307501806626458
+sub-39,language (language),left,pTemp,SimCLR+motion,0.1891830720024887
+sub-41,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0281431904417594
+sub-41,language (language),left,pTemp,SimCLR+motion,0.2054405618939831
+sub-45,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0851408297516868
+sub-45,language (language),left,pTemp,SimCLR+motion,0.0133433273803883
+sub-46,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0944387927665314
+sub-46,language (language),left,pTemp,SimCLR+motion,0.1076048797770588
+sub-50,language (language),left,pTemp,SimCLR+motion,0.0417337494029002
+sub-50,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.037864916105754
+sub-51,language (language),left,pTemp,SimCLR+motion,0.1745458449103683
+sub-51,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0885113103081459
+sub-53,language (language),left,pTemp,SimCLR+motion,0.1250237366421017
+sub-53,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.1276326330117918
+sub-54,language (language),left,pTemp,SimCLR+motion,0.0526330545192414
+sub-54,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0873217187393355
+sub-55,language (language),left,pTemp,SimCLR+motion,0.0446058978258985
+sub-55,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.1218520628676096
+sub-56,language (language),left,pTemp,SimCLR+motion,0.1231334595740371
+sub-56,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0268409150782008
+sub-57,language (language),left,pTemp,SimCLR+motion,0.171462067102434
+sub-57,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0456315813465353
+sub-58,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0359061099586745
+sub-58,language (language),left,pTemp,SimCLR+motion,0.2638432118110506
+sub-60,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0691415612457092
+sub-60,language (language),left,pTemp,SimCLR+motion,0.0956586059578056
+sub-61,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.0762439016818021
+sub-61,language (language),left,pTemp,SimCLR+motion,0.0386771109653502
+sub-62,language (language),left,pTemp,HuBERT+word2vec+GPT2,0.1128329070672239
+sub-62,language (language),left,pTemp,SimCLR+motion,0.0490492568035339
+sub-19,language (language),left,aTemp,SimCLR+motion,0.0489892468221849
+sub-19,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0027557670593803
+sub-23,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0651044267734113
+sub-23,language (language),left,aTemp,SimCLR+motion,0.0173301359830453
+sub-25,language (language),left,aTemp,SimCLR+motion,0.0699588344809985
+sub-25,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0164046214437391
+sub-26,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.1120527003334045
+sub-26,language (language),left,aTemp,SimCLR+motion,0.0673174221806547
+sub-28,language (language),left,aTemp,SimCLR+motion,0.0705843962710138
+sub-28,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.1326410786525344
+sub-32,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.2299137630917973
+sub-32,language (language),left,aTemp,SimCLR+motion,0.0067222735915074
+sub-33,language (language),left,aTemp,SimCLR+motion,0.0869539535278795
+sub-33,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.1166803627195786
+sub-35,language (language),left,aTemp,SimCLR+motion,0.0202962640687422
+sub-35,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.083647385449596
+sub-36,language (language),left,aTemp,SimCLR+motion,0.0487744550198785
+sub-36,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0442116992520788
+sub-38,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0154408267521348
+sub-38,language (language),left,aTemp,SimCLR+motion,0.1461655581495738
+sub-39,language (language),left,aTemp,SimCLR+motion,0.0961039542239339
+sub-39,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0939625585204539
+sub-41,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0522339701325227
+sub-41,language (language),left,aTemp,SimCLR+motion,0.1700154915347762
+sub-45,language (language),left,aTemp,SimCLR+motion,0.0480256707171542
+sub-45,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.147559201668106
+sub-46,language (language),left,aTemp,SimCLR+motion,0.1293688179211844
+sub-46,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0866688590015413
+sub-50,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0299453847564089
+sub-50,language (language),left,aTemp,SimCLR+motion,0.0157804578823908
+sub-51,language (language),left,aTemp,SimCLR+motion,0.1816874380841415
+sub-51,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0526980588207789
+sub-53,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.1133049791283085
+sub-53,language (language),left,aTemp,SimCLR+motion,0.1191082865858909
+sub-54,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0644767411017395
+sub-54,language (language),left,aTemp,SimCLR+motion,0.0836917857515252
+sub-55,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0414372251521269
+sub-55,language (language),left,aTemp,SimCLR+motion,0.1099267550614705
+sub-56,language (language),left,aTemp,SimCLR+motion,0.0547843977319875
+sub-56,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.065410918287192
+sub-57,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0515591994681666
+sub-57,language (language),left,aTemp,SimCLR+motion,0.1682309270745057
+sub-58,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0288524978830085
+sub-58,language (language),left,aTemp,SimCLR+motion,0.2646573419077588
+sub-60,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0657640090248876
+sub-60,language (language),left,aTemp,SimCLR+motion,0.2204664796985565
+sub-61,language (language),left,aTemp,SimCLR+motion,0.0881348055970051
+sub-61,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.0597449884860031
+sub-62,language (language),left,aTemp,HuBERT+word2vec+GPT2,0.1074953792327298
+sub-62,language (language),left,aTemp,SimCLR+motion,0.0668056379082815
+sub-19,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.0827980246911127
+sub-19,language (language),right,pTemp,SimCLR+motion,0.0452572513577535
+sub-23,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.1597094727432293
+sub-23,language (language),right,pTemp,SimCLR+motion,0.0097070603737899
+sub-25,language (language),right,pTemp,SimCLR+motion,0.0159718920982476
+sub-25,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.0004262138507894
+sub-26,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.0731520138211428
+sub-26,language (language),right,pTemp,SimCLR+motion,0.0604931100068607
+sub-28,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.2197412107163821
+sub-28,language (language),right,pTemp,SimCLR+motion,-0.017273868707237
+sub-32,language (language),right,pTemp,SimCLR+motion,
+sub-32,language (language),right,pTemp,HuBERT+word2vec+GPT2,
+sub-33,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.0682911822246424
+sub-33,language (language),right,pTemp,SimCLR+motion,0.0179226081806866
+sub-35,language (language),right,pTemp,SimCLR+motion,0.0284343465045915
+sub-35,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.1066964593621801
+sub-36,language (language),right,pTemp,SimCLR+motion,0.0064026349880654
+sub-36,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.0471478343877717
+sub-38,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.012209808816321
+sub-38,language (language),right,pTemp,SimCLR+motion,0.1453589208497172
+sub-39,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.1391562944080322
+sub-39,language (language),right,pTemp,SimCLR+motion,0.0271273917302542
+sub-41,language (language),right,pTemp,SimCLR+motion,0.0994766090783932
+sub-41,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.1040300347903567
+sub-45,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.1299008209583325
+sub-45,language (language),right,pTemp,SimCLR+motion,-0.0084042579071107
+sub-46,language (language),right,pTemp,SimCLR+motion,0.0731898755032731
+sub-46,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.117627749457133
+sub-50,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.0121759471916502
+sub-50,language (language),right,pTemp,SimCLR+motion,0.0565699728492896
+sub-51,language (language),right,pTemp,SimCLR+motion,0.2120619279516723
+sub-51,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.0644956814036946
+sub-53,language (language),right,pTemp,SimCLR+motion,0.0699815760237729
+sub-53,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.1042492230376169
+sub-54,language (language),right,pTemp,SimCLR+motion,0.0415666068812104
+sub-54,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.156278330967261
+sub-55,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.0938646858687335
+sub-55,language (language),right,pTemp,SimCLR+motion,0.0157000750969615
+sub-56,language (language),right,pTemp,SimCLR+motion,
+sub-56,language (language),right,pTemp,HuBERT+word2vec+GPT2,
+sub-57,language (language),right,pTemp,SimCLR+motion,0.1033208453969529
+sub-57,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.068962782628002
+sub-58,language (language),right,pTemp,SimCLR+motion,0.2438858844622205
+sub-58,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.0366738167294811
+sub-60,language (language),right,pTemp,SimCLR+motion,0.058153827754058
+sub-60,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.0763718797558976
+sub-61,language (language),right,pTemp,SimCLR+motion,0.0009043751256289
+sub-61,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.0326174508626296
+sub-62,language (language),right,pTemp,SimCLR+motion,0.0551705480833204
+sub-62,language (language),right,pTemp,HuBERT+word2vec+GPT2,0.0768065926762661
+sub-19,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.0964886405889372
+sub-19,language (language),right,aTemp,SimCLR+motion,0.0179432574930067
+sub-23,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.045995231395367
+sub-23,language (language),right,aTemp,SimCLR+motion,0.0633291595050937
+sub-25,language (language),right,aTemp,SimCLR+motion,0.0413135895228638
+sub-25,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.021377018662812
+sub-26,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.1147696848683834
+sub-26,language (language),right,aTemp,SimCLR+motion,0.0485195107538586
+sub-28,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.0790041435580934
+sub-28,language (language),right,aTemp,SimCLR+motion,0.039299741472275
+sub-32,language (language),right,aTemp,SimCLR+motion,
+sub-32,language (language),right,aTemp,HuBERT+word2vec+GPT2,
+sub-33,language (language),right,aTemp,SimCLR+motion,0.0283841128682596
+sub-33,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.1420908568933535
+sub-35,language (language),right,aTemp,SimCLR+motion,0.0604714406221994
+sub-35,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.1036863948995596
+sub-36,language (language),right,aTemp,SimCLR+motion,0.0541037183442169
+sub-36,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.0683103384361079
+sub-38,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.0286023731466189
+sub-38,language (language),right,aTemp,SimCLR+motion,0.1358804785267679
+sub-39,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.0389030758958657
+sub-39,language (language),right,aTemp,SimCLR+motion,0.1750219413330731
+sub-41,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.064608720695446
+sub-41,language (language),right,aTemp,SimCLR+motion,0.1111503898616988
+sub-45,language (language),right,aTemp,HuBERT+word2vec+GPT2,
+sub-45,language (language),right,aTemp,SimCLR+motion,
+sub-46,language (language),right,aTemp,SimCLR+motion,0.0320365270599532
+sub-46,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.1620902880337961
+sub-50,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.0250373562699211
+sub-50,language (language),right,aTemp,SimCLR+motion,0.0968644497942387
+sub-51,language (language),right,aTemp,SimCLR+motion,0.1782309918225159
+sub-51,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.0648575708587396
+sub-53,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.1400499553522502
+sub-53,language (language),right,aTemp,SimCLR+motion,0.1397928025946685
+sub-54,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.0622793937399626
+sub-54,language (language),right,aTemp,SimCLR+motion,0.1525238263009916
+sub-55,language (language),right,aTemp,SimCLR+motion,0.0393371766636512
+sub-55,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.0547081884244939
+sub-56,language (language),right,aTemp,SimCLR+motion,0.0821476833658189
+sub-56,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.0798815752953255
+sub-57,language (language),right,aTemp,SimCLR+motion,0.1588244322158181
+sub-57,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.0397310702121658
+sub-58,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.0405253611509389
+sub-58,language (language),right,aTemp,SimCLR+motion,0.2344093641297469
+sub-60,language (language),right,aTemp,SimCLR+motion,0.1308488418696916
+sub-60,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.0722969779717878
+sub-61,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.1138278502539833
+sub-61,language (language),right,aTemp,SimCLR+motion,0.0534295667816024
+sub-62,language (language),right,aTemp,SimCLR+motion,0.1112031793833497
+sub-62,language (language),right,aTemp,HuBERT+word2vec+GPT2,0.1148213634921042
+sub-19,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0038039461505482
+sub-19,language (language),left,frontal,SimCLR+motion,0.0560059637814194
+sub-23,language (language),left,frontal,SimCLR+motion,0.0181985351946689
+sub-23,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0551168009607162
+sub-25,language (language),left,frontal,SimCLR+motion,0.0504268024364844
+sub-25,language (language),left,frontal,HuBERT+word2vec+GPT2,-0.0010951266402562
+sub-26,language (language),left,frontal,SimCLR+motion,0.0718972338266226
+sub-26,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0346928686808692
+sub-28,language (language),left,frontal,HuBERT+word2vec+GPT2,0.1007232620443223
+sub-28,language (language),left,frontal,SimCLR+motion,-0.008809967032917
+sub-32,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0487857688702032
+sub-32,language (language),left,frontal,SimCLR+motion,0.030350188259552
+sub-33,language (language),left,frontal,SimCLR+motion,0.0334924736254977
+sub-33,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0439180677892714
+sub-35,language (language),left,frontal,SimCLR+motion,0.1024808692181539
+sub-35,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0225888295668959
+sub-36,language (language),left,frontal,SimCLR+motion,0.0697666990928392
+sub-36,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0205443152705497
+sub-38,language (language),left,frontal,SimCLR+motion,0.0881843068723161
+sub-38,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0134584333270282
+sub-39,language (language),left,frontal,SimCLR+motion,0.0782977984425474
+sub-39,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0448647102710621
+sub-41,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0351473714404024
+sub-41,language (language),left,frontal,SimCLR+motion,0.1189880289921128
+sub-45,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0347569792633747
+sub-45,language (language),left,frontal,SimCLR+motion,0.0523040888007926
+sub-46,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0653396810675588
+sub-46,language (language),left,frontal,SimCLR+motion,0.0682871152409359
+sub-50,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0377091762317597
+sub-50,language (language),left,frontal,SimCLR+motion,0.0881351413192659
+sub-51,language (language),left,frontal,SimCLR+motion,0.1628898939331155
+sub-51,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0595373004333038
+sub-53,language (language),left,frontal,SimCLR+motion,0.1851915273891515
+sub-53,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0617694632706351
+sub-54,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0320069899141205
+sub-54,language (language),left,frontal,SimCLR+motion,0.0356544400250504
+sub-55,language (language),left,frontal,SimCLR+motion,0.1121488524822542
+sub-55,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0300675421722085
+sub-56,language (language),left,frontal,SimCLR+motion,0.0957168645578017
+sub-56,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0187822022179804
+sub-57,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0217306002953465
+sub-57,language (language),left,frontal,SimCLR+motion,0.0932370225881057
+sub-58,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0325787170763533
+sub-58,language (language),left,frontal,SimCLR+motion,0.2560336723757271
+sub-60,language (language),left,frontal,HuBERT+word2vec+GPT2,0.03640415108654
+sub-60,language (language),left,frontal,SimCLR+motion,0.141578116771989
+sub-61,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0209188258476139
+sub-61,language (language),left,frontal,SimCLR+motion,0.0934026302313267
+sub-62,language (language),left,frontal,HuBERT+word2vec+GPT2,0.0483515800559071
+sub-62,language (language),left,frontal,SimCLR+motion,0.1079692200431446
+sub-19,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0056118867210485
+sub-19,language (language),right,frontal,SimCLR+motion,0.0585016216973902
+sub-23,language (language),right,frontal,SimCLR+motion,0.0642916832839546
+sub-23,language (language),right,frontal,HuBERT+word2vec+GPT2,-0.0052254881629778
+sub-25,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0009415169817062
+sub-25,language (language),right,frontal,SimCLR+motion,0.0189092026086001
+sub-26,language (language),right,frontal,SimCLR+motion,0.0190510692032166
+sub-26,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0011218355169262
+sub-28,language (language),right,frontal,SimCLR+motion,
+sub-28,language (language),right,frontal,HuBERT+word2vec+GPT2,
+sub-32,language (language),right,frontal,HuBERT+word2vec+GPT2,
+sub-32,language (language),right,frontal,SimCLR+motion,
+sub-33,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0111552452309795
+sub-33,language (language),right,frontal,SimCLR+motion,0.034685059002203
+sub-35,language (language),right,frontal,SimCLR+motion,0.0577472485146668
+sub-35,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0089817856766501
+sub-36,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0137772148825477
+sub-36,language (language),right,frontal,SimCLR+motion,0.0483695300652827
+sub-38,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0527283899756138
+sub-38,language (language),right,frontal,SimCLR+motion,0.1452342135363778
+sub-39,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0787144955866097
+sub-39,language (language),right,frontal,SimCLR+motion,0.0201722729070752
+sub-41,language (language),right,frontal,SimCLR+motion,0.0446388278335461
+sub-41,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0217330099187173
+sub-45,language (language),right,frontal,SimCLR+motion,0.183786172461987
+sub-45,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0768935719493129
+sub-46,language (language),right,frontal,SimCLR+motion,
+sub-46,language (language),right,frontal,HuBERT+word2vec+GPT2,
+sub-50,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0087015232531813
+sub-50,language (language),right,frontal,SimCLR+motion,0.0576228465485239
+sub-51,language (language),right,frontal,SimCLR+motion,0.2051678542603701
+sub-51,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0584439320098513
+sub-53,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0500401674027568
+sub-53,language (language),right,frontal,SimCLR+motion,0.1090828532983949
+sub-54,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0071423929095653
+sub-54,language (language),right,frontal,SimCLR+motion,0.116501421778139
+sub-55,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0172681156006954
+sub-55,language (language),right,frontal,SimCLR+motion,0.0921030703880392
+sub-56,language (language),right,frontal,HuBERT+word2vec+GPT2,
+sub-56,language (language),right,frontal,SimCLR+motion,
+sub-57,language (language),right,frontal,SimCLR+motion,0.0984812647361004
+sub-57,language (language),right,frontal,HuBERT+word2vec+GPT2,0.01584607750861
+sub-58,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0347170695719932
+sub-58,language (language),right,frontal,SimCLR+motion,0.2036384610243662
+sub-60,language (language),right,frontal,SimCLR+motion,0.1170602144916219
+sub-60,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0341336946491384
+sub-61,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0201102916216768
+sub-61,language (language),right,frontal,SimCLR+motion,0.1552951818448491
+sub-62,language (language),right,frontal,SimCLR+motion,0.2894411527104239
+sub-62,language (language),right,frontal,HuBERT+word2vec+GPT2,0.0746933444994416

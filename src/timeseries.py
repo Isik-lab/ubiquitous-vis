@@ -73,6 +73,7 @@ class TimeSeries:
                 new_data = np.array(fMRI_data)[start:stop] #first dimension should be n samples
                 new_confounds = confounds[start:stop]
                 if(norm):
+                    print('normalizing within run!')
                     new_data = new_data = stats.zscore(new_data,axis=0,nan_policy='omit') #zscore the responses across the samples of each section(from different runs) separately !!
                 run_ends.append(len(new_data))
                 if(trimmed_data.shape[0]<1):
@@ -165,9 +166,9 @@ class TimeSeries:
 
     def srp_reduction(self):
         #SRP reduce subject's voxelwise responses
-        srp = SparseRandomProjection()
+        srp = SparseRandomProjection(n_components=840)
         print(self.fMRI_data.shape)
-        if(self.fMRI_data.shape[1]>=6480):
+        if(self.fMRI_data.shape[1]>=840):
             self.fMRI_data = srp.fit_transform(self.fMRI_data)
         else:
             self.fMRI_data = self.fMRI_data
@@ -176,7 +177,7 @@ class TimeSeries:
         file_label = self.sid+'_timeseries_smoothingfwhm-'+str(self.smoothing_fwhm)
         if(self.denoise):
             file_label = file_label + '_denoised'
-        if(self.norm_runs):
+        if(self.norm_runs==1):
             file_label = file_label + '_normed'
         if(self.srp):
             file_label = file_label + '_srp'
@@ -201,6 +202,7 @@ class TimeSeries:
         
     def run(self):
         self.load_preprocess_fMRI(smooth=True,denoise=self.denoise)
+        print('self.norm_runs',self.norm_runs)
         self.trim_fMRI(self.norm_runs)
         if(self.srp):
             self.srp_reduction()
@@ -220,13 +222,13 @@ def main():
     parser.add_argument('--norm_runs','-norm_runs',type=int,default=0)
 
     parser.add_argument('--dir', '-dir', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/naturalistic-multimodal-movie')
+                        default=helpers.PROJECT_DIR)
     parser.add_argument('--data_dir', '-data_dir', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/Sherlock_ASD/data') #where the derivatives folder for the fMRI data is 
+                        default=None, help='BIDS dataset directory containing derivatives/fmriprep')
     parser.add_argument('--out_dir', '-output', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/naturalistic-multimodal-movie/analysis')
+                        default=os.path.join(helpers.PROJECT_DIR, 'analysis'))
     parser.add_argument('--figure_dir', '-figures', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/naturalistic-multimodal-movie/figures')
+                        default=os.path.join(helpers.PROJECT_DIR, 'figures'))
     args = parser.parse_args()
     print(args)
     TimeSeries(args).run()

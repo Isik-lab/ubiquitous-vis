@@ -39,7 +39,7 @@ from statsmodels.stats.multitest import fdrcorrection
 import torch
 
 # custom python modules
-from src import encoding,helpers
+from src import encoding,helpers,plotting_helpers
 
 class Brain2Brain(encoding.EncodingModel):
     def __init__(self, args):
@@ -72,6 +72,7 @@ class Brain2Brain(encoding.EncodingModel):
         self.included_data_fMRI = [(self.stim_start+self.wait_TR,946+self.wait_TR),(975+self.wait_TR,1976+self.wait_TR)] #TR indices of the fmri data to use in encoding model, there should be one entry in this list for every run that will be included #Haemy had 27:946, and 973:1976, have to subtract one for python 0-indexing and add one to end bc exclusive slicing in python
         self.confounds = []
         self.save_individual_feature_performance = True
+        self.zero_confounds_in_inner_cv = getattr(args, 'zero_confounds_inner_cv', False) #whether to zero confounds in inner CV validation folds (default: False)
 
         #variables to store results in:
         self.performance = []
@@ -224,7 +225,7 @@ class Brain2Brain(encoding.EncodingModel):
         final_data = np.reshape(final_data,final_shape)
         return final_data
 
-    def banded_ridge_regression(self,outer_folds=10,inner_folds=5,num_alphas=50,backend='torch_cuda',regress_confounds=False,permutations=None,subjects_in_separate_feature_spaces=False,regress_all_subject_confounds=True):
+    def banded_ridge_regression(self,outer_folds=10,inner_folds=5,num_alphas=50,backend='torch_cuda',regress_confounds=False,permutations=None,subjects_in_separate_feature_spaces=False,regress_all_subject_confounds=True,zero_confounds_in_inner_cv=False):
         """
             This function performs the fitting and testing of the encoding model. Saves results in object variables.
 
@@ -407,6 +408,21 @@ class Brain2Brain(encoding.EncodingModel):
             print("(n_samples_test, n_features_total) =", X_test.shape)
             print("[features_n,...] =", features_n_list)
 
+            # Track which columns are nuisance regressors (run regressors + confounds)
+            # These are the last features added, so they're at the end
+            n_nuisance_features = 0
+            if len(self.included_data_fMRI)>1:
+                n_nuisance_features += 2  # run regressors
+            if regress_confounds:
+                n_nuisance_features += train_confounds.shape[1]  # motion confounds
+
+            if n_nuisance_features > 0:
+                nuisance_start_col = X_train.shape[1] - n_nuisance_features
+                nuisance_end_col = X_train.shape[1]
+                nuisance_cols = slice(nuisance_start_col, nuisance_end_col)
+            else:
+                nuisance_cols = None
+
             start_and_end = np.concatenate([[0], np.cumsum(features_n_list)])
             slices = [
                 slice(start, end)
@@ -426,6 +442,29 @@ class Brain2Brain(encoding.EncodingModel):
                 diff = n_samples-len(groups)
                 groups.extend([str(n_chunks) for x in range(0,diff)])
             inner_splits = cv_inner.split(X=range(0,n_samples),groups=groups)
+
+            # Optionally zero out nuisance regressors in inner CV validation folds
+            if zero_confounds_in_inner_cv and nuisance_cols is not None:
+                print("Zeroing nuisance regressors in inner CV validation folds (stringent mode)...")
+                X_train_modified = X_train.copy()  # preserve original
+
+                for inner_train_idx, inner_val_idx in inner_splits:
+                    # Zero confounds in this validation fold
+                    X_train_modified[inner_val_idx, nuisance_cols] = 0
+
+                # Recreate inner_splits generator (it was consumed in the loop above)
+                if cv_type=='temp_chunking':
+                    inner_splits = cv_inner.split(X=range(0,n_samples), groups=groups)
+                elif cv_type=='no_shuffle':
+                    cv_inner_new = KFold(n_splits=n_splits_inner, shuffle=False)
+                    inner_splits = cv_inner_new.split(X=range(0,n_samples))
+
+                # Use modified X_train for model fitting
+                X_train = X_train_modified
+                print(f"  Zeroed {nuisance_cols.stop - nuisance_cols.start} nuisance columns in {n_splits_inner} validation folds")
+            else:
+                if nuisance_cols is not None:
+                    print("Using standard inner CV (confounds not zeroed in validation folds)")
 
             mkr_model = MultipleKernelRidgeCV(kernels="precomputed", solver=solver,
                                               solver_params=solver_params, cv=inner_splits)
@@ -768,7 +807,7 @@ class Brain2Brain(encoding.EncodingModel):
             output_filepath_surf = self.figure_dir + "/perf_p_fdr/" + file_label+'_measure-perf_'+label
 
         cmap = 'gray_inferno'#self.cmaps['yellow_hot']
-        helpers.plot_surface(img,output_filepath_surf,threshold=threshold,vmax=vmax,vmin=vmin,cmap=cmap,title=title,symmetric_cbar=False,colorbar_label='Explained Variance $R^2$')
+        plotting_helpers.plot_surface(img,output_filepath_surf,threshold=threshold,vmax=vmax,vmin=vmin,cmap=cmap,title=title,symmetric_cbar=False,colorbar_label='Explained Variance $R^2$')
     
     def save_results(self):
         file_label = self.sid+'_brain2brain_'+self.type+'_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
@@ -817,11 +856,11 @@ class Brain2Brain(encoding.EncodingModel):
             self.trim_fMRI()
             if testing:
                 self.random_search_n = 100
-                self.banded_ridge_regression(outer_folds=3, inner_folds=3, num_alphas=5,backend='numpy',permutations=100)
+                self.banded_ridge_regression(outer_folds=3, inner_folds=3, num_alphas=5,backend='numpy',permutations=100,zero_confounds_in_inner_cv=self.zero_confounds_in_inner_cv)
                 self.permutation_statistics()
             else:
-                self.random_search_n = 1000 
-                self.banded_ridge_regression(outer_folds=5, inner_folds=5,num_alphas=25,permutations=permutations,regress_confounds=True,subjects_in_separate_feature_spaces=False,regress_all_subject_confounds=True)
+                self.random_search_n = 1000
+                self.banded_ridge_regression(outer_folds=5, inner_folds=5,num_alphas=25,permutations=permutations,regress_confounds=True,subjects_in_separate_feature_spaces=False,regress_all_subject_confounds=True,zero_confounds_in_inner_cv=self.zero_confounds_in_inner_cv)
                 # self.permutation_statistics()
         elif(self.type=='correlation'):
             self.load_preprocess_fMRI(smooth=True,denoise=True) #load whole brain mask
@@ -842,15 +881,17 @@ def main():
     parser.add_argument('--chunklen','-chunklen',type=int,default=20)
     parser.add_argument('--testing','-testing',type=str,default=None)
     parser.add_argument('--type','-type',type=str,default='ISC')
+    parser.add_argument('--zero-confounds-inner-cv', action='store_true',
+                    help='Zero confounds in inner CV validation folds (most stringent)')
 
     parser.add_argument('--dir', '-dir', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/naturalistic-multimodal-movie')
+                        default=helpers.PROJECT_DIR)
     parser.add_argument('--data_dir', '-data_dir', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/Sherlock_ASD/data') #where the derivatives folder for the fMRI data is 
+                        default=None, help='BIDS dataset directory containing derivatives/fmriprep')
     parser.add_argument('--out_dir', '-output', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/naturalistic-multimodal-movie/analysis')
+                        default=os.path.join(helpers.PROJECT_DIR, 'analysis'))
     parser.add_argument('--figure_dir', '-figures', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/naturalistic-multimodal-movie/figures')
+                        default=os.path.join(helpers.PROJECT_DIR, 'figures'))
     args = parser.parse_args()
     print(args)
     Brain2Brain(args).run()

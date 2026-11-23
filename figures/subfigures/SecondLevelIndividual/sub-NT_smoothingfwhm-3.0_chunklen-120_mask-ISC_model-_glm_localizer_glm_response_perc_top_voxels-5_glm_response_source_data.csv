@@ -1,0 +1,1309 @@
+subject,localizer,hemisphere,region,condition,beta_weight,num_voxels
+sub-05,motion (MT),left,MT,non-interacting pointlights,3.8451246420142353,75.66666666666667
+sub-05,motion (MT),left,MT,interacting pointlights,3.330104886688991,75.66666666666667
+sub-06,motion (MT),left,MT,non-interacting pointlights,2.220401832647568,61.333333333333336
+sub-06,motion (MT),left,MT,interacting pointlights,2.1921775044468603,61.333333333333336
+sub-07,motion (MT),left,MT,interacting pointlights,3.2872150936250724,24.33333333333333
+sub-07,motion (MT),left,MT,non-interacting pointlights,3.6325828461159566,24.33333333333333
+sub-08,motion (MT),left,MT,non-interacting pointlights,1.9349616405435743,113.66666666666669
+sub-08,motion (MT),left,MT,interacting pointlights,1.7398456188404172,113.66666666666669
+sub-09,motion (MT),left,MT,non-interacting pointlights,2.733904826786896,50.333333333333336
+sub-09,motion (MT),left,MT,interacting pointlights,2.5478092215158563,50.333333333333336
+sub-10,motion (MT),left,MT,non-interacting pointlights,2.239208748734617,98.33333333333331
+sub-10,motion (MT),left,MT,interacting pointlights,2.2634639131502765,98.33333333333331
+sub-14,motion (MT),left,MT,interacting pointlights,2.288238828961947,86.66666666666667
+sub-14,motion (MT),left,MT,non-interacting pointlights,2.2380587581137816,86.66666666666667
+sub-15,motion (MT),left,MT,non-interacting pointlights,1.8957243627058384,45.333333333333336
+sub-15,motion (MT),left,MT,interacting pointlights,1.8857672536296972,45.333333333333336
+sub-16,motion (MT),left,MT,interacting pointlights,2.1327960083516184,99.66666666666669
+sub-16,motion (MT),left,MT,non-interacting pointlights,2.171032182620458,99.66666666666669
+sub-19,motion (MT),left,MT,non-interacting pointlights,3.055126787314132,34.666666666666664
+sub-19,motion (MT),left,MT,interacting pointlights,2.785088891583096,34.666666666666664
+sub-19,motion (MT),left,MT,degraded speech,-0.0078982519749026,26.0
+sub-19,motion (MT),left,MT,intact speech,0.0518071784221276,26.0
+sub-23,motion (MT),left,MT,interacting pointlights,0.871827596906544,92.33333333333331
+sub-23,motion (MT),left,MT,non-interacting pointlights,0.7331225583192632,92.33333333333331
+sub-23,motion (MT),left,MT,degraded speech,-0.0970597851061559,104.0
+sub-23,motion (MT),left,MT,intact speech,-0.1757005747574155,104.0
+sub-25,motion (MT),left,MT,interacting pointlights,2.639161960320323,126.66666666666669
+sub-25,motion (MT),left,MT,non-interacting pointlights,2.5074655636875,126.66666666666669
+sub-25,motion (MT),left,MT,degraded speech,-0.4123438341577791,141.0
+sub-25,motion (MT),left,MT,intact speech,-0.3320771600546701,141.0
+sub-26,motion (MT),left,MT,non-interacting pointlights,1.855626219787196,101.0
+sub-26,motion (MT),left,MT,interacting pointlights,2.0642383239324715,101.0
+sub-26,motion (MT),left,MT,degraded speech,-0.1290447423107951,110.0
+sub-26,motion (MT),left,MT,intact speech,-0.0233543093904157,110.0
+sub-28,motion (MT),left,MT,interacting pointlights,1.993795764500015,103.66666666666669
+sub-28,motion (MT),left,MT,non-interacting pointlights,2.198531071969555,103.66666666666669
+sub-28,motion (MT),left,MT,intact speech,0.0455744873432817,98.0
+sub-28,motion (MT),left,MT,degraded speech,0.0856184067614332,98.0
+sub-32,motion (MT),left,MT,non-interacting pointlights,2.930837829776264,151.33333333333334
+sub-32,motion (MT),left,MT,interacting pointlights,2.8676109964403023,151.33333333333334
+sub-32,motion (MT),left,MT,intact speech,-0.2343114790710785,153.0
+sub-32,motion (MT),left,MT,degraded speech,-0.1418041199372217,153.0
+sub-33,motion (MT),left,MT,intact speech,-0.0471844627797958,109.0
+sub-33,motion (MT),left,MT,degraded speech,-0.1944269446138256,109.0
+sub-33,motion (MT),left,MT,interacting pointlights,2.574084078697314,100.33333333333331
+sub-33,motion (MT),left,MT,non-interacting pointlights,2.5528375155293204,100.33333333333331
+sub-35,motion (MT),left,MT,degraded speech,0.0973918363024578,26.0
+sub-35,motion (MT),left,MT,intact speech,0.1320786888449604,26.0
+sub-35,motion (MT),left,MT,interacting pointlights,1.4358394578980045,26.666666666666668
+sub-35,motion (MT),left,MT,non-interacting pointlights,1.5543995282523149,26.666666666666668
+sub-36,motion (MT),left,MT,intact speech,0.1998194416940627,89.0
+sub-36,motion (MT),left,MT,degraded speech,0.0064668317180005,89.0
+sub-36,motion (MT),left,MT,interacting pointlights,0.9852533122211068,98.0
+sub-36,motion (MT),left,MT,non-interacting pointlights,0.9096591811732786,98.0
+sub-38,motion (MT),left,MT,intact speech,-0.3391266485645731,70.0
+sub-38,motion (MT),left,MT,degraded speech,-0.3132767855462137,70.0
+sub-38,motion (MT),left,MT,non-interacting pointlights,3.17051724056031,75.0
+sub-38,motion (MT),left,MT,interacting pointlights,2.98161052196744,75.0
+sub-39,motion (MT),left,MT,intact speech,-0.2659107885236885,82.0
+sub-39,motion (MT),left,MT,degraded speech,-0.2060504753557853,82.0
+sub-39,motion (MT),left,MT,interacting pointlights,2.202789002201712,90.33333333333331
+sub-39,motion (MT),left,MT,non-interacting pointlights,2.041944130792648,90.33333333333331
+sub-41,motion (MT),left,MT,non-interacting pointlights,1.3962811034305602,34.333333333333336
+sub-41,motion (MT),left,MT,interacting pointlights,2.088778451951004,34.333333333333336
+sub-41,motion (MT),left,MT,intact speech,-0.2828479517395796,33.0
+sub-41,motion (MT),left,MT,degraded speech,-0.1524420806187612,33.0
+sub-45,motion (MT),left,MT,interacting pointlights,1.5241272512370332,67.33333333333333
+sub-45,motion (MT),left,MT,non-interacting pointlights,1.9548714561691207,67.33333333333333
+sub-45,motion (MT),left,MT,degraded speech,-0.0945005345535002,70.0
+sub-45,motion (MT),left,MT,intact speech,-0.233041758439575,70.0
+sub-46,motion (MT),left,MT,interacting pointlights,3.4374163818478185,87.0
+sub-46,motion (MT),left,MT,non-interacting pointlights,3.1614240430388265,87.0
+sub-46,motion (MT),left,MT,degraded speech,-0.1959512324817326,94.0
+sub-46,motion (MT),left,MT,intact speech,-0.1373723414319062,94.0
+sub-50,motion (MT),left,MT,interacting pointlights,2.0324045501674246,53.0
+sub-50,motion (MT),left,MT,non-interacting pointlights,2.02485091364332,53.0
+sub-50,motion (MT),left,MT,intact speech,-0.3108118040283965,61.0
+sub-50,motion (MT),left,MT,degraded speech,-0.2778683334567962,61.0
+sub-51,motion (MT),left,MT,non-interacting pointlights,1.3688682798607283,120.33333333333331
+sub-51,motion (MT),left,MT,interacting pointlights,1.252978092048228,120.33333333333331
+sub-51,motion (MT),left,MT,intact speech,0.0755837263862058,127.0
+sub-51,motion (MT),left,MT,degraded speech,0.0300012791866826,127.0
+sub-53,motion (MT),left,MT,interacting pointlights,3.068397037359359,114.33333333333331
+sub-53,motion (MT),left,MT,non-interacting pointlights,3.122427945580929,114.33333333333331
+sub-53,motion (MT),left,MT,degraded speech,-0.1496099267932486,105.0
+sub-53,motion (MT),left,MT,intact speech,0.1092829113933686,105.0
+sub-54,motion (MT),left,MT,degraded speech,-0.1733758854919724,69.0
+sub-54,motion (MT),left,MT,interacting pointlights,2.283663033418592,73.33333333333333
+sub-54,motion (MT),left,MT,non-interacting pointlights,2.427888211006864,73.33333333333333
+sub-54,motion (MT),left,MT,intact speech,-0.545867486352215,69.0
+sub-55,motion (MT),left,MT,degraded speech,-0.193555124411277,64.0
+sub-55,motion (MT),left,MT,intact speech,-0.2457293906375776,64.0
+sub-55,motion (MT),left,MT,non-interacting pointlights,2.5249699752757,69.66666666666667
+sub-55,motion (MT),left,MT,interacting pointlights,1.782406191136029,69.66666666666667
+sub-56,motion (MT),left,MT,intact speech,-0.2146237653996796,89.0
+sub-56,motion (MT),left,MT,degraded speech,-0.2324709180455089,89.0
+sub-56,motion (MT),left,MT,non-interacting pointlights,2.1965467243246306,81.66666666666667
+sub-56,motion (MT),left,MT,interacting pointlights,1.8961298709307417,81.66666666666667
+sub-57,motion (MT),left,MT,intact speech,0.2997935831796183,54.0
+sub-57,motion (MT),left,MT,degraded speech,0.1455863875228753,54.0
+sub-57,motion (MT),left,MT,non-interacting pointlights,2.1242392712871934,57.0
+sub-57,motion (MT),left,MT,interacting pointlights,1.9706911141955323,57.0
+sub-58,motion (MT),left,MT,interacting pointlights,1.8347787556815485,87.33333333333333
+sub-58,motion (MT),left,MT,non-interacting pointlights,1.8748905629914872,87.33333333333333
+sub-58,motion (MT),left,MT,intact speech,-0.7161307199763481,91.0
+sub-58,motion (MT),left,MT,degraded speech,-0.666788642574768,91.0
+sub-60,motion (MT),left,MT,non-interacting pointlights,0.5755521690453621,51.333333333333336
+sub-60,motion (MT),left,MT,intact speech,-0.2111443759342307,36.0
+sub-60,motion (MT),left,MT,degraded speech,-0.3377241963731735,36.0
+sub-60,motion (MT),left,MT,interacting pointlights,0.5112718424654467,51.333333333333336
+sub-61,motion (MT),left,MT,intact speech,-0.4494657562135681,33.0
+sub-61,motion (MT),left,MT,degraded speech,-0.1037165175272365,33.0
+sub-61,motion (MT),left,MT,interacting pointlights,1.569908323785126,35.666666666666664
+sub-61,motion (MT),left,MT,non-interacting pointlights,1.6407039685464084,35.666666666666664
+sub-62,motion (MT),left,MT,degraded speech,0.2879496139988853,95.0
+sub-62,motion (MT),left,MT,non-interacting pointlights,2.1799126424009203,92.33333333333331
+sub-62,motion (MT),left,MT,interacting pointlights,1.887996499828791,92.33333333333331
+sub-62,motion (MT),left,MT,intact speech,-0.1779514028198584,95.0
+sub-05,motion (MT),right,MT,non-interacting pointlights,2.3996884427502176,96.33333333333331
+sub-05,motion (MT),right,MT,interacting pointlights,2.1312165434419104,96.33333333333331
+sub-06,motion (MT),right,MT,non-interacting pointlights,3.086739667311857,110.66666666666669
+sub-06,motion (MT),right,MT,interacting pointlights,3.1385588607383426,110.66666666666669
+sub-07,motion (MT),right,MT,interacting pointlights,3.146001089332254,147.66666666666666
+sub-07,motion (MT),right,MT,non-interacting pointlights,3.3119673394299145,147.66666666666666
+sub-08,motion (MT),right,MT,interacting pointlights,1.4732970463039938,58.333333333333336
+sub-08,motion (MT),right,MT,non-interacting pointlights,1.5295519796278625,58.333333333333336
+sub-09,motion (MT),right,MT,non-interacting pointlights,3.570691615147632,121.66666666666669
+sub-09,motion (MT),right,MT,interacting pointlights,3.554315128314132,121.66666666666669
+sub-10,motion (MT),right,MT,non-interacting pointlights,1.7763253943745616,73.66666666666667
+sub-10,motion (MT),right,MT,interacting pointlights,1.7838423763306617,73.66666666666667
+sub-14,motion (MT),right,MT,non-interacting pointlights,1.8485235599409096,85.33333333333333
+sub-14,motion (MT),right,MT,interacting pointlights,1.9476758778615717,85.33333333333333
+sub-15,motion (MT),right,MT,interacting pointlights,2.333609683040913,126.66666666666669
+sub-15,motion (MT),right,MT,non-interacting pointlights,2.2608131166197487,126.66666666666669
+sub-16,motion (MT),right,MT,non-interacting pointlights,1.82736220702326,72.33333333333333
+sub-16,motion (MT),right,MT,interacting pointlights,1.784004664064487,72.33333333333333
+sub-19,motion (MT),right,MT,degraded speech,-0.0144273753594456,146.0
+sub-19,motion (MT),right,MT,intact speech,0.0039642816164931,146.0
+sub-19,motion (MT),right,MT,interacting pointlights,1.9985417548043205,137.33333333333334
+sub-19,motion (MT),right,MT,non-interacting pointlights,2.0730862972137527,137.33333333333334
+sub-23,motion (MT),right,MT,intact speech,-0.2891661881694535,68.0
+sub-23,motion (MT),right,MT,degraded speech,-0.176219208176694,68.0
+sub-23,motion (MT),right,MT,non-interacting pointlights,0.6246911099060366,79.66666666666667
+sub-23,motion (MT),right,MT,interacting pointlights,0.7252466993350891,79.66666666666667
+sub-25,motion (MT),right,MT,degraded speech,-0.391286080678811,31.0
+sub-25,motion (MT),right,MT,intact speech,-0.375099137377254,31.0
+sub-25,motion (MT),right,MT,interacting pointlights,2.413125396554847,45.333333333333336
+sub-25,motion (MT),right,MT,non-interacting pointlights,2.416342921772275,45.333333333333336
+sub-26,motion (MT),right,MT,intact speech,-0.0182479107576729,62.0
+sub-26,motion (MT),right,MT,degraded speech,-0.1788867702914381,62.0
+sub-26,motion (MT),right,MT,non-interacting pointlights,1.6848539436121135,71.0
+sub-26,motion (MT),right,MT,interacting pointlights,1.7944033836903517,71.0
+sub-28,motion (MT),right,MT,degraded speech,-0.022905465108715,74.0
+sub-28,motion (MT),right,MT,intact speech,0.0972370264170464,74.0
+sub-28,motion (MT),right,MT,non-interacting pointlights,2.469998395138301,68.33333333333333
+sub-28,motion (MT),right,MT,interacting pointlights,2.477594233791711,68.33333333333333
+sub-32,motion (MT),right,MT,degraded speech,-0.0397962561055612,19.0
+sub-32,motion (MT),right,MT,intact speech,-0.1772793254330305,19.0
+sub-32,motion (MT),right,MT,non-interacting pointlights,2.096531340801022,20.666666666666668
+sub-32,motion (MT),right,MT,interacting pointlights,2.0381384382171808,20.666666666666668
+sub-33,motion (MT),right,MT,interacting pointlights,2.806195051472468,71.66666666666667
+sub-33,motion (MT),right,MT,intact speech,-0.3590733462725602,63.0
+sub-33,motion (MT),right,MT,degraded speech,-0.5008569162638027,63.0
+sub-33,motion (MT),right,MT,non-interacting pointlights,2.819540018512197,71.66666666666667
+sub-35,motion (MT),right,MT,non-interacting pointlights,1.9155137411296568,145.33333333333334
+sub-35,motion (MT),right,MT,interacting pointlights,1.8840342815431996,145.33333333333334
+sub-35,motion (MT),right,MT,intact speech,-0.0441464604825649,146.0
+sub-35,motion (MT),right,MT,degraded speech,0.0266216351080633,146.0
+sub-36,motion (MT),right,MT,interacting pointlights,1.1169959174273598,74.0
+sub-36,motion (MT),right,MT,non-interacting pointlights,1.0832082227187534,74.0
+sub-36,motion (MT),right,MT,degraded speech,-0.1113893417699586,83.0
+sub-36,motion (MT),right,MT,intact speech,0.2846608933539306,83.0
+sub-38,motion (MT),right,MT,non-interacting pointlights,2.833480628746924,97.0
+sub-38,motion (MT),right,MT,interacting pointlights,3.0222540117717323,97.0
+sub-38,motion (MT),right,MT,intact speech,-0.3786153945905364,102.0
+sub-38,motion (MT),right,MT,degraded speech,-0.3059066458905988,102.0
+sub-39,motion (MT),right,MT,interacting pointlights,2.425649377936034,81.66666666666667
+sub-39,motion (MT),right,MT,degraded speech,-0.0758937548661221,90.0
+sub-39,motion (MT),right,MT,intact speech,0.0076166445486184,90.0
+sub-39,motion (MT),right,MT,non-interacting pointlights,2.306447707780604,81.66666666666667
+sub-41,motion (MT),right,MT,degraded speech,-0.0226979216478956,139.0
+sub-41,motion (MT),right,MT,intact speech,-0.1889290882856225,139.0
+sub-41,motion (MT),right,MT,interacting pointlights,2.321972387489835,137.66666666666666
+sub-41,motion (MT),right,MT,non-interacting pointlights,1.409322773719695,137.66666666666666
+sub-45,motion (MT),right,MT,intact speech,-0.245016749270061,102.0
+sub-45,motion (MT),right,MT,degraded speech,-0.2450702155906655,102.0
+sub-45,motion (MT),right,MT,non-interacting pointlights,1.5861797508401665,104.66666666666669
+sub-45,motion (MT),right,MT,interacting pointlights,1.422755116266335,104.66666666666669
+sub-46,motion (MT),right,MT,degraded speech,-0.1401146055349331,78.0
+sub-46,motion (MT),right,MT,intact speech,-0.1389741231850004,78.0
+sub-46,motion (MT),right,MT,non-interacting pointlights,2.7169086754894862,85.0
+sub-46,motion (MT),right,MT,interacting pointlights,2.849035348500496,85.0
+sub-50,motion (MT),right,MT,interacting pointlights,1.885210544411146,119.0
+sub-50,motion (MT),right,MT,non-interacting pointlights,1.821032814573169,119.0
+sub-50,motion (MT),right,MT,degraded speech,-0.4631286639924257,111.0
+sub-50,motion (MT),right,MT,intact speech,-0.4749358911567365,111.0
+sub-51,motion (MT),right,MT,interacting pointlights,1.2750754251587966,51.66666666666666
+sub-51,motion (MT),right,MT,non-interacting pointlights,1.397206734036203,51.66666666666666
+sub-51,motion (MT),right,MT,degraded speech,0.1232619024042205,45.0
+sub-51,motion (MT),right,MT,intact speech,0.1831266405177808,45.0
+sub-53,motion (MT),right,MT,interacting pointlights,2.010012137639136,57.66666666666666
+sub-53,motion (MT),right,MT,non-interacting pointlights,2.010069468462923,57.66666666666666
+sub-53,motion (MT),right,MT,intact speech,0.0150017103897023,67.0
+sub-53,motion (MT),right,MT,degraded speech,-0.1122843541423253,67.0
+sub-54,motion (MT),right,MT,interacting pointlights,2.128802545032993,98.66666666666669
+sub-54,motion (MT),right,MT,non-interacting pointlights,2.120319877827473,98.66666666666669
+sub-54,motion (MT),right,MT,intact speech,-0.5703869179193292,103.0
+sub-54,motion (MT),right,MT,degraded speech,-0.3562310422686783,103.0
+sub-55,motion (MT),right,MT,interacting pointlights,1.5728769067573474,102.33333333333331
+sub-55,motion (MT),right,MT,non-interacting pointlights,2.0878754238419748,102.33333333333331
+sub-55,motion (MT),right,MT,degraded speech,-0.1534619644784854,108.0
+sub-55,motion (MT),right,MT,intact speech,-0.393318331657484,108.0
+sub-56,motion (MT),right,MT,interacting pointlights,2.32206738394935,90.33333333333331
+sub-56,motion (MT),right,MT,non-interacting pointlights,2.6518546014022184,90.33333333333331
+sub-56,motion (MT),right,MT,intact speech,-0.3520205776603837,83.0
+sub-56,motion (MT),right,MT,degraded speech,-0.4382586640075114,83.0
+sub-57,motion (MT),right,MT,interacting pointlights,2.0533520042407454,115.0
+sub-57,motion (MT),right,MT,non-interacting pointlights,2.0269010811353687,115.0
+sub-57,motion (MT),right,MT,degraded speech,0.2059821440877864,118.0
+sub-57,motion (MT),right,MT,intact speech,0.3119627428741397,118.0
+sub-58,motion (MT),right,MT,non-interacting pointlights,1.4794939466644694,84.66666666666667
+sub-58,motion (MT),right,MT,interacting pointlights,1.4745681083781907,84.66666666666667
+sub-58,motion (MT),right,MT,degraded speech,-0.6378262584600323,81.0
+sub-58,motion (MT),right,MT,intact speech,-0.6557388255487773,81.0
+sub-60,motion (MT),right,MT,interacting pointlights,0.9312407763529794,120.66666666666669
+sub-60,motion (MT),right,MT,non-interacting pointlights,0.8692157275351207,120.66666666666669
+sub-60,motion (MT),right,MT,intact speech,-0.1661617731367624,136.0
+sub-60,motion (MT),right,MT,degraded speech,-0.2983097043866065,136.0
+sub-61,motion (MT),right,MT,non-interacting pointlights,1.549160646102873,136.33333333333334
+sub-61,motion (MT),right,MT,interacting pointlights,1.5379125046797677,136.33333333333334
+sub-61,motion (MT),right,MT,intact speech,-0.1371111572060856,139.0
+sub-61,motion (MT),right,MT,degraded speech,0.0030067604829629,139.0
+sub-62,motion (MT),right,MT,non-interacting pointlights,1.9911213614150285,79.66666666666667
+sub-62,motion (MT),right,MT,interacting pointlights,1.7868643465653455,79.66666666666667
+sub-62,motion (MT),right,MT,degraded speech,0.0500436863058103,77.0
+sub-62,motion (MT),right,MT,intact speech,-0.1143892596863268,77.0
+sub-05,social interaction (STS),left,pSTS,non-interacting pointlights,-0.0683918638739163,143.0
+sub-05,social interaction (STS),left,pSTS,interacting pointlights,0.2900107625390439,143.0
+sub-06,social interaction (STS),left,pSTS,interacting pointlights,1.6589841825709086,87.66666666666667
+sub-06,social interaction (STS),left,pSTS,non-interacting pointlights,0.6734956581433998,87.66666666666667
+sub-07,social interaction (STS),left,pSTS,non-interacting pointlights,0.1415146380510039,32.333333333333336
+sub-07,social interaction (STS),left,pSTS,interacting pointlights,0.3766893341743929,32.333333333333336
+sub-08,social interaction (STS),left,pSTS,interacting pointlights,0.2232114317359124,151.33333333333334
+sub-08,social interaction (STS),left,pSTS,non-interacting pointlights,0.0382579890060888,151.33333333333334
+sub-09,social interaction (STS),left,pSTS,interacting pointlights,-0.0728906485234674,116.66666666666669
+sub-09,social interaction (STS),left,pSTS,non-interacting pointlights,-0.0782497718089058,116.66666666666669
+sub-10,social interaction (STS),left,pSTS,non-interacting pointlights,-0.0972638412188664,66.66666666666667
+sub-10,social interaction (STS),left,pSTS,interacting pointlights,0.0084281567625562,66.66666666666667
+sub-14,social interaction (STS),left,pSTS,non-interacting pointlights,0.370193797650779,106.0
+sub-14,social interaction (STS),left,pSTS,interacting pointlights,0.6314670434082607,106.0
+sub-15,social interaction (STS),left,pSTS,non-interacting pointlights,0.2965954692023971,42.66666666666666
+sub-15,social interaction (STS),left,pSTS,interacting pointlights,0.5424469471225791,42.66666666666666
+sub-16,social interaction (STS),left,pSTS,interacting pointlights,-0.1592173949222377,196.0
+sub-16,social interaction (STS),left,pSTS,non-interacting pointlights,-0.4627131834371054,196.0
+sub-19,social interaction (STS),left,pSTS,degraded speech,0.076460811446432,64.0
+sub-19,social interaction (STS),left,pSTS,intact speech,0.1681857580005417,64.0
+sub-19,social interaction (STS),left,pSTS,non-interacting pointlights,0.2547856219383657,79.33333333333333
+sub-19,social interaction (STS),left,pSTS,interacting pointlights,0.4083005697593602,79.33333333333333
+sub-23,social interaction (STS),left,pSTS,intact speech,0.9513348556247908,228.0
+sub-23,social interaction (STS),left,pSTS,degraded speech,0.4355445017739254,228.0
+sub-23,social interaction (STS),left,pSTS,interacting pointlights,0.2679283848494067,214.0
+sub-23,social interaction (STS),left,pSTS,non-interacting pointlights,0.002181142990364,214.0
+sub-25,social interaction (STS),left,pSTS,intact speech,0.0986030998903429,170.0
+sub-25,social interaction (STS),left,pSTS,degraded speech,0.0785095584260958,170.0
+sub-25,social interaction (STS),left,pSTS,interacting pointlights,0.7945849527617262,150.0
+sub-25,social interaction (STS),left,pSTS,non-interacting pointlights,0.6527491992878872,150.0
+sub-26,social interaction (STS),left,pSTS,intact speech,0.929912700805444,132.0
+sub-26,social interaction (STS),left,pSTS,degraded speech,-0.0675078654376222,132.0
+sub-26,social interaction (STS),left,pSTS,interacting pointlights,0.3233898607601226,141.66666666666666
+sub-26,social interaction (STS),left,pSTS,non-interacting pointlights,0.1076167067327977,141.66666666666666
+sub-28,social interaction (STS),left,pSTS,intact speech,0.555451737604086,80.0
+sub-28,social interaction (STS),left,pSTS,degraded speech,0.0673340854139085,80.0
+sub-28,social interaction (STS),left,pSTS,non-interacting pointlights,0.4204096197334466,84.66666666666667
+sub-28,social interaction (STS),left,pSTS,interacting pointlights,0.7074833927571462,84.66666666666667
+sub-32,social interaction (STS),left,pSTS,degraded speech,0.2063504423265291,114.0
+sub-32,social interaction (STS),left,pSTS,intact speech,0.4663959024836351,114.0
+sub-32,social interaction (STS),left,pSTS,non-interacting pointlights,0.2389573088372658,131.66666666666666
+sub-32,social interaction (STS),left,pSTS,interacting pointlights,0.4078782844520179,131.66666666666666
+sub-33,social interaction (STS),left,pSTS,intact speech,0.6656985879906206,103.0
+sub-33,social interaction (STS),left,pSTS,degraded speech,0.3279293695453763,103.0
+sub-33,social interaction (STS),left,pSTS,non-interacting pointlights,0.2051874506982009,98.33333333333331
+sub-33,social interaction (STS),left,pSTS,interacting pointlights,0.5865109135130527,98.33333333333331
+sub-35,social interaction (STS),left,pSTS,non-interacting pointlights,0.0526162296436706,53.66666666666666
+sub-35,social interaction (STS),left,pSTS,interacting pointlights,0.0687111372883614,53.66666666666666
+sub-35,social interaction (STS),left,pSTS,degraded speech,0.0722279263884559,32.0
+sub-35,social interaction (STS),left,pSTS,intact speech,0.1107377763183349,32.0
+sub-36,social interaction (STS),left,pSTS,interacting pointlights,0.3411104915809217,158.0
+sub-36,social interaction (STS),left,pSTS,non-interacting pointlights,0.3042741601033149,158.0
+sub-36,social interaction (STS),left,pSTS,intact speech,-0.2364482569065594,146.0
+sub-36,social interaction (STS),left,pSTS,degraded speech,-0.1747017416430064,146.0
+sub-38,social interaction (STS),left,pSTS,non-interacting pointlights,0.0405592795792845,62.333333333333336
+sub-38,social interaction (STS),left,pSTS,interacting pointlights,0.1437821718030266,62.333333333333336
+sub-38,social interaction (STS),left,pSTS,intact speech,0.3867687697843184,26.0
+sub-38,social interaction (STS),left,pSTS,degraded speech,-0.0262556269323581,26.0
+sub-39,social interaction (STS),left,pSTS,non-interacting pointlights,0.4912173331876643,120.66666666666669
+sub-39,social interaction (STS),left,pSTS,degraded speech,0.2417688076493781,122.0
+sub-39,social interaction (STS),left,pSTS,intact speech,0.4554112753226761,122.0
+sub-39,social interaction (STS),left,pSTS,interacting pointlights,0.9148116918641686,120.66666666666669
+sub-41,social interaction (STS),left,pSTS,interacting pointlights,0.0779249217415382,192.0
+sub-41,social interaction (STS),left,pSTS,non-interacting pointlights,0.0067707039594351,192.0
+sub-41,social interaction (STS),left,pSTS,degraded speech,0.1388029041827646,198.0
+sub-41,social interaction (STS),left,pSTS,intact speech,0.2480754916718023,198.0
+sub-45,social interaction (STS),left,pSTS,non-interacting pointlights,-0.3289293155582218,110.33333333333331
+sub-45,social interaction (STS),left,pSTS,degraded speech,-0.1454554038164822,107.0
+sub-45,social interaction (STS),left,pSTS,intact speech,-0.0551282616793918,107.0
+sub-45,social interaction (STS),left,pSTS,interacting pointlights,-0.0170786172090719,110.33333333333331
+sub-46,social interaction (STS),left,pSTS,intact speech,0.579005266587662,245.0
+sub-46,social interaction (STS),left,pSTS,degraded speech,0.0974147045546907,245.0
+sub-46,social interaction (STS),left,pSTS,interacting pointlights,1.8770633854986267,231.33333333333331
+sub-46,social interaction (STS),left,pSTS,non-interacting pointlights,1.2110726370690963,231.33333333333331
+sub-50,social interaction (STS),left,pSTS,intact speech,0.4081802378279631,143.0
+sub-50,social interaction (STS),left,pSTS,degraded speech,0.3228343943169177,143.0
+sub-50,social interaction (STS),left,pSTS,non-interacting pointlights,0.2868782028904678,151.33333333333334
+sub-50,social interaction (STS),left,pSTS,interacting pointlights,0.2498415812146482,151.33333333333334
+sub-51,social interaction (STS),left,pSTS,interacting pointlights,0.0011781522476824,74.66666666666667
+sub-51,social interaction (STS),left,pSTS,degraded speech,0.1102896043846206,83.0
+sub-51,social interaction (STS),left,pSTS,intact speech,0.1328591693023702,83.0
+sub-51,social interaction (STS),left,pSTS,non-interacting pointlights,-0.0203574519230475,74.66666666666667
+sub-53,social interaction (STS),left,pSTS,non-interacting pointlights,0.2628345165763462,236.66666666666663
+sub-53,social interaction (STS),left,pSTS,interacting pointlights,0.5278156306907081,236.66666666666663
+sub-53,social interaction (STS),left,pSTS,intact speech,0.999944120682464,252.0
+sub-53,social interaction (STS),left,pSTS,degraded speech,0.4353003601142833,252.0
+sub-54,social interaction (STS),left,pSTS,non-interacting pointlights,0.2066415440899126,116.66666666666669
+sub-54,social interaction (STS),left,pSTS,interacting pointlights,0.3023269732948399,116.66666666666669
+sub-54,social interaction (STS),left,pSTS,degraded speech,0.1481425195561593,118.0
+sub-54,social interaction (STS),left,pSTS,intact speech,0.5373589429168643,118.0
+sub-55,social interaction (STS),left,pSTS,non-interacting pointlights,-0.0133436651497155,160.33333333333334
+sub-55,social interaction (STS),left,pSTS,interacting pointlights,-0.0182064108048413,160.33333333333334
+sub-55,social interaction (STS),left,pSTS,intact speech,0.5370669458456767,206.0
+sub-55,social interaction (STS),left,pSTS,degraded speech,0.2025023497306867,206.0
+sub-56,social interaction (STS),left,pSTS,intact speech,0.2392705171592402,104.0
+sub-56,social interaction (STS),left,pSTS,degraded speech,-0.1208780449960129,104.0
+sub-56,social interaction (STS),left,pSTS,interacting pointlights,0.0916049566232978,114.0
+sub-56,social interaction (STS),left,pSTS,non-interacting pointlights,0.0330137037731012,114.0
+sub-57,social interaction (STS),left,pSTS,degraded speech,0.2680102324916836,13.0
+sub-57,social interaction (STS),left,pSTS,intact speech,0.3192009496774647,13.0
+sub-57,social interaction (STS),left,pSTS,non-interacting pointlights,0.1712211088136382,19.666666666666668
+sub-57,social interaction (STS),left,pSTS,interacting pointlights,0.3679908120875934,19.666666666666668
+sub-58,social interaction (STS),left,pSTS,intact speech,-0.2428000680132927,19.0
+sub-58,social interaction (STS),left,pSTS,interacting pointlights,0.340326214019108,40.0
+sub-58,social interaction (STS),left,pSTS,degraded speech,-0.2087844433228408,19.0
+sub-58,social interaction (STS),left,pSTS,non-interacting pointlights,0.1292652033733173,40.0
+sub-60,social interaction (STS),left,pSTS,interacting pointlights,0.0630378733010314,202.33333333333331
+sub-60,social interaction (STS),left,pSTS,non-interacting pointlights,-0.1804083831774796,202.33333333333331
+sub-60,social interaction (STS),left,pSTS,intact speech,0.1302780879932866,207.0
+sub-60,social interaction (STS),left,pSTS,degraded speech,-0.0276111770659497,207.0
+sub-61,social interaction (STS),left,pSTS,degraded speech,-0.0203821878067836,93.0
+sub-61,social interaction (STS),left,pSTS,non-interacting pointlights,0.2625500213393572,86.33333333333333
+sub-61,social interaction (STS),left,pSTS,intact speech,0.3920308095023149,93.0
+sub-61,social interaction (STS),left,pSTS,interacting pointlights,0.4832680549418484,86.33333333333333
+sub-62,social interaction (STS),left,pSTS,degraded speech,0.0287384120017335,113.0
+sub-62,social interaction (STS),left,pSTS,non-interacting pointlights,0.1072965676395421,96.33333333333331
+sub-62,social interaction (STS),left,pSTS,interacting pointlights,0.2460671242174288,96.33333333333331
+sub-62,social interaction (STS),left,pSTS,intact speech,0.4761463931670875,113.0
+sub-05,social interaction (STS),left,aSTS,non-interacting pointlights,0.1389911924161814,24.33333333333333
+sub-05,social interaction (STS),left,aSTS,interacting pointlights,0.4621983736729372,24.33333333333333
+sub-06,social interaction (STS),left,aSTS,non-interacting pointlights,-0.3067743758655334,12.0
+sub-06,social interaction (STS),left,aSTS,interacting pointlights,0.4040410620473143,12.0
+sub-07,social interaction (STS),left,aSTS,interacting pointlights,0.2478531054266163,42.333333333333336
+sub-07,social interaction (STS),left,aSTS,non-interacting pointlights,-0.0491775292427817,42.333333333333336
+sub-08,social interaction (STS),left,aSTS,non-interacting pointlights,-0.0131788741539565,39.0
+sub-08,social interaction (STS),left,aSTS,interacting pointlights,0.0924897583858461,39.0
+sub-09,social interaction (STS),left,aSTS,non-interacting pointlights,-0.0481077839908034,31.0
+sub-09,social interaction (STS),left,aSTS,interacting pointlights,-0.0753882716837719,31.0
+sub-10,social interaction (STS),left,aSTS,non-interacting pointlights,-0.11377752351394,26.33333333333333
+sub-10,social interaction (STS),left,aSTS,interacting pointlights,-0.0310809841941205,26.33333333333333
+sub-14,social interaction (STS),left,aSTS,non-interacting pointlights,0.1205606584419114,45.66666666666666
+sub-14,social interaction (STS),left,aSTS,interacting pointlights,0.0974121350410038,45.66666666666666
+sub-15,social interaction (STS),left,aSTS,non-interacting pointlights,-0.1604204288341603,30.666666666666668
+sub-15,social interaction (STS),left,aSTS,interacting pointlights,0.1518291793297279,30.666666666666668
+sub-16,social interaction (STS),left,aSTS,interacting pointlights,-0.0817660140959388,84.66666666666667
+sub-16,social interaction (STS),left,aSTS,non-interacting pointlights,-0.2564259244597212,84.66666666666667
+sub-19,social interaction (STS),left,aSTS,degraded speech,0.1412271253307508,44.0
+sub-19,social interaction (STS),left,aSTS,intact speech,0.3627379078381011,44.0
+sub-19,social interaction (STS),left,aSTS,non-interacting pointlights,-0.2637126662683846,57.0
+sub-19,social interaction (STS),left,aSTS,interacting pointlights,-0.1759889787682887,57.0
+sub-23,social interaction (STS),left,aSTS,intact speech,1.5533723620869582,39.0
+sub-23,social interaction (STS),left,aSTS,degraded speech,0.6129987115856445,39.0
+sub-23,social interaction (STS),left,aSTS,interacting pointlights,-0.0853934049256406,38.333333333333336
+sub-23,social interaction (STS),left,aSTS,non-interacting pointlights,-0.2577463442279804,38.333333333333336
+sub-25,social interaction (STS),left,aSTS,intact speech,0.7753160696305639,35.0
+sub-25,social interaction (STS),left,aSTS,degraded speech,0.3387264065527284,35.0
+sub-25,social interaction (STS),left,aSTS,non-interacting pointlights,0.5967275959273108,31.666666666666668
+sub-25,social interaction (STS),left,aSTS,interacting pointlights,1.0208431724885894,31.666666666666668
+sub-26,social interaction (STS),left,aSTS,degraded speech,0.1717867918319018,41.0
+sub-26,social interaction (STS),left,aSTS,intact speech,0.9835237928318816,41.0
+sub-26,social interaction (STS),left,aSTS,non-interacting pointlights,-0.0221040141899289,46.66666666666666
+sub-26,social interaction (STS),left,aSTS,interacting pointlights,0.1206435913252029,46.66666666666666
+sub-28,social interaction (STS),left,aSTS,intact speech,0.9445958640439815,46.0
+sub-28,social interaction (STS),left,aSTS,degraded speech,0.1135873282311187,46.0
+sub-28,social interaction (STS),left,aSTS,interacting pointlights,-0.0224919976262945,55.0
+sub-28,social interaction (STS),left,aSTS,non-interacting pointlights,-0.2401779569177084,55.0
+sub-32,social interaction (STS),left,aSTS,degraded speech,0.3099380293874589,27.0
+sub-32,social interaction (STS),left,aSTS,intact speech,0.8656479554869688,27.0
+sub-32,social interaction (STS),left,aSTS,interacting pointlights,-0.0591909193012619,29.0
+sub-32,social interaction (STS),left,aSTS,non-interacting pointlights,-0.1298195074801812,29.0
+sub-33,social interaction (STS),left,aSTS,degraded speech,0.2877784411446936,23.0
+sub-33,social interaction (STS),left,aSTS,intact speech,1.3147125902916912,23.0
+sub-33,social interaction (STS),left,aSTS,interacting pointlights,0.4381689699908868,29.666666666666668
+sub-33,social interaction (STS),left,aSTS,non-interacting pointlights,0.0725152411199481,29.666666666666668
+sub-35,social interaction (STS),left,aSTS,intact speech,0.1759260038171521,59.0
+sub-35,social interaction (STS),left,aSTS,degraded speech,0.1334411196052753,59.0
+sub-35,social interaction (STS),left,aSTS,non-interacting pointlights,-0.0020369888162914,58.333333333333336
+sub-35,social interaction (STS),left,aSTS,interacting pointlights,0.0707565027873061,58.333333333333336
+sub-36,social interaction (STS),left,aSTS,degraded speech,0.0182294196606451,71.0
+sub-36,social interaction (STS),left,aSTS,intact speech,0.1987937360538551,71.0
+sub-36,social interaction (STS),left,aSTS,interacting pointlights,0.2372081726992338,68.66666666666667
+sub-36,social interaction (STS),left,aSTS,non-interacting pointlights,0.2344009619722777,68.66666666666667
+sub-38,social interaction (STS),left,aSTS,intact speech,0.5360468828483246,51.0
+sub-38,social interaction (STS),left,aSTS,degraded speech,0.2249162066086931,51.0
+sub-38,social interaction (STS),left,aSTS,non-interacting pointlights,0.2124641818729606,55.333333333333336
+sub-38,social interaction (STS),left,aSTS,interacting pointlights,0.3120104658456031,55.333333333333336
+sub-39,social interaction (STS),left,aSTS,degraded speech,0.3877727977941124,4.0
+sub-39,social interaction (STS),left,aSTS,intact speech,1.2602273914224096,4.0
+sub-39,social interaction (STS),left,aSTS,interacting pointlights,0.0018595615822708,16.0
+sub-39,social interaction (STS),left,aSTS,non-interacting pointlights,-0.2281672778265777,16.0
+sub-41,social interaction (STS),left,aSTS,degraded speech,0.2108863240183609,61.0
+sub-41,social interaction (STS),left,aSTS,intact speech,0.4124500866655263,61.0
+sub-41,social interaction (STS),left,aSTS,non-interacting pointlights,0.015566467914963,69.0
+sub-41,social interaction (STS),left,aSTS,interacting pointlights,0.0437445277755327,69.0
+sub-45,social interaction (STS),left,aSTS,intact speech,-0.037056809540729,9.0
+sub-45,social interaction (STS),left,aSTS,degraded speech,-0.033451215574007,9.0
+sub-45,social interaction (STS),left,aSTS,interacting pointlights,-0.0310870755029224,18.0
+sub-45,social interaction (STS),left,aSTS,non-interacting pointlights,-0.1928055346049928,18.0
+sub-46,social interaction (STS),left,aSTS,degraded speech,0.4269782035067758,29.0
+sub-46,social interaction (STS),left,aSTS,intact speech,1.7145667025436344,29.0
+sub-46,social interaction (STS),left,aSTS,non-interacting pointlights,-0.0157632237986306,33.666666666666664
+sub-46,social interaction (STS),left,aSTS,interacting pointlights,0.2369378849925845,33.666666666666664
+sub-50,social interaction (STS),left,aSTS,intact speech,0.4886702567916156,40.0
+sub-50,social interaction (STS),left,aSTS,degraded speech,0.1530600508830949,40.0
+sub-50,social interaction (STS),left,aSTS,non-interacting pointlights,0.1058358339519718,42.333333333333336
+sub-50,social interaction (STS),left,aSTS,interacting pointlights,0.1206956834386404,42.333333333333336
+sub-51,social interaction (STS),left,aSTS,degraded speech,0.0420638377112137,80.0
+sub-51,social interaction (STS),left,aSTS,intact speech,0.2064123527913816,80.0
+sub-51,social interaction (STS),left,aSTS,interacting pointlights,-0.0240174766335233,74.66666666666667
+sub-51,social interaction (STS),left,aSTS,non-interacting pointlights,0.0072583995183557,74.66666666666667
+sub-53,social interaction (STS),left,aSTS,degraded speech,0.0156522922854395,83.0
+sub-53,social interaction (STS),left,aSTS,intact speech,0.6475272224302624,83.0
+sub-53,social interaction (STS),left,aSTS,non-interacting pointlights,0.0699838512856665,85.33333333333333
+sub-53,social interaction (STS),left,aSTS,interacting pointlights,0.0766325611942419,85.33333333333333
+sub-54,social interaction (STS),left,aSTS,intact speech,0.7440608785413728,54.0
+sub-54,social interaction (STS),left,aSTS,degraded speech,0.2156884419687426,54.0
+sub-54,social interaction (STS),left,aSTS,non-interacting pointlights,0.1050823364183825,67.33333333333333
+sub-54,social interaction (STS),left,aSTS,interacting pointlights,0.0356445343043499,67.33333333333333
+sub-55,social interaction (STS),left,aSTS,degraded speech,0.1958653672992689,52.0
+sub-55,social interaction (STS),left,aSTS,intact speech,0.3682140355325737,52.0
+sub-55,social interaction (STS),left,aSTS,non-interacting pointlights,0.0098578298465918,59.333333333333336
+sub-55,social interaction (STS),left,aSTS,interacting pointlights,0.0625086899256089,59.333333333333336
+sub-56,social interaction (STS),left,aSTS,degraded speech,0.1044625340282804,33.0
+sub-56,social interaction (STS),left,aSTS,intact speech,1.243445662939799,33.0
+sub-56,social interaction (STS),left,aSTS,non-interacting pointlights,0.0209411067397527,45.0
+sub-56,social interaction (STS),left,aSTS,interacting pointlights,0.0039360019801368,45.0
+sub-57,social interaction (STS),left,aSTS,degraded speech,0.1822109237821876,12.0
+sub-57,social interaction (STS),left,aSTS,intact speech,0.4499180224038692,12.0
+sub-57,social interaction (STS),left,aSTS,interacting pointlights,0.0240201520561747,22.0
+sub-57,social interaction (STS),left,aSTS,non-interacting pointlights,0.1803932957767682,22.0
+sub-58,social interaction (STS),left,aSTS,degraded speech,0.0844260336619086,25.0
+sub-58,social interaction (STS),left,aSTS,intact speech,0.5888134149180971,25.0
+sub-58,social interaction (STS),left,aSTS,interacting pointlights,0.3298576894361471,34.0
+sub-58,social interaction (STS),left,aSTS,non-interacting pointlights,0.1761735586002897,34.0
+sub-60,social interaction (STS),left,aSTS,degraded speech,-0.1014501610764321,68.0
+sub-60,social interaction (STS),left,aSTS,intact speech,0.5715224562411558,68.0
+sub-60,social interaction (STS),left,aSTS,non-interacting pointlights,-0.0560242522429076,53.66666666666666
+sub-60,social interaction (STS),left,aSTS,interacting pointlights,0.1465824669923601,53.66666666666666
+sub-61,social interaction (STS),left,aSTS,degraded speech,0.5769531874989258,12.0
+sub-61,social interaction (STS),left,aSTS,intact speech,1.3090280563525212,12.0
+sub-61,social interaction (STS),left,aSTS,non-interacting pointlights,-0.0159233258773328,17.666666666666668
+sub-61,social interaction (STS),left,aSTS,interacting pointlights,-0.0122887232682656,17.666666666666668
+sub-62,social interaction (STS),left,aSTS,degraded speech,0.0657659410328207,39.0
+sub-62,social interaction (STS),left,aSTS,interacting pointlights,0.1291680562887219,45.333333333333336
+sub-62,social interaction (STS),left,aSTS,intact speech,0.5496820226004672,39.0
+sub-62,social interaction (STS),left,aSTS,non-interacting pointlights,-0.0022633770857836,45.333333333333336
+sub-05,social interaction (STS),right,pSTS,non-interacting pointlights,0.094219595802495,157.0
+sub-05,social interaction (STS),right,pSTS,interacting pointlights,0.4050963002381609,157.0
+sub-06,social interaction (STS),right,pSTS,non-interacting pointlights,0.5846164415993894,212.33333333333331
+sub-06,social interaction (STS),right,pSTS,interacting pointlights,1.319318258403823,212.33333333333331
+sub-07,social interaction (STS),right,pSTS,non-interacting pointlights,0.0230212895326969,267.6666666666667
+sub-07,social interaction (STS),right,pSTS,interacting pointlights,0.4562839102698224,267.6666666666667
+sub-08,social interaction (STS),right,pSTS,interacting pointlights,0.150097911712241,148.66666666666666
+sub-08,social interaction (STS),right,pSTS,non-interacting pointlights,-0.0454596886957334,148.66666666666666
+sub-09,social interaction (STS),right,pSTS,interacting pointlights,0.1787531397108182,183.33333333333331
+sub-09,social interaction (STS),right,pSTS,non-interacting pointlights,0.0378284646247578,183.33333333333331
+sub-10,social interaction (STS),right,pSTS,non-interacting pointlights,-0.1354227578974155,233.33333333333331
+sub-10,social interaction (STS),right,pSTS,interacting pointlights,0.0602939231925745,233.33333333333331
+sub-14,social interaction (STS),right,pSTS,non-interacting pointlights,0.2429611345607133,194.0
+sub-14,social interaction (STS),right,pSTS,interacting pointlights,0.5424589829319016,194.0
+sub-15,social interaction (STS),right,pSTS,interacting pointlights,0.7991290721246367,257.3333333333333
+sub-15,social interaction (STS),right,pSTS,non-interacting pointlights,0.3406311703399251,257.3333333333333
+sub-16,social interaction (STS),right,pSTS,non-interacting pointlights,-0.1271518518443887,104.0
+sub-16,social interaction (STS),right,pSTS,interacting pointlights,0.0266383671909401,104.0
+sub-19,social interaction (STS),right,pSTS,interacting pointlights,0.4877200040562131,220.66666666666663
+sub-19,social interaction (STS),right,pSTS,intact speech,0.5301855029406815,236.0
+sub-19,social interaction (STS),right,pSTS,degraded speech,0.4258951923557157,236.0
+sub-19,social interaction (STS),right,pSTS,non-interacting pointlights,0.1733045628470134,220.66666666666663
+sub-23,social interaction (STS),right,pSTS,non-interacting pointlights,0.1493955754546485,86.0
+sub-23,social interaction (STS),right,pSTS,degraded speech,0.8297657199758023,72.0
+sub-23,social interaction (STS),right,pSTS,intact speech,1.098735012683373,72.0
+sub-23,social interaction (STS),right,pSTS,interacting pointlights,0.3927071225876664,86.0
+sub-25,social interaction (STS),right,pSTS,non-interacting pointlights,0.3523203113893227,150.0
+sub-25,social interaction (STS),right,pSTS,interacting pointlights,0.4352746015975883,150.0
+sub-25,social interaction (STS),right,pSTS,degraded speech,-0.1592221476365571,130.0
+sub-25,social interaction (STS),right,pSTS,intact speech,-0.1549453792301672,130.0
+sub-26,social interaction (STS),right,pSTS,interacting pointlights,0.2930630530018956,158.33333333333334
+sub-26,social interaction (STS),right,pSTS,non-interacting pointlights,0.0421203932506782,158.33333333333334
+sub-26,social interaction (STS),right,pSTS,intact speech,0.8418716515164061,168.0
+sub-26,social interaction (STS),right,pSTS,degraded speech,0.0864573226461877,168.0
+sub-28,social interaction (STS),right,pSTS,non-interacting pointlights,0.112318672807277,215.33333333333331
+sub-28,social interaction (STS),right,pSTS,interacting pointlights,0.4745764802399649,215.33333333333331
+sub-28,social interaction (STS),right,pSTS,intact speech,0.2485524817348652,220.0
+sub-28,social interaction (STS),right,pSTS,degraded speech,-0.100338602908379,220.0
+sub-32,social interaction (STS),right,pSTS,interacting pointlights,0.3113749228369304,168.33333333333334
+sub-32,social interaction (STS),right,pSTS,non-interacting pointlights,0.0991541042832988,168.33333333333334
+sub-32,social interaction (STS),right,pSTS,intact speech,0.2852557093243656,186.0
+sub-32,social interaction (STS),right,pSTS,degraded speech,0.0855592622280822,186.0
+sub-33,social interaction (STS),right,pSTS,interacting pointlights,0.8558350425112359,201.66666666666663
+sub-33,social interaction (STS),right,pSTS,non-interacting pointlights,0.3020089690126005,201.66666666666663
+sub-33,social interaction (STS),right,pSTS,degraded speech,0.3058075689545843,197.0
+sub-33,social interaction (STS),right,pSTS,intact speech,0.5335556382375379,197.0
+sub-35,social interaction (STS),right,pSTS,non-interacting pointlights,0.2722797907246659,246.33333333333331
+sub-35,social interaction (STS),right,pSTS,interacting pointlights,0.5008753221107248,246.33333333333331
+sub-35,social interaction (STS),right,pSTS,intact speech,0.0497464081781485,268.0
+sub-35,social interaction (STS),right,pSTS,degraded speech,0.0039062435761715,268.0
+sub-36,social interaction (STS),right,pSTS,non-interacting pointlights,0.0491110580005248,142.0
+sub-36,social interaction (STS),right,pSTS,interacting pointlights,0.1483428346168598,142.0
+sub-36,social interaction (STS),right,pSTS,degraded speech,-0.1046585563473163,154.0
+sub-36,social interaction (STS),right,pSTS,intact speech,-0.2166233007725886,154.0
+sub-38,social interaction (STS),right,pSTS,interacting pointlights,0.8618423844754917,237.66666666666663
+sub-38,social interaction (STS),right,pSTS,degraded speech,0.1867337147209902,274.0
+sub-38,social interaction (STS),right,pSTS,intact speech,0.1313086132586283,274.0
+sub-38,social interaction (STS),right,pSTS,non-interacting pointlights,0.4823090336262408,237.66666666666663
+sub-39,social interaction (STS),right,pSTS,intact speech,0.5496900473502779,178.0
+sub-39,social interaction (STS),right,pSTS,interacting pointlights,0.7855076480947951,179.33333333333334
+sub-39,social interaction (STS),right,pSTS,non-interacting pointlights,0.3187502682567534,179.33333333333334
+sub-39,social interaction (STS),right,pSTS,degraded speech,0.3553625483939749,178.0
+sub-41,social interaction (STS),right,pSTS,interacting pointlights,0.2091835120591152,108.0
+sub-41,social interaction (STS),right,pSTS,non-interacting pointlights,0.0820295617745631,108.0
+sub-41,social interaction (STS),right,pSTS,degraded speech,0.2250046161948147,102.0
+sub-41,social interaction (STS),right,pSTS,intact speech,0.5125547027076071,102.0
+sub-45,social interaction (STS),right,pSTS,intact speech,-0.1410615065877717,193.0
+sub-45,social interaction (STS),right,pSTS,degraded speech,-0.2102911258155955,193.0
+sub-45,social interaction (STS),right,pSTS,non-interacting pointlights,-0.2751365277108266,189.66666666666663
+sub-45,social interaction (STS),right,pSTS,interacting pointlights,0.1085605775006706,189.66666666666663
+sub-46,social interaction (STS),right,pSTS,intact speech,0.8877579670802668,55.0
+sub-46,social interaction (STS),right,pSTS,degraded speech,0.5375003591354132,55.0
+sub-46,social interaction (STS),right,pSTS,interacting pointlights,0.793315932756053,68.66666666666667
+sub-46,social interaction (STS),right,pSTS,non-interacting pointlights,0.322288411630719,68.66666666666667
+sub-50,social interaction (STS),right,pSTS,intact speech,0.1746454124422829,157.0
+sub-50,social interaction (STS),right,pSTS,degraded speech,0.1378261847021004,157.0
+sub-50,social interaction (STS),right,pSTS,non-interacting pointlights,0.1589734105551839,148.66666666666666
+sub-50,social interaction (STS),right,pSTS,interacting pointlights,0.1556570966579076,148.66666666666666
+sub-51,social interaction (STS),right,pSTS,intact speech,0.0439268152604749,217.0
+sub-51,social interaction (STS),right,pSTS,degraded speech,0.0133456814243513,217.0
+sub-51,social interaction (STS),right,pSTS,interacting pointlights,-0.0019161836129732,225.33333333333331
+sub-51,social interaction (STS),right,pSTS,non-interacting pointlights,-0.0123675177554022,225.33333333333331
+sub-53,social interaction (STS),right,pSTS,intact speech,0.305713275659181,48.0
+sub-53,social interaction (STS),right,pSTS,degraded speech,0.0835532348912396,48.0
+sub-53,social interaction (STS),right,pSTS,interacting pointlights,0.0667196742028716,63.333333333333336
+sub-53,social interaction (STS),right,pSTS,non-interacting pointlights,-0.0088505834027331,63.333333333333336
+sub-54,social interaction (STS),right,pSTS,intact speech,0.5736812929664471,182.0
+sub-54,social interaction (STS),right,pSTS,degraded speech,0.2178571816358422,182.0
+sub-54,social interaction (STS),right,pSTS,non-interacting pointlights,-0.0664316143828572,183.33333333333331
+sub-54,social interaction (STS),right,pSTS,interacting pointlights,0.0593303622924328,183.33333333333331
+sub-55,social interaction (STS),right,pSTS,intact speech,-0.0479619327728003,94.0
+sub-55,social interaction (STS),right,pSTS,degraded speech,0.0398244824455249,94.0
+sub-55,social interaction (STS),right,pSTS,non-interacting pointlights,0.1075928543048486,139.66666666666666
+sub-55,social interaction (STS),right,pSTS,interacting pointlights,0.1187861393916917,139.66666666666666
+sub-56,social interaction (STS),right,pSTS,intact speech,0.5041084546651884,196.0
+sub-56,social interaction (STS),right,pSTS,degraded speech,0.1987226606636079,196.0
+sub-56,social interaction (STS),right,pSTS,interacting pointlights,0.1113626420598541,186.0
+sub-56,social interaction (STS),right,pSTS,non-interacting pointlights,-0.0059099290300906,186.0
+sub-57,social interaction (STS),right,pSTS,degraded speech,-0.0222380838062128,287.0
+sub-57,social interaction (STS),right,pSTS,intact speech,0.2967181185449248,287.0
+sub-57,social interaction (STS),right,pSTS,non-interacting pointlights,0.6494491212673622,280.3333333333333
+sub-57,social interaction (STS),right,pSTS,interacting pointlights,1.265784334345031,280.3333333333333
+sub-58,social interaction (STS),right,pSTS,non-interacting pointlights,0.348385127696176,260.0
+sub-58,social interaction (STS),right,pSTS,interacting pointlights,0.6746776464507742,260.0
+sub-58,social interaction (STS),right,pSTS,degraded speech,-0.26945770921281,281.0
+sub-58,social interaction (STS),right,pSTS,intact speech,-0.2235699247001434,281.0
+sub-60,social interaction (STS),right,pSTS,interacting pointlights,0.1864206843514135,97.66666666666669
+sub-60,social interaction (STS),right,pSTS,non-interacting pointlights,0.0326404991004764,97.66666666666669
+sub-60,social interaction (STS),right,pSTS,degraded speech,-0.0777346930276531,93.0
+sub-60,social interaction (STS),right,pSTS,intact speech,0.1045035204717782,93.0
+sub-61,social interaction (STS),right,pSTS,intact speech,-0.0574235337931052,207.0
+sub-61,social interaction (STS),right,pSTS,degraded speech,-0.0994972950570083,207.0
+sub-61,social interaction (STS),right,pSTS,non-interacting pointlights,-0.0549491147606642,213.66666666666663
+sub-61,social interaction (STS),right,pSTS,interacting pointlights,0.1869594545887737,213.66666666666663
+sub-62,social interaction (STS),right,pSTS,interacting pointlights,0.0993006362350322,203.66666666666663
+sub-62,social interaction (STS),right,pSTS,degraded speech,0.0294127168888923,187.0
+sub-62,social interaction (STS),right,pSTS,non-interacting pointlights,-0.0567443396735743,203.66666666666663
+sub-62,social interaction (STS),right,pSTS,intact speech,0.2793026331034685,187.0
+sub-05,social interaction (STS),right,aSTS,non-interacting pointlights,-0.3172544861167621,100.66666666666669
+sub-05,social interaction (STS),right,aSTS,interacting pointlights,0.3077938710982973,100.66666666666669
+sub-06,social interaction (STS),right,aSTS,interacting pointlights,0.8615935482006466,113.0
+sub-06,social interaction (STS),right,aSTS,non-interacting pointlights,0.0114881434091675,113.0
+sub-07,social interaction (STS),right,aSTS,interacting pointlights,0.4915302940883443,82.66666666666667
+sub-07,social interaction (STS),right,aSTS,non-interacting pointlights,0.1242759719551467,82.66666666666667
+sub-08,social interaction (STS),right,aSTS,non-interacting pointlights,-0.0417309208291429,86.0
+sub-08,social interaction (STS),right,aSTS,interacting pointlights,0.1531163186915874,86.0
+sub-09,social interaction (STS),right,aSTS,non-interacting pointlights,-0.0576189896605123,94.0
+sub-09,social interaction (STS),right,aSTS,interacting pointlights,-0.0755500314854261,94.0
+sub-10,social interaction (STS),right,aSTS,interacting pointlights,0.0051876747217553,98.66666666666669
+sub-10,social interaction (STS),right,aSTS,non-interacting pointlights,-0.2465611860406426,98.66666666666669
+sub-14,social interaction (STS),right,aSTS,interacting pointlights,0.4507173959217884,79.33333333333333
+sub-14,social interaction (STS),right,aSTS,non-interacting pointlights,0.1650877277001875,79.33333333333333
+sub-15,social interaction (STS),right,aSTS,interacting pointlights,0.3702122921959363,94.33333333333331
+sub-15,social interaction (STS),right,aSTS,non-interacting pointlights,-0.044151855181285,94.33333333333331
+sub-16,social interaction (STS),right,aSTS,interacting pointlights,-0.1978770111390277,40.333333333333336
+sub-16,social interaction (STS),right,aSTS,non-interacting pointlights,-0.2293777390427809,40.333333333333336
+sub-19,social interaction (STS),right,aSTS,non-interacting pointlights,-0.1908261393983505,68.0
+sub-19,social interaction (STS),right,aSTS,degraded speech,0.3368915062765129,81.0
+sub-19,social interaction (STS),right,aSTS,intact speech,0.6629801123220529,81.0
+sub-19,social interaction (STS),right,aSTS,interacting pointlights,0.012550538412372,68.0
+sub-23,social interaction (STS),right,aSTS,degraded speech,0.5732335153477749,86.0
+sub-23,social interaction (STS),right,aSTS,intact speech,0.8206156049693185,86.0
+sub-23,social interaction (STS),right,aSTS,non-interacting pointlights,-0.4607057804370262,86.66666666666667
+sub-23,social interaction (STS),right,aSTS,interacting pointlights,-0.2044839665120391,86.66666666666667
+sub-25,social interaction (STS),right,aSTS,degraded speech,-0.1206052107591759,90.0
+sub-25,social interaction (STS),right,aSTS,intact speech,0.0426753233677535,90.0
+sub-25,social interaction (STS),right,aSTS,interacting pointlights,0.7135531892418604,93.33333333333331
+sub-25,social interaction (STS),right,aSTS,non-interacting pointlights,0.3498089231549597,93.33333333333331
+sub-26,social interaction (STS),right,aSTS,intact speech,1.790268583645373,84.0
+sub-26,social interaction (STS),right,aSTS,degraded speech,0.2465460269923916,84.0
+sub-26,social interaction (STS),right,aSTS,non-interacting pointlights,-0.0974641322193514,78.33333333333333
+sub-26,social interaction (STS),right,aSTS,interacting pointlights,0.1936641372659527,78.33333333333333
+sub-28,social interaction (STS),right,aSTS,intact speech,0.20607365849731,79.0
+sub-28,social interaction (STS),right,aSTS,degraded speech,-0.1988140012089287,79.0
+sub-28,social interaction (STS),right,aSTS,non-interacting pointlights,-0.0663434681969445,70.0
+sub-28,social interaction (STS),right,aSTS,interacting pointlights,0.1533042485790434,70.0
+sub-32,social interaction (STS),right,aSTS,degraded speech,0.1713629706711874,98.0
+sub-32,social interaction (STS),right,aSTS,intact speech,0.4257582671329263,98.0
+sub-32,social interaction (STS),right,aSTS,interacting pointlights,0.1498645635908538,96.0
+sub-32,social interaction (STS),right,aSTS,non-interacting pointlights,-0.009726393050201,96.0
+sub-33,social interaction (STS),right,aSTS,degraded speech,0.2823085544521368,102.0
+sub-33,social interaction (STS),right,aSTS,intact speech,1.165495389254344,102.0
+sub-33,social interaction (STS),right,aSTS,non-interacting pointlights,0.0200480517182589,95.33333333333331
+sub-33,social interaction (STS),right,aSTS,interacting pointlights,0.6879271876992696,95.33333333333331
+sub-35,social interaction (STS),right,aSTS,degraded speech,0.7396531891187377,66.0
+sub-35,social interaction (STS),right,aSTS,intact speech,1.1260231828160812,66.0
+sub-35,social interaction (STS),right,aSTS,non-interacting pointlights,-0.020531237541256,66.66666666666667
+sub-35,social interaction (STS),right,aSTS,interacting pointlights,0.1529659689685204,66.66666666666667
+sub-36,social interaction (STS),right,aSTS,intact speech,0.0390759560280558,54.0
+sub-36,social interaction (STS),right,aSTS,degraded speech,-0.036689585452692,54.0
+sub-36,social interaction (STS),right,aSTS,interacting pointlights,0.2172047934986334,56.333333333333336
+sub-36,social interaction (STS),right,aSTS,non-interacting pointlights,0.215940174633646,56.333333333333336
+sub-38,social interaction (STS),right,aSTS,interacting pointlights,0.3160206750315144,69.66666666666667
+sub-38,social interaction (STS),right,aSTS,degraded speech,0.2220502990284419,74.0
+sub-38,social interaction (STS),right,aSTS,non-interacting pointlights,0.2792480265963967,69.66666666666667
+sub-38,social interaction (STS),right,aSTS,intact speech,0.4822770926968331,74.0
+sub-39,social interaction (STS),right,aSTS,non-interacting pointlights,-0.223517137788143,109.0
+sub-39,social interaction (STS),right,aSTS,intact speech,0.81460319673808,121.0
+sub-39,social interaction (STS),right,aSTS,interacting pointlights,0.0174039701784382,109.0
+sub-39,social interaction (STS),right,aSTS,degraded speech,0.3497222166456541,121.0
+sub-41,social interaction (STS),right,aSTS,interacting pointlights,-0.136532427274548,56.0
+sub-41,social interaction (STS),right,aSTS,non-interacting pointlights,-0.0687255512946868,56.0
+sub-41,social interaction (STS),right,aSTS,intact speech,0.9114377918149792,64.0
+sub-41,social interaction (STS),right,aSTS,degraded speech,0.4848927131123817,64.0
+sub-45,social interaction (STS),right,aSTS,non-interacting pointlights,-0.526578475188257,107.0
+sub-45,social interaction (STS),right,aSTS,interacting pointlights,-0.0666622857156046,107.0
+sub-45,social interaction (STS),right,aSTS,intact speech,-0.070704521822376,116.0
+sub-45,social interaction (STS),right,aSTS,degraded speech,-0.11559679295051,116.0
+sub-46,social interaction (STS),right,aSTS,non-interacting pointlights,0.0699530732349484,91.33333333333331
+sub-46,social interaction (STS),right,aSTS,interacting pointlights,0.4959090234052749,91.33333333333331
+sub-46,social interaction (STS),right,aSTS,degraded speech,0.5687262905342437,96.0
+sub-46,social interaction (STS),right,aSTS,intact speech,1.7003972093204052,96.0
+sub-50,social interaction (STS),right,aSTS,interacting pointlights,0.2457181856014138,82.66666666666667
+sub-50,social interaction (STS),right,aSTS,non-interacting pointlights,0.2058866404151928,82.66666666666667
+sub-50,social interaction (STS),right,aSTS,degraded speech,0.2539607948207007,85.0
+sub-50,social interaction (STS),right,aSTS,intact speech,0.5421399477087401,85.0
+sub-51,social interaction (STS),right,aSTS,intact speech,0.0506287910222222,45.0
+sub-51,social interaction (STS),right,aSTS,interacting pointlights,0.0821535977126945,50.333333333333336
+sub-51,social interaction (STS),right,aSTS,non-interacting pointlights,0.0783967102532758,50.333333333333336
+sub-51,social interaction (STS),right,aSTS,degraded speech,-0.0271220830990785,45.0
+sub-53,social interaction (STS),right,aSTS,non-interacting pointlights,0.1179245547726391,39.66666666666666
+sub-53,social interaction (STS),right,aSTS,interacting pointlights,0.1220938383197038,39.66666666666666
+sub-53,social interaction (STS),right,aSTS,degraded speech,0.1162665910511126,42.0
+sub-53,social interaction (STS),right,aSTS,intact speech,0.5139164266633707,42.0
+sub-54,social interaction (STS),right,aSTS,degraded speech,0.0754848649697563,71.0
+sub-54,social interaction (STS),right,aSTS,interacting pointlights,-0.1337189764741254,57.66666666666666
+sub-54,social interaction (STS),right,aSTS,non-interacting pointlights,-0.1284961669208433,57.66666666666666
+sub-54,social interaction (STS),right,aSTS,intact speech,0.3634351353959251,71.0
+sub-55,social interaction (STS),right,aSTS,intact speech,0.4437438337476359,73.0
+sub-55,social interaction (STS),right,aSTS,degraded speech,0.1978032050931127,73.0
+sub-55,social interaction (STS),right,aSTS,non-interacting pointlights,-0.0663839301327414,65.66666666666667
+sub-55,social interaction (STS),right,aSTS,interacting pointlights,-0.0606047150524792,65.66666666666667
+sub-56,social interaction (STS),right,aSTS,degraded speech,0.1958497607364997,92.0
+sub-56,social interaction (STS),right,aSTS,intact speech,0.7913863610158818,92.0
+sub-56,social interaction (STS),right,aSTS,non-interacting pointlights,0.0002764827990716,80.0
+sub-56,social interaction (STS),right,aSTS,interacting pointlights,0.0521479443391923,80.0
+sub-57,social interaction (STS),right,aSTS,degraded speech,0.3496841428591604,113.0
+sub-57,social interaction (STS),right,aSTS,intact speech,1.514561963383211,113.0
+sub-57,social interaction (STS),right,aSTS,interacting pointlights,0.6385022226355554,103.0
+sub-57,social interaction (STS),right,aSTS,non-interacting pointlights,0.4256158723796369,103.0
+sub-58,social interaction (STS),right,aSTS,degraded speech,-0.0528508356366676,100.0
+sub-58,social interaction (STS),right,aSTS,intact speech,0.1930479647873983,100.0
+sub-58,social interaction (STS),right,aSTS,interacting pointlights,0.2708702306730888,91.0
+sub-58,social interaction (STS),right,aSTS,non-interacting pointlights,0.1518358661873818,91.0
+sub-60,social interaction (STS),right,aSTS,degraded speech,0.1991972369320117,57.0
+sub-60,social interaction (STS),right,aSTS,intact speech,0.6345632615374929,57.0
+sub-60,social interaction (STS),right,aSTS,interacting pointlights,0.2711375124579566,71.33333333333333
+sub-60,social interaction (STS),right,aSTS,non-interacting pointlights,0.1165079765050178,71.33333333333333
+sub-61,social interaction (STS),right,aSTS,intact speech,0.2803994899806848,113.0
+sub-61,social interaction (STS),right,aSTS,degraded speech,-0.0703793242238928,113.0
+sub-61,social interaction (STS),right,aSTS,interacting pointlights,0.0750257522434399,107.33333333333331
+sub-61,social interaction (STS),right,aSTS,non-interacting pointlights,-0.210557907228653,107.33333333333331
+sub-62,social interaction (STS),right,aSTS,non-interacting pointlights,-0.2282137846877501,79.66666666666667
+sub-62,social interaction (STS),right,aSTS,intact speech,0.596757555220579,86.0
+sub-62,social interaction (STS),right,aSTS,degraded speech,0.2198452536378468,86.0
+sub-62,social interaction (STS),right,aSTS,interacting pointlights,0.0244128323191927,79.66666666666667
+sub-19,language (language),left,pTemp,intact speech,0.5400181277157272,119.0
+sub-19,language (language),left,pTemp,degraded speech,0.3018019619711062,119.0
+sub-19,language (language),left,pTemp,interacting pointlights,0.0144477003623015,106.0
+sub-19,language (language),left,pTemp,non-interacting pointlights,0.0001738775243453,106.0
+sub-23,language (language),left,pTemp,intact speech,1.099762828172456,274.5
+sub-23,language (language),left,pTemp,degraded speech,0.3533981190916135,274.5
+sub-23,language (language),left,pTemp,non-interacting pointlights,-0.4325068089497395,279.0
+sub-23,language (language),left,pTemp,interacting pointlights,-0.0680505037180479,279.0
+sub-25,language (language),left,pTemp,degraded speech,0.4312547301194007,178.0
+sub-25,language (language),left,pTemp,intact speech,-0.110067537986385,178.0
+sub-25,language (language),left,pTemp,interacting pointlights,0.212087593864693,188.0
+sub-25,language (language),left,pTemp,non-interacting pointlights,0.1588717075453474,188.0
+sub-26,language (language),left,pTemp,intact speech,1.319572433796543,192.5
+sub-26,language (language),left,pTemp,degraded speech,0.1288857339279643,192.5
+sub-26,language (language),left,pTemp,interacting pointlights,0.2017526876060766,183.0
+sub-26,language (language),left,pTemp,non-interacting pointlights,0.0539269729386658,183.0
+sub-28,language (language),left,pTemp,intact speech,0.7149570894960324,228.0
+sub-28,language (language),left,pTemp,degraded speech,0.1002468378876698,228.0
+sub-28,language (language),left,pTemp,interacting pointlights,0.260350447066938,246.0
+sub-28,language (language),left,pTemp,non-interacting pointlights,0.1712366572986363,246.0
+sub-32,language (language),left,pTemp,degraded speech,0.8296442776318764,300.0
+sub-32,language (language),left,pTemp,intact speech,2.3033570504221386,300.0
+sub-32,language (language),left,pTemp,non-interacting pointlights,0.426096861761907,300.0
+sub-32,language (language),left,pTemp,interacting pointlights,0.3254578538884523,300.0
+sub-33,language (language),left,pTemp,interacting pointlights,0.4631584344674334,276.0
+sub-33,language (language),left,pTemp,degraded speech,0.7107335635886609,275.5
+sub-33,language (language),left,pTemp,intact speech,1.5390159681929234,275.5
+sub-33,language (language),left,pTemp,non-interacting pointlights,0.3482046895298202,276.0
+sub-35,language (language),left,pTemp,interacting pointlights,0.0498520268397364,160.0
+sub-35,language (language),left,pTemp,non-interacting pointlights,0.0822655783678817,160.0
+sub-35,language (language),left,pTemp,degraded speech,0.1447916258341391,172.5
+sub-35,language (language),left,pTemp,intact speech,0.6945071390892719,172.5
+sub-36,language (language),left,pTemp,non-interacting pointlights,0.6419927466979671,237.0
+sub-36,language (language),left,pTemp,interacting pointlights,0.472630489175963,237.0
+sub-36,language (language),left,pTemp,degraded speech,0.0805686365594209,231.0
+sub-36,language (language),left,pTemp,intact speech,0.5112946706361137,231.0
+sub-38,language (language),left,pTemp,non-interacting pointlights,0.203721455601627,283.0
+sub-38,language (language),left,pTemp,interacting pointlights,0.3173239701139249,283.0
+sub-38,language (language),left,pTemp,degraded speech,0.1665907159380891,277.5
+sub-38,language (language),left,pTemp,intact speech,0.778967518742472,277.5
+sub-39,language (language),left,pTemp,interacting pointlights,-0.0649322579369322,249.0
+sub-39,language (language),left,pTemp,non-interacting pointlights,-0.1314878796307441,249.0
+sub-39,language (language),left,pTemp,degraded speech,0.3837579976716009,247.5
+sub-39,language (language),left,pTemp,intact speech,1.1340967475469188,247.5
+sub-41,language (language),left,pTemp,non-interacting pointlights,0.0957802946594002,222.0
+sub-41,language (language),left,pTemp,interacting pointlights,0.0907726542197764,222.0
+sub-41,language (language),left,pTemp,intact speech,2.040934424494943,217.5
+sub-41,language (language),left,pTemp,degraded speech,0.7411642737490013,217.5
+sub-45,language (language),left,pTemp,intact speech,1.1262392824842782,276.5
+sub-45,language (language),left,pTemp,non-interacting pointlights,0.0987471733282711,284.0
+sub-45,language (language),left,pTemp,interacting pointlights,0.1274190965552824,284.0
+sub-45,language (language),left,pTemp,degraded speech,0.3366263832066004,276.5
+sub-46,language (language),left,pTemp,interacting pointlights,0.1584598003089568,263.0
+sub-46,language (language),left,pTemp,non-interacting pointlights,-0.0165044538613398,263.0
+sub-46,language (language),left,pTemp,intact speech,2.135397700872759,260.5
+sub-46,language (language),left,pTemp,degraded speech,0.4724940009488502,260.5
+sub-50,language (language),left,pTemp,degraded speech,0.0567690509716247,248.0
+sub-50,language (language),left,pTemp,non-interacting pointlights,0.3314014521167399,268.0
+sub-50,language (language),left,pTemp,interacting pointlights,0.3069558327588507,268.0
+sub-50,language (language),left,pTemp,intact speech,0.661108413782703,248.0
+sub-51,language (language),left,pTemp,intact speech,1.2605149478646724,255.0
+sub-51,language (language),left,pTemp,degraded speech,0.4698629633279643,255.0
+sub-51,language (language),left,pTemp,non-interacting pointlights,0.1064564804196661,262.0
+sub-51,language (language),left,pTemp,interacting pointlights,0.126731847762883,262.0
+sub-53,language (language),left,pTemp,intact speech,2.141164919362223,189.5
+sub-53,language (language),left,pTemp,non-interacting pointlights,0.0380681640849796,170.0
+sub-53,language (language),left,pTemp,interacting pointlights,0.2255304973284602,170.0
+sub-53,language (language),left,pTemp,degraded speech,0.998221462561923,189.5
+sub-54,language (language),left,pTemp,non-interacting pointlights,0.0923991614213777,272.0
+sub-54,language (language),left,pTemp,intact speech,1.5492072600027995,282.0
+sub-54,language (language),left,pTemp,degraded speech,0.3082595782787317,282.0
+sub-54,language (language),left,pTemp,interacting pointlights,0.1719547056366119,272.0
+sub-55,language (language),left,pTemp,degraded speech,0.6916239782112843,230.5
+sub-55,language (language),left,pTemp,intact speech,1.8669839558497696,230.5
+sub-55,language (language),left,pTemp,non-interacting pointlights,-0.2232280916244678,232.0
+sub-55,language (language),left,pTemp,interacting pointlights,-0.1626177486030532,232.0
+sub-56,language (language),left,pTemp,intact speech,1.7108140850388187,295.0
+sub-56,language (language),left,pTemp,degraded speech,0.5269003728105844,295.0
+sub-56,language (language),left,pTemp,interacting pointlights,0.2433093643567763,300.0
+sub-56,language (language),left,pTemp,non-interacting pointlights,0.1787803451040221,300.0
+sub-57,language (language),left,pTemp,intact speech,0.8083370616770962,115.0
+sub-57,language (language),left,pTemp,non-interacting pointlights,0.142845943255943,131.0
+sub-57,language (language),left,pTemp,interacting pointlights,0.2248168022456092,131.0
+sub-57,language (language),left,pTemp,degraded speech,0.1290872620651781,115.0
+sub-58,language (language),left,pTemp,interacting pointlights,0.0870674394305549,131.0
+sub-58,language (language),left,pTemp,non-interacting pointlights,0.0836314039330921,131.0
+sub-58,language (language),left,pTemp,degraded speech,0.2071376172675045,133.0
+sub-58,language (language),left,pTemp,intact speech,1.1427002237934778,133.0
+sub-60,language (language),left,pTemp,non-interacting pointlights,0.1594297856586203,233.0
+sub-60,language (language),left,pTemp,interacting pointlights,0.2717156713495979,233.0
+sub-60,language (language),left,pTemp,degraded speech,0.5736489771693823,238.5
+sub-60,language (language),left,pTemp,intact speech,1.5730615983946332,238.5
+sub-61,language (language),left,pTemp,interacting pointlights,0.018195018959497,282.0
+sub-61,language (language),left,pTemp,non-interacting pointlights,0.0579831414953324,282.0
+sub-61,language (language),left,pTemp,degraded speech,0.2060894475634939,274.5
+sub-61,language (language),left,pTemp,intact speech,1.280810025425161,274.5
+sub-62,language (language),left,pTemp,interacting pointlights,0.1253568474987354,265.0
+sub-62,language (language),left,pTemp,non-interacting pointlights,-0.0153383815337701,265.0
+sub-62,language (language),left,pTemp,degraded speech,0.3973627436933981,268.5
+sub-62,language (language),left,pTemp,intact speech,1.4550008080687815,268.5
+sub-19,language (language),left,aTemp,interacting pointlights,-0.0508536104875897,13.0
+sub-19,language (language),left,aTemp,degraded speech,0.2446758895474938,33.5
+sub-19,language (language),left,aTemp,intact speech,0.5221907350998527,33.5
+sub-19,language (language),left,aTemp,non-interacting pointlights,-0.1105991617992429,13.0
+sub-23,language (language),left,aTemp,intact speech,1.0016363967824704,88.5
+sub-23,language (language),left,aTemp,non-interacting pointlights,-0.3545555527949352,82.0
+sub-23,language (language),left,aTemp,degraded speech,0.2134010847824519,88.5
+sub-23,language (language),left,aTemp,interacting pointlights,-0.1291465444200407,82.0
+sub-25,language (language),left,aTemp,interacting pointlights,0.3931480512811263,118.0
+sub-25,language (language),left,aTemp,non-interacting pointlights,0.2199357941896514,118.0
+sub-25,language (language),left,aTemp,degraded speech,0.5369753613112682,80.0
+sub-25,language (language),left,aTemp,intact speech,-0.1321254660938474,80.0
+sub-26,language (language),left,aTemp,non-interacting pointlights,-0.2166189581205834,93.0
+sub-26,language (language),left,aTemp,interacting pointlights,-0.0367538686536613,93.0
+sub-26,language (language),left,aTemp,degraded speech,0.521842974291915,91.0
+sub-26,language (language),left,aTemp,intact speech,2.269610093870928,91.0
+sub-28,language (language),left,aTemp,non-interacting pointlights,-0.2407186862624999,101.0
+sub-28,language (language),left,aTemp,intact speech,0.5854299742111992,63.0
+sub-28,language (language),left,aTemp,degraded speech,0.0018409140521795,63.0
+sub-28,language (language),left,aTemp,interacting pointlights,-0.1518994524385214,101.0
+sub-32,language (language),left,aTemp,degraded speech,0.5595174806536258,125.0
+sub-32,language (language),left,aTemp,intact speech,1.9074307018777024,125.0
+sub-32,language (language),left,aTemp,non-interacting pointlights,-0.1381068800743776,125.0
+sub-32,language (language),left,aTemp,interacting pointlights,-0.1038631379453809,125.0
+sub-33,language (language),left,aTemp,intact speech,2.543219066197312,57.0
+sub-33,language (language),left,aTemp,degraded speech,0.8342970602633502,57.0
+sub-33,language (language),left,aTemp,non-interacting pointlights,0.1768352090732379,71.0
+sub-33,language (language),left,aTemp,interacting pointlights,0.1973870272975484,71.0
+sub-35,language (language),left,aTemp,intact speech,0.6835513565541139,50.5
+sub-35,language (language),left,aTemp,degraded speech,0.1897349478978982,50.5
+sub-35,language (language),left,aTemp,interacting pointlights,0.1667750200879912,43.0
+sub-35,language (language),left,aTemp,non-interacting pointlights,0.1770675559987697,43.0
+sub-36,language (language),left,aTemp,degraded speech,-0.2428946078882203,32.0
+sub-36,language (language),left,aTemp,intact speech,0.0175225128932909,32.0
+sub-36,language (language),left,aTemp,non-interacting pointlights,0.3479926072449757,42.0
+sub-36,language (language),left,aTemp,interacting pointlights,0.2462301730120719,42.0
+sub-38,language (language),left,aTemp,intact speech,1.7605835396126372,63.5
+sub-38,language (language),left,aTemp,degraded speech,0.8020694116910065,63.5
+sub-38,language (language),left,aTemp,interacting pointlights,0.2660921863598037,67.0
+sub-38,language (language),left,aTemp,non-interacting pointlights,0.1377198049529827,67.0
+sub-39,language (language),left,aTemp,intact speech,1.8145516823428105,86.5
+sub-39,language (language),left,aTemp,degraded speech,0.521773082645691,86.5
+sub-39,language (language),left,aTemp,interacting pointlights,-0.1826898260702902,76.0
+sub-39,language (language),left,aTemp,non-interacting pointlights,-0.3213054564681948,76.0
+sub-41,language (language),left,aTemp,degraded speech,0.8854218982455997,43.5
+sub-41,language (language),left,aTemp,intact speech,2.1892376472965007,43.5
+sub-41,language (language),left,aTemp,non-interacting pointlights,0.1537971574743264,43.0
+sub-41,language (language),left,aTemp,interacting pointlights,0.1477980896147249,43.0
+sub-45,language (language),left,aTemp,intact speech,1.562595418628824,125.0
+sub-45,language (language),left,aTemp,degraded speech,0.557592659195686,125.0
+sub-45,language (language),left,aTemp,non-interacting pointlights,-0.0112899061929353,125.0
+sub-45,language (language),left,aTemp,interacting pointlights,-0.0223060331148181,125.0
+sub-46,language (language),left,aTemp,degraded speech,0.1965067147013361,94.0
+sub-46,language (language),left,aTemp,intact speech,1.5764770074094467,94.0
+sub-46,language (language),left,aTemp,interacting pointlights,0.0670353015737574,98.0
+sub-46,language (language),left,aTemp,non-interacting pointlights,-0.0226910709426794,98.0
+sub-50,language (language),left,aTemp,non-interacting pointlights,0.1026049420375449,89.0
+sub-50,language (language),left,aTemp,intact speech,0.730758740939391,98.5
+sub-50,language (language),left,aTemp,degraded speech,0.3560840264721546,98.5
+sub-50,language (language),left,aTemp,interacting pointlights,0.0612871890209837,89.0
+sub-51,language (language),left,aTemp,non-interacting pointlights,0.064757799399735,81.0
+sub-51,language (language),left,aTemp,interacting pointlights,0.1350945786645017,81.0
+sub-51,language (language),left,aTemp,degraded speech,0.103300000493349,65.0
+sub-51,language (language),left,aTemp,intact speech,0.7028768876026696,65.0
+sub-53,language (language),left,aTemp,non-interacting pointlights,-0.0793580237293206,61.0
+sub-53,language (language),left,aTemp,interacting pointlights,-0.1160671628325602,61.0
+sub-53,language (language),left,aTemp,degraded speech,0.7008985811553634,66.5
+sub-53,language (language),left,aTemp,intact speech,2.095340986459268,66.5
+sub-54,language (language),left,aTemp,non-interacting pointlights,0.1461857116488873,74.0
+sub-54,language (language),left,aTemp,interacting pointlights,0.202040187797533,74.0
+sub-54,language (language),left,aTemp,intact speech,1.1838812940350416,82.0
+sub-54,language (language),left,aTemp,degraded speech,0.2843533819121025,82.0
+sub-55,language (language),left,aTemp,non-interacting pointlights,-0.097481037619644,78.0
+sub-55,language (language),left,aTemp,interacting pointlights,-0.0909144730170934,78.0
+sub-55,language (language),left,aTemp,intact speech,0.7289340730456483,77.5
+sub-55,language (language),left,aTemp,degraded speech,0.1900093679067164,77.5
+sub-56,language (language),left,aTemp,non-interacting pointlights,0.0998484484948815,116.0
+sub-56,language (language),left,aTemp,interacting pointlights,0.2301954504752052,116.0
+sub-56,language (language),left,aTemp,degraded speech,0.3858740555666498,111.0
+sub-56,language (language),left,aTemp,intact speech,2.4130549074556225,111.0
+sub-57,language (language),left,aTemp,intact speech,0.8667457430987882,8.0
+sub-57,language (language),left,aTemp,interacting pointlights,-0.2306905083832162,7.0
+sub-57,language (language),left,aTemp,non-interacting pointlights,-0.0468773159853484,7.0
+sub-57,language (language),left,aTemp,degraded speech,0.1479623744217068,8.0
+sub-58,language (language),left,aTemp,interacting pointlights,0.0802559579667919,42.0
+sub-58,language (language),left,aTemp,non-interacting pointlights,0.1021102820097358,42.0
+sub-58,language (language),left,aTemp,intact speech,1.619179557950285,40.0
+sub-58,language (language),left,aTemp,degraded speech,0.0281771797675878,40.0
+sub-60,language (language),left,aTemp,degraded speech,0.1657364017784775,84.0
+sub-60,language (language),left,aTemp,intact speech,1.106708798719752,84.0
+sub-60,language (language),left,aTemp,non-interacting pointlights,0.1309455067503824,80.0
+sub-60,language (language),left,aTemp,interacting pointlights,0.3021148576005303,80.0
+sub-61,language (language),left,aTemp,intact speech,1.979503181664,118.0
+sub-61,language (language),left,aTemp,degraded speech,0.2231141105922333,118.0
+sub-61,language (language),left,aTemp,interacting pointlights,-0.0006398693197668,123.0
+sub-61,language (language),left,aTemp,non-interacting pointlights,-0.0331808151405034,123.0
+sub-62,language (language),left,aTemp,interacting pointlights,0.0097312316046002,103.0
+sub-62,language (language),left,aTemp,intact speech,1.9217445661168533,97.5
+sub-62,language (language),left,aTemp,degraded speech,0.3824192730761646,97.5
+sub-62,language (language),left,aTemp,non-interacting pointlights,-0.0682611600421245,103.0
+sub-19,language (language),right,pTemp,non-interacting pointlights,-0.0470454618473611,194.0
+sub-19,language (language),right,pTemp,interacting pointlights,0.0056200180492943,194.0
+sub-19,language (language),right,pTemp,degraded speech,0.7519239377929611,181.0
+sub-19,language (language),right,pTemp,intact speech,1.1596595930958158,181.0
+sub-23,language (language),right,pTemp,non-interacting pointlights,-0.5999045585519543,21.0
+sub-23,language (language),right,pTemp,interacting pointlights,-0.1909141493462109,21.0
+sub-23,language (language),right,pTemp,degraded speech,0.757897770828744,25.5
+sub-23,language (language),right,pTemp,intact speech,1.3245818391108428,25.5
+sub-25,language (language),right,pTemp,intact speech,0.0326835069736368,122.0
+sub-25,language (language),right,pTemp,degraded speech,0.4838670234551829,122.0
+sub-25,language (language),right,pTemp,interacting pointlights,0.1285813971644425,112.0
+sub-25,language (language),right,pTemp,non-interacting pointlights,0.0966915108918932,112.0
+sub-26,language (language),right,pTemp,intact speech,1.4952964153412616,107.5
+sub-26,language (language),right,pTemp,degraded speech,0.4863028831176655,107.5
+sub-26,language (language),right,pTemp,non-interacting pointlights,-0.0815609756333831,117.0
+sub-26,language (language),right,pTemp,interacting pointlights,0.0648993358867266,117.0
+sub-28,language (language),right,pTemp,non-interacting pointlights,-0.1971216766864078,54.0
+sub-28,language (language),right,pTemp,degraded speech,0.103455383936553,72.0
+sub-28,language (language),right,pTemp,intact speech,0.8600611971093315,72.0
+sub-28,language (language),right,pTemp,interacting pointlights,0.0996400684802544,54.0
+sub-32,language (language),right,pTemp,interacting pointlights,,0.0
+sub-32,language (language),right,pTemp,non-interacting pointlights,,0.0
+sub-32,language (language),right,pTemp,degraded speech,,0.0
+sub-32,language (language),right,pTemp,intact speech,,0.0
+sub-33,language (language),right,pTemp,degraded speech,0.606714187689247,24.5
+sub-33,language (language),right,pTemp,intact speech,1.1468941523467464,24.5
+sub-33,language (language),right,pTemp,non-interacting pointlights,0.7133769854893518,24.0
+sub-33,language (language),right,pTemp,interacting pointlights,1.1295412764142745,24.0
+sub-35,language (language),right,pTemp,intact speech,0.8484375712032689,127.5
+sub-35,language (language),right,pTemp,degraded speech,0.3431003028456925,127.5
+sub-35,language (language),right,pTemp,non-interacting pointlights,0.1016279311307271,140.0
+sub-35,language (language),right,pTemp,interacting pointlights,0.1545046817278575,140.0
+sub-36,language (language),right,pTemp,interacting pointlights,0.3668352592290413,63.0
+sub-36,language (language),right,pTemp,intact speech,0.1887889572573935,69.0
+sub-36,language (language),right,pTemp,non-interacting pointlights,0.4310868522201541,63.0
+sub-36,language (language),right,pTemp,degraded speech,-0.0498446249016467,69.0
+sub-38,language (language),right,pTemp,non-interacting pointlights,0.1436762040389201,17.0
+sub-38,language (language),right,pTemp,interacting pointlights,0.2270426114397367,17.0
+sub-38,language (language),right,pTemp,intact speech,1.877126155941602,22.5
+sub-38,language (language),right,pTemp,degraded speech,1.2246111455257622,22.5
+sub-39,language (language),right,pTemp,non-interacting pointlights,-0.2055616116913566,51.0
+sub-39,language (language),right,pTemp,intact speech,1.9092512861504431,52.5
+sub-39,language (language),right,pTemp,interacting pointlights,-0.1076782969554331,51.0
+sub-39,language (language),right,pTemp,degraded speech,1.0540871482298395,52.5
+sub-41,language (language),right,pTemp,degraded speech,1.6335180922743997,82.5
+sub-41,language (language),right,pTemp,intact speech,2.870169246842679,82.5
+sub-41,language (language),right,pTemp,non-interacting pointlights,0.2332843997456068,78.0
+sub-41,language (language),right,pTemp,interacting pointlights,0.315772919375114,78.0
+sub-45,language (language),right,pTemp,non-interacting pointlights,-0.0825184435995219,16.0
+sub-45,language (language),right,pTemp,interacting pointlights,-0.0460521620006459,16.0
+sub-45,language (language),right,pTemp,intact speech,1.7713730135205172,23.5
+sub-45,language (language),right,pTemp,degraded speech,1.160225744182907,23.5
+sub-46,language (language),right,pTemp,non-interacting pointlights,0.0327338135982631,37.0
+sub-46,language (language),right,pTemp,degraded speech,0.7282149394334678,39.5
+sub-46,language (language),right,pTemp,interacting pointlights,0.2972364169321528,37.0
+sub-46,language (language),right,pTemp,intact speech,2.307015193048856,39.5
+sub-50,language (language),right,pTemp,interacting pointlights,-0.1186361266015482,32.0
+sub-50,language (language),right,pTemp,degraded speech,0.2384356515286474,52.0
+sub-50,language (language),right,pTemp,intact speech,0.5067670469069243,52.0
+sub-50,language (language),right,pTemp,non-interacting pointlights,-0.1654864136882374,32.0
+sub-51,language (language),right,pTemp,non-interacting pointlights,0.1966577223078241,38.0
+sub-51,language (language),right,pTemp,degraded speech,0.2797866149379381,45.0
+sub-51,language (language),right,pTemp,intact speech,0.8525988011011973,45.0
+sub-51,language (language),right,pTemp,interacting pointlights,0.312751005180532,38.0
+sub-53,language (language),right,pTemp,degraded speech,0.5863237135285437,110.5
+sub-53,language (language),right,pTemp,intact speech,1.868918885181869,110.5
+sub-53,language (language),right,pTemp,non-interacting pointlights,0.0120311185211852,130.0
+sub-53,language (language),right,pTemp,interacting pointlights,0.0689756304803207,130.0
+sub-54,language (language),right,pTemp,degraded speech,0.9209105566182256,18.0
+sub-54,language (language),right,pTemp,non-interacting pointlights,-0.0570746561789993,28.0
+sub-54,language (language),right,pTemp,interacting pointlights,0.0672766188102987,28.0
+sub-54,language (language),right,pTemp,intact speech,1.825262632439983,18.0
+sub-55,language (language),right,pTemp,intact speech,1.8945201719482323,69.5
+sub-55,language (language),right,pTemp,degraded speech,0.9644007180466668,69.5
+sub-55,language (language),right,pTemp,interacting pointlights,0.1276508296693223,68.0
+sub-55,language (language),right,pTemp,non-interacting pointlights,0.2810122671970705,68.0
+sub-56,language (language),right,pTemp,degraded speech,0.4620919804210198,5.0
+sub-56,language (language),right,pTemp,intact speech,1.095107161315561,5.0
+sub-56,language (language),right,pTemp,interacting pointlights,,0.0
+sub-56,language (language),right,pTemp,non-interacting pointlights,,0.0
+sub-57,language (language),right,pTemp,degraded speech,0.2724907396692083,185.0
+sub-57,language (language),right,pTemp,intact speech,1.5532840275408692,185.0
+sub-57,language (language),right,pTemp,interacting pointlights,0.940529305924892,169.0
+sub-57,language (language),right,pTemp,non-interacting pointlights,0.5395049419770768,169.0
+sub-58,language (language),right,pTemp,degraded speech,0.0217645020563382,167.0
+sub-58,language (language),right,pTemp,interacting pointlights,0.2602483034136121,169.0
+sub-58,language (language),right,pTemp,intact speech,0.934140662645077,167.0
+sub-58,language (language),right,pTemp,non-interacting pointlights,0.1541271945893946,169.0
+sub-60,language (language),right,pTemp,non-interacting pointlights,0.34904181892926,67.0
+sub-60,language (language),right,pTemp,interacting pointlights,0.4273355649506523,67.0
+sub-60,language (language),right,pTemp,intact speech,1.619634478241567,61.5
+sub-60,language (language),right,pTemp,degraded speech,0.6393180564371198,61.5
+sub-61,language (language),right,pTemp,interacting pointlights,0.3666362963664995,18.0
+sub-61,language (language),right,pTemp,degraded speech,0.4088059579496716,25.5
+sub-61,language (language),right,pTemp,non-interacting pointlights,0.2738379410083293,18.0
+sub-61,language (language),right,pTemp,intact speech,1.1966316980059086,25.5
+sub-62,language (language),right,pTemp,interacting pointlights,0.2033902366366701,35.0
+sub-62,language (language),right,pTemp,non-interacting pointlights,0.0624850048158946,35.0
+sub-62,language (language),right,pTemp,degraded speech,0.4610126452519503,31.5
+sub-62,language (language),right,pTemp,intact speech,1.252775745476973,31.5
+sub-19,language (language),right,aTemp,interacting pointlights,0.0054168382108391,112.0
+sub-19,language (language),right,aTemp,non-interacting pointlights,-0.1250319432331755,112.0
+sub-19,language (language),right,aTemp,intact speech,1.189450239006275,91.5
+sub-19,language (language),right,aTemp,degraded speech,0.643649796033042,91.5
+sub-23,language (language),right,aTemp,interacting pointlights,-0.0865153698049907,43.0
+sub-23,language (language),right,aTemp,non-interacting pointlights,-0.3355744397724692,43.0
+sub-23,language (language),right,aTemp,degraded speech,0.3127420883390889,36.5
+sub-23,language (language),right,aTemp,intact speech,0.8203890957343523,36.5
+sub-25,language (language),right,aTemp,non-interacting pointlights,0.4554275375968723,7.0
+sub-25,language (language),right,aTemp,interacting pointlights,0.6625474443972593,7.0
+sub-25,language (language),right,aTemp,intact speech,-0.0310969148948392,45.0
+sub-25,language (language),right,aTemp,degraded speech,0.6764897535908568,45.0
+sub-26,language (language),right,aTemp,degraded speech,1.1977495313491746,34.0
+sub-26,language (language),right,aTemp,interacting pointlights,-0.1110604437144017,32.0
+sub-26,language (language),right,aTemp,non-interacting pointlights,-0.1780335227806746,32.0
+sub-26,language (language),right,aTemp,intact speech,3.0066363303735715,34.0
+sub-28,language (language),right,aTemp,degraded speech,-0.0103280288637838,62.0
+sub-28,language (language),right,aTemp,intact speech,0.7115796661540424,62.0
+sub-28,language (language),right,aTemp,non-interacting pointlights,-0.2320256814590037,24.0
+sub-28,language (language),right,aTemp,interacting pointlights,-0.147693274829033,24.0
+sub-32,language (language),right,aTemp,intact speech,,0.0
+sub-32,language (language),right,aTemp,degraded speech,,0.0
+sub-32,language (language),right,aTemp,non-interacting pointlights,,0.0
+sub-32,language (language),right,aTemp,interacting pointlights,,0.0
+sub-33,language (language),right,aTemp,degraded speech,0.9590038017008512,68.0
+sub-33,language (language),right,aTemp,intact speech,2.0340668486286453,68.0
+sub-33,language (language),right,aTemp,interacting pointlights,0.387305656534572,54.0
+sub-33,language (language),right,aTemp,non-interacting pointlights,0.2984879721450414,54.0
+sub-35,language (language),right,aTemp,degraded speech,0.5402303970900398,74.5
+sub-35,language (language),right,aTemp,intact speech,1.2811420888389593,74.5
+sub-35,language (language),right,aTemp,non-interacting pointlights,0.1936366142189494,82.0
+sub-35,language (language),right,aTemp,interacting pointlights,0.2470601954413559,82.0
+sub-36,language (language),right,aTemp,degraded speech,0.263979903817757,93.0
+sub-36,language (language),right,aTemp,intact speech,0.6303949517714325,93.0
+sub-36,language (language),right,aTemp,interacting pointlights,0.3396618926855079,83.0
+sub-36,language (language),right,aTemp,non-interacting pointlights,0.449160075287966,83.0
+sub-38,language (language),right,aTemp,degraded speech,0.9221230878267968,61.5
+sub-38,language (language),right,aTemp,intact speech,2.044253621340179,61.5
+sub-38,language (language),right,aTemp,interacting pointlights,0.2508752482225525,58.0
+sub-38,language (language),right,aTemp,non-interacting pointlights,0.1599216617559077,58.0
+sub-39,language (language),right,aTemp,intact speech,1.751566241124348,38.5
+sub-39,language (language),right,aTemp,degraded speech,0.5828169593632411,38.5
+sub-39,language (language),right,aTemp,non-interacting pointlights,-0.3366577521131431,49.0
+sub-39,language (language),right,aTemp,interacting pointlights,-0.071521034093112,49.0
+sub-41,language (language),right,aTemp,degraded speech,0.9858996679244926,81.5
+sub-41,language (language),right,aTemp,intact speech,2.2433518311958283,81.5
+sub-41,language (language),right,aTemp,non-interacting pointlights,-0.1012028465790336,82.0
+sub-41,language (language),right,aTemp,interacting pointlights,-0.0044357407921435,82.0
+sub-45,language (language),right,aTemp,intact speech,,0.0
+sub-45,language (language),right,aTemp,degraded speech,,0.0
+sub-45,language (language),right,aTemp,non-interacting pointlights,,0.0
+sub-45,language (language),right,aTemp,interacting pointlights,,0.0
+sub-46,language (language),right,aTemp,intact speech,2.289575938713844,31.0
+sub-46,language (language),right,aTemp,degraded speech,0.8164022385255988,31.0
+sub-46,language (language),right,aTemp,interacting pointlights,0.1324945057287254,27.0
+sub-46,language (language),right,aTemp,non-interacting pointlights,-0.0555608967296718,27.0
+sub-50,language (language),right,aTemp,intact speech,0.9032715160899618,26.5
+sub-50,language (language),right,aTemp,degraded speech,0.4086360054841769,26.5
+sub-50,language (language),right,aTemp,non-interacting pointlights,0.0962307098947032,36.0
+sub-50,language (language),right,aTemp,interacting pointlights,0.1059364838455506,36.0
+sub-51,language (language),right,aTemp,intact speech,0.8646880504836936,60.0
+sub-51,language (language),right,aTemp,degraded speech,0.2919101302735896,60.0
+sub-51,language (language),right,aTemp,interacting pointlights,0.0782235508308809,44.0
+sub-51,language (language),right,aTemp,non-interacting pointlights,0.0285750097877481,44.0
+sub-53,language (language),right,aTemp,degraded speech,1.3378450885642614,58.5
+sub-53,language (language),right,aTemp,intact speech,2.7089291719205346,58.5
+sub-53,language (language),right,aTemp,non-interacting pointlights,-0.1877044980066519,64.0
+sub-53,language (language),right,aTemp,interacting pointlights,-0.2282712062399392,64.0
+sub-54,language (language),right,aTemp,degraded speech,0.756448066566376,43.0
+sub-54,language (language),right,aTemp,intact speech,1.7447310429096123,43.0
+sub-54,language (language),right,aTemp,interacting pointlights,-0.0001880098795465,51.0
+sub-54,language (language),right,aTemp,non-interacting pointlights,0.0539920760841022,51.0
+sub-55,language (language),right,aTemp,degraded speech,0.3294583170228335,47.5
+sub-55,language (language),right,aTemp,intact speech,0.986386723561217,47.5
+sub-55,language (language),right,aTemp,non-interacting pointlights,-0.1393578155916116,47.0
+sub-55,language (language),right,aTemp,interacting pointlights,-0.0921592130296092,47.0
+sub-56,language (language),right,aTemp,intact speech,1.910204522551605,14.0
+sub-56,language (language),right,aTemp,degraded speech,0.5348693007350662,14.0
+sub-56,language (language),right,aTemp,non-interacting pointlights,0.1468654743126881,9.0
+sub-56,language (language),right,aTemp,interacting pointlights,0.3554044333209187,9.0
+sub-57,language (language),right,aTemp,intact speech,1.9488758538422437,117.0
+sub-57,language (language),right,aTemp,degraded speech,0.5529717725400505,117.0
+sub-57,language (language),right,aTemp,non-interacting pointlights,0.3123274695156989,118.0
+sub-57,language (language),right,aTemp,interacting pointlights,0.5342872489879633,118.0
+sub-58,language (language),right,aTemp,intact speech,1.2621247331168537,85.0
+sub-58,language (language),right,aTemp,degraded speech,0.1890725159148562,85.0
+sub-58,language (language),right,aTemp,interacting pointlights,0.1596215173293285,83.0
+sub-58,language (language),right,aTemp,non-interacting pointlights,0.1834156631330838,83.0
+sub-60,language (language),right,aTemp,intact speech,1.7125462938273412,41.0
+sub-60,language (language),right,aTemp,degraded speech,0.6129507689614543,41.0
+sub-60,language (language),right,aTemp,non-interacting pointlights,0.2932021227144512,45.0
+sub-60,language (language),right,aTemp,interacting pointlights,0.4120677374196489,45.0
+sub-61,language (language),right,aTemp,degraded speech,0.3617626987556646,7.0
+sub-61,language (language),right,aTemp,intact speech,1.1365263509921193,7.0
+sub-61,language (language),right,aTemp,non-interacting pointlights,-0.1237369724120928,2.0
+sub-61,language (language),right,aTemp,interacting pointlights,0.0762223012239314,2.0
+sub-62,language (language),right,aTemp,degraded speech,0.5673908250476434,27.5
+sub-62,language (language),right,aTemp,intact speech,1.5421430355594905,27.5
+sub-62,language (language),right,aTemp,non-interacting pointlights,-0.1162770106288613,22.0
+sub-62,language (language),right,aTemp,interacting pointlights,-0.0427234756045066,22.0
+sub-19,language (language),left,frontal,non-interacting pointlights,-0.0101725500358336,26.0
+sub-19,language (language),left,frontal,interacting pointlights,-0.0346229861702433,26.0
+sub-19,language (language),left,frontal,degraded speech,0.0015001787175319,24.0
+sub-19,language (language),left,frontal,intact speech,0.0956770353057036,24.0
+sub-23,language (language),left,frontal,degraded speech,0.1725121590094784,151.5
+sub-23,language (language),left,frontal,intact speech,0.6117581797459855,151.5
+sub-23,language (language),left,frontal,interacting pointlights,-0.0993900760364355,157.0
+sub-23,language (language),left,frontal,non-interacting pointlights,-0.3097047004976102,157.0
+sub-25,language (language),left,frontal,intact speech,-0.1793326644184636,108.5
+sub-25,language (language),left,frontal,degraded speech,0.2275826264321035,108.5
+sub-25,language (language),left,frontal,interacting pointlights,0.155484928205084,56.0
+sub-25,language (language),left,frontal,non-interacting pointlights,0.1690796981278918,56.0
+sub-26,language (language),left,frontal,intact speech,0.9541304752726816,130.5
+sub-26,language (language),left,frontal,degraded speech,0.0565803644725045,130.5
+sub-26,language (language),left,frontal,non-interacting pointlights,-0.0145546863837354,138.0
+sub-26,language (language),left,frontal,interacting pointlights,0.143133935731113,138.0
+sub-28,language (language),left,frontal,interacting pointlights,0.2414461948558713,158.0
+sub-28,language (language),left,frontal,intact speech,0.3519986824749053,150.5
+sub-28,language (language),left,frontal,degraded speech,-0.1182081173727514,150.5
+sub-28,language (language),left,frontal,non-interacting pointlights,0.1260681373557757,158.0
+sub-32,language (language),left,frontal,intact speech,0.834588712566076,158.0
+sub-32,language (language),left,frontal,interacting pointlights,0.4540150261988861,158.0
+sub-32,language (language),left,frontal,non-interacting pointlights,0.4283691739593018,158.0
+sub-32,language (language),left,frontal,degraded speech,0.1715907720539495,158.0
+sub-33,language (language),left,frontal,interacting pointlights,0.1933499918933883,134.0
+sub-33,language (language),left,frontal,non-interacting pointlights,0.1921133151549955,134.0
+sub-33,language (language),left,frontal,degraded speech,0.2323296412624147,125.5
+sub-33,language (language),left,frontal,intact speech,0.6889286987696301,125.5
+sub-35,language (language),left,frontal,intact speech,0.0367109581060465,90.0
+sub-35,language (language),left,frontal,non-interacting pointlights,0.0006158235167891,94.0
+sub-35,language (language),left,frontal,interacting pointlights,-0.0598116272260865,94.0
+sub-35,language (language),left,frontal,degraded speech,-0.1347042739425553,90.0
+sub-36,language (language),left,frontal,degraded speech,-0.1570210038945606,70.0
+sub-36,language (language),left,frontal,interacting pointlights,0.5428470215778475,58.0
+sub-36,language (language),left,frontal,non-interacting pointlights,0.5572571728665099,58.0
+sub-36,language (language),left,frontal,intact speech,-0.0551324061978914,70.0
+sub-38,language (language),left,frontal,interacting pointlights,0.2383903578516111,148.0
+sub-38,language (language),left,frontal,intact speech,0.2921229707525906,130.0
+sub-38,language (language),left,frontal,degraded speech,-0.0204169917765195,130.0
+sub-38,language (language),left,frontal,non-interacting pointlights,0.098703986402988,148.0
+sub-39,language (language),left,frontal,interacting pointlights,0.2170957442638529,157.0
+sub-39,language (language),left,frontal,non-interacting pointlights,0.0328244794497962,157.0
+sub-39,language (language),left,frontal,intact speech,0.8496786113525507,155.5
+sub-39,language (language),left,frontal,degraded speech,0.2536077239426184,155.5
+sub-41,language (language),left,frontal,interacting pointlights,0.0374841186613666,100.0
+sub-41,language (language),left,frontal,non-interacting pointlights,0.1982363273575264,100.0
+sub-41,language (language),left,frontal,degraded speech,-0.0367795996682408,96.0
+sub-41,language (language),left,frontal,intact speech,0.6727914547828266,96.0
+sub-45,language (language),left,frontal,degraded speech,0.0690611034278876,155.5
+sub-45,language (language),left,frontal,non-interacting pointlights,0.1388705252827388,153.0
+sub-45,language (language),left,frontal,interacting pointlights,0.1338635226552935,153.0
+sub-45,language (language),left,frontal,intact speech,0.4869187118409278,155.5
+sub-46,language (language),left,frontal,degraded speech,0.3621198904511365,158.0
+sub-46,language (language),left,frontal,intact speech,1.673005321859392,158.0
+sub-46,language (language),left,frontal,interacting pointlights,0.1999467525437214,158.0
+sub-46,language (language),left,frontal,non-interacting pointlights,0.0616161860950774,158.0
+sub-50,language (language),left,frontal,intact speech,0.2753640658175271,100.0
+sub-50,language (language),left,frontal,non-interacting pointlights,0.1682875486494589,131.0
+sub-50,language (language),left,frontal,interacting pointlights,0.1677381645568074,131.0
+sub-50,language (language),left,frontal,degraded speech,-0.1260439804744652,100.0
+sub-51,language (language),left,frontal,non-interacting pointlights,0.0317451806355565,124.0
+sub-51,language (language),left,frontal,interacting pointlights,0.1237993690503773,124.0
+sub-51,language (language),left,frontal,degraded speech,-0.0076896378583641,125.0
+sub-51,language (language),left,frontal,intact speech,0.2292040206614165,125.0
+sub-53,language (language),left,frontal,non-interacting pointlights,0.098394735739209,79.0
+sub-53,language (language),left,frontal,interacting pointlights,0.2267182542273258,79.0
+sub-53,language (language),left,frontal,intact speech,0.7653444465356435,73.5
+sub-53,language (language),left,frontal,degraded speech,0.3571347667370212,73.5
+sub-54,language (language),left,frontal,degraded speech,0.0589088696621359,152.5
+sub-54,language (language),left,frontal,intact speech,0.5447324245124916,152.5
+sub-54,language (language),left,frontal,interacting pointlights,0.2391181372200386,154.0
+sub-54,language (language),left,frontal,non-interacting pointlights,0.1365445823945317,154.0
+sub-55,language (language),left,frontal,degraded speech,0.1130318057024504,137.5
+sub-55,language (language),left,frontal,non-interacting pointlights,-0.0625072225040272,139.0
+sub-55,language (language),left,frontal,intact speech,0.9142445171659876,137.5
+sub-55,language (language),left,frontal,interacting pointlights,-0.0950851882645706,139.0
+sub-56,language (language),left,frontal,degraded speech,-0.125199420760038,156.0
+sub-56,language (language),left,frontal,intact speech,0.5446464364643546,156.0
+sub-56,language (language),left,frontal,interacting pointlights,0.3090499564503169,158.0
+sub-56,language (language),left,frontal,non-interacting pointlights,0.2362454365667019,158.0
+sub-57,language (language),left,frontal,intact speech,0.7806967890444692,72.0
+sub-57,language (language),left,frontal,degraded speech,0.1850249869974518,72.0
+sub-57,language (language),left,frontal,interacting pointlights,0.3711726647204283,67.0
+sub-57,language (language),left,frontal,non-interacting pointlights,0.2426766650047588,67.0
+sub-58,language (language),left,frontal,intact speech,1.0676302884710926,53.5
+sub-58,language (language),left,frontal,non-interacting pointlights,0.2214773711311359,42.0
+sub-58,language (language),left,frontal,interacting pointlights,0.2159513883499051,42.0
+sub-58,language (language),left,frontal,degraded speech,0.2611764297284744,53.5
+sub-60,language (language),left,frontal,degraded speech,-0.1746889594278227,105.0
+sub-60,language (language),left,frontal,non-interacting pointlights,0.0368243090021477,95.0
+sub-60,language (language),left,frontal,interacting pointlights,0.1729662136468964,95.0
+sub-60,language (language),left,frontal,intact speech,0.1600593178051916,105.0
+sub-61,language (language),left,frontal,non-interacting pointlights,0.3292933745494331,157.0
+sub-61,language (language),left,frontal,degraded speech,0.0711917602766729,151.0
+sub-61,language (language),left,frontal,interacting pointlights,0.2872822976185063,157.0
+sub-61,language (language),left,frontal,intact speech,0.4906837872408937,151.0
+sub-62,language (language),left,frontal,intact speech,0.9961046649946196,153.0
+sub-62,language (language),left,frontal,degraded speech,0.1925064788600562,153.0
+sub-62,language (language),left,frontal,interacting pointlights,-0.0134320091113099,155.0
+sub-62,language (language),left,frontal,non-interacting pointlights,-0.0620379786601741,155.0
+sub-19,language (language),right,frontal,interacting pointlights,0.1267386757985928,132.0
+sub-19,language (language),right,frontal,non-interacting pointlights,0.0323350302171188,132.0
+sub-19,language (language),right,frontal,degraded speech,0.2469449522487594,134.0
+sub-19,language (language),right,frontal,intact speech,0.5151203937235074,134.0
+sub-23,language (language),right,frontal,non-interacting pointlights,-0.2393859819355686,1.0
+sub-23,language (language),right,frontal,interacting pointlights,-0.0097824825615574,1.0
+sub-23,language (language),right,frontal,degraded speech,-0.066690520738808,6.5
+sub-23,language (language),right,frontal,intact speech,0.0040355237641332,6.5
+sub-25,language (language),right,frontal,non-interacting pointlights,0.2389736577089805,102.0
+sub-25,language (language),right,frontal,interacting pointlights,0.2507475325379636,102.0
+sub-25,language (language),right,frontal,degraded speech,-0.0281719014924436,49.5
+sub-25,language (language),right,frontal,intact speech,-0.2553574972856063,49.5
+sub-26,language (language),right,frontal,non-interacting pointlights,-0.2185165521379403,20.0
+sub-26,language (language),right,frontal,interacting pointlights,0.0607723942632122,20.0
+sub-26,language (language),right,frontal,intact speech,1.0645500265842909,27.5
+sub-26,language (language),right,frontal,degraded speech,-0.0198167509908585,27.5
+sub-28,language (language),right,frontal,interacting pointlights,,0.0
+sub-28,language (language),right,frontal,non-interacting pointlights,,0.0
+sub-28,language (language),right,frontal,degraded speech,0.0126368455986449,7.5
+sub-28,language (language),right,frontal,intact speech,-0.1472434857625288,7.5
+sub-32,language (language),right,frontal,interacting pointlights,,0.0
+sub-32,language (language),right,frontal,non-interacting pointlights,,0.0
+sub-32,language (language),right,frontal,intact speech,,0.0
+sub-32,language (language),right,frontal,degraded speech,,0.0
+sub-33,language (language),right,frontal,interacting pointlights,0.5454906757261166,24.0
+sub-33,language (language),right,frontal,non-interacting pointlights,0.3264307609037374,24.0
+sub-33,language (language),right,frontal,degraded speech,0.2801494099083391,32.5
+sub-33,language (language),right,frontal,intact speech,0.7763693029482137,32.5
+sub-35,language (language),right,frontal,interacting pointlights,0.137254392464126,64.0
+sub-35,language (language),right,frontal,non-interacting pointlights,0.1646153349754111,64.0
+sub-35,language (language),right,frontal,degraded speech,-0.0693649349420127,68.0
+sub-35,language (language),right,frontal,intact speech,0.0437383046759837,68.0
+sub-36,language (language),right,frontal,intact speech,0.1501086861778512,88.0
+sub-36,language (language),right,frontal,degraded speech,-0.0363951702799366,88.0
+sub-36,language (language),right,frontal,interacting pointlights,0.3143325529392056,100.0
+sub-36,language (language),right,frontal,non-interacting pointlights,0.3818699956936949,100.0
+sub-38,language (language),right,frontal,intact speech,0.2878109855547423,28.0
+sub-38,language (language),right,frontal,degraded speech,0.2121944588943749,28.0
+sub-38,language (language),right,frontal,interacting pointlights,0.2930813018423879,10.0
+sub-38,language (language),right,frontal,non-interacting pointlights,0.0289169649405392,10.0
+sub-39,language (language),right,frontal,intact speech,0.7806725269982582,2.5
+sub-39,language (language),right,frontal,degraded speech,0.3803947458575915,2.5
+sub-39,language (language),right,frontal,interacting pointlights,1.0307340266707654,1.0
+sub-39,language (language),right,frontal,non-interacting pointlights,0.5688538111294232,1.0
+sub-41,language (language),right,frontal,intact speech,0.7013817281725987,62.0
+sub-41,language (language),right,frontal,non-interacting pointlights,0.1622972124514678,58.0
+sub-41,language (language),right,frontal,interacting pointlights,0.0900335720574089,58.0
+sub-41,language (language),right,frontal,degraded speech,0.0629560383942272,62.0
+sub-45,language (language),right,frontal,non-interacting pointlights,-0.0863238526335949,5.0
+sub-45,language (language),right,frontal,interacting pointlights,0.0727410922904017,5.0
+sub-45,language (language),right,frontal,intact speech,0.0061262145643699,2.5
+sub-45,language (language),right,frontal,degraded speech,0.0615701157366031,2.5
+sub-46,language (language),right,frontal,interacting pointlights,,0.0
+sub-46,language (language),right,frontal,non-interacting pointlights,,0.0
+sub-46,language (language),right,frontal,intact speech,,0.0
+sub-46,language (language),right,frontal,degraded speech,,0.0
+sub-50,language (language),right,frontal,degraded speech,0.035771778937373,58.0
+sub-50,language (language),right,frontal,intact speech,0.0819625776670605,58.0
+sub-50,language (language),right,frontal,non-interacting pointlights,0.1905835417440556,27.0
+sub-50,language (language),right,frontal,interacting pointlights,0.1681123994394733,27.0
+sub-51,language (language),right,frontal,intact speech,0.2099022411884801,33.0
+sub-51,language (language),right,frontal,degraded speech,-0.0596638631231307,33.0
+sub-51,language (language),right,frontal,interacting pointlights,0.1548977211396077,34.0
+sub-51,language (language),right,frontal,non-interacting pointlights,0.0593791796400929,34.0
+sub-53,language (language),right,frontal,intact speech,0.630061173227866,84.5
+sub-53,language (language),right,frontal,degraded speech,-0.007592696609005,84.5
+sub-53,language (language),right,frontal,non-interacting pointlights,0.1442112828541156,79.0
+sub-53,language (language),right,frontal,interacting pointlights,0.2095554367807487,79.0
+sub-54,language (language),right,frontal,degraded speech,0.0813387191983561,5.5
+sub-54,language (language),right,frontal,intact speech,0.4817500472932455,5.5
+sub-54,language (language),right,frontal,interacting pointlights,0.092088558619028,4.0
+sub-54,language (language),right,frontal,non-interacting pointlights,-0.0264397548380724,4.0
+sub-55,language (language),right,frontal,degraded speech,0.2293777960232305,20.5
+sub-55,language (language),right,frontal,interacting pointlights,-0.0121335181706006,19.0
+sub-55,language (language),right,frontal,non-interacting pointlights,0.0511527321573517,19.0
+sub-55,language (language),right,frontal,intact speech,1.0566620762905277,20.5
+sub-56,language (language),right,frontal,intact speech,0.4979869629107917,2.0
+sub-56,language (language),right,frontal,degraded speech,0.1119296457681039,2.0
+sub-56,language (language),right,frontal,non-interacting pointlights,,0.0
+sub-56,language (language),right,frontal,interacting pointlights,,0.0
+sub-57,language (language),right,frontal,intact speech,0.7590984051515666,86.0
+sub-57,language (language),right,frontal,degraded speech,0.0536920785204762,86.0
+sub-57,language (language),right,frontal,interacting pointlights,0.3878156883293976,91.0
+sub-57,language (language),right,frontal,non-interacting pointlights,0.1995532123018663,91.0
+sub-58,language (language),right,frontal,degraded speech,0.2775260018597664,104.5
+sub-58,language (language),right,frontal,intact speech,1.1722820476485751,104.5
+sub-58,language (language),right,frontal,interacting pointlights,0.3845095513398777,116.0
+sub-58,language (language),right,frontal,non-interacting pointlights,0.2973363481265458,116.0
+sub-60,language (language),right,frontal,intact speech,0.45081382419985,53.0
+sub-60,language (language),right,frontal,degraded speech,-0.0487965443490263,53.0
+sub-60,language (language),right,frontal,interacting pointlights,0.7112337448612899,63.0
+sub-60,language (language),right,frontal,non-interacting pointlights,0.5829480991805494,63.0
+sub-61,language (language),right,frontal,degraded speech,-0.0907129867993727,7.0
+sub-61,language (language),right,frontal,intact speech,-0.0135828763496536,7.0
+sub-61,language (language),right,frontal,non-interacting pointlights,0.0110032495457286,1.0
+sub-61,language (language),right,frontal,interacting pointlights,0.0574968716423484,1.0
+sub-62,language (language),right,frontal,degraded speech,0.1793789220307833,5.0
+sub-62,language (language),right,frontal,intact speech,0.648811822945411,5.0
+sub-62,language (language),right,frontal,non-interacting pointlights,0.4399044531759142,3.0
+sub-62,language (language),right,frontal,interacting pointlights,0.507976265384945,3.0

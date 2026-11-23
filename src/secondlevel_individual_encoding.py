@@ -39,9 +39,10 @@ warnings.filterwarnings("ignore", message="invalid value encountered in scalar d
 
 class SecondLevelIndividual(encoding.EncodingModel):
 
-    def __init__(self, args):
+    def __init__(self, args, measure_suffix=''):
         self.process = 'SecondLevelIndividual'
         self.dir = args.dir
+        self.measure_suffix = measure_suffix  # For speech_only_eval support
         self.data_dir = os.path.join(args.dir,'data')
         self.enc_dir = os.path.join(args.out_dir,'EncodingModel')
         self.glm_dir = os.path.join(args.out_dir, 'GLM')
@@ -67,15 +68,15 @@ class SecondLevelIndividual(encoding.EncodingModel):
         self.feature_names = []
         self.run_groups = {'SIpointlights':[('12','3'),('23','1'),('13','2')],'language':[('1','2'),('2','1')]} #localizer, response
         self.all_runs = {'SIpointlights':'123','language':'12'}
-        self.localizer_contrasts = {'SIpointlights':{'interact&no_interact','interact-no_interact'},'language':{'intact-degraded','degraded-intact'}}
+        self.localizer_contrasts = {'SIpointlights':{'interact&no_interact','interact-no_interact'},'language':{'intact-degraded'}}
         self.MT = ['MT']
         self.ISC = ['ISC']
         self.STS = ['pSTS','aSTS']
         self.language =['aTemp','pTemp','frontal']
         self.language_ROI_names = ['aTemp','pTemp','frontal']
-        self.localizer_masks = {'interact&no_interact':self.MT,'interact-no_interact':self.STS,'intact-degraded':self.language, 'degraded-intact':self.STS,
+        self.localizer_masks = {'interact&no_interact':self.MT,'interact-no_interact':self.STS,'intact-degraded':self.language,
                                 'motion pointlights':self.MT,'SI pointlights':self.STS, 'language':self.language, 'DMN': self.STS,
-                                'motion':self.MT,'num_agents':self.STS, 'alexnet':self.ISC,
+                                'motion':self.MT,'social interaction':self.STS,'num_agents':self.STS, 'alexnet':self.ISC,
                                 'social':self.STS,'valence':self.STS,'face':self.STS,'mentalization':self.ISC, 'arousal':self.ISC,
                                 'SLIP':self.ISC,'SimCLR':self.ISC,'CLIP':self.language, 'GPT2':self.language,
                                 'SLIP_attention':self.ISC,'SimCLR_attention':self.ISC,'SLIP_embedding':self.ISC,'SimCLR_embedding':self.ISC,
@@ -118,13 +119,17 @@ class SecondLevelIndividual(encoding.EncodingModel):
         Path(f'{self.figure_dir}/{"map"}').mkdir(exist_ok=True, parents=True)
         Path(f'{self.figure_dir}/{"overlap"}').mkdir(exist_ok=True, parents=True)
 
-        self.enc_file_label = '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen) 
+        self.enc_file_label = '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
+        self.enc_file_label_new = '_smoothingfwhm-'+str(self.smoothing_fwhm)
         self.glm_file_label = '_smoothingfwhm-'+str(self.smoothing_fwhm)
 
         if(self.mask_name!=None):
             self.enc_file_label = self.enc_file_label + '_mask-'+self.mask_name
+            self.enc_file_label_new = self.enc_file_label_new + '_mask-'+self.mask_name + '_chunklen-'+str(self.chunklen)
             # self.glm_file_label = self.glm_file_label + '_mask-' +self.mask_name
             self.mask = helpers.load_mask(self,self.mask_name)
+        else:
+            self.enc_file_label_new = self.enc_file_label_new + '_chunklen-'+str(self.chunklen)
 
         self.labels_dict = {
             # 'SimCLR':'SimCLR only',
@@ -168,14 +173,21 @@ class SecondLevelIndividual(encoding.EncodingModel):
             'sbert_layer2':'sBERT layer 2',
             'sbert_layer1':'sBERT layer 1',
             'vision':'AlexNet+motion',
-            'language':'HuBERT+word2vec+sBERT',
+            'vision_simclr':'SimCLR+motion',
+            'language':'HuBERT+word2vec+GPT2',
             'vision_transformers':'SimCLR+motion',
             'language_transformers':'HuBERT+word2vec+GPT2',
-            'alexnet': 'Vision Model',
+            'alexnet': 'Image Model',
+            'alexnet_eps0.3': 'Image Model',
             'motion':'Motion Model',
             'hubert':'Speech Model',
+            'hubert_chunk120':'Speech Model',
             'word2vec':'Word Model',
-            'sbert':'Sentence Model'
+            'sbert':'Sentence Model',
+            'GPT2_chunk120':'Sentence Model',
+            'SimCLR_attention_eps0.3': 'SimCLR attention',
+            'SimCLR_embedding_eps0.3': 'SimCLR embedding',
+            'SimCLR_eps0.3': 'SimCLR'
             }
         self.features_dict = {
             'alexnet':'torchvision_alexnet_imagenet1k_v1',
@@ -220,11 +232,18 @@ class SecondLevelIndividual(encoding.EncodingModel):
         self.cmaps = plotting_helpers.get_cmaps()
         self.colors_dict = plotting_helpers.get_colors_dict()
         self.subjects = helpers.get_subjects(self.population)
+
+        # Clipping control parameters
+        self.clip_negative_performance = False
+        self.clip_negative_product_measure = False
+        self.mask_by_performance = True
+
     def get_feature_index(self, feature, weight=False, selection_model=''):
+        # Simplified feature file naming: encoding_model-[model_name].csv
         if(selection_model==''):
-            file_label = 'encoding_model-'+self.model+self.enc_file_label
+            file_label = 'encoding_model-'+self.model
         else:
-            file_label = 'encoding_model-'+selection_model+self.enc_file_label
+            file_label = 'encoding_model-'+selection_model
 
         if weight:
             filename = os.path.join(self.enc_dir,'features',file_label+'_weight_features.csv')
@@ -275,30 +294,73 @@ class SecondLevelIndividual(encoding.EncodingModel):
             temp[~np.isnan(nan_col)] = np.nanargmax(temp_transposed[~np.isnan(nan_col),:], axis=1) #take the first index that reached 95% (forward direction)
             
         return temp.astype(int)  
-    def generate_preference_maps(self,load=False,measure='ind_product_measure',restricted=False,threshold=0,features=[],color_dict=None,file_tag='',views=['lateral','ventral']):
+    def generate_preference_maps(self,load=False,measure='ind_product_measure',restricted=False,threshold=0,features=[],color_dict=None,file_tag='',views=['lateral','ventral'],roi_thickness=0,width_mm=None,fontsize=7):
         fsaverage = nilearn.datasets.fetch_surf_fsaverage(mesh='fsaverage')
-        enc_file_label = '_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
+        # Try new ordering first (mask before chunklen)
+        enc_file_label_new = '_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)
         if(self.mask_name!=None):
-            enc_file_label = enc_file_label + '_mask-'+self.mask_name
+            enc_file_label_new = enc_file_label_new + '_mask-'+self.mask_name + '_chunklen-'+str(self.chunklen)
+        else:
+            enc_file_label_new = enc_file_label_new + '_chunklen-'+str(self.chunklen)
+
+        # Old ordering (chunklen before mask) as fallback
+        enc_file_label_old = '_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
+        if(self.mask_name!=None):
+            enc_file_label_old = enc_file_label_old + '_mask-'+self.mask_name
 
         for subject_ind,subject in enumerate(self.subjects['sherlock']):
             #load the feature product measure data
             if(measure=='ind_product_measure'):
-                enc_response_path = os.path.join(self.enc_dir,'ind_product_measure',subject+enc_file_label+'_measure-ind_product_measure_raw.nii.gz')
-                enc_response_img = nibabel.load(enc_response_path)
+                # Try both orderings for product measure file
+                enc_response_path_new = os.path.join(self.enc_dir,'ind_product_measure',subject+enc_file_label_new+'_measure-ind_product_measure_raw.nii.gz')
+                enc_response_path_old = os.path.join(self.enc_dir,'ind_product_measure',subject+enc_file_label_old+'_measure-ind_product_measure_raw.nii.gz')
+
+                if os.path.exists(enc_response_path_new):
+                    enc_response_img = nibabel.load(enc_response_path_new)
+                elif os.path.exists(enc_response_path_old):
+                    enc_response_img = nibabel.load(enc_response_path_old)
+                else:
+                    raise FileNotFoundError(f"Could not find product measure file with either ordering:\n  New: {enc_response_path_new}\n  Old: {enc_response_path_old}")
+
                 enc_response_data = enc_response_img.get_fdata()
-                
-                enc_performance_path = os.path.join(self.enc_dir,'performance',subject+enc_file_label+'_measure-perf_raw.nii.gz')
-                enc_performance_img = nibabel.load(enc_performance_path)
+
+                # Try both orderings for performance file
+                enc_performance_path_new = os.path.join(self.enc_dir,'performance',subject+enc_file_label_new+'_measure-perf_raw.nii.gz')
+                enc_performance_path_old = os.path.join(self.enc_dir,'performance',subject+enc_file_label_old+'_measure-perf_raw.nii.gz')
+
+                if os.path.exists(enc_performance_path_new):
+                    enc_performance_img = nibabel.load(enc_performance_path_new)
+                elif os.path.exists(enc_performance_path_old):
+                    enc_performance_img = nibabel.load(enc_performance_path_old)
+                else:
+                    raise FileNotFoundError(f"Could not find performance file with either ordering:\n  New: {enc_performance_path_new}\n  Old: {enc_performance_path_old}")
+
                 enc_performance_data = enc_performance_img.get_fdata()
             elif(measure=='structured_variance'):
                 data = [] #first entry is the full model (assumes that self.model is the full model)
                 for feature in features:
-                    enc_file_label = '_encoding_model-'+feature + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
+                    # Try new ordering first (mask before chunklen)
+                    enc_file_label_new = '_encoding_model-'+feature + '_smoothingfwhm-'+str(self.smoothing_fwhm)
                     if(self.mask_name!=None):
-                        enc_file_label = enc_file_label + '_mask-'+self.mask_name
-                    enc_response_path = os.path.join(self.enc_dir,'performance',subject+enc_file_label+'_measure-perf_raw.nii.gz')
-                    enc_response_img = nibabel.load(enc_response_path)
+                        enc_file_label_new = enc_file_label_new + '_mask-'+self.mask_name + '_chunklen-'+str(self.chunklen)
+                    else:
+                        enc_file_label_new = enc_file_label_new + '_chunklen-'+str(self.chunklen)
+
+                    # Old ordering (chunklen before mask) as fallback
+                    enc_file_label_old = '_encoding_model-'+feature + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
+                    if(self.mask_name!=None):
+                        enc_file_label_old = enc_file_label_old + '_mask-'+self.mask_name
+
+                    enc_response_path_new = os.path.join(self.enc_dir,'performance',subject+enc_file_label_new+'_measure-perf_raw.nii.gz')
+                    enc_response_path_old = os.path.join(self.enc_dir,'performance',subject+enc_file_label_old+'_measure-perf_raw.nii.gz')
+
+                    if os.path.exists(enc_response_path_new):
+                        enc_response_img = nibabel.load(enc_response_path_new)
+                    elif os.path.exists(enc_response_path_old):
+                        enc_response_img = nibabel.load(enc_response_path_old)
+                    else:
+                        raise FileNotFoundError(f"Could not find performance file with either ordering:\n  New: {enc_response_path_new}\n  Old: {enc_response_path_old}")
+
                     subtract_model_data = enc_response_img.get_fdata()
                     data.append(subtract_model_data)
                 
@@ -372,7 +434,7 @@ class SecondLevelIndividual(encoding.EncodingModel):
                     ROI_niis.append(nibabel.load(ROI_file))
                 except Exception as e:
                     print(e)
-            plotting_helpers.plot_preference_surf(preference1_map_surf,os.path.join(self.figure_dir,"preference_map",file_label+'_measure-'+measure+'_preference1_map_'+file_tag),ROI_niis=ROI_niis,ROIs=ROIs,ROI_colors=ROI_colors,color_dict=color_dict,cmap=surf_cmap,threshold=0.001,title=title,vmax = len(features),views=views)   
+            plotting_helpers.plot_preference_surf(preference1_map_surf,os.path.join(self.figure_dir,"preference_map",file_label+'_measure-'+measure+'_preference1_map_'+file_tag),ROI_niis=ROI_niis,ROIs=ROIs,ROI_colors=ROI_colors,color_dict=color_dict,cmap=surf_cmap,threshold=0.001,title=title,vmax = len(features),views=views,roi_thickness=roi_thickness,width_mm=width_mm,fontsize=fontsize)   
     def glm_voxel_selection(self, load=False, plot_ind=True, plot=True, plot_stacked=True,
                          response_label='ind_feature_performance', localizers_to_plot=[],
                          localizer_label_dict={}, plot_noise_ceiling=False, stats_to_do=None,
@@ -380,9 +442,14 @@ class SecondLevelIndividual(encoding.EncodingModel):
                          average_posterior_anterior=False, average_left_right=False,
                          figure_tag='', restrict_legend=False,
                          plot_lines=False, label_region=True,
-                         legend_below=True):
+                         legend_below=True, include_cross_subject=False,
+                         clip_negative_to_zero=True, save_source_data=False, overlay_points=False,
+                         exclude_outliers=False, outlier_iqr_multiplier=3):
         """
         For GLM, select voxels and collect responses using VoxelSelectionManager.
+        exclude_outliers: drop a participant's encoding response in a region if it is beyond
+        outlier_iqr_multiplier * IQR from the quartiles of that region (per hemisphere, model, and feature),
+        i.e. Tukey's far out fence by default. The excluded values are saved to a csv in out_dir.
         """
         print('Running GLM voxel selection...')
 
@@ -390,7 +457,8 @@ class SecondLevelIndividual(encoding.EncodingModel):
             results = self.vsm.collect_glm_voxel_selection(
                 response_label=response_label,
                 filepath_tag=filepath_tag,
-                extraction_threshold=extraction_threshold
+                extraction_threshold=extraction_threshold,
+                include_cross_subject=include_cross_subject
             )
             
         base_filename = f"{self.sid}{self.enc_file_label}_model-{self.model}_perc_top_voxels-{self.perc_top_voxels}_glm_localizer_{response_label}_{filepath_tag}"
@@ -403,6 +471,11 @@ class SecondLevelIndividual(encoding.EncodingModel):
         pkl_path = os.path.join(self.out_dir, base_filename +'_voxelwise.pkl')
 
 
+        # a row is cross-validated when its localizer and response come from separate runs (several run groups averaged)
+        results['cross_validated'] = [len(runs.split(',')) > 1 for runs in results['averaged_localizer_runs'].astype(str)]
+        # all-runs localizer with a response from the same task: the glm response is not independent of the localizer
+        same_task_all_runs = (results['glm_task_localizer'] == results['glm_task_response']) & ~results['cross_validated']
+
         # --- Plotting ---
         if plot:
             localizer_contrasts = [loc + ' (' + localizer_label_dict[loc] + ')' for loc in localizers_to_plot]
@@ -414,29 +487,61 @@ class SecondLevelIndividual(encoding.EncodingModel):
                     if not average_posterior_anterior:
                         width_ratios[2]=3
             
-            self.plot_glm_response(results, average_posterior_anterior, column_group='localizer_contrast_label',
+            self.plot_glm_response(results[~same_task_all_runs], average_posterior_anterior, column_group='localizer_contrast_label',
                                 col_order=localizer_contrasts, label_dict=localizer_label_dict, width_ratios=width_ratios,
                                 loc_name='localizer_contrast', model_label='model', selection_model='',
                                 file_label='glm_localizer_glm_response', filepath_tag=filepath_tag,label_region=label_region,
-                                legend_below=legend_below)
+                                legend_below=legend_below, save_source_data=save_source_data,
+                                overlay_points=overlay_points)
 
-            # print(results['averaged_localizer_runs'])
-            results['cross_validated'] = [len(runs.split(',')) > 1 for runs in results['averaged_localizer_runs']]
+            # encoding responses come from the all-runs localizer (the same voxels as Figures 4 and 5)
             results = results[~results['cross_validated']].copy()
+            # drop the empty placeholder rows (localizer task without the other task's response, no runs), so the
+            # de-duplication of the all-runs rows never keeps a placeholder over the participant's real row
+            results = results[results['averaged_localizer_runs'].notna()]
 
-            hue = 'enc_feature_name'
+            if exclude_outliers:
+                results = self.exclude_encoding_outliers(results, base_filename, outlier_iqr_multiplier)
+
+            # Only plot individual encoding responses for feature-specific measures
+            #
+            if response_label != 'performance':
+                hue = 'enc_feature_name'
             if response_label == 'performance':
-                results['encoding_response'][results['encoding_response'] < 0] = 0
+                if self.clip_negative_performance:
+                    results['encoding_response'][results['encoding_response'] < 0] = 0
                 hue = 'model'
+                
             self.plot_enc_response(results, average_posterior_anterior, average_left_right, column_group='localizer_contrast_label',
-                                    col_order=localizer_contrasts, label_dict=localizer_label_dict, width_ratios=width_ratios,
-                                    response_label=response_label, hue=hue, loc_name='localizer_contrast',
-                                    model_label='model', file_label='glm_localizer_enc_response-'+response_label, plot_stacked=plot_stacked,
-                                    plot_noise_ceiling=plot_noise_ceiling, stats_to_do=stats_to_do,
-                                    parametric=parametric, filepath_tag=filepath_tag, figure_tag=figure_tag,
-                                    restrict_legend=restrict_legend, label_region=label_region)
+                                        col_order=localizer_contrasts, label_dict=localizer_label_dict, width_ratios=width_ratios,
+                                        response_label=response_label, hue=hue, loc_name='localizer_contrast',
+                                        model_label='model', file_label='glm_localizer_enc_response-'+response_label, plot_stacked=plot_stacked,
+                                        plot_noise_ceiling=plot_noise_ceiling, stats_to_do=stats_to_do,
+                                        parametric=parametric, filepath_tag=filepath_tag, figure_tag=figure_tag,
+                                        restrict_legend=restrict_legend, label_region=label_region,
+                                        save_source_data=save_source_data, overlay_points=overlay_points)
 
         return summary_path,pkl_path       
+    def exclude_encoding_outliers(self, results, base_filename, iqr_multiplier=3):
+        """Remove encoding responses beyond iqr_multiplier * IQR from the quartiles, computed across participants
+        within each localizer contrast, region, hemisphere, model, and feature. Saves the removed rows to a csv."""
+        group_cols = ['localizer_contrast', 'mask', 'hemisphere', 'model', 'enc_feature_name']
+        # model performance has no feature name; fill the missing group labels so every row is grouped
+        grouped = results['encoding_response'].groupby([results[col].fillna('') for col in group_cols])
+        q1 = grouped.transform(lambda x: x.quantile(0.25))
+        q3 = grouped.transform(lambda x: x.quantile(0.75))
+        iqr = q3 - q1
+        is_outlier = (results['encoding_response'] < q1 - iqr_multiplier * iqr) | (results['encoding_response'] > q3 + iqr_multiplier * iqr)
+        outliers = results[is_outlier]
+        outlier_path = os.path.join(self.out_dir, base_filename + f'_outliers_iqr-{iqr_multiplier}.csv')
+        outliers[['subject'] + group_cols + ['encoding_response', 'num_voxels']].drop_duplicates().to_csv(outlier_path, index=False)
+        summary = outliers.drop_duplicates(subset=['subject', 'mask', 'hemisphere', 'model'])
+        print(f'excluded {len(summary)} outlier participant-region values ({iqr_multiplier} x IQR):')
+        for _, row in summary.iterrows():
+            print(f"   {row['subject']} {row['hemisphere']} {row['mask']} ({row['model']}): {row['encoding_response']:.2f}")
+        print('outliers saved:', outlier_path)
+        return results[~is_outlier].copy()
+
     def save_data(self, data, filename, save_type='csv'):
         """
         Save data to a file.
@@ -489,9 +594,9 @@ class SecondLevelIndividual(encoding.EncodingModel):
             for prev_mask in ['pTemp','aTemp']:
                 results['mask'].replace(prev_mask, 'temporal', inplace=True)
 
-            average_these = ['glm_weight', 'proportion_voxels', 'encoding_response',
-                            'ISC', 'cross-subject encoding (MT+STS+language)',
-                            'cross-subject encoding (ISC)', 'num_voxels']
+            average_these = ['glm_weight', 'proportion_voxels', 'encoding_response', 'num_voxels']
+            if 'cross-subject encoding' in results.columns:
+                average_these.append('cross-subject encoding')
             columns = [col for col in results.columns if col not in average_these and not results[col].isna().all()]
             results = pd.pivot_table(data=results, values=average_these, index=columns, aggfunc='mean').reset_index()
 
@@ -537,8 +642,12 @@ class SecondLevelIndividual(encoding.EncodingModel):
             for prev_mask in ['aTemp','pTemp']:
                 results['mask'].replace(prev_mask, 'temporal', inplace=True)
 
-            average_these = ['glm_weight', 'encoding_response', 'proportion_voxels',
-                            'ISC', 'cross-subject encoding (MT+STS+language)', 'cross-subject encoding (ISC)']
+            # Build list of columns to average, only including those that exist
+            # num_voxels differs between the posterior and anterior regions, so it is averaged too (not an index column)
+            average_these = ['glm_weight', 'encoding_response', 'proportion_voxels', 'num_voxels']
+            if 'cross-subject encoding' in results.columns:
+                average_these.append('cross-subject encoding')
+
             columns = [col for col in results.columns if col not in average_these]
 
             # Replace all-NaN index columns with 0 to avoid pivot issues
@@ -550,8 +659,11 @@ class SecondLevelIndividual(encoding.EncodingModel):
 
         if average_left_right:
             results['hemisphere'] = 'both' #replace all hemisphere info with both
-            average_these = ['glm_weight', 'encoding_response', 'proportion_voxels',
-                            'ISC', 'cross-subject encoding (MT+STS+language)', 'cross-subject encoding (ISC)']
+            # Build list of columns to average, only including those that exist
+            average_these = ['glm_weight', 'encoding_response', 'proportion_voxels', 'num_voxels']
+            if 'cross-subject encoding' in results.columns:
+                average_these.append('cross-subject encoding')
+
             columns = [col for col in results.columns if col not in average_these]
 
             # Replace all-NaN index columns with 0 to avoid pivot issues
@@ -604,7 +716,9 @@ class SecondLevelIndividual(encoding.EncodingModel):
         filepath_tag,
         parametric=True,
         label_region=True,
-        legend_below=True
+        legend_below=True,
+        save_source_data=False,
+        overlay_points=False
     ):
         # 1. Prepare Data
         df = self.prepare_glm_dataframe(
@@ -614,13 +728,28 @@ class SecondLevelIndividual(encoding.EncodingModel):
             label_dict=label_dict
         )
 
+        # Save the plotted per-subject data (posterior/anterior already averaged within subject)
+        if save_source_data:
+            source_df = df.sort_values(by=['hemi_mask_ID', 'subject'])[
+                ['subject', 'localizer_contrast_label', 'hemisphere', 'mask', 'Condition', 'glm_weight', 'num_voxels']
+            ].rename(columns={'localizer_contrast_label': 'localizer', 'mask': 'region',
+                              'Condition': 'condition', 'glm_weight': 'beta_weight'})
+            avg_tag = '_avg_post_ant' if average_posterior_anterior else ''
+            source_path = os.path.join(
+                self.figure_dir,
+                f"{self.sid}{self.enc_file_label}_model-{selection_model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response{avg_tag}_source_data.csv"
+            )
+            source_df.to_csv(source_path, index=False)
+            print('glm response source data saved:', source_path)
+
         # 2. Set plot params
         params = {
             'x': 'hemi_mask',
             'y': 'glm_weight',
             'hue': 'Condition',
             'hue_order': ['interacting pointlights', 'non-interacting pointlights', 'intact speech', 'degraded speech'],
-            'palette': {'interacting pointlights':self.colors_dict['social'],'non-interacting pointlights':self.colors_dict['non-social'], 'intact speech':self.colors_dict['sbert'],'degraded speech':self.colors_dict['hubert']}#'plasma'
+            # interacting pointlights dark purple, non-interacting light purple
+            'palette': {'interacting pointlights':'#54278F','non-interacting pointlights':'#BCBDDC', 'intact speech':self.colors_dict['GPT2_chunk120'],'degraded speech':self.colors_dict['hubert']}#'plasma'
         }
 
         # 3. Bar + Point plots
@@ -633,7 +762,8 @@ class SecondLevelIndividual(encoding.EncodingModel):
             sharey=False,
             legend_below=legend_below,
             height=4.6,
-            aspect=1.2
+            aspect=1.2,
+            overlay_points=overlay_points
         )
 
         # 4. Define regions
@@ -642,7 +772,8 @@ class SecondLevelIndividual(encoding.EncodingModel):
         STS = ['STS'] if average_posterior_anterior else self.STS
         language = ['temporal','frontal'] if average_posterior_anterior else self.language_ROI_names
 
-        region_sets = {'point': point_fig, 'bar': bar_fig}
+        # bars with the individual points drawn on are saved under their own name
+        region_sets = {'point': point_fig, 'bar_points' if overlay_points else 'bar': bar_fig}
 
         for label, fig in region_sets.items():
             for ax_row in fig.axes:
@@ -662,10 +793,21 @@ class SecondLevelIndividual(encoding.EncodingModel):
                     independent_var = 'Condition'
 
                     # 5. Stats + annotate
-                    comparison_pairs = [
+                    # Define all possible comparison pairs
+                    all_comparison_pairs = [
                         ('interacting pointlights', 'non-interacting pointlights'),
                         ('intact speech', 'degraded speech')
                     ]
+
+                    # Filter to only pairs where both conditions exist in the data
+                    available_conditions = set(panel_df['Condition'].unique())
+                    # print(f"DEBUG: Available conditions in panel_df: {available_conditions}")
+                    comparison_pairs = [
+                        pair for pair in all_comparison_pairs
+                        if pair[0] in available_conditions and pair[1] in available_conditions
+                    ]
+                    # print(f"DEBUG: Filtered comparison_pairs: {comparison_pairs}")
+                    # print(f"DEBUG: masks: {masks}")
 
                     pairs, pvals = stats_helpers.compute_pairwise_stats(
                         data=panel_df,
@@ -673,16 +815,21 @@ class SecondLevelIndividual(encoding.EncodingModel):
                         condition_var='Condition',
                         value_var='glm_weight',
                         parametric=parametric,
-                        comparison_pairs=comparison_pairs 
+                        comparison_pairs=comparison_pairs
                     )
+                    # print(f"DEBUG: Returned pairs: {len(pairs)}, pvals: {len(pvals)}")
 
-                    plotting_helpers.apply_stat_annotations(
-                        ax=ax,
-                        pairs=pairs,
-                        pvals=pvals,
-                        data=panel_df,
-                        params=params
-                    )
+                    # Only apply annotations if there are valid pairs
+                    if len(pairs) > 0:
+                        plotting_helpers.apply_stat_annotations(
+                            ax=ax,
+                            pairs=pairs,
+                            pvals=pvals,
+                            data=panel_df,
+                            params=params
+                        )
+                    else:
+                        print(f"DEBUG: Skipping stat annotations (no valid pairs for these masks)")
 
                     # 6. Cosmetic
                     ax.set_xticklabels([f"{t.get_text().split(' ')[1]}\n{t.get_text().split(' ')[0]}" for t in ax.get_xticklabels()])
@@ -690,35 +837,38 @@ class SecondLevelIndividual(encoding.EncodingModel):
                     # for side, xpos in zip(['left', 'right'], [0.25, 0.75]):
                     #     ax.text(xpos, -0.17, side, transform=ax.transAxes, ha='center', va='top',fontsize=20)
                     
-                    # Draw a rounded rectangle with text
                     if(label_region):
-                        region_name = ax.get_title().split('(')[0] +'regions'
-                        label_text = region_name
-                        text_x = 0.5
-                        text_y = 1.08
-                    
-                        # Add rectangle and text
-                        bbox = dict(boxstyle='round,pad=0.3', edgecolor='black', facecolor='none', linewidth=1.5)
-                        ax.text(text_x, text_y, label_text, fontsize=20, fontweight='bold',
-                                ha='center', va='center', transform=ax.transAxes, bbox=bbox)
+                        loc_key = ax.get_title().split('(')[0].strip()
+                        region_label_dict = {
+                            'motion': 'motion\nresponsive',
+                            'social interaction': 'social\ninteraction\nselective',
+                            'language': 'language\nselective',
+                        }
+                        contrast_label_dict = {
+                            'motion': '(interacting +\nnot interacting)',
+                            'social interaction': '(interacting -\nnot interacting)',
+                            'language': '(intact - degraded)',
+                        }
+                        region_text = region_label_dict.get(loc_key, loc_key + '\nregions')
+                        contrast_text = contrast_label_dict.get(loc_key, '')
+                        ax.text(0.5, 1.20, region_text, fontsize=plotting_helpers._fs(14), fontweight='normal', color='black',
+                                ha='center', va='bottom', transform=ax.transAxes)
+                        ax.text(0.5, 1.18, contrast_text, fontsize=plotting_helpers._fs(14), fontweight='normal', color='black',
+                                ha='center', va='top', transform=ax.transAxes)
 
             fig.set_axis_labels("", "beta weight")
             fig.set_titles("")
             if average_posterior_anterior:
                 filepath = os.path.join(
                     self.figure_dir,
-                    f"{self.sid}{self.enc_file_label}_model-{selection_model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{label}_avg_post_ant.png"
+                    f"{self.sid}{self.enc_file_label}_model-{selection_model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{label}_avg_post_ant.pdf"
                 )
             else:
                 filepath = os.path.join(
                     self.figure_dir,
-                    f"{self.sid}{self.enc_file_label}_model-{selection_model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{label}.png"
+                    f"{self.sid}{self.enc_file_label}_model-{selection_model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{label}.pdf"
                 )
-            fig.savefig(
-                filepath,
-                bbox_inches='tight',
-                dpi=300
-            )
+            plotting_helpers.save_figure(fig.fig, filepath)
             plt.close(fig.fig)
             
         #stats comparing social interaction selectivity
@@ -756,7 +906,6 @@ class SecondLevelIndividual(encoding.EncodingModel):
                 )
             csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_glm_response_{filepath_tag}_social_interaction_selectivity_in_p_Vs_a.csv")
             fit.to_csv(csv_path)
-            
             
             #stats comparing selectivity in posterior and anterior
             fit = stats_helpers.compare_selectivity_within_region_type(
@@ -820,7 +969,9 @@ class SecondLevelIndividual(encoding.EncodingModel):
         parametric=True,
         figure_tag='',
         restrict_legend=False,
-        label_region=True
+        label_region=True,
+        save_source_data=False,
+        overlay_points=False
     ):
         # 1. Prepare data
         df = self.prepare_encoding_dataframe(
@@ -837,6 +988,26 @@ class SecondLevelIndividual(encoding.EncodingModel):
             subset=['subject', 'hemi_mask', 'Feature Space', 'Model', 'localizer_contrast_label']
         )
 
+        # Save the plotted per-subject data (posterior/anterior already averaged within subject),
+        # plus the across-subject mean/median per region and feature (the stacked bar segment heights)
+        if save_source_data:
+            source_df = temp_df.sort_values(by=['hemi_mask_ID', 'subject'])[
+                ['subject', 'localizer_contrast_label', 'hemisphere', 'mask', 'Feature Space', 'encoding_response']
+            ].rename(columns={'localizer_contrast_label': 'localizer', 'mask': 'region',
+                              'Feature Space': 'feature', 'encoding_response': 'explained_variance'})
+            source_stem = os.path.join(
+                self.figure_dir,
+                f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_{filepath_tag}_{figure_tag}"
+            )
+            source_df.to_csv(source_stem + '_source_data.csv', index=False)
+            stacked_df = (
+                source_df.groupby(['localizer', 'hemisphere', 'region', 'feature'], sort=False)['explained_variance']
+                .agg(mean='mean', median='median', n_subjects='count')
+                .reset_index()
+            )
+            stacked_df.to_csv(source_stem + '_stacked_source_data.csv', index=False)
+            print('encoding response source data saved:', source_stem + '_source_data.csv', source_stem + '_stacked_source_data.csv')
+
         # 2. Plot setup
         independent_var = 'Model' if hue not in ['enc_feature_name'] else 'Feature Space'
         plot_features = self.models if hue not in ['enc_feature_name'] else self.plot_features
@@ -848,17 +1019,19 @@ class SecondLevelIndividual(encoding.EncodingModel):
             'palette': self.colors_dict
         }
 
-        bar_fig, point_fig = plotting_helpers.plot_bar_and_strip(
+        bar_fig, point_fig, median_bar_fig = plotting_helpers.plot_bar_and_strip(
             data=temp_df,
             column_group=column_group,
             col_order=col_order,
             width_ratios=width_ratios,
             params=params,
             height=5,
-            aspect=1
+            aspect=1,
+            also_plot_median=True,
+            overlay_points=overlay_points
         )
 
-        region_sets = {'bar': bar_fig, 'point': point_fig}
+        region_sets = {'bar_points' if overlay_points else 'bar': bar_fig, 'point': point_fig, 'median_bar': median_bar_fig}
         MT = self.MT
         ISC = self.ISC
         STS = ['STS'] if average_posterior_anterior else self.STS
@@ -869,6 +1042,7 @@ class SecondLevelIndividual(encoding.EncodingModel):
         else:
             hemis = ['left','right']
         pvalue_results = []
+        stats_details = []  # each test's estimate, CI, SE, df and t, for the stats table (from the first figure only)
 
         for label, fig in region_sets.items():
             for ax_row in fig.axes:
@@ -885,7 +1059,7 @@ class SecondLevelIndividual(encoding.EncodingModel):
                     
                     panel_df = temp_df[temp_df[column_group] == title_text]
                     if(stats_to_do!=None):
-                        pairs, pvals = stats_helpers.run_statistical_comparisons(
+                        stats_out = stats_helpers.run_statistical_comparisons(
                             data=panel_df,
                             masks=masks,
                             mode=stats_to_do,
@@ -893,40 +1067,63 @@ class SecondLevelIndividual(encoding.EncodingModel):
                             condition_var='enc_feature_name',
                             value_var='encoding_response',
                             correction='bonferroni',
-                            parametric=parametric
+                            parametric=parametric,
+                            return_details=True
                         )
-                        
+                        pairs, pvals = stats_out[0], stats_out[1]
+                        if label == list(region_sets)[0] and len(stats_out) > 2:
+                            stats_details.append(stats_out[2].assign(localizer=title_text))
+
                         plotting_helpers.apply_stat_annotations(ax, pairs, pvals, panel_df, params)
                         pvalue_results.append(dict(zip(pairs, pvals)))
                     # print(ax.get_xticklabels())
-                    ax.set_xticklabels([f"{t.get_text().split(' ')[1]}\n{t.get_text().split(' ')[0]}" for t in ax.get_xticklabels()])
+                    ax.set_xticklabels([plotting_helpers.region_tick_label(t.get_text()) for t in ax.get_xticklabels()])
                     # for hemi_text, xpos in zip(['left', 'right'], [0.25, 0.75]):
                     #     ax.text(xpos, -0.1, hemi_text, transform=ax.transAxes, ha='center', va='top')
                     
-                    # Draw a rounded rectangle with text
                     if(label_region):
-                        region_name = title_text.split('(')[0] + 'regions'
-                        label_text = region_name
-                        text_x = 0.5
-                        text_y = 1.1
-                    
-                        # Add rectangle and text
-                        bbox = dict(boxstyle='round,pad=0.3', edgecolor='black', facecolor='none', linewidth=1.5)
-                        ax.text(text_x, text_y, label_text, fontsize=20, fontweight='bold',
-                                ha='center', va='center', transform=ax.transAxes, bbox=bbox)
+                        loc_key = title_text.split('(')[0].strip()
+                        region_label_dict = {
+                            'motion': 'motion\nresponsive',
+                            'social interaction': 'social\ninteraction\nselective',
+                            'language': 'language\nselective',
+                        }
+                        contrast_label_dict = {
+                            'motion': '(interacting +\nnot interacting)',
+                            'social interaction': '(interacting -\nnot interacting)',
+                            'language': '(intact - degraded)',
+                        }
+                        region_text = region_label_dict.get(loc_key, loc_key + '\nregions')
+                        contrast_text = contrast_label_dict.get(loc_key, '')
+                        ax.text(0.5, 1.20, region_text, fontsize=plotting_helpers._fs(14), fontweight='normal', color='black',
+                                ha='center', va='bottom', transform=ax.transAxes)
+                        ax.text(0.5, 1.18, contrast_text, fontsize=plotting_helpers._fs(14), fontweight='normal', color='black',
+                                ha='center', va='top', transform=ax.transAxes)
 
             fig.fig.subplots_adjust(top=0.85)
             fig.set_axis_labels("", "explained variance $R^2$")
             fig.set_titles("")
-            fig.savefig(
+            plotting_helpers.save_figure(
+                fig.fig,
                 os.path.join(
                     self.figure_dir,
-                    f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_{label}_{filepath_tag}_{figure_tag}.png"
-                ),
-                bbox_inches='tight',
-                dpi=300
+                    f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_{label}_{filepath_tag}_{figure_tag}.pdf"
+                )
             )
             plt.close(fig.fig)
+
+        # full statistics of the tests annotated on the figure (estimate, CI, SE, t, df, corrected p)
+        stats_details = [d for d in stats_details if not d.empty]
+        if stats_details:
+            stats_details = pd.concat(stats_details, ignore_index=True)
+            stats_label = f"{self.model}_{file_label}_{stats_to_do}_{filepath_tag}_{figure_tag}"
+            stats_details.to_csv(os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_{stats_label}_stats.csv"), index=False)
+            # against zero: only the five DNN feature spaces go in the table (none of the annotated features is significant)
+            dnn_features = ['Motion Model', 'Image Model', 'Speech Model', 'word2vec_chunk120', 'Sentence Model']
+            stats_helpers.generate_latex_lme_details_table(
+                stats_details, os.path.join(self.dir, 'tables', f"lme_{stats_to_do}_{self.model}_{filepath_tag}_{figure_tag}.tex"),
+                mode=stats_to_do, features=dnn_features if stats_to_do == 'compare_to_zero' else None,
+                first=[f for f in stats_details.get('reference', pd.Series(dtype=str)).unique() if '+motion' in f])  # vision - language
 
         # 3. Optional extra plots
         if plot_stacked:
@@ -954,33 +1151,49 @@ class SecondLevelIndividual(encoding.EncodingModel):
                 }
             noise_ceiling_means = None
             noise_ceiling_sems = None
-            plotting_helpers.plot_stacked_bars(
-                self=self,
-                results=temp_df,
-                localizers=localizers,
-                localizer_masks=self.localizer_masks,
-                order_dict=order_dict,
-                palette=self.colors_dict,
-                feature_names=self.plot_features,
-                hue=hue,
-                width_ratios=width_ratios,
-                stats_to_do=stats_to_do,
-                pvalue_dict={k: v for d in pvalue_results for k, v in d.items()},
-                plot_noise_ceiling=plot_noise_ceiling,
-                noise_ceiling_means=noise_ceiling_means,
-                noise_ceiling_sems=noise_ceiling_sems,
-                restrict_legend=restrict_legend,
-                response_label=response_label,
-                file_label=file_label,
-                file_suffix=f"{filepath_tag}_{figure_tag}"
-            )
+            for use_median in (False, True):
+                plotting_helpers.plot_stacked_bars(
+                    self=self,
+                    results=temp_df,
+                    localizers=localizers,
+                    localizer_masks=self.localizer_masks,
+                    order_dict=order_dict,
+                    palette=self.colors_dict,
+                    feature_names=self.plot_features,
+                    hue=hue,
+                    width_ratios=width_ratios,
+                    stats_to_do=stats_to_do,
+                    pvalue_dict={k: v for d in pvalue_results for k, v in d.items()},
+                    plot_noise_ceiling=plot_noise_ceiling,
+                    noise_ceiling_means=noise_ceiling_means,
+                    noise_ceiling_sems=noise_ceiling_sems,
+                    restrict_legend=restrict_legend,
+                    response_label=response_label,
+                    file_label=file_label,
+                    file_suffix=f"{filepath_tag}_{figure_tag}",
+                    use_median=use_median,
+                    label_region=label_region,
+                )
             
         if hue!='model': #ie if we are plotting performance, we don't do the anova
             anova_df = stats_helpers.run_anova_per_region_pair_per_hemisphere(
                 data=temp_df,
                 plot_features=[self.labels_dict.get(feature,feature) for feature in self.plot_features]
             )
-            csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_enc_response-{response_label}_{label}_{filepath_tag}_{figure_tag}_anova_interaction_test.csv")            
+            # Shorten filename to avoid OS limits (255 chars)
+            filename_parts = [
+                self.sid,
+                f"mdl-{self.model}",
+                file_label.replace('glm_localizer_', 'glm_'),
+                f"top{self.perc_top_voxels}pct",
+                f"resp-{response_label}",
+                label,
+                filepath_tag,
+                figure_tag,
+                "anova_interact.csv"
+            ]
+            csv_filename = "_".join(p for p in filename_parts if p)  # Filter empty strings
+            csv_path = os.path.join(self.out_dir, csv_filename)
             anova_df.to_csv(csv_path, index=False)
             
             output_path = os.path.join(self.dir,'tables',f"pairwise_anova_{self.model}_{filepath_tag}_{figure_tag}.tex")
@@ -1070,7 +1283,11 @@ class SecondLevelIndividual(encoding.EncodingModel):
                     map_filename = self.figure_dir + '/localizer_masks/'+file_label+'_enc_feature_loc-'+feature_name+'_binary'
                     plotting_helpers.plot_surface(nii=combined_masks_map_img,filename=map_filename,ROI_niis=[combined_masks_map_img],ROIs=[feature_name],ROI_colors=['black'],views=['lateral'],threshold=0,vmax=None,cmap=cmap)
     def compute_response_similarity(self, load=False, plot=True, selection_type='top_percent', pvalue=None, 
-                                 response='weights', split_hemi=True, axes={}, filepath_tag='', average_posterior_anterior=False):
+                                 response='weights', split_hemi=True, axes={}, filepath_tag='', average_posterior_anterior=False,
+                                 plot_matrix=True, plot_bars=False, bar_points=False, save_source_data=False, plot_cbar=True):
+        """save_source_data: save each participant's response similarity (Spearman r) for every plotted region
+        pair and feature space as a csv next to the matrix figure (with average_posterior_anterior, the pairs of
+        posterior and anterior regions are averaged within each participant)."""
 
         ##### 1. Prepare mask pairs (NO collapsing) #####
         def prepare_mask_pairs():
@@ -1231,6 +1448,19 @@ class SecondLevelIndividual(encoding.EncodingModel):
         file_label = f"{self.sid}{self.enc_file_label}_model-{self.model}_{response}_response_similarity"
         result_file = os.path.join(self.out_dir, f"{file_label}_perc_top_voxels-{self.perc_top_voxels}_enc_feature_localizer_results_{filepath_tag}.csv")
 
+        file_label_new = f"{self.sid}{self.enc_file_label_new}_model-{self.model}_{response}_response_similarity"
+        result_file_new = os.path.join(self.out_dir, f"{file_label_new}_perc_top_voxels-{self.perc_top_voxels}_enc_feature_localizer_results_{filepath_tag}.csv")
+
+        if load and not os.path.exists(result_file) and os.path.exists(result_file_new):
+            result_file = result_file_new
+
+        if load and not os.path.exists(result_file) and not os.path.exists(result_file_new):
+            raise FileNotFoundError(
+                f"load=True but no cached result file exists. Tried:\n"
+                f"  {result_file}\n  {result_file_new}\n"
+                f"Set load=False to compute, or pass a matching filepath_tag."
+            )
+
         if not load:
             files = preload_data(pairs)
             all_results = Parallel(n_jobs=1)(
@@ -1247,6 +1477,15 @@ class SecondLevelIndividual(encoding.EncodingModel):
         numeric_cols = ['corr', 'corr1', 'pvalue1']
         for col in numeric_cols:
             all_results[col] = pd.to_numeric(all_results[col], errors='coerce')
+
+        # Auto-detect split_hemi from CSV: if it has only 'both' rows, override to False
+        unique_hemis = set(all_results['hemi1'].unique()) | set(all_results['hemi2'].unique())
+        if split_hemi and unique_hemis == {'both'}:
+            print(f"  [compute_response_similarity] CSV only has hemi='both' — overriding split_hemi=False for plotting")
+            split_hemi = False
+
+        all_results['original_mask1_name'] = all_results['mask1_name']
+        all_results['original_mask2_name'] = all_results['mask2_name']
 
         ##### Apply post-hoc posterior/anterior averaging #####
         if average_posterior_anterior:
@@ -1267,21 +1506,55 @@ class SecondLevelIndividual(encoding.EncodingModel):
         ##### Plotting #####
         if plot:
             for i, axis in enumerate(axes.keys()):
-                similarity_matrix, _ = plotting_helpers.plot_similarity_matrix(
-                    results_df=all_results,
-                    names=names,
-                    axis=axis,
-                    split_hemi=split_hemi,
-                    label_dict=self.labels_dict,
-                    output_path=os.path.join(self.figure_dir, 'response_similarity',
-                        f"{file_label}_perc_top_voxels-{self.perc_top_voxels}-{axis}_similarity_matrix_{filepath_tag}.png"),
-                    plot_cbar=True
-                )
+                if plot_matrix:
+                    similarity_matrix, _ = plotting_helpers.plot_similarity_matrix(
+                        results_df=all_results,
+                        names=names,
+                        axis=axis,
+                        split_hemi=split_hemi,
+                        label_dict=self.labels_dict,
+                        output_path=os.path.join(self.figure_dir, 'response_similarity',
+                            f"{file_label}_perc_top_voxels-{self.perc_top_voxels}-{axis}_similarity_matrix_{filepath_tag}.png"),
+                        plot_cbar=plot_cbar
+                    )
+                if save_source_data:
+                    source_df = all_results[(all_results['axis'] == axis) & (all_results['mask1_name'] != all_results['mask2_name'])].copy()
+                    # put each pair in the matrix's region order (the matrix averages both orders of a pair)
+                    swap = source_df['mask1_name'].map(names.index) > source_df['mask2_name'].map(names.index)
+                    for col1, col2 in [('mask1_name', 'mask2_name'), ('original_mask1_name', 'original_mask2_name'), ('hemi1', 'hemi2')]:
+                        source_df.loc[swap, [col1, col2]] = source_df.loc[swap, [col2, col1]].values
+                    label = lambda mask_label: plotting_helpers.similarity_region_label(mask_label, newline=False)
+                    source_df = pd.DataFrame({
+                        'subject': source_df['subject'],
+                        'feature_space': plotting_helpers.SIMILARITY_TITLE_DICT.get(axis, axis),
+                        'hemisphere1': source_df['hemi1'], 'region1': source_df['mask1_name'].map(label),
+                        'hemisphere2': source_df['hemi2'], 'region2': source_df['mask2_name'].map(label),
+                        'spearman_r': source_df['corr']})
+                    if not split_hemi:
+                        source_df = source_df.drop(columns=['hemisphere1', 'hemisphere2'])
+                    # one value per participant per plotted region pair
+                    source_df = source_df.groupby([col for col in source_df.columns if col != 'spearman_r'],
+                                                  sort=False, as_index=False)['spearman_r'].mean()
+                    source_path = os.path.join(self.figure_dir, 'response_similarity',
+                        f"{file_label}_perc_top_voxels-{self.perc_top_voxels}-{axis}_similarity_matrix_{filepath_tag}_source_data.csv")
+                    source_df.to_csv(source_path, index=False)
+                    print('response similarity source data saved:', source_path)
                 fit, results_df = stats_helpers.run_similarity_superregion_LME(all_results, axis,split_hemi=split_hemi,average_posterior_anterior=average_posterior_anterior)
-                csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_{filepath_tag}_{axis}_response_similarity_stats.csv")            
+                if plot_bars:
+                    plotting_helpers.plot_similarity_bars(
+                        results_df=all_results,
+                        names=names,
+                        axis=axis,
+                        color=plotting_helpers.get_colors_dict()[axis],
+                        show_points=bar_points,
+                        contrasts=results_df,
+                        output_path=os.path.join(self.figure_dir, 'response_similarity',
+                            f"{file_label}_perc_top_voxels-{self.perc_top_voxels}-{axis}_similarity_bars_{filepath_tag}.png"),
+                    )
+                csv_path = os.path.join(self.out_dir, f"{file_label}_perc_top_voxels-{self.perc_top_voxels}_{filepath_tag}_{axis}_response_similarity_stats.csv")
                 fit.to_csv(csv_path, index=False)
-                
-                csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{file_label}_perc_top_voxels-{self.perc_top_voxels}_{filepath_tag}_{axis}_response_similarity_pairwise_comparisons.csv")            
+
+                csv_path = os.path.join(self.out_dir, f"{file_label}_perc_top_voxels-{self.perc_top_voxels}_{filepath_tag}_{axis}_response_similarity_pairwise_comparisons.csv")
                 results_df.to_csv(csv_path, index=False)
                 hemi_label = 'hemis_together'
                 if(split_hemi):
@@ -1565,12 +1838,29 @@ class SecondLevelIndividual(encoding.EncodingModel):
                 except Exception as e:
                     print(e)
                     pass
-    def plot_map(self,feature='',measure='ind_feature_performance',localizers=[],threshold=0,vmin=None,vmax=None,cmap='yellow_hot'):
+    def plot_map(self,feature='',measure='ind_feature_performance',localizers=[],threshold=0,vmin=None,vmax=None,cmap='yellow_hot',png_dpi=None):
+        #png_dpi: also save a .png of each map at this dpi (for figures composed from pngs)
         fsaverage = nilearn.datasets.fetch_surf_fsaverage(mesh='fsaverage')
 
-        enc_file_label = '_encoding_model-'+self.model+'_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
-        if(self.mask_name!=None):
-            enc_file_label = enc_file_label + '_mask-'+self.mask_name
+        def _build_labels(model_name):
+            old = '_encoding_model-'+model_name+'_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
+            new = '_encoding_model-'+model_name+'_smoothingfwhm-'+str(self.smoothing_fwhm)
+            if(self.mask_name!=None):
+                old = old + '_mask-'+self.mask_name
+                new = new + '_mask-'+self.mask_name + '_chunklen-'+str(self.chunklen)
+            else:
+                new = new + '_chunklen-'+str(self.chunklen)
+            return new, old
+
+        def _load_with_fallback(folder, subject, model_name, label):
+            new_label, old_label = _build_labels(model_name)
+            new_path = self.enc_dir+'/'+folder+'/'+subject+new_label+'_measure-'+label+'_raw.nii.gz'
+            old_path = self.enc_dir+'/'+folder+'/'+subject+old_label+'_measure-'+label+'_raw.nii.gz'
+            if os.path.exists(new_path):
+                return nibabel.load(new_path), new_label
+            if os.path.exists(old_path):
+                return nibabel.load(old_path), old_label
+            raise FileNotFoundError(f"Could not find file with either ordering:\n  New: {new_path}\n  Old: {old_path}")
 
         if(measure=='performance'):
             folder = 'performance'
@@ -1588,37 +1878,29 @@ class SecondLevelIndividual(encoding.EncodingModel):
         for subject in tqdm(self.subjects['SIpointlights']):
             # try:
                 if(measure=='performance'):
-                    filepath = self.enc_dir+'/'+folder+'/'+subject+enc_file_label+'_measure-'+label+'_raw.nii.gz'
-                    nii1 = nibabel.load(filepath)
+                    nii1, enc_file_label = _load_with_fallback(folder, subject, self.model, label)
                     data1 = nii1.get_fdata()
                     data1[data1<0]=0 #clip negatives to 0 (negatives are not meaningful)
                 elif(measure=='added_variance'):
                     base_model,subtract_model = helpers.get_added_variance_models(feature)
-                    
-                    enc_file_label = '_encoding_model-'+subtract_model+'_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
-                    if(self.mask_name!=None):
-                        enc_file_label = enc_file_label + '_mask-'+self.mask_name
-                    filepath = self.enc_dir+'/'+folder+'/'+subject+enc_file_label+'_measure-'+label+'_raw.nii.gz'
-                    nii1 = nibabel.load(filepath)
+
+                    nii1, _ = _load_with_fallback(folder, subject, subtract_model, label)
                     subtract_model = nii1.get_fdata()
                     subtract_model[subtract_model<0] = 0
-                    
-                    enc_file_label = '_encoding_model-'+base_model+'_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
-                    if(self.mask_name!=None):
-                        enc_file_label = enc_file_label + '_mask-'+self.mask_name
-                    filepath = self.enc_dir+'/'+folder+'/'+subject+enc_file_label+'_measure-'+label+'_raw.nii.gz'
-                    nii1 = nibabel.load(filepath)
+
+                    nii1, enc_file_label = _load_with_fallback(folder, subject, base_model, label)
                     base_model = nii1.get_fdata()
                     base_model[base_model<0] = 0
-                    
+
                     data1 = base_model-subtract_model
                 else:
-                    filepath = self.enc_dir+'/'+folder+'/'+subject+enc_file_label+'_measure-'+label+'_raw.nii.gz'
-                    nii1 = nibabel.load(filepath)
+                    nii1, enc_file_label = _load_with_fallback(folder, subject, self.model, label)
                     data1 = nii1.get_fdata()
-                    data1[data1<0] = 0 #clip response values to 0
-                    if(self.scale_by=='total_variance'):
+                    if self.clip_negative_product_measure:
                         data1[data1<0] = 0 #clip response values to 0
+                    if(self.scale_by=='total_variance'):
+                        if self.clip_negative_product_measure:
+                            data1[data1<0] = 0 #clip response values to 0
                         data1 = data1/data1.sum(axis=0,keepdims=1)
                     if(feature in self.combined_features):
                         for (ind,sub_feature_name) in enumerate(self.model_features_dict[feature]):
@@ -1707,917 +1989,11 @@ class SecondLevelIndividual(encoding.EncodingModel):
 
                 cmap_ = cmap
                 # helpers.plot_lateral_surface(diff_map_nii,filename,symmetric_cbar=True,threshold=0.000000001,cmap='PuOr',vmax=None,title=subject+', '+feature1+'-'+feature2)
-                plotting_helpers.plot_surface(diff_map_nii,filename,ROI_niis=ROI_niis,symmetric_cbar=False,threshold=threshold,cmap=cmap_,vmin=vmin,vmax=vmax,title='', colorbar_label='Explained Variance $R^2$',ROIs=localizers,ROI_colors=['white' for localizer in localizers])#self.colors_dict[localizer])
+                plotting_helpers.plot_surface(diff_map_nii,filename,ROI_niis=ROI_niis,symmetric_cbar=False,threshold=threshold,cmap=cmap_,vmin=vmin,vmax=vmax,title='', colorbar_label='Explained variance $R^2$',ROIs=localizers,ROI_colors=['white' for localizer in localizers],png_dpi=png_dpi)#self.colors_dict[localizer])
 
             # except Exception as e:
             #   print(e)
             #   pass
-    def highest_beta_weights_correlate_with_annotated_features_multi(
-        self,
-        feature_name,
-        mask_names,
-        top_percent=1.0,
-        zscore_inputs=True,
-        output_dir=None,
-    ):
-        from src import helpers
-        from scipy.stats import pearsonr, zscore 
-        import os
-        import numpy as np
-        import pandas as pd
-        import h5py
-        from joblib import Parallel, delayed
-
-        output_dir = output_dir or os.path.join(self.out_dir, 'top_unit_correlations')
-        os.makedirs(output_dir, exist_ok=True)
-
-        # Load all annotated features
-        annotated_feature_names = helpers.get_models_dict()['annotated']
-        all_annos = []
-        for anno_name in annotated_feature_names:
-            anno_path = os.path.join(self.dir, 'features', self.features_dict[anno_name].lower() + '.csv')
-            anno_data = pd.read_csv(anno_path, header=None)
-            all_annos.append(anno_data)
-        annotations_df = pd.concat(all_annos, axis=1)
-        annotations = annotations_df.values
-
-        # Load DNN feature matrix
-        feature_csv_path = os.path.join(self.dir, 'features', self.features_dict[feature_name].lower() + '.csv')
-        features = np.loadtxt(feature_csv_path, delimiter=',', dtype=np.float32)
-        feature_idx = self.get_feature_index(feature_name, weight=True)
-
-        # Cache localizer data
-        config = self.vsm.build_config('performance')
-        files = self.vsm.load_files(config=config, response_label='performance', load=False)
-        main_mask = helpers.load_mask(self, self.mask_name).get_fdata()
-
-        # Mappings
-        mask_localizer_dict = {
-            'MT':'interact&no_interact',
-            'pSTS':'interact-no_interact',
-            'aSTS':'interact-no_interact',
-            'pTemp':'intact-degraded',
-            'aTemp':'intact-degraded',
-            'frontal':'intact-degraded'
-        }
-        mask_glm_task_dict = {
-            'MT':'SIpointlights',
-            'pSTS':'SIpointlights',
-            'aSTS':'SIpointlights',
-            'pTemp':'language',
-            'aTemp':'language',
-            'frontal':'language'
-        }
-
-        # Combined mask logic
-        merged_masks = {
-            "STS": ["pSTS", "aSTS"],
-            "temporal": ["pTemp", "aTemp"]
-        }
-
-        def compute_subject_mask(subject, mask_name):
-            results = []
-            unitwise = []
-            try:
-                mask_group = merged_masks.get(mask_name, [mask_name])
-
-                weights_path = os.path.join(
-                    self.enc_dir, 'weights',
-                    f"{subject}_encoding_model-{self.model}{self.enc_file_label}_measure-weights_raw.h5"
-                )
-                with h5py.File(weights_path, 'r') as f:
-                    weights = f['weights'][()]  # [n_units, n_voxels]
-
-                for hemi in ['left', 'right']:
-                    combined_voxel_mask = []
-
-                    for submask in mask_group:
-                        try:
-                            zscore_img = files[
-                                (mask_glm_task_dict[submask],
-                                self.all_runs[mask_glm_task_dict[submask]],
-                                mask_localizer_dict[submask],
-                                subject)
-                            ]
-                            localizer_label = (
-                                f"{subject}_smoothingfwhm-{self.smoothing_fwhm}_mask-{submask}"
-                                f"_glm_loc-{mask_localizer_dict[submask]}_run-{self.all_runs[mask_glm_task_dict[submask]]}"
-                            )
-                            localizer_mask = self.mm.get_subject_mask_glm(localizer_label, submask, zscore_img)
-                            hemi_mask = helpers.load_mask(self, f"{hemi}-{submask}").get_fdata()
-                            combined_mask = ((hemi_mask == 1) & (localizer_mask == 1))[main_mask == 1]
-                            combined_voxel_mask.append(combined_mask)
-                        except Exception:
-                            continue
-
-                    if not combined_voxel_mask:
-                        continue
-
-                    final_mask = np.logical_or.reduce(combined_voxel_mask)
-                    masked_weights = weights[:, final_mask]
-                    unit_scores = np.mean(masked_weights, axis=1)
-                    unit_scores = unit_scores[feature_idx]
-                    top_n = int(np.ceil(len(unit_scores) * top_percent / 100))
-                    top_units = np.argsort(unit_scores)[-top_n:]
-                    unit_ranks = (-unit_scores).argsort().argsort()
-                    unit_timecourses = features[:, top_units]
-
-                    annos = zscore(annotations, axis=0) if zscore_inputs else annotations
-                    if zscore_inputs:
-                        unit_timecourses = zscore(unit_timecourses, axis=0)
-
-                    for j, ann_name in enumerate(annotated_feature_names):
-                        ann = annos[:, j]
-                        unit_corrs = [pearsonr(unit_timecourses[:, i], ann)[0] for i in range(top_units.size)]
-                        for u, r in zip(top_units, unit_corrs):
-                            unitwise.append({
-                                "subject": subject,
-                                "hemi": hemi,
-                                "mask": mask_name,
-                                "annotated_feature": ann_name,
-                                "unit_index": u,
-                                "correlation": r,
-                                "rank": unit_ranks[u]
-                            })
-                        results.append({
-                            "subject": subject, "hemi": hemi, "mask": mask_name,
-                            "annotated_feature": ann_name,
-                            "correlation": np.mean(unit_corrs)
-                        })
-            except Exception as e:
-                pass
-
-            return results, unitwise
-
-        # Run in parallel
-        from itertools import product
-        all_tasks = product(self.subjects['sherlock'], mask_names)
-        parallel = Parallel(n_jobs=1, verbose=5)
-        out = parallel(delayed(compute_subject_mask)(subj, mask) for subj, mask in all_tasks)
-
-        subj_results = [item for r, _ in out for item in r]
-        unitwise_results = [item for _, u in out for item in u]
-
-        df_subjectwise = pd.DataFrame(subj_results)
-        df_unitwise = pd.DataFrame(unitwise_results)
-
-        df_subjectwise.to_csv(os.path.join(output_dir, f"subjectwise_annotation_corrs_{self.model}_{feature_name}.csv"), index=False)
-        df_unitwise.to_csv(os.path.join(output_dir, f"subjectwise_unitwise_annotation_corrs_{self.model}_{feature_name}.csv"), index=False)
-
-        return df_subjectwise, df_unitwise
-    def get_top_units_per_region(
-        self,
-        csv_dir,
-        model,
-        layer,
-        annotated_feature,
-        method="average",        # "average" or "frequency"
-        direction="most",        # "most" or "least"
-        top_n=10,
-        split_by_hemi=False,
-        plot=True,
-        return_unit_list=True,
-    ):
-        """
-        Visualize and return AlexNet units most/least correlated with a given feature,
-        separately per region (and optionally per hemisphere).
-
-        Parameters:
-        - df_unitwise: DataFrame with ["subject", "unit_index", "mask", "hemi", "annotated_feature", "correlation"]
-        - annotated_feature: str
-        - method: "average" or "frequency"
-        - direction: "most" or "least"
-        - top_n: int
-        - split_by_hemi: bool, whether to analyze each (hemi, region) separately
-        - plot: bool
-        - return_unit_list: bool
-
-        Returns:
-        - DataFrame of selected units
-        - Dictionary mapping (region or hemi_region) → list of unit indices (for Lucent)
-        """
-        import pandas as pd
-        import seaborn as sns
-        import matplotlib.pyplot as plt
-
-        assert method in ["average", "frequency"]
-        assert direction in ["most", "least"]
-
-        ascending = direction == "least"
-
-        # Filter to desired feature
-        
-        df_unitwise = pd.read_csv(f"{csv_dir}/subjectwise_unitwise_annotation_corrs_{model}_{layer}.csv")
-        df = df_unitwise.copy() if method == "frequency" else df_unitwise[df_unitwise["annotated_feature"] == annotated_feature].copy()
-
-        group_keys = ["mask"]
-        if split_by_hemi:
-            group_keys = ["hemi", "mask"]
-
-        unit_lists = {}
-        selected_units_all = []
-
-        for group_name, group_df in df.groupby(group_keys):
-            group_label = ":".join(group_name) if isinstance(group_name, tuple) else group_name
-
-            if method == "average":
-                unit_stats = (
-                    group_df.groupby("unit_index")["correlation"]
-                    .mean()
-                    .sort_values(ascending=ascending)
-                    .head(top_n)
-                    .reset_index()
-                )
-                unit_stats["group"] = group_label
-
-                selected_units_all.append(unit_stats)
-                unit_lists[group_label] = unit_stats["unit_index"].tolist()
-
-                if plot:
-                    plot_df = group_df[group_df["unit_index"].isin(unit_stats["unit_index"])]
-                    sns.boxplot(data=plot_df, x="unit_index", y="correlation")
-                    plt.title(f"{direction.capitalize()} {top_n} Units - {group_label} (Avg Corr)")
-                    plt.xticks(rotation=45)
-                    plt.tight_layout()
-                    plt.show()
-
-            elif method == "frequency":
-                # Filter to just this region (and hemisphere if split_by_hemi)
-                freq_group = group_df.copy()
-
-                # Count unit occurrences across subjects
-                freq_counts = (
-                    freq_group.groupby("unit_index")["subject"]
-                    .nunique()
-                    .sort_values(ascending=ascending)
-                    .head(top_n)
-                    .reset_index()
-                    .rename(columns={"subject": "count"})
-                )
-                freq_counts["group"] = group_label
-
-                selected_units_all.append(freq_counts)
-                unit_lists[group_label] = freq_counts["unit_index"].tolist()
-
-                if plot:
-                    sns.barplot(data=freq_counts, x="unit_index", y="count", color="dodgerblue")
-                    plt.title(f"{direction.capitalize()} {top_n} Units - {group_label} (Freq)")
-                    plt.xticks(rotation=45)
-                    plt.tight_layout()
-                    plt.show()
-                    
-                    # Plot average correlation with each annotated feature for selected units
-                    selected_units = freq_counts["unit_index"].tolist()
-                    feature_corrs = group_df[group_df["unit_index"].isin(selected_units)]
-
-                    # Group by feature and average across units and subjects
-                    avg_corrs = (
-                        feature_corrs.groupby(["unit_index","annotated_feature"])["correlation"]
-                        .mean()
-                        .reset_index()
-                    )
-
-                    if plot:
-                        sns.barplot(
-                            data=avg_corrs,
-                            estimator=np.mean,
-                            x="annotated_feature",
-                            y="correlation",
-                            errorbar="se", 
-                            palette=self.colors_dict
-                        )
-                        sns.stripplot(
-                            data=avg_corrs,
-                            x="annotated_feature",
-                            y="correlation",
-                            color="black",
-                            alpha=0.5,
-                            jitter=True
-                        )
-                        plt.xticks(rotation=90)
-                        plt.title(f"Avg Correlation of Selected Units - {group_label}")
-                        plt.tight_layout()
-                        plt.show()
-
-
-        selected_df = pd.concat(selected_units_all, ignore_index=True)
-
-        if return_unit_list:
-            return selected_df, unit_lists
-        else:
-            return selected_df
-    def select_most_frequent_units_per_region(
-        self,
-        csv_path: str,
-        model: str,
-        layer: str,
-        top_n: int = 10,
-        split_by_hemi: bool = False,
-        split_posterior_anterior: bool = False,
-        plot: bool = True,
-        plot_points: bool=False,
-        plot_units: list=[]
-    ):
-        """
-        Select and visualize the most frequently selected units across subjects for each region (and optionally hemisphere),
-        and plot their average correlation with all annotated features.
-
-        Returns:
-            freq_df: DataFrame of unit frequencies with group labels
-            unit_lists: dict mapping region or hemi-region → list of top unit indices
-        """
-        def combine_regions(df, split_by_hemi, split_posterior_anterior):
-            if not split_posterior_anterior:
-                def relabel(mask):
-                    if mask in ['MT']:
-                        return 'motion regions'
-                    elif mask in ['pSTS','aSTS','STS']:
-                        return 'social interaction regions'
-                    elif mask in ["pTemp", "aTemp","temporal","frontal"]:
-                        return "language regions"
-                    else:
-                        return mask
-                df["mask"] = df["mask"].apply(relabel)
-
-            if split_by_hemi:
-                df["group"] = df["hemi"] + " " + df["mask"]
-            else:
-                df["group"] = df["mask"]
-            return df
-        df = pd.read_csv(f"{csv_path}/subjectwise_unitwise_annotation_corrs_{model}_{layer}.csv")
-        df = combine_regions(df, split_by_hemi=split_by_hemi, split_posterior_anterior=split_posterior_anterior)
-
-
-        # group_keys = ["mask"]
-        # if split_by_hemi:
-        #     group_keys = ["hemi", "mask"]
-
-        unit_lists = {}
-        selected_units_all = []
-
-        for group_name, group_df in df.groupby("group"):
-            group_label = " ".join(group_name) if isinstance(group_name, tuple) else group_name
-
-            # Count frequency of units across subjects
-            freq_counts = (
-                group_df.groupby("unit_index")["subject"]
-                .nunique()
-                .sort_values(ascending=False)
-                .head(top_n)
-                .reset_index()
-                .rename(columns={"subject": "count"})
-            )
-            freq_counts["group"] = group_label
-            selected_units_all.append(freq_counts)
-            unit_lists[group_label] = freq_counts["unit_index"].tolist()
-
-        freq_df = pd.concat(selected_units_all, ignore_index=True)
-        print(freq_df)
-
-        if plot:
-            if(split_posterior_anterior):
-                col_order = ['left MT', 'left pSTS','left aSTS','left pTemp','left aTemp','left frontal',
-                                'right MT', 'right pSTS','right aSTS','right pTemp','right aTemp','right frontal']
-            else:
-                col_order = ['left MT','right MT',
-                             'left STS','right STS',
-                             'left temporal','right temporal',
-                             'left frontal','right frontal']
-                
-            if(split_by_hemi==False):
-                col_order=['motion regions','social interaction regions','language regions']#'temporal','frontal']
-            g = sns.catplot(
-                data=freq_df,
-                x="unit_index",
-                y="count",
-                col="group",
-                col_order = col_order,
-                # col_wrap=2,
-                kind="bar",
-                height=4,
-                aspect=1.2,
-                color="gray", 
-                sharex=False,
-                sharey=True
-            )
-            g.set_axis_labels("unit index","count")
-            g.set_titles("{col_name}")
-            for ax in g.axes.flat:
-                ax.set_xticklabels(ax.get_xticklabels(), rotation=90)
-            # plt.subplots_adjust(top=0.85)
-            plt.suptitle(f"Top {top_n} Most Shared Units per Region", fontsize=16)
-            os.makedirs(os.path.join(self.figure_dir,'unit_interpretations'),exist_ok=True)
-            plt.savefig(os.path.join(self.figure_dir,'unit_interpretations',f"{model}_{layer}_unit_frequencies.png"),dpi=300)
-
-
-        # Correlations for selected units
-        all_selected_units = freq_df["unit_index"].unique()
-        
-        # corr_df = df[df["unit_index"].isin(all_selected_units)].copy()
-        groupwise_unit_avg = []
-
-        # Loop through each region and its selected units
-        for group_label, unit_subset in freq_df.groupby("group"):
-            top_units = unit_subset["unit_index"].unique()
-
-            # Get correlation data for these units in this group
-            subset_df = df[(df["group"] == group_label) & (df["unit_index"].isin(top_units))]
-            if(len(plot_units)>0):
-                subset_df = subset_df[subset_df['unit_index'].isin(plot_units[group_label])]
-            # Compute average correlation per unit and feature
-            avg = (
-                subset_df.groupby(["unit_index","annotated_feature"])["correlation"]
-                .mean()
-                .reset_index()
-            )
-            avg["group"] = group_label  # add group info back
-            groupwise_unit_avg.append(avg)
-
-        # Concatenate into a single DataFrame
-        unit_avg = pd.concat(groupwise_unit_avg, ignore_index=True)
-        
-        if plot:
-            if(split_posterior_anterior):
-                col_order = ['left MT','right MT',
-                             'left pSTS','right pSTS',
-                             'left aSTS','right aSTS',
-                             'left pTemp','right pTemp',
-                             'left aTemp','right aTemp',
-                             'left frontal','right frontal']
-            else:
-                col_order = ['right MT',
-                             'right STS',
-                             'left temporal',
-                             'left frontal',]
-            if(split_by_hemi==False):
-                col_order=['motion regions','social interaction regions','language regions']#'temporal','frontal']
-            
-            unit_avg.replace(self.labels_dict,inplace=True)
-
-            g = sns.catplot(
-                data=unit_avg,
-                x="annotated_feature",
-                # hue = "annotated_feature",
-                # hue_order = [self.labels_dict.get(item,item) for item in self.model_features_dict['annotated']],
-                y="correlation",
-                col="group",
-                col_order = col_order,
-                col_wrap = 1,#int(len(col_order)/2),
-                kind="bar",
-                errorbar="se",
-                palette=self.colors_dict,
-                height=5.15,
-                aspect=1,
-                sharey=True,
-                sharex=False,
-                legend=False
-                )
-            g.fig.subplots_adjust(right=0.8)  # or try 0.8 if legend still overlaps
-
-            g.set_titles("{col_name}")#{col_name}
-            g.set_axis_labels("","correlation")
-            for ax in g.axes:
-                title_text = ax.get_title()
-                region_type = title_text
-                
-                label_text = region_type
-                text_x = 0.5
-                text_y = 1.15
-            
-                # Add rectangle and text
-                bbox = dict(boxstyle='round,pad=0.3', edgecolor='black', facecolor='none', linewidth=1.5)
-                ax.text(text_x, text_y, label_text, fontsize=20, fontweight='bold',
-                        ha='center', va='center', transform=ax.transAxes, bbox=bbox)
-            g.set_titles("")
-            os.makedirs(os.path.join(self.figure_dir,'unit_interpretations'),exist_ok=True)
-            plt.tight_layout()
-            plt.savefig(os.path.join(self.figure_dir,'unit_interpretations',f"{model}_{layer}.png"),bbox_inches='tight',dpi=300)
-            plt.close()
-        return freq_df, unit_lists
-    def compare_units_to_features(self, 
-                                unit_csv_path, 
-                                model,
-                                layer_name, 
-                                load = False,
-                                top_n = None,
-                                method='cca', 
-                                regions = None,
-                                split_hemi=True,
-                                ):
-        import os
-        import pandas as pd
-        import numpy as np
-        import matplotlib.pyplot as plt
-        import seaborn as sns
-        from sklearn.preprocessing import StandardScaler
-        from sklearn.model_selection import GroupKFold
-        from cca_zoo.linear import rCCA, PLS
-        from tqdm import tqdm
-        
-
-        def run_single_cca_or_pls(
-            unit_data,
-            anno_ts,
-            method="cca",
-            chunklen=self.chunklen,
-            reg_c_x=None,
-            reg_c_y=None
-        ):
-            X_all = StandardScaler().fit_transform(np.nan_to_num(unit_data))
-            y_all = StandardScaler().fit_transform(np.nan_to_num(anno_ts.reshape(-1, 1)))
-            n_samples = X_all.shape[0]
-
-            groups = _make_groups(n_samples, chunklen)
-            cv_outer = GroupKFold(n_splits=5)
-            scores = []
-
-            for train_idx, test_idx in cv_outer.split(X_all, groups=groups):
-                X_train, Y_train = X_all[train_idx], y_all[train_idx]
-                X_test,  Y_test  = X_all[test_idx],  y_all[test_idx]
-
-                sx, sy = StandardScaler(), StandardScaler()
-                X_train = sx.fit_transform(X_train);  Y_train = sy.fit_transform(Y_train)
-                X_test  = sx.transform(X_test);       Y_test  = sy.transform(Y_test)
-
-                if method == "cca":
-                    if reg_c_x is None or reg_c_y is None:
-                        raise ValueError("CCA requires reg_c_x/reg_c_y; none provided.")
-                    est = rCCA(latent_dimensions=1, c=[reg_c_x, reg_c_y]).fit((X_train, Y_train))
-                    score = est.average_pairwise_correlations((X_test, Y_test)).mean()
-                elif method == "pls":
-                    est = PLS(latent_dimensions=1).fit((X_train, Y_train))
-                    score = est.average_pairwise_correlations((X_test, Y_test)).mean()
-                else:
-                    raise ValueError("Method must be 'cca' or 'pls'")
-                scores.append(score)
-
-            return float(np.mean(scores))
-
-        # ---------- MAIN ----------
-        if not load:
-            # 1) Load time series and unit selections
-            layer_path = os.path.join(self.dir, 'features', self.features_dict[layer_name].lower() + '.csv')
-            layer_ts = pd.read_csv(layer_path, header=None)
-
-            unit_df = pd.read_csv(f"{unit_csv_path}/top_unit_correlations/subjectwise_unitwise_annotation_corrs_{model}_{layer_name}.csv")
-            unit_df["rank"] = unit_df["rank"].astype(int)
-
-            annotated_features = self.model_features_dict['annotated']
-            if regions is None:
-                regions = unit_df['mask'].unique()
-
-            # 2) Prepare storage
-            regparam_rows = []   # per (subject, feature, region, hemi)
-            results = []
-
-            # 3) Iterate
-            for subject in tqdm(self.subjects['sherlock'], desc="CCA/PLS per subject"):
-                subject_units = unit_df[unit_df['subject'] == subject]
-
-                for annotated_feature in annotated_features:
-                    # Pre-load feature vector
-                    anno_path_full = os.path.join(self.dir, 'features', self.features_dict[annotated_feature].lower() + '.csv')
-                    anno_ts_full = pd.read_csv(anno_path_full, header=None).values.squeeze()
-
-                    for region in regions:
-                        hemi_groups = (subject_units[subject_units['mask'] == region]['hemi'].unique()
-                                    if split_hemi else [None])
-
-                        for hemi in hemi_groups:
-                            # Select units for THIS region/hemi
-                            if split_hemi:
-                                region_units = subject_units[(subject_units['mask'] == region) & (subject_units['hemi'] == hemi)]
-                            else:
-                                region_units = subject_units[subject_units['mask'] == region]
-
-                            if region_units.empty:
-                                continue
-                            if top_n is not None:
-                                region_units = region_units.nsmallest(top_n, 'rank')
-                            selected_units = region_units['unit_index'].unique()
-                            if len(selected_units) == 0:
-                                continue
-
-                            X_full = layer_ts.iloc[:, selected_units].values
-                            tmin = min(len(anno_ts_full), X_full.shape[0])
-                            X_full = X_full[:tmin, :]
-                            y_full = anno_ts_full[:tmin]
-
-                            # 3a) If CCA, TUNE (c_x, c_y) for THIS (subject, feature, region, hemi) and SAVE
-                            if method == "cca":
-                                best_cx, best_cy = _select_rcca_params(
-                                    unit_data=X_full,
-                                    anno_ts=y_full,
-                                    reg_params=np.logspace(-5, 0, 11),
-                                    chunklen=self.chunklen,
-                                    n_splits=5
-                                )
-                                regparam_rows.append({
-                                    "subject": subject,
-                                    "feature": annotated_feature,
-                                    "region": region,
-                                    "hemi": ("" if hemi is None or pd.isna(hemi) else str(hemi)),
-                                    "method": "cca",
-                                    "c_x": best_cx,
-                                    "c_y": best_cy,
-                                    "n_units_tuned": int(X_full.shape[1])
-                                })
-                                reg_c_x, reg_c_y = best_cx, best_cy
-                            else:
-                                reg_c_x, reg_c_y = (None, None)
-
-                            # 3b) Evaluate outer blocked CV with FIXED params
-                            score = run_single_cca_or_pls(
-                                unit_data=X_full,
-                                anno_ts=y_full,
-                                method=method,
-                                chunklen=self.chunklen,
-                                reg_c_x=reg_c_x,
-                                reg_c_y=reg_c_y
-                            )
-
-                            row = {
-                                'subject': subject,
-                                'annotated_feature': annotated_feature,
-                                'region': region,
-                                'method': method,
-                                'score': score
-                            }
-                            if split_hemi:
-                                row['hemi'] = hemi
-                            results.append(row)
-
-            # 4) Save outputs
-            results_df = pd.DataFrame(results).replace(self.labels_dict)
-            results_df.to_csv(os.path.join(self.out_dir, f"subjectwise_unit_feature_CCA_{self.model}_{layer_name}_{top_n}.csv"), index=False)
-
-            if len(regparam_rows) > 0:
-                regparams_df = pd.DataFrame(regparam_rows)
-                regparams_csv = os.path.join(self.out_dir, f"cca_regparams_by_region_{self.model}_{layer_name}_{top_n}.csv")
-                regparams_df.to_csv(regparams_csv, index=False)
-            else:
-                regparams_csv = None
-        else:
-            regparams_csv = os.path.join(self.out_dir, f"cca_regparams_by_region_{self.model}_{layer_name}_{top_n}.csv")
-            if not os.path.exists(regparams_csv):
-                regparams_csv = None
-
-        # ---- your plotting/anova code (unchanged) ----
-        results_path = os.path.join(self.out_dir)
-        hue_order = [ self.labels_dict.get(item, item) for item in self.model_features_dict['annotated'] ]
-        bar_fig,point_fig = plotting_helpers.plot_top_unit_scores(results_path,model='vislang',layer_to_plot=layer_name,col_wrap=None,hue_order=hue_order,top_n=top_n)
-
-        region_sets = {'bar': bar_fig, 'point': point_fig}
-        MT = self.MT; ISC = self.ISC; STS = ['STS']; language = ['temporal','frontal'] 
-        pvalue_results = []
-
-        for label, fig in region_sets.items():
-            for ax_row in fig.axes:
-                for ax in ax_row:
-                    title_text = ax.get_title().split(' = ')[1]
-                    region_type = title_text
-                    regions = (MT if region_type == 'MT' else ISC if region_type == 'ISC' else language if region_type == 'language' else STS)
-                    if((region_type!='motion')):
-                        sns.despine(ax=ax, left=True)
-                        ax.tick_params(left=False, labelleft=False, )
-                    bbox = dict(boxstyle='round,pad=0.3', edgecolor='black', facecolor='none', linewidth=1.5)
-                    ax.text(0.5, 1.01, region_type + ' regions', fontsize=20, fontweight='bold',
-                            ha='center', va='center', transform=ax.transAxes, bbox=bbox)
-            fig.set_axis_labels("", "Canonical correlation coefficient")
-            fig.set_titles("")
-
-        bar_fig.savefig(os.path.join(f"{self.figure_dir}/{layer_name}_{top_n}_cca.png"), bbox_inches='tight', dpi=300)
-        plt.close()
-
-        results_df = pd.read_csv(os.path.join(self.out_dir, f"subjectwise_unit_feature_CCA_{self.model}_{layer_name}_{top_n}.csv"))
-        results_df['hemisphere'] = 'both'
-        results_df['Feature_Space'] = results_df["annotated_feature"]
-        results_df['encoding_response'] = results_df['score']
-        results_df['mask'] = results_df['region']
-        anova_df = stats_helpers.run_anova_per_region_pair_per_hemisphere(
-            data=results_df,
-            plot_features=[self.labels_dict.get(feature,feature) for feature in self.model_features_dict['annotated']]
-        )
-        csv_path = os.path.join(self.out_dir, f"{self.sid}{self.enc_file_label}_model-{self.model}_{label}_unit_feature_comparison_anova_interaction_test.csv")            
-        anova_df.to_csv(csv_path, index=False)
-
-        output_path = os.path.join(self.dir,'tables',f"pairwise_anova_{self.model}_unit_feature_comparisons_{layer_name}.tex")
-        stats_helpers.generate_latex_anova_pairwise_table(anova_df,output_path)
-
-        # Return results + path to region/hemi param table for sliding-window
-        return results_df, regparams_csv
-    def plot_unit_feature_highlights(
-        self,
-        layer,
-        unit,
-        annotated_features,
-        image_dir,
-        title = '',
-        y_min = -15,
-        window_size=20,
-        top_k=3,
-        output_path="",
-    ):
-        import os
-        import pandas as pd
-        import numpy as np
-        import matplotlib.pyplot as plt
-        from matplotlib.patches import Rectangle
-        from PIL import Image
-        from PIL import ImageEnhance
-        import re
-        from scipy.stats import zscore
-        from matplotlib.offsetbox import OffsetImage, AnnotationBbox
-
-        os.makedirs(output_path, exist_ok=True)
-        plt.rcParams.update({'font.size': 50, 'font.family': 'Arial'})
-
-
-        def sliding_window_correlation(unit_ts, anno_ts, window_size):
-            corrs = []
-            for start in range(len(unit_ts) - window_size + 1):
-                u_win = unit_ts[start:start + window_size]
-                a_win = anno_ts[start:start + window_size]
-                if np.std(u_win) == 0 or np.std(a_win) == 0:
-                    corrs.append(0)
-                else:
-                    corrs.append(np.corrcoef(u_win, a_win)[0, 1])
-            return np.array(corrs)
-
-        def extract_frame_number(filename):
-            match = re.search(r'_(\d+)\.png$', filename)
-            return int(match.group(1)) if match else -1
-
-        layer_path = os.path.join(self.dir, 'features', self.features_dict[layer].lower() + '.csv')
-        unit_ts = pd.read_csv(layer_path, header=None).iloc[:, unit].values
-        # unit_ts = zscore(unit_ts)
-
-        frame_files = sorted(
-            [os.path.join(image_dir, fname) for fname in os.listdir(image_dir) if fname.endswith('.png')],
-            key=lambda x: extract_frame_number(os.path.basename(x))
-        )
-
-        fig, ax = plt.subplots(figsize=(60, 15))
-        ax.plot(unit_ts, color="black", label=f"Unit {unit}",lw=5)
-        img_y_offset = unit_ts.min() - 1  # vertical offset for image display
-        ymin, ymax = ax.get_ylim()
-        ax.set_ylim(y_min, 10)
-        ax.set_xlim(-10, 1931)
-        ylim = ax.get_ylim()
-        sns.despine(ax=ax,top=True,right=True,left=False,bottom=True)
-        ax.set_xticks([])
-        
-        used_image_paths = set()
-
-
-        img_coords = []
-        used_label_slots = []  # (x_center, y_level)
-        for feat_idx, feat_name in enumerate(annotated_features):
-            anno_path = os.path.join(self.dir, 'features', self.features_dict[feat_name].lower() + '.csv')
-            anno_ts = pd.read_csv(anno_path, header=None).values.squeeze()
-            # anno_ts = zscore(anno_ts)
-
-            corrs = sliding_window_correlation(unit_ts, anno_ts, window_size)
-            # top_idxs = np.argsort(corrs)[-top_k:]
-            sorted_idxs = np.argsort(corrs)[::-1]
-
-            # Greedily select non-overlapping windows
-            top_idxs = []
-            for idx in sorted_idxs:
-                if all(abs(idx - chosen) >= window_size for chosen in top_idxs):
-                    top_idxs.append(idx)
-                if len(top_idxs) == top_k:
-                    break
-            label_spacing = 110    # how close labels can be horizontally
-            label_y_step = 0.27*ylim[1]   # vertical offset between stacked labels
-
-            for i, idx in enumerate(top_idxs):
-                color = self.colors_dict.get(feat_name, f"C{feat_idx}")
-                x_center = idx + window_size / 2
-
-                # Highlight region
-                ax.add_patch(Rectangle(
-                    (idx, 0), window_size, ylim[1],
-                    color=color, alpha=0.3, label=feat_name if i == 0 else None))
-
-                # Annotate with correlation value
-                corr_value = corrs[idx]
-
-                # Stack labels vertically to avoid x-collisions
-                y_level = 0
-                for (existing_x, existing_level) in used_label_slots:
-                    if abs(x_center - existing_x) < label_spacing:
-                        y_level = max(y_level, existing_level + 1)
-                used_label_slots.append((x_center, y_level))
-
-                y_position = ylim[1] - 0.3 * ylim[1] + y_level * label_y_step
-
-                ax.text(
-                    x_center, y_position,
-                    f"{self.labels_dict.get(feat_name, feat_name)}\nr = {corr_value:.2f}",
-                    ha='center', va='top',
-                    fontsize=40, color=color, weight='bold',
-                    bbox=dict(boxstyle="round,pad=0.2", fc="white", ec=color, lw=5, alpha=0.8),
-                    zorder=20
-                )
-
-                # Get representative frame from that window
-                window_imgs = frame_files[idx:idx + window_size]
-                best_img_idx = np.argmax(zscore(unit_ts[idx:idx + window_size]))# + zscore(anno_ts[idx:idx + window_size])) 
-                best_img_path = window_imgs[best_img_idx] if best_img_idx < len(window_imgs) else None
-
-                if best_img_path and os.path.exists(best_img_path) and best_img_path not in used_image_paths:
-                    img = Image.open(best_img_path)
-                    # Brighten the image
-                    enhancer = ImageEnhance.Brightness(img)
-                    img = enhancer.enhance(1.5)  # Factor > 1 brightens, < 1 darkens (e.g., 1.5 = 50% brighter)
-                    img.thumbnail((485, 485), Image.Resampling.LANCZOS)
-                    x_img = x_center - (img.width / fig.dpi / 2)
-                    img_coords.append((x_img, img_y_offset, img, color))
-                    used_image_paths.add(best_img_path)
-
-        used_slots = []  # keep track of existing image x-ranges and their y-offset levels
-        img_spacing = 220  # how far apart images need to be on x-axis
-        y_offset_step = 4  # how much to lower each new row
-
-        for x_img, y_img, img, color in sorted(img_coords, key=lambda x: x[0]):
-            # Determine the vertical offset to avoid overlap
-            y_level = 0
-            for (existing_x, existing_level) in used_slots:
-                if abs(x_img - existing_x) < img_spacing:
-                    y_level = max(y_level, existing_level + 1)
-            
-            # Apply vertical offset based on level
-            new_y_img = img_y_offset - (y_offset_step * y_level)
-            used_slots.append((x_img, y_level))
-
-            # Draw line
-            ax.plot([x_img, x_img], [0, new_y_img], linestyle="--", color=color,zorder=10,lw=5 )
-
-            # Draw image
-            imgbox = OffsetImage(img, zoom=1)
-            ab = AnnotationBbox(imgbox, (x_img, new_y_img), frameon=False, box_alignment=(0.5, 1.0))
-            ax.add_artist(ab)
-            
-        if len(title)>0:
-            bbox = dict(boxstyle='round,pad=0.3', edgecolor='black', facecolor='none', linewidth=5)
-            ax.text(0.01, 1.1, title, fontsize=60, fontweight='bold',
-                    ha='left', va='center', transform=ax.transAxes, bbox=bbox)
-
-        ax.set_title("")
-        ax.set_xlabel("")
-        ax.set_ylabel(f"Unit {unit} activation")
-        # handles, labels = ax.get_legend_handles_labels()
-        # ax.legend(dict(zip(labels, handles)).values(), dict(zip(labels, handles)).keys())
-
-        plt.tight_layout()
-        save_path = os.path.join(output_path, f"highlighted_{layer}_unit-{unit}.png")
-        plt.savefig(save_path)
-        plt.close()
-
-def _make_groups(n_samples, chunklen):
-    import numpy as np
-    n_chunks = int(np.floor(n_samples / chunklen))
-    groups = [str(i) for i in range(n_chunks) for _ in range(chunklen)]
-    if len(groups) < n_samples:
-        groups.extend([str(n_chunks)] * (n_samples - len(groups)))
-    return np.asarray(groups)
-
-def _select_rcca_params(unit_data, anno_ts, reg_params=None, chunklen=20, n_splits=5):
-    """
-    Pick rCCA (c_x, c_y) via blocked GroupKFold CV on the FULL time series
-    for this (subject, feature, region, hemi) slice. Returns (best_cx, best_cy).
-    """
-    from cca_zoo.model_selection import GridSearchCV
-    from cca_zoo.linear import rCCA
-    from sklearn.preprocessing import StandardScaler
-    from sklearn.model_selection import GroupKFold
-    import numpy as np
-
-    if reg_params is None:
-        reg_params = np.logspace(-5, 0, 11)
-
-    X = np.asarray(unit_data)
-    y = np.asarray(anno_ts).reshape(-1, 1)
-
-    sx, sy = StandardScaler(), StandardScaler()
-    X = sx.fit_transform(np.nan_to_num(X))
-    y = sy.fit_transform(np.nan_to_num(y))
-
-    groups = _make_groups(len(y), chunklen)
-    cv_inner = GroupKFold(n_splits=n_splits)
-
-    gs = GridSearchCV(
-        estimator=rCCA(latent_dimensions=1),
-        param_grid={"c": [reg_params, reg_params]},
-        cv=cv_inner,
-        error_score="raise",
-        n_jobs=-1
-    ).fit((X, y), groups=groups)
-
-    best_cx, best_cy = float(gs.best_params_["c"][0]), float(gs.best_params_["c"][1])
-    return best_cx, best_cy
-
 class VoxelSelectionManager:
     def __init__(self, parent):
         """
@@ -2633,7 +2009,8 @@ class VoxelSelectionManager:
                 'folder': 'performance',
                 'resp_label': 'perf_raw',
                 'feature_names': ['NA'],
-                'models': self.parent.models
+                # cross-subject encoding is loaded separately (include_cross_subject) and added to the summary on save
+                'models': [m for m in self.parent.models if m != 'cross-subject encoding'] or [self.parent.model]
             },
             'added_variance': {
                 'folder': 'performance',
@@ -2670,30 +2047,22 @@ class VoxelSelectionManager:
             raise ValueError(f"Unknown response_label: {response_label}")
         return RESPONSE_CONFIG[response_label]
 
-    def load_files(self, config, response_label, load=False):
+    def load_files(self, config, response_label, load=False, include_cross_subject=False):
         """
-        Load all necessary NIfTI files (GLM, encoding, ISC, cross-subject).
+        Load all necessary NIfTI files (GLM, encoding, cross-subject).
         """
         if load:
             return None  # Optionally, load precomputed things if needed
 
         files = {}
 
-        # --- Load ISC and cross-subject files
-        files[('ISC')] = nibabel.load(
-            os.path.join(self.parent.dir, 'analysis', 'SecondLevelGroup', 'performance',
-                         f"sub-NT_brain2brain_correlation_smoothingfwhm-6.0_chunklen-{self.parent.chunklen}_measure-perf_raw.nii.gz")
-        )
-
-        for subject in self.parent.subjects['SIpointlights']:
-            files[('cross-subject encoding (ISC)', subject)] = nibabel.load(
-                os.path.join(self.parent.dir, 'analysis', 'Brain2Brain', 'performance',
-                             f"{subject}_brain2brain_encoding_smoothingfwhm-{self.parent.smoothing_fwhm}_chunklen-{self.parent.chunklen}_mask-ISC_measure-perf_raw.nii.gz")
-            )
-            files[('cross-subject encoding (MT+STS+language)', subject)] = nibabel.load(
-                os.path.join(self.parent.dir, 'analysis', 'Brain2Brain', 'performance',
-                             f"{subject}_brain2brain_encoding_smoothingfwhm-{self.parent.smoothing_fwhm}_chunklen-{self.parent.chunklen}_mask-combined_parcels_measure-perf_raw.nii.gz")
-            )
+        # --- Load cross-subject files (only if requested)
+        if include_cross_subject:
+            for subject in self.parent.subjects['SIpointlights']:
+                files[('cross-subject encoding', subject)] = nibabel.load(
+                    os.path.join(self.parent.dir, 'analysis', 'Brain2Brain', 'performance',
+                                 f"{subject}_brain2brain_encoding_smoothingfwhm-{self.parent.smoothing_fwhm}_chunklen-{self.parent.chunklen}_mask-ISC_measure-perf_raw.nii.gz")
+                )
 
         # --- Load GLM files (localizers + responses)
         for glm_task in self.parent.glm_task:
@@ -2723,21 +2092,55 @@ class VoxelSelectionManager:
                 models_to_load = models
 
             for model in models_to_load:
-                files[(model, subject)] = nibabel.load(
-                    os.path.join(self.parent.enc_dir, response_folder,
-                                 f"{subject}_encoding_model-{model}_smoothingfwhm-{self.parent.smoothing_fwhm}_chunklen-{self.parent.chunklen}_mask-{self.parent.mask_name}_measure-{resp_label}.nii.gz")
-                )
+                # Handle measure_suffix: insert before '_raw' suffix
+                # e.g., 'perf_raw' + '_speech_only_eval' -> 'perf_speech_only_eval_raw'
+                if resp_label.endswith('_raw'):
+                    measure_label = resp_label[:-4] + self.parent.measure_suffix + '_raw'
+                else:
+                    measure_label = resp_label + self.parent.measure_suffix
+
+                # Try both filename orderings (new: mask_chunklen, old: chunklen_mask)
+                filepath_new = os.path.join(self.parent.enc_dir, response_folder,
+                                           f"{subject}_encoding_model-{model}_smoothingfwhm-{self.parent.smoothing_fwhm}_mask-{self.parent.mask_name}_chunklen-{self.parent.chunklen}_measure-{measure_label}.nii.gz")
+                filepath_old = os.path.join(self.parent.enc_dir, response_folder,
+                                           f"{subject}_encoding_model-{model}_smoothingfwhm-{self.parent.smoothing_fwhm}_chunklen-{self.parent.chunklen}_mask-{self.parent.mask_name}_measure-{measure_label}.nii.gz")
+
+                if os.path.exists(filepath_new):
+                    files[(model, subject)] = nibabel.load(filepath_new)
+                elif os.path.exists(filepath_old):
+                    files[(model, subject)] = nibabel.load(filepath_old)
+                else:
+                    raise FileNotFoundError(f"Could not find file with either ordering:\n  New: {filepath_new}\n  Old: {filepath_old}")
 
                 if response_label == 'ind_product_measure':
-                    files[(model, subject, 'performance')] = nibabel.load(
-                        os.path.join(self.parent.enc_dir, 'performance',
-                                     f"{subject}_encoding_model-{model}_smoothingfwhm-{self.parent.smoothing_fwhm}_chunklen-{self.parent.chunklen}_mask-{self.parent.mask_name}_measure-perf_raw.nii.gz")
-                    )
+                    # For performance file: insert measure_suffix before '_raw'
+                    perf_measure_label = 'perf' + self.parent.measure_suffix + '_raw'
+                    perf_filepath_new = os.path.join(self.parent.enc_dir, 'performance',
+                                                    f"{subject}_encoding_model-{model}_smoothingfwhm-{self.parent.smoothing_fwhm}_mask-{self.parent.mask_name}_chunklen-{self.parent.chunklen}_measure-{perf_measure_label}.nii.gz")
+                    perf_filepath_old = os.path.join(self.parent.enc_dir, 'performance',
+                                                    f"{subject}_encoding_model-{model}_smoothingfwhm-{self.parent.smoothing_fwhm}_chunklen-{self.parent.chunklen}_mask-{self.parent.mask_name}_measure-{perf_measure_label}.nii.gz")
+
+                    if os.path.exists(perf_filepath_new):
+                        files[(model, subject, 'performance')] = nibabel.load(perf_filepath_new)
+                    elif os.path.exists(perf_filepath_old):
+                        files[(model, subject, 'performance')] = nibabel.load(perf_filepath_old)
+                    else:
+                        raise FileNotFoundError(f"Could not find performance file with either ordering:\n  New: {perf_filepath_new}\n  Old: {perf_filepath_old}")
+
                 if response_label == 'features_preferred_delay':
-                    files[(model, subject, 'ind_product_measure')] = nibabel.load(
-                        os.path.join(self.parent.enc_dir, 'ind_product_measure',
-                                     f"{subject}_encoding_model-{model}_smoothingfwhm-{self.parent.smoothing_fwhm}_chunklen-{self.parent.chunklen}_mask-{self.parent.mask_name}_measure-ind_product_measure_raw.nii.gz")
-                    )
+                    # For ind_product_measure file: insert measure_suffix before '_raw'
+                    prod_measure_label = 'ind_product_measure' + self.parent.measure_suffix + '_raw'
+                    prod_filepath_new = os.path.join(self.parent.enc_dir, 'ind_product_measure',
+                                                    f"{subject}_encoding_model-{model}_smoothingfwhm-{self.parent.smoothing_fwhm}_mask-{self.parent.mask_name}_chunklen-{self.parent.chunklen}_measure-{prod_measure_label}.nii.gz")
+                    prod_filepath_old = os.path.join(self.parent.enc_dir, 'ind_product_measure',
+                                                    f"{subject}_encoding_model-{model}_smoothingfwhm-{self.parent.smoothing_fwhm}_chunklen-{self.parent.chunklen}_mask-{self.parent.mask_name}_measure-{prod_measure_label}.nii.gz")
+
+                    if os.path.exists(prod_filepath_new):
+                        files[(model, subject, 'ind_product_measure')] = nibabel.load(prod_filepath_new)
+                    elif os.path.exists(prod_filepath_old):
+                        files[(model, subject, 'ind_product_measure')] = nibabel.load(prod_filepath_old)
+                    else:
+                        raise FileNotFoundError(f"Could not find product measure file with either ordering:\n  New: {prod_filepath_new}\n  Old: {prod_filepath_old}")
 
         return files
 
@@ -2760,10 +2163,18 @@ class VoxelSelectionManager:
         params = []
         models = config['models']
         feature_names = config['feature_names']
+        print(feature_names)
 
         for glm_task1 in self.parent.glm_task:
             for glm_task2 in self.parent.glm_task:
-                run_groups = [(self.parent.all_runs[glm_task1], self.parent.all_runs[glm_task2])] if glm_task1 != glm_task2 else self.parent.run_groups[glm_task1]
+                if glm_task1 != glm_task2:
+                    run_group_sets = [[(self.parent.all_runs[glm_task1], self.parent.all_runs[glm_task2])]]
+                else:
+                    # cross-validated splits give independent glm responses; the all-runs localizer gives the
+                    # encoding responses, so every participant with this localizer (not only those who also did
+                    # the other task) has an all-runs row. Its glm response is not independent and is not plotted.
+                    run_group_sets = [self.parent.run_groups[glm_task1],
+                                      [(self.parent.all_runs[glm_task1], self.parent.all_runs[glm_task1])]]
                 for subject in self.parent.subjects[glm_task1]:
                     for localizer_contrast in self.parent.localizer_contrasts[glm_task1]:
                         for response_contrast in self.parent.response_contrasts[glm_task2]:
@@ -2771,21 +2182,20 @@ class VoxelSelectionManager:
                                 for mask_name in self.parent.localizer_masks[localizer_contrast]:
                                     for feature_name in feature_names:
                                         for model_name in models:
-                                            params.append((
-                                                subject, glm_task1, glm_task2,
-                                                localizer_contrast, response_contrast,
-                                                run_groups, hemi, feature_name,
-                                                mask_name, model_name
-                                            ))
+                                            for run_groups in run_group_sets:
+                                                params.append((
+                                                    subject, glm_task1, glm_task2,
+                                                    localizer_contrast, response_contrast,
+                                                    run_groups, hemi, feature_name,
+                                                    mask_name, model_name
+                                                ))
         return params
     def process_voxel_selection(self, subject, mask_name, response_label, feature_name, model, glm_task1,
                              glm_task2, localizer_contrast, response_contrast,
                              run_groups, files, hemi, extraction_threshold=0):
         glm_responses = []
         enc_responses = []
-        ISC_responses = []
-        cross_subject_responses_anat = []
-        cross_subject_responses_ISC = []
+        cross_subject_responses = []
         num_voxels = []
         prop_voxels = []
         localizer_runs = []
@@ -2793,9 +2203,7 @@ class VoxelSelectionManager:
 
         all_glm_voxelwise = []
         all_enc_voxelwise = []
-        all_ISC_voxelwise = []
-        all_cross_subject_anat_voxelwise = []
-        all_cross_subject_ISC_voxelwise = []
+        all_cross_subject_voxelwise = []
 
         for localize_run, response_run in run_groups:
             try:
@@ -2809,9 +2217,8 @@ class VoxelSelectionManager:
                 #print(e)
                 continue
 
-            ISC = files[('ISC')].get_fdata()
-            cross_subject_anat = files[('cross-subject encoding (MT+STS+language)', subject)].get_fdata()
-            cross_subject_ISC = files[('cross-subject encoding (ISC)', subject)].get_fdata()
+            # Load cross-subject data only if available
+            cross_subject = files[('cross-subject encoding', subject)].get_fdata() if ('cross-subject encoding', subject) in files else None
 
             if response_label == 'added_variance':
                 base_model, subtract_models = helpers.get_added_variance_models(feature_name)
@@ -2831,7 +2238,13 @@ class VoxelSelectionManager:
                 enc_response = files[(model, subject)].get_fdata()
                 if response_label == 'ind_product_measure':
                     constraining_enc_response = files[(model, subject, 'performance')].get_fdata()
-                    enc_response[:, constraining_enc_response < 0] = 0
+                    if self.parent.mask_by_performance:
+                        enc_response[:, constraining_enc_response < 0] = 0
+                    if self.parent.clip_negative_product_measure:
+                        enc_response = np.clip(enc_response, a_min=0, a_max=None)
+                if response_label == 'performance':
+                    if self.parent.clip_negative_performance:
+                        enc_response = np.clip(enc_response, a_min=0, a_max=None)
 
             mask_name_hemi = f"{hemi}-{mask_name}"
             hemi_mask = self.parent.mm.get_resampled_mask(mask_name_hemi, z_scores_img)
@@ -2856,28 +2269,22 @@ class VoxelSelectionManager:
 
             glm_data = glm_weights[combined_mask]
             enc_data = enc_response[combined_mask]
-            ISC_data = ISC[combined_mask]
-            cross_subject_data_anat = cross_subject_anat[combined_mask]
-            cross_subject_data_ISC = cross_subject_ISC[combined_mask]
+            cross_subject_data = cross_subject[combined_mask] if cross_subject is not None else np.array([])
 
             if self.parent.scale_by == 'total_variance':
                 enc_data = np.clip(enc_data, a_min=0, a_max=None)
                 enc_data = enc_data / enc_data.sum(axis=0, keepdims=True)
 
             #only save the first loc run, resp run combo so we have responses for all regions
-            if ((localize_run == self.parent.all_runs[glm_task1])|(localize_run == self.parent.run_groups[glm_task1][1][0])): 
+            if ((localize_run == self.parent.all_runs[glm_task1])|(localize_run == self.parent.run_groups[glm_task1][1][0])):
                 all_glm_voxelwise.append(glm_data)
                 all_enc_voxelwise.append(enc_data)
-                all_ISC_voxelwise.append(ISC_data)
-                all_cross_subject_anat_voxelwise.append(cross_subject_data_anat)
-                all_cross_subject_ISC_voxelwise.append(cross_subject_data_ISC)
+                all_cross_subject_voxelwise.append(cross_subject_data)
 
             num_voxel = len(glm_data)
             glm_responses.append(np.nanmean(glm_data) if not np.isnan(glm_data).all() else np.nan)
             enc_responses.append(np.nanmean(enc_data) if not np.isnan(enc_data).all() else np.nan)
-            ISC_responses.append(np.nanmean(ISC_data) if not np.isnan(ISC_data).all() else np.nan)
-            cross_subject_responses_anat.append(np.nanmean(cross_subject_data_anat) if not np.isnan(cross_subject_data_anat).all() else np.nan)
-            cross_subject_responses_ISC.append(np.nanmean(cross_subject_data_ISC) if not np.isnan(cross_subject_data_ISC).all() else np.nan)
+            cross_subject_responses.append(np.nanmean(cross_subject_data) if len(cross_subject_data) > 0 and not np.isnan(cross_subject_data).all() else np.nan)
             num_voxels.append(num_voxel)
             prop_voxels.append(num_voxel / self.parent.n_voxels_all[self.parent.perc_top_voxels][mask_name])
             localizer_runs.append(str(localize_run))
@@ -2898,18 +2305,14 @@ class VoxelSelectionManager:
                 'enc_feature_name': feature_name,
                 'glm_weight': safe_mean(glm_responses),
                 'encoding_response': safe_mean(enc_responses),
-                'ISC': safe_mean(ISC_responses),
-                'cross-subject encoding (MT+STS+language)': safe_mean(cross_subject_responses_anat),
-                'cross-subject encoding (ISC)': safe_mean(cross_subject_responses_ISC),
+                'cross-subject encoding': safe_mean(cross_subject_responses),
                 'num_voxels': np.mean(num_voxels),
                 'proportion_voxels': np.mean(prop_voxels),
                 'averaged_localizer_runs': ",".join(localizer_runs),
                 'averaged_response_runs': ",".join(response_runs),
                 'glm_voxelwise': np.concatenate(all_glm_voxelwise) if all_glm_voxelwise else np.array([]),
                 'enc_voxelwise': np.concatenate(all_enc_voxelwise) if all_enc_voxelwise else np.array([]),
-                'ISC_voxelwise': np.concatenate(all_ISC_voxelwise) if all_ISC_voxelwise else np.array([]),
-                'cross_subject_anat_voxelwise': np.concatenate(all_cross_subject_anat_voxelwise) if all_cross_subject_anat_voxelwise else np.array([]),
-                'cross_subject_ISC_voxelwise': np.concatenate(all_cross_subject_ISC_voxelwise) if all_cross_subject_ISC_voxelwise else np.array([]),
+                'cross_subject_voxelwise': np.concatenate(all_cross_subject_voxelwise) if all_cross_subject_voxelwise else np.array([]),
             }
     def save_voxel_selection_results(self, results_list, output_basename, response_label):
         """
@@ -2926,13 +2329,12 @@ class VoxelSelectionManager:
 
         summary_df = pd.DataFrame(summary_rows)
         if(response_label=='performance'):
-            #put ISC and cross-subject encoding as models
-            for add_this in ['ISC','cross-subject encoding (MT+STS+language)','cross-subject encoding (ISC)']:
-                temp_results = summary_df.copy()
-                temp_results['model'] = [add_this for item in summary_df['model']]
-                temp_results['encoding_response'] = temp_results[add_this]
+            add_this = 'cross-subject encoding'
+            temp_results = summary_df.copy()
+            temp_results['model'] = [add_this for item in summary_df['model']]
+            temp_results['encoding_response'] = temp_results[add_this]
 
-                summary_df = pd.concat([summary_df,temp_results],ignore_index=True)
+            summary_df = pd.concat([summary_df,temp_results],ignore_index=True)
         
         #take out subjects with no data
         summary_df = summary_df[summary_df['num_voxels']!=np.nan]
@@ -2941,12 +2343,12 @@ class VoxelSelectionManager:
 
         return summary_path, voxelwise_path
 
-    def collect_glm_voxel_selection(self, response_label, filepath_tag='', extraction_threshold=0, load=False):
+    def collect_glm_voxel_selection(self, response_label, filepath_tag='', extraction_threshold=0, load=False, include_cross_subject=False):
         """
         Full pipeline to collect GLM voxel selection results.
         """
         config = self.build_config(response_label)
-        files = self.load_files(config, response_label, load=load)
+        files = self.load_files(config, response_label, load=load, include_cross_subject=include_cross_subject)
         if load:
             return None  # You can add loading-from-csv here later if you want
 
@@ -2993,15 +2395,6 @@ class VoxelSelectionManager:
                 run_groups, hemi, feature_name_loc,
                 feature_name_resp, mask_name) in tqdm(params_list)
         )
-        
-        if(response_label=='performance'):
-            #put ISC and cross-subject encoding as models
-            for add_this in ['ISC','cross-subject encoding (MT+STS+language)','cross-subject encoding (ISC)']:
-                temp_results = results.copy()
-                temp_results['model'] = [add_this for item in results['model']]
-                temp_results['encoding_response'] = temp_results[add_this]
-
-                results = pd.concat([results,temp_results],ignore_index=True)
 
         base_filename = (f"{self.parent.sid}{self.parent.enc_file_label}_model-{self.parent.model}"
                         f"_measure-{config['response_label']}_perc_top_voxels-{self.parent.perc_top_voxels}"
@@ -3104,11 +2497,11 @@ def main():
     parser.add_argument('--population','-population',type=str,default='NT')
 
     parser.add_argument('--dir', '-dir', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/deep_nat_lat')
+                        default=helpers.PROJECT_DIR)
     parser.add_argument('--out_dir', '-output', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/deep_nat_lat/analysis')
+                        default=os.path.join(helpers.PROJECT_DIR, 'analysis'))
     parser.add_argument('--figure_dir', '-figures', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/deep_nat_lat/figures')
+                        default=os.path.join(helpers.PROJECT_DIR, 'figures'))
     args = parser.parse_args()
     SecondLevelIndividual(args).run()
 

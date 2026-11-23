@@ -1,9 +1,11 @@
 # I/O packages
 import os
+import re
 import argparse
 import glob
 from pathlib import Path
 import csv
+import json
 import nibabel
 import nibabel.processing
 import h5py
@@ -27,6 +29,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import KFold,GroupKFold
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import r2_score
 import sklearn.utils.validation as _v
 from sklearn.base import BaseEstimator
 
@@ -35,8 +38,9 @@ if not hasattr(_v, "validate_data"):
         # mirror sklearn>=1.6 helper by delegating to estimator._validate_data
         return BaseEstimator._validate_data(estimator, *args, **kwargs)
     _v.validate_data = validate_data
-from src.delayer import Delayer #wrote our own Delayer
+# from src.delayer import Delayer #wrote our own Delayer
 from himalaya.backend import set_backend
+from voxelwise_tutorials.delayer import Delayer
 from himalaya.kernel_ridge import MultipleKernelRidgeCV
 from himalaya.kernel_ridge import Kernelizer
 from himalaya.kernel_ridge import ColumnKernelizer
@@ -79,8 +83,14 @@ class EncodingModel:
         print('args.save_weights',args.save_weights)
         self.save_hemodynamic_fits = bool(args.save_weights) #if saving weights, also saving hemodynamic fits
         self.save_individual_feature_performance=True
-        self.apply_speech_masking = getattr(args, 'apply_speech_masking', False) #whether to restrict data to speech periods only (default: False)
-    
+        # Resolve eval mask features (generalized speech masking)
+        eval_mask = getattr(args, 'eval_mask_feature', None)  # list or None
+        if eval_mask is None and getattr(args, 'apply_speech_masking', False):
+            eval_mask = ['speaking']
+        self.eval_mask_features = eval_mask  # list of feature names/paths, or None
+        self.simple_mode = getattr(args, 'simple', False) #whether to use simplified parameters for faster computation (default: False)
+        self.zero_confounds_in_inner_cv = getattr(args, 'zero_confounds_inner_cv', False) #whether to zero confounds in inner CV validation folds (default: False)
+        self.shift_within_chunk = getattr(args, 'shift_within_chunk', False) #whether to run predefined shifts for systematic null distribution (default: False)
 
         #variables to store results in:
         self.performance = []
@@ -99,6 +109,9 @@ class EncodingModel:
         self.performance_null =  []
         self.ind_feature_performance_null = []
         self.ind_product_measure_null = []
+        self.shift_within_chunk_scores = [] #overall performance at each predefined shift
+        self.shift_values_used = [] #metadata: which shift values were applied
+        self.ind_product_measure_per_shift = [] #individual product measure at each predefined shift
         self.preference1_map = []
         self.preference2_map = []
         self.features_preferred_delay = []
@@ -119,6 +132,7 @@ class EncodingModel:
         Path(f'{self.out_dir}/{"preference_map"}').mkdir(exist_ok=True, parents=True)
         Path(f'{self.out_dir}/{"weights"}').mkdir(exist_ok=True, parents=True)
         Path(f'{self.out_dir}/{"features"}').mkdir(exist_ok=True, parents=True)
+        Path(f'{self.out_dir}/{"alphas"}').mkdir(exist_ok=True, parents=True)
         
         Path(f'{self.figure_dir}/{"performance"}').mkdir(exist_ok=True, parents=True)
         Path(f'{self.figure_dir}/{"perf_p_fdr"}').mkdir(exist_ok=True, parents=True)
@@ -133,14 +147,19 @@ class EncodingModel:
         #dictionary specifying the features to use for a given encoding model name
         self.model_features_dict = helpers.get_models_dict()
         
-        #saving the weights of specific layers of the deep neural network models + word2vec and motion (only a subset for memory considerations)
-        self.feature_weights_to_save = ['alexnet_layer2','alexnet_layer5','alexnet_layer6','alexnet_layer7',
-                                        'word2vec','motion']
-        ## save the weights of the final 3 or 4 layers of the transformer models 
-        transformer_layers = [transformer+'_layer'+str(layer) for transformer in ['sbert','GPT2_1sent','GPT2_3sent'] for layer in [10,11,12]]
-        self.feature_weights_to_save.extend(transformer_layers)
-        transformer_layers = [transformer+'_layer'+str(layer) for transformer in ['SimCLR_attention','SimCLR_embedding','SLIP_attention','SLIP_embedding'] for layer in [9,10,11,12]]
-        self.feature_weights_to_save.extend(transformer_layers)
+        # Config for which feature weights to save, using prefix matching + layer filtering.
+        # Matches all variants (speech_masked, eps, chunk) of each base model.
+        # Layer number is extracted from the '_layer{N}' suffix in the feature name.
+        self.feature_weight_save_config = {
+            'alexnet': [2, 5, 6, 7],          # alexnet layers to save
+            'sbert': [2, 3, 4, 10, 11, 12],   # transformer early + late layers
+            'GPT2': [2, 3, 4, 10, 11, 12],
+            'hubert': [2, 3, 4, 10, 11, 12],
+            'SimCLR': [2,3,4, 9,10, 11, 12],        # vision transformer late layers
+            'SLIP': [9, 10, 11, 12],
+            'word2vec': None,                   # None = always save (no layer filtering)
+            'motion': None,
+        }
 
         self.final_weight_feature_names = [] #place to save the final order of the features that have their weights saved
         
@@ -174,13 +193,110 @@ class EncodingModel:
                        'amplitude':'amplitude',
                        'pixel': 'pixel',
                        'hue':'hue',
-                       'alexnet_149pcs' : ['AlexNet_all_layers_pcs_149dims'],
-                        'motion_149pcs': ['motion_pcs_149dims'],
-                        'hubert_149pcs': ['HuBERT_all_layers_pcs_149dims'],
-                        'word2vec_149pcs': ['word2vec_pcs_149dims'],
-                        'GPT2_149pcs': ['GPT2_chunk30_all_layers_pcs_149dims'],
-                        'SimCLR_149pcs': ['SimCLR_attention_all_layers_pcs_149dims']
+                       'alexnet_pca' : 'AlexNet_all_layers_pcs_363dims',
+                        'motion_pca': 'motion_pcs_363dims',
+                        'hubert_pca': 'HuBERT_all_layers_pcs_363dims',
+                        'word2vec_pca': 'word2vec_pcs_363dims',
+                        'GPT2_pca': 'GPT2_chunk30_all_layers_pcs_363dims',
+                        'SimCLR_pca': 'SimCLR_attention_all_layers_pcs_363dims',
+                        'alexnet_pca_90' : 'alexnet_pcs_1011dims',
+                        'motion_pca_90': 'motion_pcs_81dims',
+                        'hubert_chunk60_pca_90': 'hubert_chunk60_pcs_349dims',
+                        'hubert_chunk60_layer1_pca_90': 'hubert_chunk60_layer1_pcs_54dims',
+                        'hubert_chunk60_layer2_pca_90': 'hubert_chunk60_layer2_pcs_77dims',
+                        'hubert_chunk60_layer3_pca_90': 'hubert_chunk60_layer3_pcs_109dims',
+                        'hubert_chunk60_layer4_pca_90': 'hubert_chunk60_layer4_pcs_133dims',
+                        'hubert_chunk60_layer5_pca_90': 'hubert_chunk60_layer5_pcs_148dims',
+                        'hubert_chunk60_layer6_pca_90': 'hubert_chunk60_layer6_pcs_166dims',
+                        'hubert_chunk60_layer7_pca_90': 'hubert_chunk60_layer7_pcs_188dims',
+                        'hubert_chunk60_layer8_pca_90': 'hubert_chunk60_layer8_pcs_221dims',
+                        'hubert_chunk60_layer9_pca_90': 'hubert_chunk60_layer9_pcs_229dims',
+                        'hubert_chunk60_layer10_pca_90': 'hubert_chunk60_layer10_pcs_216dims',
+                        'hubert_chunk60_layer11_pca_90': 'hubert_chunk60_layer11_pcs_140dims',
+                        'hubert_chunk60_layer12_pca_90': 'hubert_chunk60_layer12_pcs_100dims',
+                        'gpt2_chunk60_layer1_pca_90': 'gpt2_chunk60_layer1_pcs_194dims',
+                        'gpt2_chunk60_layer2_pca_90': 'gpt2_chunk60_layer2_pcs_191dims',
+                        'gpt2_chunk60_layer3_pca_90': 'gpt2_chunk60_layer3_pcs_203dims',
+                        'gpt2_chunk60_layer4_pca_90': 'gpt2_chunk60_layer4_pcs_219dims',
+                        'gpt2_chunk60_layer5_pca_90': 'gpt2_chunk60_layer5_pcs_229dims',
+                        'gpt2_chunk60_layer6_pca_90': 'gpt2_chunk60_layer6_pcs_240dims',
+                        'gpt2_chunk60_layer7_pca_90': 'gpt2_chunk60_layer7_pcs_245dims',
+                        'gpt2_chunk60_layer8_pca_90': 'gpt2_chunk60_layer8_pcs_244dims',
+                        'gpt2_chunk60_layer9_pca_90': 'gpt2_chunk60_layer9_pcs_240dims',
+                        'gpt2_chunk60_layer10_pca_90': 'gpt2_chunk60_layer10_pcs_233dims',
+                        'gpt2_chunk60_layer11_pca_90': 'gpt2_chunk60_layer11_pcs_225dims',
+                        'gpt2_chunk60_layer12_pca_90': 'gpt2_chunk60_layer12_pcs_226dims',
+                        'alexnet_layer1_pca_90': 'alexnet_layer1_raw_pcs_745dims',
+                        'alexnet_layer2_pca_90': 'alexnet_layer2_raw_pcs_787dims',
+                        'alexnet_layer3_pca_90': 'alexnet_layer3_raw_pcs_1058dims',
+                        'alexnet_layer4_pca_90': 'alexnet_layer4_raw_pcs_1061dims',
+                        'alexnet_layer5_pca_90': 'alexnet_layer5_raw_pcs_776dims',
+                        'alexnet_layer6_pca_90': 'alexnet_layer6_raw_pcs_486dims',
+                        'alexnet_layer7_pca_90': 'alexnet_layer7_raw_pcs_523dims',
+                        'word2vec_chunk60_pca_90': 'word2vec_chunk60_pcs_71dims',
+                        'gpt2_chunk60_pca_90': 'gpt2_chunk60_pcs_318dims',
+                        'SimCLR_pca_90': 'SimCLR_attention_all_layers_pcs_745dims',
+                        'motion_pcs_90pct': 'motion_pcs_90pct',
+                        'word2vec_pcs_90pct': 'word2vec_pcs_90pct',
+                        'word2vec_speech_masked_pc90':'word2vec_pcs_90pct_speech_masked',
+                        'word2vec_speech_masked':'word2vec_speech_masked',
+                        'word2vec_chunk20_speech_masked':'word2vec_chunklen20_speech_masked',
+                        'word2vec_chunk60_speech_masked':'word2vec_chunklen60_speech_masked',
+                        'word2vec_chunk20':'word2vec_chunklen20',
+                        'word2vec_chunk60':'word2vec_chunklen60',
+                        'word2vec_chunk80':'word2vec_chunklen80',
+                        'word2vec_chunk120':'word2vec_chunklen120',
+                        'scene_description':['scene_description_layer'+str(layer for layer in [1,2,3,4,5,6,7,8,9,10,11,12])],
+
+                        'motion_speech_masked_pc90':'motion_pcs_90pct_speech_masked',
+                        'motion_eps0.1':'pymoten',
+                        'motion_eps0.2':'pymoten_srp_eps0.2',
+                        'motion_eps0.4':'pymoten_srp_eps0.4',
+                        'motion_eps0.6':'pymoten_srp_eps0.6',
+                        'word2vec_chunk60_eps0.1':'word2vec_chunklen60',
+                        'word2vec_chunk60_eps0.2':'word2vec_chunklen60',
+                        'word2vec_chunk60_eps0.4':'word2vec_chunklen60',
+                        'word2vec_chunk60_eps0.6':'word2vec_chunklen60_srp_eps0.6',
+                        'alexnet_eps0.1_layer1':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-3_srp_eps0.1',
+                        'alexnet_eps0.1_layer2':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-6_srp_eps0.1',
+                        'alexnet_eps0.1_layer3':'torchvision_alexnet_imagenet1k_v1_ReLU-2-8_srp_eps0.1',
+                        'alexnet_eps0.1_layer4':'torchvision_alexnet_imagenet1k_v1_ReLU-2-10_srp_eps0.1',
+                        'alexnet_eps0.1_layer5':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-13_srp_eps0.1',
+                        'alexnet_eps0.1_layer6':'torchvision_alexnet_imagenet1k_v1_ReLU-2-16',
+                        'alexnet_eps0.1_layer7':'torchvision_alexnet_imagenet1k_v1_ReLU-2-19',
+                        'alexnet_eps0.2_layer1':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-3_srp_eps0.2',
+                        'alexnet_eps0.2_layer2':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-6_srp_eps0.2',
+                        'alexnet_eps0.2_layer3':'torchvision_alexnet_imagenet1k_v1_ReLU-2-8_srp_eps0.2',
+                        'alexnet_eps0.2_layer4':'torchvision_alexnet_imagenet1k_v1_ReLU-2-10_srp_eps0.2',
+                        'alexnet_eps0.2_layer5':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-13_srp_eps0.2',
+                        'alexnet_eps0.2_layer6':'torchvision_alexnet_imagenet1k_v1_ReLU-2-16_srp_eps0.2',
+                        'alexnet_eps0.2_layer7':'torchvision_alexnet_imagenet1k_v1_ReLU-2-19_srp_eps0.2',
+                        'alexnet_eps0.3_layer1':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-3_srp_eps0.3',
+                        'alexnet_eps0.3_layer2':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-6_srp_eps0.3',
+                        'alexnet_eps0.3_layer3':'torchvision_alexnet_imagenet1k_v1_ReLU-2-8_srp_eps0.3',
+                        'alexnet_eps0.3_layer4':'torchvision_alexnet_imagenet1k_v1_ReLU-2-10_srp_eps0.3',
+                        'alexnet_eps0.3_layer5':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-13_srp_eps0.3',
+                        'alexnet_eps0.3_layer6':'torchvision_alexnet_imagenet1k_v1_ReLU-2-16_srp_eps0.3',
+                        'alexnet_eps0.3_layer7':'torchvision_alexnet_imagenet1k_v1_ReLU-2-19_srp_eps0.3',
+                        'alexnet_eps0.4_layer1':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-3_srp_eps0.4',
+                        'alexnet_eps0.4_layer2':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-6_srp_eps0.4',
+                        'alexnet_eps0.4_layer3':'torchvision_alexnet_imagenet1k_v1_ReLU-2-8_srp_eps0.4',
+                        'alexnet_eps0.4_layer4':'torchvision_alexnet_imagenet1k_v1_ReLU-2-10_srp_eps0.4',
+                        'alexnet_eps0.4_layer5':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-13_srp_eps0.4',
+                        'alexnet_eps0.4_layer6':'torchvision_alexnet_imagenet1k_v1_ReLU-2-16_srp_eps0.4',
+                        'alexnet_eps0.4_layer7':'torchvision_alexnet_imagenet1k_v1_ReLU-2-19_srp_eps0.4',
+                        'alexnet_eps0.6_layer1':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-3_srp_eps0.6',
+                        'alexnet_eps0.6_layer2':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-6_srp_eps0.6',
+                        'alexnet_eps0.6_layer3':'torchvision_alexnet_imagenet1k_v1_ReLU-2-8_srp_eps0.6',
+                        'alexnet_eps0.6_layer4':'torchvision_alexnet_imagenet1k_v1_ReLU-2-10_srp_eps0.6',
+                        'alexnet_eps0.6_layer5':'torchvision_alexnet_imagenet1k_v1_MaxPool2d-2-13_srp_eps0.6',
+                        'alexnet_eps0.6_layer6':'torchvision_alexnet_imagenet1k_v1_ReLU-2-16_srp_eps0.6',
+                        'alexnet_eps0.6_layer7':'torchvision_alexnet_imagenet1k_v1_ReLU-2-19_srp_eps0.6',
                        }
+        
+        for layer in self.model_features_dict['scene_description']:
+            self.features_dict[layer] = layer
+
         for layer in self.model_features_dict['sbert']:
             self.features_dict[layer]='downsampled_all-mpnet-base-v2_'+layer.split('_')[1]
         for layer in self.model_features_dict['GPT2_1sent']:
@@ -192,18 +308,113 @@ class EncodingModel:
         for layer in self.model_features_dict['hubert']:
             self.features_dict[layer]='hubert-base-ls960-ft_'+layer.split('_')[1]+'_TR' #embeddings extracted each TR
 
-        for time_chunk in [1,5,4,8,10,15,16,20]:
-            for layer in self.model_features_dict['GPT2_'+str(time_chunk)+'s']:
-                self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_running_time_chunk-'+str(time_chunk)
+        # for layer in self.model_features_dict['alexnet_pca_90']:
+        #     self.features_dict[layer] = layer
+        # for layer in self.model_features_dict['alexnet_speech_masked_pc90']:
+        #     self.features_dict[layer] = layer
+        # # for layer in self.model_features_dict['hubert_pca_90']:
+        # #     self.features_dict[layer] = layer
+        # for layer in self.model_features_dict['hubert_chunk60_speech_masked_pc90']:
+        #     self.features_dict[layer] = layer
+        # for layer in self.model_features_dict['GPT2_chunk30_pca_90']:
+        #     self.features_dict[layer] = layer
+        # for layer in self.model_features_dict['GPT2_chunk60_speech_masked_pc90']:
+        #     self.features_dict[layer] = layer
+        # for layer in self.model_features_dict['GPT2_chunk30']:
+        #     self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_running_time_chunk-30'
+        
+        for layer in self.model_features_dict['GPT2_chunk60_eps0.1']:
+            self.features_dict[layer]='GPT2_'+layer.split('_')[3] + '_chunklen60_maxcontext30'
+        for layer in self.model_features_dict['GPT2_chunk60_eps0.2']:
+            self.features_dict[layer]='GPT2_'+layer.split('_')[3] + '_chunklen60_maxcontext30'
+        for layer in self.model_features_dict['GPT2_chunk60_eps0.4']:
+            self.features_dict[layer]='GPT2_'+layer.split('_')[3] + '_chunklen60_maxcontext30_srp_eps0.4'
+        for layer in self.model_features_dict['GPT2_chunk60_eps0.6']:
+            self.features_dict[layer]='GPT2_'+layer.split('_')[3] + '_chunklen60_maxcontext30_srp_eps0.6'
+        
+        for layer in self.model_features_dict['hubert_chunk60_eps0.1']:
+            self.features_dict[layer]='hubert_'+layer.split('_')[3] + '_chunklen60'
+        for layer in self.model_features_dict['hubert_chunk60_eps0.2']:
+            self.features_dict[layer]='hubert_'+layer.split('_')[3] + '_chunklen60'
+        for layer in self.model_features_dict['hubert_chunk60_eps0.4']:
+            self.features_dict[layer]='hubert_'+layer.split('_')[3] + '_chunklen60_srp_eps0.4'
+        for layer in self.model_features_dict['hubert_chunk60_eps0.6']:
+            self.features_dict[layer]='hubert_'+layer.split('_')[3] + '_chunklen60_srp_eps0.6'
+        
+
+        for layer in self.model_features_dict['GPT2_chunk20']:
+            self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_chunklen20_maxcontext30'
+        for layer in self.model_features_dict['GPT2_chunk40']:
+            self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_chunklen40_maxcontext30'
+        for layer in self.model_features_dict['GPT2_chunk60']:
+            self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_chunklen60_maxcontext30'
+        for layer in self.model_features_dict['GPT2_chunk80']:
+            self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_chunklen80_maxcontext60'
+        for layer in self.model_features_dict['GPT2_chunk120']:
+            self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_chunklen120_maxcontext60'
+        
+        for layer in self.model_features_dict['hubert_chunk20']:
+            self.features_dict[layer]='hubert_'+layer.split('_')[2] + '_chunklen20'
+        for layer in self.model_features_dict['hubert_chunk40']:
+            self.features_dict[layer]='hubert_'+layer.split('_')[2] + '_chunklen40'
+        for layer in self.model_features_dict['hubert_chunk60']:
+            self.features_dict[layer]='hubert_'+layer.split('_')[2] + '_chunklen60'
+        for layer in self.model_features_dict['hubert_chunk80']:
+            self.features_dict[layer]='hubert_'+layer.split('_')[2] + '_chunklen80'
+        for layer in self.model_features_dict['hubert_chunk120']:
+            self.features_dict[layer]='hubert_'+layer.split('_')[2] + '_chunklen120'
+        
+        for layer in self.model_features_dict['GPT2_chunk20_speech_masked']:
+            self.features_dict[layer]='GPT2_'+layer.split('_')[4] + '_chunklen20_maxcontext30_speech_masked'
+        for layer in self.model_features_dict['GPT2_chunk40_speech_masked']:
+            self.features_dict[layer]='GPT2_'+layer.split('_')[4] + '_chunklen40_maxcontext30_speech_masked'
+        for layer in self.model_features_dict['GPT2_chunk60_speech_masked']:
+            self.features_dict[layer]='GPT2_'+layer.split('_')[4] + '_chunklen60_maxcontext30_speech_masked'
+        
+        for layer in self.model_features_dict['hubert_chunk20_speech_masked']:
+            self.features_dict[layer]='hubert_'+layer.split('_')[4] + '_chunklen20_speech_masked'
+        for layer in self.model_features_dict['hubert_chunk40_speech_masked']:
+            self.features_dict[layer]='hubert_'+layer.split('_')[4] + '_chunklen40_speech_masked'
+        for layer in self.model_features_dict['hubert_chunk60_speech_masked']:
+            self.features_dict[layer]='hubert_'+layer.split('_')[4] + '_chunklen60_speech_masked'
+            
+        # for time_chunk in [1,5,4,8,10,15,16,20]:
+        #     for layer in self.model_features_dict['GPT2_'+str(time_chunk)+'s']:
+        #         self.features_dict[layer]='GPT2_'+layer.split('_')[2] + '_running_time_chunk-'+str(time_chunk)
 
         tracker=2
-        for layer in self.model_features_dict['SimCLR_attention']:
-            self.features_dict[layer]='slip_vit_b_simclr_yfcc15m_attention-3-'+str(tracker) +'_srp' #get the SRP reduced version
+        for layer in self.model_features_dict['SimCLR_attention_eps0.1']:
+            self.features_dict[layer]='slip_vit_b_simclr_attention-3-'+str(tracker) +'_srp_eps0.1' #get the SRP reduced version
+            tracker=tracker+8
+        
+        tracker=2
+        for layer in self.model_features_dict['SimCLR_attention_eps0.2']:
+            self.features_dict[layer]='slip_vit_b_simclr_attention-3-'+str(tracker) +'_srp_eps0.2' #get the SRP reduced version
+            tracker=tracker+8
+        
+        tracker=2
+        for layer in self.model_features_dict['SimCLR_attention_eps0.3']:
+            self.features_dict[layer]='slip_vit_b_simclr_attention-3-'+str(tracker) +'_srp_eps0.3' #get the SRP reduced version
+            tracker=tracker+8
+        
+        tracker=2
+        for layer in self.model_features_dict['SimCLR_attention_eps0.4']:
+            self.features_dict[layer]='slip_vit_b_simclr_attention-3-'+str(tracker) +'_srp_eps0.4' #get the SRP reduced version
+            tracker=tracker+8
+        
+        tracker=2
+        for layer in self.model_features_dict['SimCLR_attention_eps0.6']:
+            self.features_dict[layer]='slip_vit_b_simclr_attention-3-'+str(tracker) +'_srp_eps0.6' #get the SRP reduced version
             tracker=tracker+8
 
+        # tracker=6
+        # for layer in self.model_features_dict['SimCLR_embedding']:
+        #     self.features_dict[layer]='slip_vit_b_simclr_yfcc15m_mlp-3-'+str(tracker) +'_srp' #get the SRP reduced version
+        #     tracker=tracker+8
+        
         tracker=6
-        for layer in self.model_features_dict['SimCLR_embedding']:
-            self.features_dict[layer]='slip_vit_b_simclr_yfcc15m_mlp-3-'+str(tracker) +'_srp' #get the SRP reduced version
+        for layer in self.model_features_dict['SimCLR_embedding_eps0.3']:
+            self.features_dict[layer]='slip_vit_b_simclr_mlp-3-'+str(tracker) +'_srp_eps0.3' #get the SRP reduced version
             tracker=tracker+8
 
         self.cmaps = plotting_helpers.get_cmaps()
@@ -211,8 +422,25 @@ class EncodingModel:
         
         self.model_features = self.model_features_dict[self.model] #the names of the feature spaces to use for the encoding model
         print(self.model_features)
-        self.feature_names = self.model_features
         
+        self.feature_names = self.model_features
+
+    def get_file_label(self):
+        """
+        Generate consistent file label for saving/loading results.
+        Includes speech masking tag if applicable.
+        """
+        file_label = self.sid+'_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)
+        if self.mask_name is not None:
+            file_label = file_label + '_mask-'+self.mask_name
+        # if self.apply_speech_masking:
+        #     file_label = file_label + '_speechmask'
+        if self.simple_mode:
+            file_label = file_label + '_contCV'
+        else:
+            file_label = file_label +'_chunklen-'+str(self.chunklen)
+        return file_label
+
     def trim_fMRI(self,norm=False):
         """ This function trims the fmri data to the data that will be used in the encoding model. 
             It will take the stored fmri data (already concatenated across any runs by load_smooth_denoise_fMRI()) and trim the specified parts (self.included_data_fMRI)
@@ -240,35 +468,119 @@ class EncodingModel:
         self.confounds = np.array(trimmed_confounds)
         self.run_ends = run_ends
 
-
-    def apply_speech_mask(self):
+    def create_eval_masks(self):
         """
-        Restrict fMRI and feature data to speech periods only.
-        Creates a mask from language features (non-zero samples) and applies to all data.
+        Create high/low boolean masks for subset evaluation on each requested feature.
+
+        For each feature in self.eval_mask_features:
+          - Binary features (unique values {0,1}): high = delay-expanded (feature==1),
+            low = complement of high (TRs with no feature presence within BOLD delay window)
+          - Continuous features: high = top quartile (>=75th pctile),
+            low = bottom quartile (<=25th pctile). No delay expansion.
+
+        IMPORTANT: Training remains on the full time series; masking is applied only when scoring.
+
+        Sets:
+          self.eval_mask_names: list of str
+          self.eval_masks_high: list of bool arrays
+          self.eval_masks_low: list of bool arrays
+          self.eval_mask_info: list of dicts with per-feature metadata
+          self.eval_mask_counts_by_fold: list (populated during fold evaluation)
         """
-        print('...creating speech-period mask from language features...')
+        from pathlib import Path
 
-        # Load a language feature to create the mask
-        lang_feature_path = self.dir + '/features/word2vec.csv'
-        lang_data = np.array(pd.read_csv(lang_feature_path, header=None)).astype(dtype="float32")
+        print('...creating eval masks for subset evaluation...')
 
-        # Create mask: speech periods are where language features are non-zero
-        speech_mask = ~np.all(lang_data == 0, axis=1)
+        self.eval_mask_names = []
+        self.eval_masks_high = []
+        self.eval_masks_low = []
+        self.eval_mask_info = []
+        self.eval_mask_counts_by_fold = []
 
-        # Apply mask to fMRI data
-        n_samples_before = self.fMRI_data.shape[0]
-        self.fMRI_data = self.fMRI_data[speech_mask]
-        self.confounds = self.confounds[speech_mask]
+        n_trs = self.fMRI_data.shape[0]
 
-        n_samples_after = self.fMRI_data.shape[0]
-        n_excluded = n_samples_before - n_samples_after
+        # Must match Delayer in banded_ridge_regression (currently n_delays=3, delays 2..4)
+        n_delays = 3
+        delay_start = 2
 
-        print(f'  Samples before speech masking: {n_samples_before}')
-        print(f'  Samples after speech masking: {n_samples_after}')
-        print(f'  Excluded {n_excluded} non-speech samples ({n_excluded/n_samples_before*100:.1f}%)')
+        for feat_spec in self.eval_mask_features:
+            # Resolve feature path
+            if '/' in feat_spec or feat_spec.endswith('.csv'):
+                feat_path = feat_spec
+                feat_name = Path(feat_spec).stem
+            else:
+                feat_path = self.dir + '/features/' + feat_spec + '.csv'
+                feat_name = feat_spec
 
-        # Store the mask for later use when loading features
-        self.speech_mask = speech_mask
+            print(f'  Loading eval mask feature: {feat_name} from {feat_path}')
+
+            try:
+                df = pd.read_csv(feat_path, header=None, encoding='utf-8-sig')
+            except FileNotFoundError:
+                raise FileNotFoundError(
+                    f'Feature file not found at {feat_path}. '
+                    f'Provide a valid feature name or path.'
+                )
+
+            # Validate single column (1D feature)
+            if df.shape[1] != 1:
+                raise ValueError(
+                    f'Feature {feat_name} has {df.shape[1]} columns, expected 1. '
+                    f'Only 1D features are supported for subset evaluation.'
+                )
+
+            vec = np.array(df.iloc[:, 0]).squeeze()
+
+            if len(vec) != n_trs:
+                raise ValueError(
+                    f'Dimension mismatch: {feat_name} has {len(vec)} TRs, '
+                    f'but fMRI data has {n_trs} TRs. These must match.'
+                )
+
+            # Detect binary vs continuous
+            unique_vals = set(np.unique(vec))
+            is_binary = unique_vals <= {0, 0.0, 1, 1.0} and len(unique_vals) == 2
+
+            if is_binary:
+                # Binary: delay-aware expansion
+                raw_high = (vec == 1)
+                mask_high = raw_high.copy()
+                for k in range(delay_start, delay_start + n_delays):
+                    shifted = np.zeros_like(raw_high, dtype=bool)
+                    shifted[k:] = raw_high[:-k]
+                    mask_high |= shifted
+                mask_low = ~mask_high
+
+                print(f'    Binary feature: {feat_name}')
+                print(f'    Raw high TRs: {int(np.sum(raw_high))}/{n_trs} ({np.mean(raw_high)*100:.1f}%)')
+                print(f'    Delay-expanded high TRs: {int(np.sum(mask_high))}/{n_trs} ({np.mean(mask_high)*100:.1f}%)')
+                print(f'    Low TRs (complement): {int(np.sum(mask_low))}/{n_trs} ({np.mean(mask_low)*100:.1f}%)')
+            else:
+                # Continuous: quartile split
+                q25 = np.percentile(vec, 25)
+                q75 = np.percentile(vec, 75)
+                mask_high = (vec >= q75)
+                mask_low = (vec <= q25)
+
+                print(f'    Continuous feature: {feat_name}')
+                print(f'    Q25={q25:.4f}, Q75={q75:.4f}')
+                print(f'    High TRs (>=Q75): {int(np.sum(mask_high))}/{n_trs} ({np.mean(mask_high)*100:.1f}%)')
+                print(f'    Low TRs (<=Q25): {int(np.sum(mask_low))}/{n_trs} ({np.mean(mask_low)*100:.1f}%)')
+
+            self.eval_mask_names.append(feat_name)
+            self.eval_masks_high.append(mask_high)
+            self.eval_masks_low.append(mask_low)
+            self.eval_mask_info.append({
+                'name': feat_name,
+                'is_binary': is_binary,
+                'total_TRs': int(n_trs),
+                'high_TRs': int(np.sum(mask_high)),
+                'low_TRs': int(np.sum(mask_low)),
+                'high_fraction': float(np.mean(mask_high)),
+                'low_fraction': float(np.mean(mask_low)),
+            })
+
+        print(f'  Created eval masks for {len(self.eval_mask_names)} features: {self.eval_mask_names}')
 
 
     def load_preprocess_fMRI(self,smooth=False,denoise=False):
@@ -462,11 +774,7 @@ class EncodingModel:
 
         feature_names = self.feature_names
 
-        file_label = self.sid+'_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
-        if self.mask_name is not None:
-            file_label = file_label + '_mask-'+self.mask_name
-        if self.apply_speech_masking:
-            file_label = file_label + '_speech-masked'
+        file_label = self.get_file_label()
 
         colors_dict = self.colors_dict
 
@@ -480,7 +788,44 @@ class EncodingModel:
             title=self.sid.replace('sub-NT','') + 'second'
             plotting_helpers.plot_preference_surf(self.preference2_map_surf,self.figure_dir + "/preference_map/" + file_label+'_measure-preference2_map',colors_dict,features_list,threshold=0.001,cmap=surf_cmap,title=title,vmax = len(feature_names))
 
-    def banded_ridge_regression(self,outer_folds=10,inner_folds=5,num_alphas=50,backend='torch_cuda',regress_confounds=False,permutations=None):
+    def _generate_predefined_shifts(self, chunklen, step=10):
+        """
+        Generate predefined shift values based on chunklen.
+
+        Parameters
+        ----------
+        chunklen : int
+            Length of chunks in TRs
+        step : int
+            Step size for shifts (default: 10)
+
+        Returns
+        -------
+        list of int
+            Shift values to apply, e.g., [10, 20, 30, 40, 50, 60, 70] for chunklen=80
+            Returns empty list if chunklen < 20
+        """
+        if chunklen < 20:
+            return []
+
+        # Generate shifts: range(10, chunklen - 10, step=10)
+        shifts = list(range(step, chunklen - step + 1, step))
+
+        return shifts
+
+    def _should_save_weights(self, feature_name):
+        """Check if feature matches save config (prefix + layer filter)."""
+        for prefix, allowed_layers in self.feature_weight_save_config.items():
+            if feature_name.startswith(prefix):
+                if allowed_layers is None:
+                    return True
+                match = re.search(r'_layer(\d+)$', feature_name)
+                if match:
+                    return int(match.group(1)) in allowed_layers
+                return False
+        return False
+
+    def banded_ridge_regression(self,outer_folds=10,inner_folds=5,num_alphas=50,backend='torch_cuda',regress_confounds=False,permutations=None,zero_confounds_in_inner_cv=False):
         """
             This function performs the fitting and testing of the encoding model. Saves results in object variables.
 
@@ -500,11 +845,19 @@ class EncodingModel:
         solver = "random_search"
         solver_function = MultipleKernelRidgeCV.ALL_SOLVERS[solver]
 
-        n_iter = self.random_search_n 
+        n_iter = self.random_search_n
+
+        # Use reduced parameters if in simple mode
+        if self.simple_mode:
+            n_delays = 3  # Reduced from 5
+            # num_alphas = 10  # Reduced number of alphas
+            print('Simple mode: Using n_delays=3')
+        else:
+            n_delays = 3  # the number of time delays (in TRs) to use in the encoding model
 
         alphas = np.logspace(-5,10,num_alphas)
         n_targets_batch = 10000 #the number of targets to compute at one time
-        n_alphas_batch = 50 
+        n_alphas_batch = 50
         n_targets_batch_refit = 200
 
         #https://github.com/gallantlab/himalaya/blob/main/himalaya/kernel_ridge/_random_search.py
@@ -515,8 +868,10 @@ class EncodingModel:
                              local_alpha=True,
                              diagonalize_method='svd')
 
-        n_delays = 5 #the number of time delays (in TRs) to use in the encoding model (widens the model)
-        delayer = Delayer(delays=[x+1 for x in np.arange(n_delays)])#delays of 1.5-7.5 seconds
+        if self.simple_mode:
+            delayer = Delayer(delays=[x+2 for x in np.arange(n_delays)])#delays of 3-6 seconds
+        else:
+            delayer = Delayer(delays=[x+2 for x in np.arange(n_delays)])#delays of 3-6 seconds
         
         preprocess_pipeline = make_pipeline(
             StandardScaler(with_mean=True, with_std=True), 
@@ -534,9 +889,38 @@ class EncodingModel:
         individual_product_measure_sum = []
         features_preferred_delay_sum = []
 
-        permuted_scores_list = []
-        
-        cv_type = 'temp_chunking' 
+        # --- subset evaluation accumulators (one entry per eval feature) ---
+        n_eval_features = len(self.eval_mask_names) if self.eval_mask_features is not None else 0
+        perf_sum_eval_high = [None] * n_eval_features
+        perf_sum_eval_low = [None] * n_eval_features
+        pm_sum_eval_high = [None] * n_eval_features
+        pm_sum_eval_low = [None] * n_eval_features
+        valid_folds_eval_high = [0] * n_eval_features
+        valid_folds_eval_low = [0] * n_eval_features
+
+        # --- predefined shift accumulators ---
+        shift_within_chunk_scores_list = []
+        shift_values_list = []
+        ind_product_measure_per_shift_list = []
+
+        # --- block-permuted null accumulators ---
+        permuted_perf_mean_list = []
+        permuted_prod_measure_mean_list = []
+
+        # --- selected regularization accumulators (per fold) ---
+        fold_deltas_list = []
+        fold_best_alphas_list = []
+
+        # Store debugging info for each fold
+        fold_debug_info = []
+
+        # Use 'no_shuffle' cv_type if in simple mode
+        if self.simple_mode:
+            cv_type = 'no_shuffle'
+            print('Simple mode: Using no_shuffle cross-validation')
+        else:
+            cv_type = 'temp_chunking'
+
         #outer loop - 5 fold, 4 folds to get weight estimates and hyperparameters, 1 for evaluating the performance of the model, averaged across the 5 folds
         if cv_type=='temp_chunking': #chunking in continuous chunks (specified by self.chunklen) before splitting into train/test
             cv_outer = GroupKFold(n_splits=n_splits_outer)
@@ -567,13 +951,9 @@ class EncodingModel:
             print(filepath)
             data = np.array(pd.read_csv(filepath,header=None)).astype(dtype="float32")
 
-            # Apply speech mask if it exists
-            if hasattr(self, 'speech_mask'):
-                data = data[self.speech_mask]
-
             print(data.shape)
             n_dim = data.shape[1]
-            if feature_space in self.feature_weights_to_save:
+            if self._should_save_weights(feature_space):
                 weight_indices_to_save.append(ind) #saving weights of specified feature spaces only
             loaded_features[feature_space] = data
 
@@ -647,6 +1027,21 @@ class EncodingModel:
             print("(n_samples_test, n_features_total) =", X_test.shape)
             print("[features_n,...] =", features_n_list)
 
+            # Track which columns are nuisance regressors (run regressors + confounds)
+            # These are the last features added, so they're at the end
+            n_nuisance_features = 0
+            if len(self.included_data_fMRI)>1:
+                n_nuisance_features += 2  # run regressors
+            if regress_confounds:
+                n_nuisance_features += train_confounds.shape[1]  # motion confounds
+
+            if n_nuisance_features > 0:
+                nuisance_start_col = X_train.shape[1] - n_nuisance_features
+                nuisance_end_col = X_train.shape[1]
+                nuisance_cols = slice(nuisance_start_col, nuisance_end_col)
+            else:
+                nuisance_cols = None
+
             start_and_end = np.concatenate([[0], np.cumsum(features_n_list)])
             slices = [
                 slice(start, end)
@@ -667,6 +1062,29 @@ class EncodingModel:
                 groups.extend([str(n_chunks) for x in range(0,diff)])
             inner_splits = cv_inner.split(X=range(0,n_samples),groups=groups)
 
+            # Optionally zero out nuisance regressors in inner CV validation folds
+            if zero_confounds_in_inner_cv and nuisance_cols is not None:
+                print("Zeroing nuisance regressors in inner CV validation folds (stringent mode)...")
+                X_train_modified = X_train.copy()  # preserve original
+
+                for inner_train_idx, inner_val_idx in inner_splits:
+                    # Zero confounds in this validation fold
+                    X_train_modified[inner_val_idx, nuisance_cols] = 0
+
+                # Recreate inner_splits generator (it was consumed in the loop above)
+                if cv_type=='temp_chunking':
+                    inner_splits = cv_inner.split(X=range(0,n_samples), groups=groups)
+                elif cv_type=='no_shuffle':
+                    cv_inner_new = KFold(n_splits=n_splits_inner, shuffle=False)
+                    inner_splits = cv_inner_new.split(X=range(0,n_samples))
+
+                # Use modified X_train for model fitting
+                X_train = X_train_modified
+                print(f"  Zeroed {nuisance_cols.stop - nuisance_cols.start} nuisance columns in {n_splits_inner} validation folds")
+            else:
+                if nuisance_cols is not None:
+                    print("Using standard inner CV (confounds not zeroed in validation folds)")
+
             mkr_model = MultipleKernelRidgeCV(kernels="precomputed", solver=solver,
                                               solver_params=solver_params, cv=inner_splits)
 
@@ -684,6 +1102,19 @@ class EncodingModel:
             
             pipeline.fit(X_train, Y_train)
             print(pipeline)
+
+            # Extract selected regularization params for this fold.
+            # deltas_: (n_kernels, n_voxels) log-hyperparameters per kernel per voxel
+            # best_alphas_: (n_voxels,) overall alpha per voxel
+            if backend_name == 'torch_cuda':
+                fold_deltas = np.array(mkr_model.deltas_.cpu())
+                fold_best_alphas = np.array(mkr_model.best_alphas_.cpu())
+            else:
+                fold_deltas = np.array(mkr_model.deltas_)
+                fold_best_alphas = np.array(mkr_model.best_alphas_)
+            fold_deltas_list.append(fold_deltas)
+            fold_best_alphas_list.append(fold_best_alphas)
+
             # scores_mask = pipeline.score(X_train, Y_train) #
             # print('avg whole brain train performance:' +str(np.nanmean(scores_mask)))
             # backend_name = 'numpy'
@@ -691,9 +1122,22 @@ class EncodingModel:
             scores_mask = pipeline.score(X_test, Y_test) #
             scores_mask = backend.to_numpy(scores_mask)
             print("(n_voxels_mask,) =", scores_mask.shape)
-            print('avg whole brain test performance:' +str(np.nanmean(scores_mask)))
+            fold_mean_performance = np.nanmean(scores_mask)
+            print('avg whole brain test performance:' +str(fold_mean_performance))
+
+            # Store debugging info for this fold
+            fold_info = {
+                'fold': i + 1,
+                'train_indices': train_outer.tolist(),
+                'test_indices': test_outer.tolist(),
+                'mean_performance': float(fold_mean_performance),
+                'n_train_samples': len(train_outer),
+                'n_test_samples': len(test_outer)
+            }
+            fold_debug_info.append(fold_info)
+
             if i==0:
-                performance_sum = scores_mask 
+                performance_sum = scores_mask
             else:
                 performance_sum=performance_sum+scores_mask
             num_voxels = scores_mask.shape[0]
@@ -714,22 +1158,97 @@ class EncodingModel:
                 individual_product_measure_sum = curr_ind_prod_measure
             else:
                 individual_product_measure_sum = individual_product_measure_sum+curr_ind_prod_measure
+            # ---- Subset evaluation: evaluate on high/low masks for each eval feature ----
+            if self.eval_mask_features is not None and hasattr(self, 'eval_masks_high'):
+                # Compute Y_pred_np once for all features (for performance scoring)
+                Y_pred_eval = pipeline.predict(X_test)
+                try:
+                    Y_pred_eval_np = backend.to_numpy(Y_pred_eval)
+                except Exception:
+                    try:
+                        Y_pred_eval_np = np.array(Y_pred_eval.cpu())
+                    except Exception:
+                        Y_pred_eval_np = np.array(Y_pred_eval)
+
+                for f_idx, (fname, mask_high, mask_low) in enumerate(
+                        zip(self.eval_mask_names, self.eval_masks_high, self.eval_masks_low)):
+                    for condition, mask_full in [('high', mask_high), ('low', mask_low)]:
+                        keep_test = mask_full[test_outer]
+                        test_kept = int(np.sum(keep_test))
+
+                        self.eval_mask_counts_by_fold.append({
+                            'fold': int(i+1), 'feature': fname, 'condition': condition,
+                            'test_TRs_total': len(keep_test), 'test_TRs_kept': test_kept,
+                        })
+
+                        if test_kept >= 2:
+                            # Performance
+                            perf_eval = r2_score(
+                                Y_test[keep_test],
+                                Y_pred_eval_np[keep_test],
+                                multioutput='raw_values'
+                            )
+
+                            # Product measure
+                            if backend_name == 'torch_cuda':
+                                import torch
+                                device = Y_test_pred_split[0].device if isinstance(Y_test_pred_split, (list, tuple)) else Y_test_pred_split.device
+                                keep_t = torch.as_tensor(keep_test, dtype=torch.bool, device=device)
+                                if isinstance(Y_test_pred_split, (list, tuple)):
+                                    Y_pred_split_masked = torch.stack([yp[keep_t] for yp in Y_test_pred_split], dim=0)
+                                else:
+                                    Y_pred_split_masked = Y_test_pred_split[:, keep_t, :]
+                                Y_test_masked = torch.as_tensor(Y_test[keep_test], dtype=torch.float32, device=device)
+                                split_scores_eval = r2_score_split(Y_test_masked, Y_pred_split_masked)
+                                pm_eval = np.array([np.array(x.detach().cpu()) for x in split_scores_eval])
+                            else:
+                                if isinstance(Y_test_pred_split, (list, tuple)):
+                                    Y_pred_split_masked = [np.asarray(yp)[keep_test] for yp in Y_test_pred_split]
+                                else:
+                                    Y_pred_split_masked = np.asarray(Y_test_pred_split)[:, keep_test, :]
+                                split_scores_eval = r2_score_split(Y_test[keep_test], Y_pred_split_masked)
+                                pm_eval = np.array([np.array(x) for x in split_scores_eval])
+
+                            # Accumulate into lists by f_idx (only valid folds)
+                            if condition == 'high':
+                                valid_folds_eval_high[f_idx] += 1
+                                if perf_sum_eval_high[f_idx] is None:
+                                    perf_sum_eval_high[f_idx] = perf_eval
+                                else:
+                                    perf_sum_eval_high[f_idx] = perf_sum_eval_high[f_idx] + perf_eval
+                                if pm_sum_eval_high[f_idx] is None:
+                                    pm_sum_eval_high[f_idx] = pm_eval
+                                else:
+                                    pm_sum_eval_high[f_idx] = pm_sum_eval_high[f_idx] + pm_eval
+                            else:
+                                valid_folds_eval_low[f_idx] += 1
+                                if perf_sum_eval_low[f_idx] is None:
+                                    perf_sum_eval_low[f_idx] = perf_eval
+                                else:
+                                    perf_sum_eval_low[f_idx] = perf_sum_eval_low[f_idx] + perf_eval
+                                if pm_sum_eval_low[f_idx] is None:
+                                    pm_sum_eval_low[f_idx] = pm_eval
+                                else:
+                                    pm_sum_eval_low[f_idx] = pm_sum_eval_low[f_idx] + pm_eval
+                        else:
+                            print(f'    WARNING: {fname} {condition} fold {i+1} has only {test_kept} TRs, skipping')
+                del Y_pred_eval, Y_pred_eval_np
+
             del curr_ind_prod_measure,split_scores_mask_product_measure
 
             #get just the raw performance of each individual feature
             if self.save_individual_feature_performance:
-                split_scores_mask_ind_feature_perf = r2_score_split(Y_test, Y_test_pred_split,include_correlation=False) 
+                split_scores_mask_ind_feature_perf = r2_score_split(Y_test, Y_test_pred_split,include_correlation=False)
                 if backend_name=='torch_cuda':
                     curr_ind_feature_perf = np.array([np.array(x.cpu()) for x in split_scores_mask_ind_feature_perf])
-                    # individual_feature_performance_list.append([np.array(x.cpu()) for x in split_scores_mask_ind_feature_perf])
                 else:
                     curr_ind_feature_perf = np.array([np.array(x) for x in split_scores_mask_ind_feature_perf])
-                    # individual_feature_performance_list.append([np.array(x) for x in split_scores_mask_ind_feature_perf])
 
                 if i==0:
                     individual_feature_performance_sum = curr_ind_feature_perf
                 else:
                     individual_feature_performance_sum = individual_feature_performance_sum + curr_ind_feature_perf
+
                 del curr_ind_feature_perf,split_scores_mask_ind_feature_perf
                 del Y_test_pred_split
 
@@ -778,34 +1297,150 @@ class EncodingModel:
                 del average_coefs
 
             if permutations is not None:
-                print('shuffling Y_test to get null distribution, ',permutations,' permutations')
-                #get kernel weights from the fitted model, to use in refitting the null model
-                permuted_scores = np.zeros((permutations,num_voxels))
-                for iteration in np.arange(0,permutations):
-                    # shuffle BOLD time series in blocks of 10 and then correlate with the predicted time-series
-                    # Block permutation preserves autocorrelation statistics of the time series (Kunsch, 1989) 
-                    # and thus provides a sensible null hypothesis for these significance tests
+                print('block-permuting X_test chunks to get null distribution, ',
+                    permutations, ' permutations')
 
-                    #shuffle the BOLD time series in chunks to account for temporal autocorrelation
-                    #similar to how they did it here: https://gallantlab.org/papers/Deniz.F.etal.2023.pdf
-                    # Split the DataFrame into chunks
-                    chunks = [Y_test[i:i + self.chunklen,:] for i in range(0, len(Y_test), self.chunklen)]
-                    # Shuffle the chunks
+                # accumulate across permutations, will average at the end
+                permuted_perf_sum = np.zeros(num_voxels)
+                permuted_prod_measure_sum = None
+
+                for iteration in range(permutations):
+
+                    # copy X_test so original is untouched
+                    X_test_shuffled = X_test.copy()
+
+                    # split X_test into chunks along time
+                    chunks = [
+                        X_test_shuffled[j:j + self.chunklen, :]
+                        for j in range(0, len(X_test_shuffled), self.chunklen)
+                    ]
+
+                    # shuffle the order of chunks
                     np.random.shuffle(chunks)
-                    # Concatenate the shuffled chunks
-                    Y_test_chunked_and_shuffled = np.concatenate(chunks)
-                    scores_mask = pipeline.score(X_test, Y_test_chunked_and_shuffled) #Y_test has been shuffled
+
+                    # reconstruct block-permuted X_test
+                    X_test_block_permuted = np.concatenate(chunks, axis=0)
+
+                    # score overall performance
+                    scores_mask = pipeline.score(X_test_block_permuted, Y_test)
                     scores_mask = backend.to_numpy(scores_mask)
-                    # print('avg whole brain permuted test performance:' +str(np.nanmean(scores_mask)))
-                    permuted_scores[iteration,:]=scores_mask
-                    del scores_mask
+                    permuted_perf_sum += scores_mask
 
-                if i==0:
-                    permuted_scores_list = permuted_scores
+                    # score individual product measure
+                    Y_pred_split_perm = pipeline.predict(X_test_block_permuted, split=True)
+                    split_scores_perm = r2_score_split(Y_test, Y_pred_split_perm)
+                    if backend_name == 'torch_cuda':
+                        curr_prod_perm = np.array([np.array(x.cpu()) for x in split_scores_perm])
+                    else:
+                        curr_prod_perm = np.array([np.array(x) for x in split_scores_perm])
+
+                    if permuted_prod_measure_sum is None:
+                        permuted_prod_measure_sum = curr_prod_perm
+                    else:
+                        permuted_prod_measure_sum += curr_prod_perm
+
+                    del scores_mask, X_test_block_permuted, Y_pred_split_perm
+                    del split_scores_perm, curr_prod_perm
+
+                # average across permutations (within this fold)
+                permuted_perf_mean = permuted_perf_sum / permutations
+                permuted_prod_measure_mean = permuted_prod_measure_sum / permutations
+
+                # accumulate across outer folds
+                if i == 0:
+                    permuted_perf_mean_list = permuted_perf_mean
+                    permuted_prod_measure_mean_list = permuted_prod_measure_mean
                 else:
-                    permuted_scores_list=permuted_scores_list+permuted_scores
+                    permuted_perf_mean_list += permuted_perf_mean
+                    permuted_prod_measure_mean_list += permuted_prod_measure_mean
 
-            
+            # ============ PREDEFINED SHIFTS (if enabled) ============
+            if self.shift_within_chunk:
+                shift_values = self._generate_predefined_shifts(self.chunklen, step=10)
+
+                if len(shift_values) == 0:
+                    print(f'Warning: chunklen={self.chunklen} too small for predefined shifts. Skipping.')
+                    shift_within_chunk_scores_curr = None
+                    ind_product_measure_per_shift_curr = None
+                else:
+                    print(f'Running predefined shifts within chunks: {shift_values}')
+
+                    num_shifts = len(shift_values)
+                    shift_within_chunk_scores_curr = np.zeros((num_shifts, num_voxels))
+                    # Will store (num_shifts, num_features, num_voxels)
+                    ind_product_measure_per_shift_curr = None
+
+                    # Loop through each predefined shift value
+                    for shift_idx, shift_value in enumerate(shift_values):
+                        # 1. Shift X_test (same chunking/shifting logic as random permutations)
+                        X_test_shifted = X_test.copy()
+
+                        # Split X_test into chunks along time
+                        chunks = [
+                            X_test_shifted[i:i + self.chunklen, :]
+                            for i in range(0, len(X_test_shifted), self.chunklen)
+                        ]
+
+                        shifted_chunks = []
+
+                        for chunk in chunks:
+                            L = chunk.shape[0]
+
+                            # For chunks shorter than the target shift, don't shift
+                            # (This handles the last chunk which may be incomplete)
+                            if L <= shift_value:
+                                shifted_chunks.append(chunk)
+                                continue
+
+                            # Apply the predefined shift
+                            shifted_chunks.append(np.roll(chunk, shift=shift_value, axis=0))
+
+                        # Reconstruct shifted X_test
+                        X_test_chunked_and_shifted = np.concatenate(shifted_chunks, axis=0)
+
+                        # 2. Score overall performance at this shift
+                        scores_shift = pipeline.score(
+                            X_test_chunked_and_shifted,
+                            Y_test
+                        )
+
+                        scores_shift = backend.to_numpy(scores_shift)
+                        shift_within_chunk_scores_curr[shift_idx, :] = scores_shift
+
+                        # 3. Score individual product measure at this shift
+                        Y_test_pred_split_shifted = pipeline.predict(
+                            X_test_chunked_and_shifted, split=True
+                        )
+                        split_scores_shift = r2_score_split(
+                            Y_test, Y_test_pred_split_shifted
+                        )
+                        if backend_name == 'torch_cuda':
+                            curr_ind_prod_shift = np.array([np.array(x.cpu()) for x in split_scores_shift])
+                        else:
+                            curr_ind_prod_shift = np.array([np.array(x) for x in split_scores_shift])
+
+                        # Initialize or stack
+                        if ind_product_measure_per_shift_curr is None:
+                            ind_product_measure_per_shift_curr = curr_ind_prod_shift[np.newaxis, :, :]
+                        else:
+                            ind_product_measure_per_shift_curr = np.vstack([
+                                ind_product_measure_per_shift_curr,
+                                curr_ind_prod_shift[np.newaxis, :, :]
+                            ])
+
+                        del Y_test_pred_split_shifted, split_scores_shift, curr_ind_prod_shift, scores_shift, X_test_shifted, X_test_chunked_and_shifted
+
+                    # Accumulate across outer folds
+                    if i == 0:
+                        shift_within_chunk_scores_list = shift_within_chunk_scores_curr
+                        shift_values_list = shift_values
+                        if ind_product_measure_per_shift_curr is not None:
+                            ind_product_measure_per_shift_list = ind_product_measure_per_shift_curr
+                    else:
+                        shift_within_chunk_scores_list += shift_within_chunk_scores_curr
+                        if ind_product_measure_per_shift_curr is not None:
+                            ind_product_measure_per_shift_list += ind_product_measure_per_shift_curr
+
             debugging=False
             if debugging:
                 best_alphas = mkr_model.best_alphas_.cpu().numpy()
@@ -859,12 +1494,86 @@ class EncodingModel:
         print(average_individual_product_measure.shape)
         self.ind_product_measure = average_individual_product_measure
 
+        # ---- Store subset evaluation results (generalized masked eval) ----
+        if self.eval_mask_features is not None and n_eval_features > 0:
+            # Average each feature across valid folds only (skip folds with <2 TRs)
+            perf_high_list = [
+                x / valid_folds_eval_high[fi] if (x is not None and valid_folds_eval_high[fi] > 0)
+                else np.full(num_voxels, np.nan)
+                for fi, x in enumerate(perf_sum_eval_high)
+            ]
+            perf_low_list = [
+                x / valid_folds_eval_low[fi] if (x is not None and valid_folds_eval_low[fi] > 0)
+                else np.full(num_voxels, np.nan)
+                for fi, x in enumerate(perf_sum_eval_low)
+            ]
+
+            self.performance_eval_high = np.stack(perf_high_list, axis=0)       # (n_eval_features, num_voxels)
+            self.performance_eval_low = np.stack(perf_low_list, axis=0)
+            self.performance_eval_contrast = np.clip(self.performance_eval_high, 0, None) - np.clip(self.performance_eval_low, 0, None)
+
+            pm_high_list = [
+                x / valid_folds_eval_high[fi] if (x is not None and valid_folds_eval_high[fi] > 0)
+                else np.full_like(self.ind_product_measure, np.nan)
+                for fi, x in enumerate(pm_sum_eval_high)
+            ]
+            pm_low_list = [
+                x / valid_folds_eval_low[fi] if (x is not None and valid_folds_eval_low[fi] > 0)
+                else np.full_like(self.ind_product_measure, np.nan)
+                for fi, x in enumerate(pm_sum_eval_low)
+            ]
+
+            self.ind_product_measure_eval_high = np.stack(pm_high_list, axis=0)   # (n_eval_features, n_model_features, num_voxels)
+            self.ind_product_measure_eval_low = np.stack(pm_low_list, axis=0)
+            self.ind_product_measure_eval_contrast = np.clip(self.ind_product_measure_eval_high, 0, None) - np.clip(self.ind_product_measure_eval_low, 0, None)
+
+            # Diagnostic logging: valid fold counts per feature
+            print(f'Subset eval results: {n_eval_features} features')
+            for fi, fname in enumerate(self.eval_mask_names):
+                print(f'  {fname}: {valid_folds_eval_high[fi]}/{outer_folds} valid high folds, '
+                      f'{valid_folds_eval_low[fi]}/{outer_folds} valid low folds')
+            print(f'  performance_eval_high shape: {self.performance_eval_high.shape}')
+            print(f'  ind_product_measure_eval_high shape: {self.ind_product_measure_eval_high.shape}')
+
+
 
         if permutations is not None:
-            print('all features performance null')
-            average_performance_null = permuted_scores_list/outer_folds
-            print(average_performance_null.shape)
-            self.performance_null =  average_performance_null
+            print('block-permuted null distribution (mean across permutations)')
+            self.performance_null = permuted_perf_mean_list / outer_folds
+            print(f'performance_null shape: {self.performance_null.shape}')
+            # Shape: (num_voxels,)
+            self.ind_product_measure_null = permuted_prod_measure_mean_list / outer_folds
+            print(f'ind_product_measure_null shape: {self.ind_product_measure_null.shape}')
+            # Shape: (num_features, num_voxels)
+            self.permutations = permutations
+
+        # Average predefined shift results across folds
+        if self.shift_within_chunk and len(shift_values_list) > 0:
+            print('predefined shift scores')
+            # Average overall performance across folds
+            average_shift_within_chunk_scores = shift_within_chunk_scores_list / outer_folds
+            self.shift_within_chunk_scores = average_shift_within_chunk_scores
+            self.shift_values_used = shift_values_list
+            print(f'Shift values used: {self.shift_values_used}')
+            print(f'shift_within_chunk_scores shape: {self.shift_within_chunk_scores.shape}')
+
+            # Average individual product measure across folds
+            if len(ind_product_measure_per_shift_list) > 0:
+                average_ind_product_per_shift = ind_product_measure_per_shift_list / outer_folds
+                self.ind_product_measure_per_shift = average_ind_product_per_shift
+                print(f'ind_product_measure_per_shift shape: {self.ind_product_measure_per_shift.shape}')
+                # Expected shape: (num_shifts, num_features, num_voxels)
+
+        # Selected regularization params across folds
+        if len(fold_deltas_list) > 0:
+            self.deltas_per_fold = np.stack(fold_deltas_list, axis=0)  # (n_folds, n_kernels, n_voxels)
+            self.best_alphas_per_fold = np.stack(fold_best_alphas_list, axis=0)  # (n_folds, n_voxels)
+            self.alpha_feature_names = list(feature_names)  # includes run and confound regressors
+            print(f'deltas_per_fold shape: {self.deltas_per_fold.shape}')
+            print(f'best_alphas_per_fold shape: {self.best_alphas_per_fold.shape}')
+
+        # Save fold debugging info
+        self.fold_debug_info = fold_debug_info
 
         return
 
@@ -899,11 +1608,7 @@ class EncodingModel:
 
     def plot_performance(self, label, threshold=None,vmin=None,vmax=None):
 
-        file_label = self.sid+'_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
-        if self.mask_name is not None:
-            file_label = file_label + '_mask-'+self.mask_name
-        if self.apply_speech_masking:
-            file_label = file_label + '_speech-masked'
+        file_label = self.get_file_label()
 
         output_filepath_surf = ''
         if label=='raw':
@@ -936,12 +1641,7 @@ class EncodingModel:
         for (ind,feature_name) in enumerate(feature_names):
             print(feature_name)
             try:
-                file_label = self.sid+'_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
-
-                if self.mask_name is not None:
-                    file_label = file_label + '_mask-'+self.mask_name
-                if self.apply_speech_masking:
-                    file_label = file_label + '_speech-masked'
+                file_label = self.get_file_label()
 
 
                 if label=='raw':
@@ -982,12 +1682,7 @@ class EncodingModel:
             try:
                 print(feature_name)
 
-                file_label = self.sid+'_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
-
-                if self.mask_name is not None:
-                    file_label = file_label + '_mask-'+self.mask_name
-                if self.apply_speech_masking:
-                    file_label = file_label + '_speech-masked'
+                file_label = self.get_file_label()
 
                 output_filepath_surf = ''
                 plot_threshold = threshold
@@ -1025,14 +1720,7 @@ class EncodingModel:
                 pass
     
     def save_results(self):
-        file_label = self.sid+'_smoothingfwhm-'+str(self.smoothing_fwhm)
-        if self.mask_name is not None:
-            file_label = file_label + '_mask-'+self.mask_name
-        file_label = self.sid+'_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
-        if self.mask_name is not None:
-            file_label = file_label + '_mask-'+self.mask_name
-        if self.apply_speech_masking:
-            file_label = file_label + '_speech-masked'
+        file_label = self.get_file_label()
         print(len(self.performance))
         
         if len(self.performance)>0:
@@ -1041,7 +1729,45 @@ class EncodingModel:
             img = nibabel.Nifti1Image(performance,self.affine)
             nibabel.save(img, self.out_dir+'/performance/'+file_label+'_measure-perf_raw.nii.gz') 
             print('saved: performance')
-            print(img.shape)
+
+        # ---- Save subset evaluation results (generalized masked eval) ----
+        if self.eval_mask_features is not None and hasattr(self, 'performance_eval_high'):
+            # Save feature order metadata CSV (model-level, same across subjects)
+            eval_meta = pd.DataFrame(self.eval_mask_info)
+            Path(self.out_dir + '/features').mkdir(exist_ok=True, parents=True)
+            eval_meta_path = self.out_dir + '/features/encoding_model-' + str(self.model) + '_subset_eval_features.csv'
+            eval_meta.to_csv(eval_meta_path, index=False)
+            print(f'saved: {eval_meta_path} ({len(self.eval_mask_names)} features)')
+
+            # Save TR count logs per fold
+            try:
+                pd.DataFrame(self.eval_mask_counts_by_fold).to_csv(
+                    self.out_dir + '/' + file_label + '_subset_eval_tr_counts_by_fold.csv', index=False)
+            except Exception as e:
+                print(f'Warning: could not save eval TR-count CSVs:', e)
+
+            for condition, suffix in [('high', '_eval_high'), ('low', '_eval_low'), ('contrast', '_eval_contrast')]:
+                # Performance — shape: (n_eval_features, num_voxels) -> (n_eval_features, x, y, z)
+                perf_data = getattr(self, f'performance{suffix}', None)
+                if perf_data is not None:
+                    perf_vol = self.unmask_reshape(perf_data)
+                    img_eval = nibabel.Nifti1Image(perf_vol, self.affine)
+                    nibabel.save(img_eval, self.out_dir + '/performance/' + file_label +
+                                f'_measure-perf_subset_{condition}_eval_raw.nii.gz')
+                    print(f'saved: perf_subset_{condition}_eval {perf_vol.shape}')
+
+                # Product measure — shape: (n_eval_features, n_model_features, num_voxels)
+                pm_data = getattr(self, f'ind_product_measure{suffix}', None)
+                if pm_data is not None:
+                    # Reshape each eval feature's product measure separately, then stack
+                    pm_vols = []
+                    for f_idx in range(pm_data.shape[0]):
+                        pm_vols.append(self.unmask_reshape(pm_data[f_idx]))
+                    pm_vol = np.stack(pm_vols, axis=0)
+                    img_eval = nibabel.Nifti1Image(pm_vol, self.affine)
+                    nibabel.save(img_eval, self.out_dir + '/ind_product_measure/' + file_label +
+                                f'_measure-ind_product_measure_subset_{condition}_eval_raw.nii.gz')
+                    print(f'saved: ind_product_measure_subset_{condition}_eval {pm_vol.shape}')
 
         if self.save_weights:
             print(len(self.beta_weights))
@@ -1063,6 +1789,47 @@ class EncodingModel:
             print('saved: ind_feature_performance')
             print(img.shape)
 
+        if len(self.ind_product_measure_per_shift) > 0:
+            print('ind_product_measure_per_shift')
+            print(self.ind_product_measure_per_shift.shape)
+            # Shape: (num_shifts, num_features, num_voxels_masked)
+            # Need to reshape to (num_shifts, num_features, x, y, z) for NIfTI
+
+            num_shifts, num_features, num_voxels_masked = self.ind_product_measure_per_shift.shape
+
+            # Unmask and reshape each shift separately
+            ind_prod_per_shift_4d = np.zeros((num_shifts, num_features, *self.brain_shape))
+            for shift_idx in range(num_shifts):
+                for feat_idx in range(num_features):
+                    ind_prod_per_shift_4d[shift_idx, feat_idx] = self.unmask_reshape(
+                        self.ind_product_measure_per_shift[shift_idx, feat_idx, :]
+                    )
+
+            # Save as 5D NIfTI (shifts × features × x × y × z)
+            img = nibabel.Nifti1Image(ind_prod_per_shift_4d, self.affine)
+            nibabel.save(
+                img,
+                self.out_dir + '/ind_product_measure/' + file_label +
+                '_measure-ind_product_measure_shift_within_chunk.nii.gz'
+            )
+            print('saved: ind_product_measure_per_shift')
+            print(img.shape)
+
+            # Also save metadata about shifts as separate JSON file
+            metadata = {
+                'shift_values': self.shift_values_used,
+                'num_shifts': num_shifts,
+                'num_features': num_features,
+                'chunklen': self.chunklen,
+                'step_size': 10
+            }
+            with open(
+                self.out_dir + '/ind_product_measure/' + file_label +
+                '_measure-ind_product_measure_shift_within_chunk_metadata.json', 'w'
+            ) as f:
+                json.dump(metadata, f, indent=2)
+            print('saved: ind_product_measure_per_shift metadata')
+
         if len(self.ind_product_measure)>0:
             print('ind_product_measure')
             print(self.ind_product_measure.shape)
@@ -1081,15 +1848,48 @@ class EncodingModel:
             print('saved: features_preferred_delay')
             print(img.shape)
 
-        if len(self.performance_null)>0:
+        if len(self.performance_null) > 0:
             print(self.performance_null.shape)
-            # perf_p_unc = self.unmask_reshape(self.perf_p_unc) #don't put back into full brain shape (will be too big)
             with h5py.File(self.out_dir+'/performance/'+file_label+'_measure-perf_null_distribution.h5', 'w') as hf:
-                hf.create_dataset("null_performance",  data=self.performance_null,compression='gzip',compression_opts=9)
-            # img = nibabel.Nifti1Image(self.performance_null, self.affine)
-            # nibabel.save(img, self.out_dir+'/performance/'+file_label+'_measure-perf_null_distribution.nii.gz')
-            print('saved: perf_null_distribution')
+                hf.create_dataset("null_performance", data=self.performance_null, compression='gzip', compression_opts=9)
+                hf.attrs['permutations'] = self.permutations
+                hf.attrs['chunklen'] = self.chunklen
+                hf.attrs['method'] = 'block_permutation'
+            print('saved: perf_null_distribution (mean across permutations)')
+
+        if len(self.ind_product_measure_null) > 0:
+            print(self.ind_product_measure_null.shape)
+            ind_prod_null = self.unmask_reshape(self.ind_product_measure_null)
+            img = nibabel.Nifti1Image(ind_prod_null, self.affine)
+            nibabel.save(
+                img,
+                self.out_dir + '/ind_product_measure/' + file_label +
+                '_measure-ind_product_measure_null_distribution.nii.gz'
+            )
+            print('saved: ind_product_measure_null_distribution')
             print(img.shape)
+
+        if len(self.shift_within_chunk_scores) > 0:
+            print(self.shift_within_chunk_scores.shape)
+            with h5py.File(
+                self.out_dir + '/performance/' + file_label + '_measure-perf_shift_within_chunk.h5',
+                'w'
+            ) as hf:
+                hf.create_dataset(
+                    "shift_within_chunk_scores",
+                    data=self.shift_within_chunk_scores,
+                    compression='gzip',
+                    compression_opts=9
+                )
+                hf.create_dataset(
+                    "shift_values",
+                    data=np.array(self.shift_values_used),
+                    compression='gzip',
+                    compression_opts=9
+                )
+                hf.attrs['chunklen'] = self.chunklen
+                hf.attrs['step_size'] = 10
+            print('saved: shift_within_chunk_scores and metadata')
 
         if len(self.perf_p_unc)>0:
             print(self.perf_p_unc.shape)
@@ -1151,28 +1951,89 @@ class EncodingModel:
             print('saved: preference2_map')
             print(img.shape)
 
-        filename = self.out_dir+'/features/'+file_label+'_features.csv'  
-        #save feature names as reference 
+        filename = self.out_dir+'/features/encoding_model-'+str(self.model)+'_features.csv'
+        #save feature names as reference (model-level, same across subjects)
         with open(filename, 'w', newline='') as myfile:
             wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
             wr.writerow(self.model_features)
-        myfile.close()
 
-        filename = self.out_dir+'/features/'+file_label+'_weight_features.csv'  
-        #save feature names as reference 
+        filename = self.out_dir+'/features/encoding_model-'+str(self.model)+'_weight_features.csv'
+        #save feature names as reference (model-level, same across subjects)
         with open(filename, 'w', newline='') as myfile:
             wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
             wr.writerow(self.final_weight_feature_names)
-        myfile.close()
+
+        # Save fold debugging info
+        if hasattr(self, 'fold_debug_info') and len(self.fold_debug_info) > 0:
+            debug_filename = self.out_dir+'/performance/'+file_label+'_fold_debug_info.json'
+            with open(debug_filename, 'w') as f:
+                json.dump(self.fold_debug_info, f, indent=2)
+            print(f'saved: fold_debug_info to {debug_filename}')
+
+        # Save selected regularization params (deltas per kernel + overall best alphas)
+        if hasattr(self, 'deltas_per_fold') and self.deltas_per_fold.shape[0] > 0:
+            h5_path = self.out_dir + '/alphas/' + file_label + '_measure-selected_alphas.h5'
+            with h5py.File(h5_path, 'w') as hf:
+                hf.create_dataset('deltas_per_fold', data=self.deltas_per_fold,
+                                  compression='gzip', compression_opts=9)
+                hf.create_dataset('best_alphas_per_fold', data=self.best_alphas_per_fold,
+                                  compression='gzip', compression_opts=9)
+                hf.attrs['feature_names'] = ','.join(self.alpha_feature_names)
+                hf.attrs['n_folds'] = self.deltas_per_fold.shape[0]
+                hf.attrs['n_kernels'] = self.deltas_per_fold.shape[1]
+                hf.attrs['n_voxels'] = self.deltas_per_fold.shape[2]
+            print(f'saved: selected alphas to {h5_path}')
+
+            # Summary stats per feature space (deltas averaged across folds, then across voxels)
+            mean_deltas = np.nanmean(self.deltas_per_fold, axis=0)         # (n_kernels, n_voxels)
+            mean_best_alphas = np.nanmean(self.best_alphas_per_fold, axis=0)  # (n_voxels,)
+            log10_best_alphas = np.log10(mean_best_alphas)
+
+            stats_rows = []
+            for k, feat in enumerate(self.alpha_feature_names):
+                d = mean_deltas[k]
+                stats_rows.append({
+                    'feature': feat,
+                    'kernel_index': k,
+                    'delta_mean': float(np.nanmean(d)),
+                    'delta_std': float(np.nanstd(d)),
+                    'delta_median': float(np.nanmedian(d)),
+                    'delta_min': float(np.nanmin(d)),
+                    'delta_max': float(np.nanmax(d)),
+                    'delta_q25': float(np.nanpercentile(d, 25)),
+                    'delta_q75': float(np.nanpercentile(d, 75)),
+                })
+            # Add overall best-alpha row (per-voxel selected alpha, not per-kernel)
+            stats_rows.append({
+                'feature': 'overall_best_alpha',
+                'kernel_index': -1,
+                'delta_mean': float(np.nanmean(mean_best_alphas)),
+                'delta_std': float(np.nanstd(mean_best_alphas)),
+                'delta_median': float(np.nanmedian(mean_best_alphas)),
+                'delta_min': float(np.nanmin(mean_best_alphas)),
+                'delta_max': float(np.nanmax(mean_best_alphas)),
+                'delta_q25': float(np.nanpercentile(mean_best_alphas, 25)),
+                'delta_q75': float(np.nanpercentile(mean_best_alphas, 75)),
+            })
+            stats_rows.append({
+                'feature': 'overall_best_alpha_log10',
+                'kernel_index': -1,
+                'delta_mean': float(np.nanmean(log10_best_alphas)),
+                'delta_std': float(np.nanstd(log10_best_alphas)),
+                'delta_median': float(np.nanmedian(log10_best_alphas)),
+                'delta_min': float(np.nanmin(log10_best_alphas)),
+                'delta_max': float(np.nanmax(log10_best_alphas)),
+                'delta_q25': float(np.nanpercentile(log10_best_alphas, 25)),
+                'delta_q75': float(np.nanpercentile(log10_best_alphas, 75)),
+            })
+            stats_csv = self.out_dir + '/alphas/' + file_label + '_measure-selected_alphas_summary.csv'
+            pd.DataFrame(stats_rows).to_csv(stats_csv, index=False)
+            print(f'saved: alpha summary stats to {stats_csv}')
 
     def load_ind_product_measure(self):
 
         #load and mask data
-        file_label = self.sid+'_encoding_model-'+self.model + '_smoothingfwhm-'+str(self.smoothing_fwhm)+'_chunklen-'+str(self.chunklen)
-        if(self.mask_name is not None):
-            file_label = file_label + '_mask-'+self.mask_name
-        if self.apply_speech_masking:
-            file_label = file_label + '_speech-masked'
+        file_label = self.get_file_label() 
 
         filepath = self.out_dir+'/ind_product_measure/'+file_label+'_measure-ind_product_measure_raw.nii.gz'
 
@@ -1184,22 +2045,22 @@ class EncodingModel:
         
     def run(self):
         testing = False
-        permutations = None
+        permutations = 1000
         print('save_weights',self.save_weights)
         self.load_preprocess_fMRI(smooth=True,denoise=False)
         self.trim_fMRI()
 
-        # Optionally apply speech masking if enabled
-        if self.apply_speech_masking:
-            self.apply_speech_mask()
+        # Optionally create eval masks for subset evaluation
+        if self.eval_mask_features is not None:
+            self.create_eval_masks()
 
         if testing:
             self.random_search_n = 100
-            self.banded_ridge_regression(outer_folds=3, inner_folds=3, num_alphas=5,backend='torch_cuda',permutations=100)
-            self.permutation_statistics()
+            self.banded_ridge_regression(outer_folds=5, inner_folds=5, num_alphas=5,backend='torch_cuda',permutations=permutations,regress_confounds=True,zero_confounds_in_inner_cv=self.zero_confounds_in_inner_cv)
+            # self.permutation_statistics()
         else:
             self.random_search_n = 1000
-            self.banded_ridge_regression(outer_folds=5, inner_folds=5,num_alphas=25,permutations=permutations,regress_confounds=True)
+            self.banded_ridge_regression(outer_folds=5, inner_folds=5,num_alphas=10,permutations=permutations,regress_confounds=True,zero_confounds_in_inner_cv=self.zero_confounds_in_inner_cv)
             # self.permutation_statistics()
 
         # self.compute_preference_maps(restricted=True,threshold=0.01)
@@ -1220,17 +2081,26 @@ def main():
     parser.add_argument('--model','-model',type=str, default=None)
     parser.add_argument('--save-weights','-save-weights',type=int, default=0)
     parser.add_argument('--testing','-testing',type=str,default=None)
-    parser.add_argument('--apply-speech-masking', action='store_true', 
-                    help='Restrict analysis to speech periods only')
+    parser.add_argument('--apply-speech-masking', action='store_true',
+                    help='(Deprecated) Convenience alias for --eval-mask-feature speaking')
+    parser.add_argument('--eval-mask-feature', type=str, nargs='+', default=None,
+                    help='One or more 1D feature names (e.g. "speaking valence") or paths to CSVs. '
+                         'Each feature is evaluated separately for high vs low conditions.')
+    parser.add_argument('--simple', action='store_true',
+                    help='Use simplified parameters: fewer delays (3), fewer alphas (10), no_shuffle CV')
+    parser.add_argument('--zero-confounds-inner-cv', action='store_true',
+                    help='Zero confounds in inner CV validation folds (most stringent)')
+    parser.add_argument('--shift-within-chunk', action='store_true',
+                    help='Run predefined shifts (10, 20, 30, ...) for systematic null distribution')
 
     parser.add_argument('--dir', '-dir', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/naturalistic-multimodal-movie')
+                        default=helpers.PROJECT_DIR)
     parser.add_argument('--data_dir', '-data_dir', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/Sherlock_ASD/data') #where the derivatives folder for the fMRI data is 
+                        default=None, help='BIDS dataset directory containing derivatives/fmriprep')
     parser.add_argument('--out_dir', '-output', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/naturalistic-multimodal-movie/analysis')
+                        default=os.path.join(helpers.PROJECT_DIR, 'analysis'))
     parser.add_argument('--figure_dir', '-figures', type=str,
-                        default='/Users/hsmall2/Documents/GitHub/naturalistic-multimodal-movie/figures')
+                        default=os.path.join(helpers.PROJECT_DIR, 'figures'))
     args = parser.parse_args()
     print(args)
     EncodingModel(args).run()
