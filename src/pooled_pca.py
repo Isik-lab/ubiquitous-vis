@@ -10,7 +10,7 @@ Usage:
     python -m src.pooled_pca combinations --model vislang_gpt2_chunk120_eps0.3 --feature_groups \
         motion "alexnet_eps0.3_layer5+alexnet_eps0.3_layer6+alexnet_eps0.3_layer7"
 
-    # run one ROI x feature space (scripts/sbatch/sbatch_pooled_pca.sh runs one per array task)
+    # run one ROI x feature space (on a cluster, one per line of the combinations file, e.g. as an array job)
     python -m src.pooled_pca run --feature_spaces motion --roi MT --roi_type func --population NT
 """
 import os
@@ -128,8 +128,7 @@ def combinations_main():
             f.write(f"{combo['roi']}\t{combo['roi_type']}\t{combo['feature_space']}\n")
 
     print(f"\nSaved combinations to: {output_file}")
-    print(f"\nTo submit array job:")
-    print(f"  sbatch --array=1-{len(combinations)} scripts/sbatch/sbatch_pooled_pca.sh")
+    print(f"\nRun python -m src.pooled_pca run once per line ({len(combinations)} in total), e.g. as an array job")
 
     # Print summary by ROI
     print("\nCombinations per ROI:")

@@ -4,8 +4,16 @@ Run the response similarity analysis on fitted encoding model weights (Main Figu
 Computes, within each participant, the Spearman correlation between the encoding model
 weights of a feature space averaged within each pair of functionally localized regions.
 
-Usage (the calls that produced Main Figure 4 are in scripts/submit_response_similarity.sh):
-    python -m src.response_similarity         --model vislang_gpt2_chunk120_eps0.3 --chunklen 120         --axes alexnet:alexnet_eps0.3_layer5,alexnet_eps0.3_layer6,alexnet_eps0.3_layer7         --filepath_tag alexnet_eps0.3         --average_posterior_anterior --no_split_hemi
+Usage: Main Figure 4 is one call per feature space, with these --axes and --filepath_tag:
+    motion:motion                                                                   motion
+    alexnet:alexnet_eps0.3_layer5,alexnet_eps0.3_layer6,alexnet_eps0.3_layer7       alexnet_eps0.3
+    hubert:hubert_chunk120_layer10,hubert_chunk120_layer11,hubert_chunk120_layer12  hubert_chunk120
+    GPT2:GPT2_chunk120_layer10,GPT2_chunk120_layer11,GPT2_chunk120_layer12          GPT2_chunk120
+e.g.
+    python -m src.response_similarity --model vislang_gpt2_chunk120_eps0.3 --response weights --population NT \
+        --axes alexnet:alexnet_eps0.3_layer5,alexnet_eps0.3_layer6,alexnet_eps0.3_layer7 --filepath_tag alexnet_eps0.3 \
+        --average_posterior_anterior --no_split_hemi --smoothing_fwhm 3.0 --chunklen 120 --mask ISC \
+        --perc_top_voxels 5 --space MNI152NLin2009cAsym
 
 The results are saved to <out_dir>/SecondLevelIndividual/ and replotted in
 SecondLevel Analyses.ipynb (with load=True).

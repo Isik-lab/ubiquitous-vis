@@ -6,7 +6,7 @@ __pycache__/
 build/
 .ipynb_checkpoints/
 
-# cluster logs (scripts/sbatch writes to sbatch_logs/ in the directory it is submitted from)
+# cluster logs
 sbatch_logs/
 
 # local credentials and archives
