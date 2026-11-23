@@ -11,8 +11,11 @@
 ##### END OF JOB DEFINITION  #####
 # Correlates each pooled PC time series (movie embeddings projected onto the pooled PCs)
 # with each annotated feature during speech, with a circular-shift permutation null.
-# One array task per row of analysis/PCInterpretation/pooled_combinations.tsv
-# (see scripts/submit/submit_pooled_pca_workflow.sh).
+# One array task per row of analysis/PCInterpretation/pooled_combinations.tsv, made from the pooled PCA combinations
+# (subject column is the placeholder 'pooled'), after sbatch_pooled_pca.sh has finished:
+#   awk -F'\t' -v OFS='\t' '{print "pooled", $3, $1, $2}' analysis/PooledPCA/pooled_pca_combinations.tsv \
+#       > analysis/PCInterpretation/pooled_combinations.tsv
+# then, once all array tasks are done: python -m src.pc_interpretation compile (results + FDR correction)
 # Usage: sbatch --array=1-M%20 scripts/sbatch/sbatch_pc_interpretation_pooled.sh MODEL [POPULATION]
 
 MODEL=${1:-vislang_gpt2_chunk120_eps0.3}

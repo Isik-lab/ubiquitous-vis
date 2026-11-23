@@ -9,7 +9,8 @@
 #SBATCH --job-name=fmriprep
 ##### END OF JOB DEFINITION  #####
 # fMRIPrep 21.0.2 preprocessing, one participant per array task (rows of analysis/participants.tsv).
-# Usage: bash scripts/submit/submit_fmriprep.sh
+# Usage (from the repository root), one array task per participant in analysis/participants.tsv:
+#   sbatch --array=1-34 scripts/sbatch/sbatch_fmriprep.sh
 source scripts/config.sh
 
 subject=$(array_subject $PROJECT_DIR/analysis/participants.tsv)

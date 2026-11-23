@@ -12,7 +12,9 @@
 #   SIpointlights: social interaction localizer (rows of analysis/participants.tsv)
 #   language:      language localizer (rows of analysis/participants_language.tsv)
 # Contrasts and run groupings are in scripts/params/glm_<task>.json.
-# Usage: bash scripts/submit/submit_glm.sh SIpointlights
+# Usage (from the repository root), one array task per participant who did the task:
+#   sbatch --array=1-34 scripts/sbatch/sbatch_glm.sh SIpointlights   (analysis/participants.tsv)
+#   sbatch --array=1-25 scripts/sbatch/sbatch_glm.sh language        (analysis/participants_language.tsv)
 source scripts/config.sh
 TASK=$1
 

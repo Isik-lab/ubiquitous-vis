@@ -11,7 +11,9 @@
 ##### END OF JOB DEFINITION  #####
 # Cross-validated CCA similarity between two feature spaces (Figure 1C, Supplementary Figure 2),
 # one pair per array task (rows of scripts/params/featurespace_comparisons.tsv).
-# Usage: bash scripts/submit/submit_featurespace_similarity.sh 1
+# Usage (from the repository root), one array task per pair in scripts/params/featurespace_comparisons.tsv
+# (1,081 pairs; the argument is the number of CCA latent dimensions, 1 in the paper):
+#   sbatch --array=1-1081 scripts/sbatch/sbatch_featurespace_similarity.sh 1
 source scripts/config.sh
 LATENT=${1:-1}
 

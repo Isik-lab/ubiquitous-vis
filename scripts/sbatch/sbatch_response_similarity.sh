@@ -12,7 +12,12 @@
 # Computes the within-subject correlation of encoding model weights
 # between functionally localized brain regions.
 #
-# Usage (from the project root; see scripts/submit/submit_response_similarity.sh):
+# Usage (from the project root); Main Figure 4 is one job per feature space, with these AXES and FILEPATH_TAG:
+#   "motion:motion" motion
+#   "alexnet:alexnet_eps0.3_layer5,alexnet_eps0.3_layer6,alexnet_eps0.3_layer7" alexnet_eps0.3
+#   "hubert:hubert_chunk120_layer10,hubert_chunk120_layer11,hubert_chunk120_layer12" hubert_chunk120
+#   "GPT2:GPT2_chunk120_layer10,GPT2_chunk120_layer11,GPT2_chunk120_layer12" GPT2_chunk120
+# e.g.
 #   sbatch scripts/sbatch/sbatch_response_similarity.sh vislang_gpt2_chunk120_eps0.3 weights NT "motion:motion" motion
 
 set -e

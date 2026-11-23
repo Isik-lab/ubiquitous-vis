@@ -10,7 +10,7 @@
 #SBATCH --job-name=pooled_pca			# Descriptive job name
 ##### END OF JOB DEFINITION  #####
 # Pooled PCA of encoding model weights: one array task per ROI x feature_space row of
-# analysis/PooledPCA/pooled_pca_combinations.tsv (see scripts/submit/submit_pooled_pca_workflow.sh).
+# analysis/PooledPCA/pooled_pca_combinations.tsv, made with python -m src.pooled_pca combinations (see src/pooled_pca.py).
 # feature_space may join several layers with '+', which are concatenated into one PCA.
 # Usage: sbatch --array=1-N scripts/sbatch/sbatch_pooled_pca.sh MODEL [POPULATION]
 

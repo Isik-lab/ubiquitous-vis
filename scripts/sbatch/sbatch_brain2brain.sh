@@ -11,8 +11,9 @@
 ##### END OF JOB DEFINITION  #####
 # Cross-subject encoding: predict each held-out participant's responses from the other
 # participants' SRP time series (Figure 2A), one participant per array task.
-# Needs the srp time series: bash scripts/submit/submit_timeseries.sh srp ISC
-# Usage: bash scripts/submit/submit_brain2brain.sh ISC
+# Needs the srp time series (scripts/sbatch/sbatch_timeseries.sh srp ISC)
+# Usage (from the repository root), one array task per participant, at most 6 GPU jobs at once:
+#   sbatch --array=1-34%6 scripts/sbatch/sbatch_brain2brain.sh ISC
 source scripts/config.sh
 MASK=${1:-ISC}
 

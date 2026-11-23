@@ -10,8 +10,9 @@
 # Extract each participant's movie time series, one participant per array task.
 #   isc: whole brain, 6mm smoothing, denoised and z-scored within each run (used for the leave-one-out ISC mask)
 #   srp: 3mm smoothing, sparse random projection within MASK, not denoised or z-scored (input to cross-subject encoding)
-# Usage: bash scripts/submit/submit_timeseries.sh isc
-#        bash scripts/submit/submit_timeseries.sh srp ISC
+# Usage (from the repository root), one array task per participant:
+#   sbatch --array=1-34 scripts/sbatch/sbatch_timeseries.sh isc
+#   sbatch --array=1-34 scripts/sbatch/sbatch_timeseries.sh srp ISC
 source scripts/config.sh
 MODE=$1
 MASK=$2

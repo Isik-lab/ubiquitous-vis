@@ -1,7 +1,7 @@
 # Paths and environment for the cluster scripts. Edit these for your system.
-# Every script in scripts/sbatch/ and scripts/submit/ sources this file, and expects to be
-# run from the repository root, e.g.
-#   bash scripts/submit/submit_encoding.sh joint_chunk120
+# Every script in scripts/sbatch/ sources this file, and expects to be submitted from the
+# repository root, e.g.
+#   sbatch --array=1-34%2 scripts/sbatch/sbatch_encoding.sh joint_chunk120
 # The #SBATCH partition/GPU lines at the top of each sbatch script are cluster specific too.
 
 # this repository, with analysis/ and features/ downloaded from Hugging Face (https://huggingface.co/datasets/hsmall/sherlock-and-localizers-fMRI)

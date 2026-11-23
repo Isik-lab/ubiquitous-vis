@@ -435,7 +435,7 @@ class EncodingModel:
             file_label = file_label + '_mask-'+self.mask_name
         # if self.apply_speech_masking:
         #     file_label = file_label + '_speechmask'
-        if self.simple_mode:
+        if getattr(self, 'simple_mode', False): # SecondLevelGroup subclasses EncodingModel without setting simple_mode
             file_label = file_label + '_contCV'
         else:
             file_label = file_label +'_chunklen-'+str(self.chunklen)

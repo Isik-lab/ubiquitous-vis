@@ -14,7 +14,8 @@
 # with speaking (Supplementary Figure 8).
 # Models used in the paper: joint_chunk120, joint_chunk120_simclr,
 #                           vislang_gpt2_chunk120_eps0.3, vislang_simclr_gpt2_chunk120_eps0.3
-# Usage: bash scripts/submit/submit_encoding.sh joint_chunk120
+# Usage (from the repository root), one array task per participant, at most 2 GPU jobs at once:
+#   sbatch --array=1-34%2 scripts/sbatch/sbatch_encoding.sh joint_chunk120
 source scripts/config.sh
 MODEL=$1
 
