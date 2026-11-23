@@ -25,18 +25,17 @@ scripts/
   Plot Figures.ipynb         makes every main and supplementary figure using precomputed subfigures within this repository
   SecondLevel Analyses.ipynb group and ROI analyses that produce the subfigures, can be run loading the precomputed results within this repository or from scratch with the data from hugging face
   config.sh                  paths and conda environment
-  sbatch/                    one SLURM job script per first-level step (each script's header gives the sbatch command)
-  params/                    GLM contrasts and the feature-space pairs for the similarity analysis
+  sbatch/                    one SLURM job script per first-level analysis step
+  params/                    GLM contrasts and the feature-space pairs for the feature similarity analysis
 analysis/                    (+ Hugging Face outputs once downloaded)
   participants*.tsv          participant lists (all 34; 25 with the language localizer)
   parcels/                   group-constrained parcels (MT, STS, language) and MNI templates
   FeatureSpaceCorrelation/   feature space similarity results
-  SecondLevelIndividual/     precomputed ROI results (summaries, response similarity, speaking-only evaluation, overlap)
-  SecondLevelGroup/          group maps used by the ROI analyses
+  SecondLevelIndividual/     precomputed ROI results (summaries, response similarity, speaking-only evaluation, overlap) (more on Hugging Face)
+  SecondLevelGroup/          group maps needed for ROI analyses (more GLM and encoding model group maps on Hugging Face)
   PCInterpretation/          pooled PCA interpretation results
-  EncodingModel/features/    feature order of the speaking-only evaluation outputs
 figures/                     subfigures and final figures
-tables/                      supplementary tables (LaTeX)
+tables/                      supplementary tables
 ```
 
 
