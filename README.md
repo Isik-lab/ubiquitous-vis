@@ -5,7 +5,7 @@ Code for the paper 'Ubiquitous cortical sensitivity to visual information during
 ```
 conda env create -f environment.yml
 conda activate ubiquitous-vis
-pip install -e .        # from the repository root; makes `src` importable
+pip install -e .       
 ```
 
 ## In this repository
